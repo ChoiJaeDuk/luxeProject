@@ -1,4 +1,4 @@
-package util;
+package luxe.util;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -11,13 +11,13 @@ import javax.naming.NamingException;
 import javax.sql.DataSource;
 
 /**
- * DB¿¬µ¿À» À§ÇÑ ·Îµå ¿¬°á ´Ý±â
- *  : DBCP±â¼ú Àû¿ë (context.xml ÂüÁ¶)
+ * DBï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Îµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ý±ï¿½
+ *  : DBCPï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ (context.xml ï¿½ï¿½ï¿½ï¿½)
  *  */
 public class DbUtil {
 	private static DataSource ds;
 	/**
-	 * ·Îµå
+	 * ï¿½Îµï¿½
 	 * */
 	static {
 		try {
@@ -31,10 +31,10 @@ public class DbUtil {
 		} catch (NamingException e) {
 			e.printStackTrace();
 		}
-	}//static³¡
+	}//staticï¿½ï¿½
 	
 	/**
-	 * ¿¬°á
+	 * ï¿½ï¿½ï¿½ï¿½
 	 * */
 	public static Connection getConnection() throws SQLException{
 		Connection conn = ds.getConnection();
@@ -42,7 +42,7 @@ public class DbUtil {
 	}
 	
 		/**
-	    *  ´Ý±â - »ç¿ëµÈ °´Ã¼ ´Ý±â - selectÀÎ °æ¿ì
+	    *  ï¿½Ý±ï¿½ - ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ ï¿½Ý±ï¿½ - selectï¿½ï¿½ ï¿½ï¿½ï¿½
 	    * */
 	   public static void dbClose(Connection con, Statement st, ResultSet rs) {
 	      try{
@@ -53,7 +53,7 @@ public class DbUtil {
 	      }
 	   }
 	   /**
-	    *  ´Ý±â - »ç¿ëµÈ °´Ã¼ ´Ý±â - DML or DDL ÀÎ °æ¿ì
+	    *  ï¿½Ý±ï¿½ - ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ ï¿½Ý±ï¿½ - DML or DDL ï¿½ï¿½ ï¿½ï¿½ï¿½
 	    * */
 	   public static void dbClose(Connection con, Statement st) {
 	      try {
@@ -65,7 +65,7 @@ public class DbUtil {
 	   }
 	   public static void main(String[] args) {
 			try {
-				System.out.println("***** ¸ÞÀÎ ½ÃÀÛ *****");
+				System.out.println("***** ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ *****");
 				Connection con = DbUtil.getConnection();
 				System.out.println("con = " + con);
 			}catch (SQLException e) {
