@@ -24,6 +24,7 @@ public class StyleBookDTO {
 		this.boardRegDate = boardRegDate;
 		this.readNum = readNum;
 		this.likeNum = likeNum;
+		
 	}
 
 	public int getBoardRegNo() {

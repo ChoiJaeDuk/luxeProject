@@ -20,6 +20,7 @@ public class BidDTO {
 		this.bidPrice = bidPrice;
 		this.bidStatus = bidStatus;
 		this.bidRegDate = bidRegDate;
+		
 	}
 
 	public int getBidNo() {
