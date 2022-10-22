@@ -6,7 +6,7 @@ import java.util.List;
 
 import luxe.dao.sell.SellDAO;
 import luxe.dao.sell.SellDAOImpl;
-import luxe.dto.sell.SellDTO;
+import luxe.dto.SellDTO;
 
 public class SellServiceImpl implements SellService {
 	private SellDAO sellDAO = new SellDAOImpl();

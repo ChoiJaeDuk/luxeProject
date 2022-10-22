@@ -1,4 +1,4 @@
-package luxe.dto.wishlist;
+package luxe.dto;
 
 public class WishListDTO {
 	private int wishListNo;

@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import luxe.dto.sell.SellDTO;
+import luxe.dto.SellDTO;
 import luxe.util.DbUtil;
 
 public class SellDAOImpl implements SellDAO {

@@ -1,4 +1,4 @@
-package luxe.dto.sell;
+package luxe.dto;
 
 public class SellDTO {
 	private int sellNo;

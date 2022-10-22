@@ -11,7 +11,7 @@ import javax.servlet.http.HttpSession;
 
 import luxe.controller.Controller;
 import luxe.controller.ModelAndView;
-import luxe.dto.sell.SellDTO;
+import luxe.dto.SellDTO;
 import luxe.service.sell.SellService;
 import luxe.service.sell.SellServiceImpl;
 

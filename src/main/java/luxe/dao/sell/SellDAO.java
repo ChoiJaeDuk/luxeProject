@@ -3,7 +3,7 @@ package luxe.dao.sell;
 import java.sql.SQLException;
 import java.util.List;
 
-import luxe.dto.sell.SellDTO;
+import luxe.dto.SellDTO;
 
 public interface SellDAO {
 	
