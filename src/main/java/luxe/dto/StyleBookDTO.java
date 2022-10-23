@@ -7,23 +7,23 @@ public class StyleBookDTO {
 	String boardContent;
 	String fName;
 	String boardRegDate;
-	int readNum;
-	int likeNum;
+	int readNo;
+	int likeNo;
 
 	public StyleBookDTO() {
 
 	}
 
 	public StyleBookDTO(int boardRegNo, String userId, int goodsNo, String boardContent, String fName,
-			String boardRegDate, int readNum, int likeNum) {
+			String boardRegDate, int readNo, int likeNo) {
 		this.boardRegNo = boardRegNo;
 		this.userId = userId;
 		this.goodsNo = goodsNo;
 		this.boardContent = boardContent;
 		this.fName = fName;
 		this.boardRegDate = boardRegDate;
-		this.readNum = readNum;
-		this.likeNum = likeNum;
+		this.readNo = readNo;
+		this.likeNo = likeNo;
 		
 	}
 
@@ -75,20 +75,20 @@ public class StyleBookDTO {
 		this.boardRegDate = boardRegDate;
 	}
 
-	public int getReadNum() {
-		return readNum;
+	public int getreadNo() {
+		return readNo;
 	}
 
-	public void setReadNum(int readNum) {
-		this.readNum = readNum;
+	public void setreadNo(int readNo) {
+		this.readNo = readNo;
 	}
 
-	public int getLikeNum() {
-		return likeNum;
+	public int getlikeNo() {
+		return likeNo;
 	}
 
-	public void setLikeNum(int likeNum) {
-		this.likeNum = likeNum;
+	public void setlikeNo(int likeNo) {
+		this.likeNo = likeNo;
 	}
 
 }
