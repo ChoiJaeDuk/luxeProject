@@ -45,14 +45,7 @@ public class StyleBookDAOImpl implements StyleBookDAO {
 		List<StyleBookDTO> list = new ArrayList<StyleBookDTO>();
 
 		try {
-			switch (sortCondition) {
-			case "readNum":
-				sql += "read_no";
-				break;
-			case "likeNum":
-				sql += "LIKE_NO";
-				break;
-			}
+			sql = this.addSortCondition(sql, sortCondition);
 
 			con = DbUtil.getConnection();
 			ps = con.prepareStatement(sql);
@@ -69,26 +62,68 @@ public class StyleBookDAOImpl implements StyleBookDAO {
 		return list;
 	}
 
+	private String addSortCondition(String sql, String sortCondition) {
+		switch (sortCondition) {
+		case "readNo":
+			sql += "read_no desc";
+			break;
+		case "likeNo":
+			sql += "LIKE_NO desc";
+			break;
+		case "boardRegDate":
+			sql += "BOARD_REG_DATE desc";
+			break;
+		}
+		return sql;
+	}
+
 	@Override
-	public List<StyleBookDTO> selectStyleBookBykeyWord(String keyWord) throws SQLException {
+	public List<StyleBookDTO> selectStyleBookByBrand(String brand, String sortCondition) throws SQLException {
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		String sql = "select * from stylebook where ";
+		String sql = "select * from stylebook where brand=? order by ";
 		List<StyleBookDTO> list = new ArrayList<StyleBookDTO>();
 
 		try {
-			switch (keyWord) {
-			case "brand":
-				sql += "brand=?";
-				break;
-			case "goodsNo":
-				sql += "GOODS_NO=?";
-				break;
+
+			if (sortCondition != null) {
+				sql = this.addSortCondition(sql, sortCondition);
 			}
 
 			con = DbUtil.getConnection();
 			ps = con.prepareStatement(sql);
+			ps.setString(1, brand);
+			rs = ps.executeQuery();
+
+			while (rs.next()) {
+				list.add(new StyleBookDTO(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getString(4), rs.getString(5),
+						rs.getString(6), rs.getInt(7), rs.getInt(8)));
+			}
+
+		} finally {
+			DbUtil.dbClose(con, ps, rs);
+		}
+		return list;
+	}
+
+	@Override
+	public List<StyleBookDTO> selectStyleBookByGoodsNo(int goodsNo, String sortCondition) throws SQLException {
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		String sql = "select * from stylebook where GOODS_NO=? order by ";
+		List<StyleBookDTO> list = new ArrayList<StyleBookDTO>();
+
+		try {
+
+			if (sortCondition != null) {
+				sql = this.addSortCondition(sql, sortCondition);
+			}
+
+			con = DbUtil.getConnection();
+			ps = con.prepareStatement(sql);
+			ps.setInt(1, goodsNo);
 			rs = ps.executeQuery();
 
 			while (rs.next()) {
@@ -174,16 +209,13 @@ public class StyleBookDAOImpl implements StyleBookDAO {
 		String sql = "insert into STYLEBOOK values(BOARD_REG_NO_SEQ.NEXTVAL, ?, ?, ?, ?, CURRENT_DATE, 0, 0)";
 		int result = 0;
 
-		/* 삭제 예정
-		 *  BOARD_REG_NO NUMBER CONSTRAINT BOARD_REG_NO_PK PRIMARY KEY,
-		    USER_ID VARCHAR(30) NOT NULL REFERENCES USERS(USER_ID)ON DELETE CASCADE,
-		    GOODS_NO NUMBER NOT NULL REFERENCES GOODS(GOODS_NO)ON DELETE CASCADE,
-		    BOARD_CONTENT VARCHAR2(500),
-		    FNAME VARCHAR2(50) NOT NULL,
-		    BOARD_REG_DATE DATE NOT NULL,
-		    READ_NO NUMBER NOT NULL,
-		    LIKE_NO NUMBER NOT NULL
-		 * */
+		/*
+		 * 삭제 예정 BOARD_REG_NO NUMBER CONSTRAINT BOARD_REG_NO_PK PRIMARY KEY, USER_ID
+		 * VARCHAR(30) NOT NULL REFERENCES USERS(USER_ID)ON DELETE CASCADE, GOODS_NO
+		 * NUMBER NOT NULL REFERENCES GOODS(GOODS_NO)ON DELETE CASCADE, BOARD_CONTENT
+		 * VARCHAR2(500), FNAME VARCHAR2(50) NOT NULL, BOARD_REG_DATE DATE NOT NULL,
+		 * READ_NO NUMBER NOT NULL, LIKE_NO NUMBER NOT NULL
+		 */
 		try {
 
 			con = DbUtil.getConnection();
@@ -192,7 +224,7 @@ public class StyleBookDAOImpl implements StyleBookDAO {
 			ps.setInt(2, styleBook.getGoodsNo());
 			ps.setString(3, styleBook.getBoardContent());
 			ps.setString(4, styleBook.getfName());
-			
+
 			result = ps.executeUpdate();
 
 		} finally {
@@ -213,7 +245,7 @@ public class StyleBookDAOImpl implements StyleBookDAO {
 			con = DbUtil.getConnection();
 			ps = con.prepareStatement(sql);
 			ps.setInt(1, boardRegNo);
-			
+
 			result = ps.executeUpdate();
 
 		} finally {
@@ -236,7 +268,7 @@ public class StyleBookDAOImpl implements StyleBookDAO {
 			ps.setString(1, styleBook.getBoardContent());
 			ps.setString(2, styleBook.getfName());
 			ps.setInt(3, styleBook.getBoardRegNo());
-			
+
 			result = ps.executeUpdate();
 
 		} finally {

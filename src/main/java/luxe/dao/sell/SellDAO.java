@@ -1,8 +1,10 @@
 package luxe.dao.sell;
 
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
+import luxe.dto.BidDTO;
 import luxe.dto.SellDTO;
 
 public interface SellDAO {
@@ -21,7 +23,7 @@ public interface SellDAO {
 	 * @return
 	 * @throws SQLException
 	 */
-	int updateSellPrice(int sellNo, int updateSellPrice) throws SQLException;
+	int updateSellPrice(String sellUserId ,int sellNo, int updateSellPrice) throws SQLException;
 	
 	
 	/**
@@ -29,8 +31,15 @@ public interface SellDAO {
 	 * @return
 	 * @throws SQLException
 	 */
-	int updateSellStatus(int sellNo, String sellStatus) throws SQLException;
+	int updateSellStatus(String sellUserId, int sellNo, String sellStatus) throws SQLException;
 	
+	
+	/**
+	 * 관리자가 판매신청한 모든 유저의 정보를 조회한다.
+	 * @return
+	 * @throws SQLException
+	 */
+	List<SellDTO> selectSellAll() throws SQLException;
 	
 	/**
 	 * 판매중 상품명, 브랜드명, 진행상태, 거래가, 판매승인일
@@ -62,6 +71,14 @@ public interface SellDAO {
 	 * @return
 	 * @throws SQLException
 	 */
-	boolean priceCompare(int 입찰최고가, int goodsNo) throws SQLException;
+	boolean priceCompare(BidDTO bidDTO, int goodsNo) throws SQLException;
+	
+	/**
+	 * sellNo를 이용해 goodsNo를 구한다.
+	 * @param sellNo
+	 * @return
+	 * @throws SQLException
+	 */
+	
 	
 }

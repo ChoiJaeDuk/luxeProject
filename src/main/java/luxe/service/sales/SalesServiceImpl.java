@@ -31,10 +31,10 @@ public class SalesServiceImpl implements SalesService {
 	}
 
 	@Override
-	public OrderDTO selectSalesRateByBrand(String brand) throws SQLException {
-		OrderDTO order = dao.selectSalesRateByBrand(brand);
+	public List<OrderDTO> selectSalesRateByBrand(String brand) throws SQLException {
+		List<OrderDTO> list = dao.selectSalesRateByBrand(brand);
 		
-		return order;
+		return list;
 	}
 
 }

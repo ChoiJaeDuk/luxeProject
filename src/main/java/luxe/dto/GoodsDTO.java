@@ -13,6 +13,7 @@ public class GoodsDTO {
 	private String goodsReleaseDate;
 	private int goodsReleasePrice;
 
+	private String goodsMainImg;//재덕추가
 	public GoodsDTO() {
 		super();
 	}
@@ -30,6 +31,21 @@ public class GoodsDTO {
 		this.goodsModelNo = goodsModelNo;
 		this.goodsReleaseDate = goosReleaseDate;
 		this.goodsReleasePrice = goodsReleasePrice;
+	}
+	
+	public GoodsDTO(String brand,  String goodsName, String goodsNameKor, String category,  String goodsMainImg) {
+		super();
+		this.brand = brand;
+		this.category = category;
+		this.goodsName = goodsName;
+		this.goodsNameKor = goodsNameKor;
+		this.goodsMainImg = goodsMainImg;
+	}
+
+	public GoodsDTO(String goodsName, String brand) {//재덕추가
+		super();
+		this.brand = brand;
+		this.goodsName = goodsName;
 	}
 
 	public int getGoodsNo() {
@@ -112,4 +128,11 @@ public class GoodsDTO {
 		this.goodsReleasePrice = goodsReleasePrice;
 	}
 
+	public String getGoodsMainImg() {
+		return goodsMainImg;
+	}
+
+	public void setGoodsMainImg(String goodsMainImg) {
+		this.goodsMainImg = goodsMainImg;
+	}
 }

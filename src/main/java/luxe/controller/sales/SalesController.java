@@ -23,6 +23,13 @@ public class SalesController implements Controller {
 		return null;
 	}
 	
+	/***
+	 * 매출조회
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws Exception
+	 */
 	public ModelAndView selectSales(HttpServletRequest request, HttpServletResponse response)
 			throws Exception{
 
@@ -32,6 +39,13 @@ public class SalesController implements Controller {
 		return new ModelAndView("jieunTest.jsp");
 	}
 	
+	/***
+	 * 월별 매출 , 수익
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws Exception
+	 */
 	public ModelAndView selectSalesByMonth(HttpServletRequest request, HttpServletResponse response)
 			throws Exception{
 
@@ -41,6 +55,13 @@ public class SalesController implements Controller {
 		return new ModelAndView();
 	}
 	
+	/***
+	 * 브랜드별 월별 매출
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws Exception
+	 */
 	public ModelAndView selectBrandSalesByMonth(HttpServletRequest request, HttpServletResponse response)
 			throws Exception{
 		String brand = request.getParameter("brand");
@@ -51,6 +72,13 @@ public class SalesController implements Controller {
 		return new ModelAndView();
 	}
 	
+	/***
+	 * 브랜드별 판매량
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws Exception
+	 */
 	public ModelAndView selectSalesRatesBrand(HttpServletRequest request, HttpServletResponse response)
 			throws Exception{
 		String brand = request.getParameter("brand");

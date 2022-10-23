@@ -4,11 +4,11 @@ import java.sql.SQLException;
 import java.util.List;
 
 import luxe.dao.order.OrderDAO;
-import luxe.dao.order.OrdersDAOImpl;
+import luxe.dao.order.OrderDAOImpl;
 import luxe.dto.OrderDTO;
 
 public class OrderServiceImpl implements OrderService {
-	OrderDAO dao = new OrdersDAOImpl();
+	OrderDAO dao = new OrderDAOImpl();
 
 	/*@Override
 	public void insertOrder(OrderDTO order) throws SQLException {
