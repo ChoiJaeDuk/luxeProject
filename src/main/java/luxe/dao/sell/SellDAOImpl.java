@@ -10,6 +10,7 @@ import java.util.List;
 import luxe.dao.bid.BidDAO;
 import luxe.dao.bid.BidDAOImpl;
 import luxe.dao.order.OrderDAO;
+import luxe.dao.order.OrderDAOImpl;
 import luxe.dao.order.OrdersDAOImpl;
 import luxe.dto.BidDTO;
 import luxe.dto.GoodsDTO;
@@ -88,7 +89,7 @@ public class SellDAOImpl implements SellDAO {
 		int result = 0;
 		String sql = "UPDATE SELL SET SELL_STATUS=? WHERE SELL_NO = ?";
 		BidDAO bidDAO = new BidDAOImpl();
-		OrderDAO orderDAO = new OrdersDAOImpl();
+		OrderDAO orderDAO = new OrderDAOImpl();
 		try {
 			
 			con = DbUtil.getConnection();
