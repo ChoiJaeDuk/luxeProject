@@ -11,7 +11,6 @@ import luxe.dao.bid.BidDAO;
 import luxe.dao.bid.BidDAOImpl;
 import luxe.dao.order.OrderDAO;
 import luxe.dao.order.OrderDAOImpl;
-import luxe.dao.order.OrdersDAOImpl;
 import luxe.dto.BidDTO;
 import luxe.dto.GoodsDTO;
 import luxe.dto.OrderDTO;
@@ -55,19 +54,19 @@ public class SellDAOImpl implements SellDAO {
 		String sellStatus = "판매중";
 		String sql = "UPDATE SELL SET SELL_PRICE = ?, SELL_STATUS = ?  WHERE SELL_NO = ?";
 		BidDAO bidDAO = new BidDAOImpl();
-		OrderDAO orderDAO = new OrdersDAOImpl();
+		OrderDAO orderDAO = new OrderDAOImpl();
 		try {
 			con = DbUtil.getConnection();
 			ps = con.prepareStatement(sql);
 			
 			int goodsNo = selectGoodsNoBySellNo(con ,sellNo);
-			BidDTO bidDTO = bidDAO.getLowestBidPrice(goodsNo);
+			BidDTO bidDTO = bidDAO.getHighestBidPrice(goodsNo);
 			//최고입찰가를 받아 비교 후 true일 경우 주문등록
 			if(priceCompare(bidDTO, goodsNo)) {//최고입찰가를 받아 비교 후 true일 경우 주문등록
 				OrderDTO orderDTO = new OrderDTO(sellNo, bidDTO.getBidNo(), bidDTO.getBidPrice(),sellUserId, bidDTO.getUserId());
 				orderDAO.insertOrder(con, orderDTO);
 				
-				sellStatus = "판매완료";
+				
 			}
 			ps.setInt(1, updateSellPirce);
 			ps.setString(2, sellStatus);
@@ -96,7 +95,7 @@ public class SellDAOImpl implements SellDAO {
 			ps = con.prepareStatement(sql);
 			
 			int goodsNo = selectGoodsNoBySellNo(con ,sellNo);
-			BidDTO bidDTO = bidDAO.getLowestBidPrice(goodsNo);
+			BidDTO bidDTO = bidDAO.getHighestBidPrice(goodsNo);
 			
 			if(sellStatus.equals("판매중")) {				
 				if(priceCompare(bidDTO, goodsNo)) {//최고입찰가를 받아 비교 후 true일 경우 주문등록
@@ -205,12 +204,12 @@ public class SellDAOImpl implements SellDAO {
 	
 	
 	@Override
-	public SellDTO selectMaxPriceByGoodsNo(int goodsNo) throws SQLException {
+	public SellDTO selectLowestPriceByGoodsNo(int goodsNo) throws SQLException {
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		SellDTO sellDTO = null;
-		String sql = "SELECT USER_ID, MIN(SELL_PRICE) FROM SELL GROUP BY USER_ID, GOODS_NO, SELL_STATUS HAVING GOODS_NO = ? AND SELL_STATUS='판매중'";
+		String sql = "SELECT USER_ID, MIN(SELL_PRICE), SELL_NO FROM SELL GROUP BY USER_ID, GOODS_NO, SELL_STATUS, SELL_NO HAVING GOODS_NO = ? AND SELL_STATUS='판매중' ORDER BY SELL_NO ASC";
 		try {
 			con = DbUtil.getConnection();
 			ps = con.prepareStatement(sql);
@@ -218,7 +217,7 @@ public class SellDAOImpl implements SellDAO {
 			rs = ps.executeQuery();
 			
 			if (rs.next()) {
-				sellDTO = new SellDTO(goodsNo ,rs.getString(1), rs.getInt(2));
+				sellDTO = new SellDTO(goodsNo ,rs.getString(1), rs.getInt(2), rs.getInt(3));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

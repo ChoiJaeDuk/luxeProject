@@ -63,7 +63,7 @@ public interface SellDAO {
 	 * @return
 	 * @throws SQLException
 	 */
-	SellDTO selectMaxPriceByGoodsNo(int goodsNo) throws SQLException;
+	SellDTO selectLowestPriceByGoodsNo(int goodsNo) throws SQLException;
 	
 	
 	/**

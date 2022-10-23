@@ -97,7 +97,7 @@ public class BidDAOImpl implements BidDAO {
 		Connection con = DbUtil.getConnection();
 		int result = 0;
 
-		int lowestSellPrice = sellDao.selectMaxPriceByGoodsNo(bid.getGoodsNo()).getSellPrice();
+		int lowestSellPrice = sellDao.selectLowestPriceByGoodsNo(bid.getGoodsNo()).getSellPrice();
 		boolean isOnGoingBid = false;
 		// 입찰 상태 설정
 		if (bid.getBidPrice() == lowestSellPrice) {
