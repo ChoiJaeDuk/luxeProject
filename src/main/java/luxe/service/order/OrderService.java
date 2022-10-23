@@ -3,7 +3,7 @@ package luxe.service.order;
 import java.sql.SQLException;
 import java.util.List;
 
-import luxe.dto.order.OrderDTO;
+import luxe.dto.OrderDTO;
 
 public interface OrderService {
 	

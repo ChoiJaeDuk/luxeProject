@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import luxe.dto.order.OrderDTO;
+import luxe.dto.OrderDTO;
 import luxe.util.DbUtil;
 
 public class SalesDAOImpl implements SalesDAO {
@@ -120,12 +120,12 @@ public class SalesDAOImpl implements SalesDAO {
 
 	
 	@Override
-	public List<OrderDTO> selectSalesRateByBrand(String brand) throws SQLException {
+	public OrderDTO selectSalesRateByBrand(String brand) throws SQLException {
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		
-		List<OrderDTO> list = new ArrayList<OrderDTO>();
+		OrderDTO order = null;
 		
 		String sql = "select count(*) as total_sales_rate, brand \r\n"
 				+ "from orders join sell\r\n"
@@ -142,8 +142,8 @@ public class SalesDAOImpl implements SalesDAO {
 			
 			rs  = ps.executeQuery();
 
-			while(rs.next()){
-				list.add(new OrderDTO(rs.getInt(1), rs.getString(2)));
+			if(rs.next()){
+				order = new OrderDTO(rs.getInt(1), rs.getString(2));
 			}
 			
 			
@@ -155,7 +155,7 @@ public class SalesDAOImpl implements SalesDAO {
 			
 		}
 		
-		return list;
+		return order;
 	}
 
 }

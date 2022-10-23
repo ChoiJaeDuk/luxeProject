@@ -1,4 +1,4 @@
-package luxe.dto.order;
+package luxe.dto;
 
 public class OrderDTO {
 	private int orderNo;

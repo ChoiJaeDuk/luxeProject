@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import luxe.controller.Controller;
 import luxe.controller.ModelAndView;
-import luxe.dto.order.OrderDTO;
+import luxe.dto.OrderDTO;
 import luxe.service.sales.SalesService;
 import luxe.service.sales.SalesServiceImpl;
 
@@ -23,13 +23,13 @@ public class SalesController implements Controller {
 		return null;
 	}
 	
-	public ModelAndView selectSale(HttpServletRequest request, HttpServletResponse response)
+	public ModelAndView selectSales(HttpServletRequest request, HttpServletResponse response)
 			throws Exception{
 
-		OrderDTO order = service.selectSale();
-		request.setAttribute("order", order);
+		OrderDTO orderSales = service.selectSale();
+		request.setAttribute("orderSales", orderSales);
 		
-		return new ModelAndView();
+		return new ModelAndView("jieunTest.jsp");
 	}
 	
 	public ModelAndView selectSalesByMonth(HttpServletRequest request, HttpServletResponse response)
