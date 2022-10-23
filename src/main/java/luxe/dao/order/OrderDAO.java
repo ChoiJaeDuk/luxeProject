@@ -1,5 +1,6 @@
 package luxe.dao.order;
 
+import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -7,12 +8,15 @@ import luxe.dto.OrderDTO;
 import luxe.dto.SellDTO;
 
 public interface OrderDAO {
+	
 	/***
 	 * 주문 등록
+	 * @param con
+	 * @param orderDTO
 	 * @return
 	 * @throws SQLException
 	 */
-	int insertOrder(OrderDTO orderDTO) throws SQLException;
+	int insertOrder(Connection con, OrderDTO orderDTO) throws SQLException;
 	
 	/***
 	 * 주문내역 조회
@@ -23,6 +27,7 @@ public interface OrderDAO {
 	
 	/***
 	 * 회원별 주문내역 조회(구매내역)
+	 * @param userId
 	 * @return
 	 * @throws SQLException
 	 */
@@ -38,11 +43,12 @@ public interface OrderDAO {
 	
 	/***
 	 * 회원별 주문상태 수정
+	 * @param orderNo
+	 * @param orderStatus
 	 * @return
 	 * @throws SQLException
 	 */
 	int updateOrderByOrderNo(String orderNo, String orderStatus) throws SQLException;
-	
-	
 
+	
 }
