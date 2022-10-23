@@ -1,9 +1,9 @@
 package luxe.dao.wishlist;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
+import luxe.dto.GoodsDTO;
 import luxe.dto.WishListDTO;
 
 public interface WishListDAO {
@@ -19,6 +19,6 @@ public interface WishListDAO {
 	int deleteWishList(int wishListNo) throws SQLException;
 	
 	
-	List<WishListDTO> selectWishList(String userId) throws SQLException;
+	List<GoodsDTO> selectWishList(String userId) throws SQLException;
 	
 }

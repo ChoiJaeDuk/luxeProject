@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import luxe.dto.GoodsDTO;
 import luxe.dto.SellDTO;
 import luxe.dto.WishListDTO;
 import luxe.util.DbUtil;
@@ -58,11 +59,11 @@ public class WishListDAOImpl implements WishListDAO {
 	}
 
 	@Override
-	public List<WishListDTO> selectWishList(String userId) throws SQLException {
+	public List<GoodsDTO> selectWishList(String userId) throws SQLException {
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		List<WishListDTO> wishList = new ArrayList<WishListDTO>();
+		List<GoodsDTO> wishList = new ArrayList<GoodsDTO>();
 		String sql = "SELECT  G.BRAND, G.GOODS_NAME, G.GOODS_NAME_KOR , G.CATEGORY, I.GOODS_MAIN_IMG\r\n"
 				+ "FROM WISH_LIST W, GOODS G, GOODS_IMAGES I\r\n"
 				+ "WHERE W.GOODS_NO = G.GOODS_NO AND W.GOODS_NO = I.GOODS_NO AND\r\n"
@@ -74,10 +75,9 @@ public class WishListDAOImpl implements WishListDAO {
 			rs = ps.executeQuery();
 			
 			while (rs.next()) {
+				GoodsDTO goodsDTO = new GoodsDTO(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5));
 				
-				WishListDTO wishListDTO = new WishListDTO();
-				
-				
+				wishList.add(goodsDTO);
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

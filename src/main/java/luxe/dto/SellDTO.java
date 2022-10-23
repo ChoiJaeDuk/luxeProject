@@ -9,24 +9,28 @@ public class SellDTO {
 	private int sellPrice;
 	private String sellDate;
 	private String purdate;
-	private String serial_number;
+	private String serialNumber;
 	
+	
+	private String goodsName;
 
 	
 	public SellDTO() {}
 
-	public SellDTO( int goodsNo, String userId, String accountNo, int sellPrice, String purdate, String serial_number) {
+	
+	public SellDTO( int goodsNo, String userId, String accountNo, int sellPrice, String purdate, String serialNumber) {
 		this.goodsNo = goodsNo;
 		this.userId = userId;
 		this.accountNo = accountNo;
 		this.sellPrice = sellPrice;
 		this.purdate = purdate;
-		this.serial_number = serial_number;
+		this.serialNumber = serialNumber;
 	}
 	
 	
-	public SellDTO(String userId, int sellPrice) {
+	public SellDTO(int goodsNo, String userId, int sellPrice) {
 		super();
+		this.goodsNo = goodsNo;
 		this.userId = userId;
 		this.sellPrice = sellPrice;
 	}
@@ -35,6 +39,22 @@ public class SellDTO {
 		this.sellPrice = sellPrice;
 		this.sellDate = sellDate;
 	}
+	
+	
+	
+
+	public SellDTO(int sellNo, String userId, String goodsName, int sellPrice, String purdate,String serialNumber, String sellDate ,String sellStatus) {
+		super();
+		this.sellNo = sellNo;
+		this.userId = userId;
+		this.sellStatus = sellStatus;
+		this.sellPrice = sellPrice;
+		this.sellDate = sellDate;
+		this.purdate = purdate;
+		this.serialNumber = serialNumber;
+		this.goodsName = goodsName;
+	}
+
 
 	public int getSellNo() {
 		return sellNo;
@@ -92,12 +112,12 @@ public class SellDTO {
 		this.purdate = purdate;
 	}
 
-	public String getSerial_number() {
-		return serial_number;
+	public String getSerialNumber() {
+		return serialNumber;
 	}
 
-	public void setSerial_number(String serial_number) {
-		this.serial_number = serial_number;
+	public void setSerial_number(String serialNumber) {
+		this.serialNumber = serialNumber;
 	}
 	
 	

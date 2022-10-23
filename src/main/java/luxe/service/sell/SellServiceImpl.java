@@ -17,17 +17,26 @@ public class SellServiceImpl implements SellService {
 	}
 
 	@Override
-	public void updateSellPrice(int sellNo, int updateSellPrice) throws SQLException {
-		int result = sellDAO.updateSellPrice(sellNo, updateSellPrice);
+	public void updateSellPrice(String sellUserId, int sellNo, int updateSellPrice) throws SQLException {
+		int result = sellDAO.updateSellPrice(sellUserId, sellNo, updateSellPrice);
 		if (result==0) throw new SQLException("업데이트 실패");
 	}
 
+	
 	@Override
-	public void updateSellStatus(int sellNo, String sellStatus) throws SQLException {
-		int result = sellDAO.updateSellStatus(sellNo, sellStatus);
+	public void updateSellStatus(String sellUserId, int sellNo, String sellStatus) throws SQLException {
+		int result = sellDAO.updateSellStatus(sellUserId, sellNo, sellStatus);
 		if (result==0) throw new SQLException("판매상태 업데이트 실패");
 	}
 
+	
+	@Override
+	public List<SellDTO> selectSellAll() throws SQLException {
+		List<SellDTO> sellList = sellDAO.selectSellAll();
+		return sellList;
+	}
+	
+	
 	@Override
 	public List<SellDTO> selectSellingInfoByUserId(String userId) throws SQLException {
 		List<SellDTO> sellingList = new ArrayList<SellDTO>();
@@ -51,5 +60,7 @@ public class SellServiceImpl implements SellService {
 		}
 		return sellDTO;
 	}
+
+	
 
 }

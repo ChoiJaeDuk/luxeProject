@@ -21,7 +21,7 @@ public interface SellService {
 	 * @return
 	 * @throws SQLException
 	 */
-	void updateSellPrice(int sellNo, int updateSellPrice) throws SQLException;
+	void updateSellPrice(String sellUserId, int sellNo, int updateSellPrice) throws SQLException;
 	
 	
 	/**
@@ -29,8 +29,15 @@ public interface SellService {
 	 * @return
 	 * @throws SQLException
 	 */
-	void updateSellStatus(int sellNo, String sellStatus) throws SQLException;
+	void updateSellStatus(String sellUserId, int sellNo, String sellStatus) throws SQLException;
 	
+	
+	/**
+	 * 관리자가 모든 판매신청현황을 조회한다.
+	 * @return
+	 * @throws SQLException
+	 */
+	List<SellDTO> selectSellAll() throws SQLException;
 	
 	/**
 	 * 상품명, 브랜드명, 진행상태, 거래가, 거래일자
