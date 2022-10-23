@@ -10,7 +10,7 @@ import java.util.List;
 import luxe.dto.AlarmDTO;
 import luxe.dto.AlarmReceiveUserDTO;
 import luxe.util.DbUtil;
-import oracle.net.aso.r;
+
 
 public class AlarmDAOImpl implements AlarmDAO {
 	
