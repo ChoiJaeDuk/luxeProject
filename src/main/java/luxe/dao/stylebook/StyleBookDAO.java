@@ -16,7 +16,7 @@ public interface StyleBookDAO {
 	List<StyleBookDTO> selectAllStyleBook() throws SQLException;
 
 	/**
-	 * 좋아요 수, 최신순으로 게시물 조회
+	 * 좋아요 수, 조회수순, 최신순으로 게시물 조회
 	 * 
 	 * @param 조회 정렬 조건
 	 * @return List<StyleBookDTO>
@@ -27,11 +27,20 @@ public interface StyleBookDAO {
 	/**
 	 * 검색조건별 스타일북 조회
 	 * 
-	 * @param 브랜드명, 상품 번호 등 검색조건
+	 * @param 브랜드명, 상품번호 등 검색조건
 	 * @return List<StyleBookDTO>
 	 * @throws SQLException
 	 */
-	List<StyleBookDTO> selectStyleBookBykeyWord(String keyWord) throws SQLException;
+	List<StyleBookDTO> selectStyleBookByBrand(String brand, String sortCondition) throws SQLException;
+
+	/**
+	 * 검색조건별 스타일북 조회
+	 * 
+	 * @param 브랜드명, 상품번호 등 검색조건
+	 * @return List<StyleBookDTO>
+	 * @throws SQLException
+	 */
+	List<StyleBookDTO> selectStyleBookByGoodsNo(int goodsNo, String sortCondition) throws SQLException;
 
 	/**
 	 * 스타일북 등록번호에 해당하는 스타일북 조회
@@ -79,8 +88,8 @@ public interface StyleBookDAO {
 	int deleteStyleBook(int boardRegNo) throws SQLException;
 
 	/**
-	 * 스타일북 수정
-	 * 주의사항: 수정 내용 정할 것 (현재: 컨텐츠 내용, 이미지파일 수정 가능)
+	 * 스타일북 수정 주의사항: 수정 내용 정할 것 (현재: 컨텐츠 내용, 이미지파일 수정 가능)
+	 * 
 	 * @param 스타일북 등록 번호
 	 * @return : 1이면 수정 성공, 0이면 수정 실패
 	 * @throws SQLException

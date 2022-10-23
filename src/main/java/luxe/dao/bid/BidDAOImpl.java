@@ -97,22 +97,34 @@ public class BidDAOImpl implements BidDAO {
 		Connection con = DbUtil.getConnection();
 		int result = 0;
 
-		boolean isNew = this.isNewBid(con, bid.getUserId(), bid.getGoodsNo());
 		int lowestSellPrice = sellDao.selectMaxPriceByGoodsNo(bid.getGoodsNo()).getSellPrice();
-
+		boolean isOnGoingBid = false;
 		// 입찰 상태 설정
 		if (bid.getBidPrice() == lowestSellPrice) {
-			bid.setBidStatus("입찰완료");
-		} else
+			bid.setBidStatus("입찰완료"); // 즉시 구매
+		} else {
 			bid.setBidStatus("입찰중");
-
-		if (isNew) {
+			isOnGoingBid = true;
+		}
+		// 최근 거래 내역 여부 확인
+		if (this.isNewBid(con, bid.getUserId(), bid.getGoodsNo())) {
 			result = this.insertNewBid(con, bid);
-			if (result != 0) {
-				// 주문 메소드 호출
+		} else {
+			result = this.updateBid(con, bid);
+		}
+
+		// 입찰 등록 후 알람 발송 또는 주문 등록
+		if (result != 0) {
+			if (isOnGoingBid) { // 입찰중
+				this.compareHigherPrice(bid);
+			} else {
+				// 주문 진행(오더 호출)
+				// 구매 성사 - 구매자, 판매자
+				// 판매 상태 변경
+				// 판매 최저가 변경 알람
+
 			}
-		} else
-			result = this.updateBidPrice(con, bid);
+		}
 
 		return result;
 	}
@@ -124,25 +136,17 @@ public class BidDAOImpl implements BidDAO {
 		int result = 0;
 
 		try {
-			if (con == null)
-				con = DbUtil.getConnection();
 
-			int bidPrice = bid.getBidPrice();
-			String userId = bid.getUserId();
-			int goodsNo = bid.getGoodsNo();
-
-			BidDTO lowestBid = this.getLowestBidPrice(con, goodsNo);
-			if (bidPrice < lowestBid.getBidPrice()) {
-				// 알림 발송
-				// 화면에 입찰 최고가 바꾸기
-			}
+			int goodsNo = bid.getGoodsNo(); // 상품번호
+			String userId = bid.getUserId(); // 회원아이디
+			int bidPrice = bid.getBidPrice(); // 입찰 가격
+			String bidStatus = bid.getBidStatus(); // 입찰 상태
 
 			ps = con.prepareStatement(sql);
 			ps.setInt(1, goodsNo);
 			ps.setString(2, userId);
 			ps.setInt(3, bidPrice);
-			ps.setString(4, bid.getBidStatus());
-
+			ps.setString(4, bidStatus);
 			result = ps.executeUpdate();
 
 		} finally {
@@ -153,26 +157,38 @@ public class BidDAOImpl implements BidDAO {
 
 	}
 
-	public BidDTO getLowestBidPrice(Connection con, int goodsNo) throws SQLException {
+	public BidDTO getHighestBidPrice(int goodsNo) throws SQLException {
+		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		String sql = "SELECT USER_ID, MAX(BID_PRICE) FROM BID GROUP BY USER_ID, GOODS_NO, BID_STATUS HAVING GOODS_NO = ? AND BID_STATUS='입찰중'";
+		String sql = "SELECT BID_NO, USER_ID, MAX(BID_PRICE) FROM BID GROUP BY USER_ID, GOODS_NO, BID_STATUS HAVING GOODS_NO = ? AND BID_STATUS='입찰중'";
 		BidDTO lowestBid = null;
 
 		try {
-			if (con == null)
-				con = DbUtil.getConnection();
+			con = DbUtil.getConnection();
 			ps = con.prepareStatement(sql);
 			ps.setInt(1, goodsNo);
 			rs = ps.executeQuery();
 
 			if (rs.next())
-				lowestBid = new BidDTO(0, goodsNo, rs.getString(1), rs.getInt(2), null, null);
+				lowestBid = new BidDTO(rs.getInt(1), goodsNo, rs.getString(2), rs.getInt(3), null, null); // 입찰 번호 넘기기
 
 		} finally {
-			DbUtil.dbClose(null, ps, rs);
+			DbUtil.dbClose(con, ps, rs);
 		}
 		return lowestBid;
+	}
+
+	/* 입찰 최고가 비교 */
+	private boolean compareHigherPrice(BidDTO bid) throws SQLException {
+		boolean result = false;
+		BidDTO highest = this.getHighestBidPrice(bid.getGoodsNo());
+		if (highest.getBidPrice() < bid.getBidPrice()) {
+			// 알림 발송 (알림 내용 정하기)
+			// 화면에 입찰 최고가 바꾸기
+			result = true;
+		}
+		return result;
 	}
 
 	/* 최근 거래 내역 유무 판단 */
@@ -197,27 +213,50 @@ public class BidDAOImpl implements BidDAO {
 	}
 
 	@Override
-	public int updateBidPrice(Connection con, BidDTO bid) throws SQLException {
+	public int updateBid(Connection con, BidDTO bid) throws SQLException {
+		PreparedStatement ps = null;
+		int result = 0;
+		String sql = "update bid set BID_PRICE=?, BID_STATUS=? where USER_ID=? and GOODS_NO=?";
 
 		try {
-			if (con == null)
-				con = DbUtil.getConnection();
+
+			int goodsNo = bid.getGoodsNo(); // 상품번호
+			String userId = bid.getUserId(); // 회원아이디
+			int bidPrice = bid.getBidPrice(); // 입찰 가격
+			String bidStatus = bid.getBidStatus(); // 입찰 상태
+
+			ps = con.prepareStatement(sql);
+			ps.setInt(1, bidPrice);
+			ps.setString(2, bidStatus);
+			ps.setString(3, userId);
+			ps.setInt(4, goodsNo);
+			result = ps.executeUpdate();
+
 		} finally {
+			DbUtil.dbClose(con, ps);
 
 		}
-		return 0;
+		return result;
 	}
 
 	@Override
-	public int updateBidState(BidDTO bid) throws SQLException {
-		// TODO Auto-generated method stub
-		return 0;
-	}
+	public int deleteBid(int goodsNo, String userId) throws SQLException {
+		Connection con = null;
+		PreparedStatement ps = null;
+		int result = 0;
+		String sql = "delete from bid where GOODS_NO=? and USER_ID=?";
 
-	@Override
-	public int deleteBid(String userId, int goodsNo) throws SQLException {
-		// TODO Auto-generated method stub
-		return 0;
+		try {
+			con = DbUtil.getConnection();
+			ps = con.prepareStatement(sql);
+			ps.setInt(1, goodsNo);
+			ps.setString(2, userId);
+			result = ps.executeUpdate();
+
+		} finally {
+			DbUtil.dbClose(con, ps);
+		}
+		return result;
 	}
 
 }

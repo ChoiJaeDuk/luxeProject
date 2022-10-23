@@ -45,41 +45,32 @@ public interface BidDAO {
 	int insertBid(BidDTO bid) throws SQLException;
 
 	/**
-	 * 상품 번호 해당 입찰 최저가 조회
+	 * 상품 번호 해당 입찰 최고가 조회
 	 * 
 	 * @param Connection
 	 * @param 상품번호
 	 * @return
 	 * @throws SQLException
 	 */
-	BidDTO getLowestBidPrice(Connection con, int goodsNo) throws SQLException;
+	BidDTO getHighestBidPrice(int goodsNo) throws SQLException;
 
 	/**
-	 * 입찰 가격 수정
+	 * 입찰 가격, 상태 수정
 	 * 
 	 * @param 회원아이디, 상품번호, 수정 가격
 	 * @return : 1이면 수정 성공, 0이면 수정 실패
 	 * @throws SQLException
 	 */
-	int updateBidPrice(Connection con, BidDTO bid) throws SQLException;
-
-	/**
-	 * 입찰 상태 업데이트
-	 * 
-	 * @param 회원아이디, 상품번호, 상태
-	 * @return : 1이면 수정 성공, 0이면 수정 실패
-	 * @throws SQLException
-	 */
-	int updateBidState(BidDTO bid) throws SQLException;
+	int updateBid(Connection con, BidDTO bid) throws SQLException;
 
 	/**
 	 * 입찰 삭제
 	 * 
-	 * @param 회원아이디
 	 * @param 상품번호
+	 * @param 회원아이디
 	 * @return : 1이면 삭제 성공, 0이면 삭제 실패
 	 * @throws SQLException
 	 */
-	int deleteBid(String userId, int goodsNo) throws SQLException;
+	int deleteBid(int goodsNo, String userId) throws SQLException;
 
 }
