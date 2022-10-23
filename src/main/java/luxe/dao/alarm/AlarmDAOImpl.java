@@ -13,7 +13,14 @@ import luxe.util.DbUtil;
 import oracle.net.aso.r;
 
 public class AlarmDAOImpl implements AlarmDAO {
-
+	
+	/***
+	 * 알람등록
+	 * @param con
+	 * @param alarm
+	 * @return
+	 * @throws SQLException
+	 */
 	//@Override
 	public int insertAlarm(Connection con, AlarmDTO alarm) throws SQLException {
 		PreparedStatement ps = null;
@@ -42,17 +49,22 @@ public class AlarmDAOImpl implements AlarmDAO {
 		return result;
 	}
 	
+	/***
+	 * 상품에 해당하는 거래 중인 회원 찾기
+	 * @param con
+	 * @param goodsNo
+	 */
 	private void selectUserId(Connection con, int goodsNo) {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		
 		String sql = "select user_id \r\n"
 				+ "from bid\r\n"
-				+ "where goods_no = ?\r\n"
+				+ "where goods_no = ? and bid_status='입찰중'\r\n"
 				+ "union \r\n"
 				+ "select user_id\r\n"
 				+ "from sell\r\n"
-				+ "where goods_no=?";
+				+ "where goods_no=? and sell_status='판매중'";
 		
 		//sList<AlarmReceiveUserDTO> list = new ArrayList<AlarmReceiveUserDTO>();
 		
@@ -81,6 +93,12 @@ public class AlarmDAOImpl implements AlarmDAO {
 	
 	}
 	
+	/***
+	 * 알림 수신자 알림함에 등록
+	 * @param con
+	 * @param userId
+	 * @throws SQLException
+	 */
 	private void insertAlarmReceiveUser(Connection con, String userId) throws SQLException{
 		PreparedStatement ps = null;
 		
@@ -102,7 +120,13 @@ public class AlarmDAOImpl implements AlarmDAO {
 		}
 
 	}
-
+	
+	/***
+	 * 아이디에 해당하는 알람 조회
+	 * @param userId
+	 * @return
+	 * @throws SQLException
+	 */
 	@Override
 	public List<AlarmDTO> selectAlarm(String userId) throws SQLException {
 		Connection con = null;
@@ -111,7 +135,6 @@ public class AlarmDAOImpl implements AlarmDAO {
 		
 		List<AlarmDTO> alarm = new ArrayList<AlarmDTO>();
 
-		
 		String sql = "select goods_name, alarm_subject, alarm_content, issue_date \r\n"
 				+ "from alarm a join\r\n"
 				+ "goods g on g.goods_no = a.goods_no join\r\n"
@@ -136,12 +159,18 @@ public class AlarmDAOImpl implements AlarmDAO {
 		   e.printStackTrace();
 		   
 		}finally{
-			DbUtil.dbClose(null, ps);
+			DbUtil.dbClose(con, ps, rs);
 		}
 		
 		return alarm;
 	}
 	
+	/***
+	 * 알림 읽음 상태 변경
+	 * @param con
+	 * @param userId
+	 * @throws SQLException
+	 */
 	private void updateAlarmStatus(Connection con, String userId) throws SQLException {
 		
 		PreparedStatement ps = null;
@@ -164,6 +193,13 @@ public class AlarmDAOImpl implements AlarmDAO {
 	
 	}
 
+	/***
+	 * 알람삭제
+	 * @param userId
+	 * @param alarmNo
+	 * @return
+	 * @throws SQLException
+	 */
 	@Override
 	public int deleteAlarm(String userId, int alarmNo) throws SQLException {
 		Connection con = null;
@@ -185,7 +221,7 @@ public class AlarmDAOImpl implements AlarmDAO {
 		   e.printStackTrace();
 		   
 		}finally{
-			DbUtil.dbClose(null, ps);
+			DbUtil.dbClose(con, ps);
 		}
 		
 		return result;
