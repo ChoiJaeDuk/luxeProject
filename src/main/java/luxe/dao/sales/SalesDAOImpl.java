@@ -11,7 +11,10 @@ import luxe.dto.OrderDTO;
 import luxe.util.DbUtil;
 
 public class SalesDAOImpl implements SalesDAO {
-
+	
+	/***
+	 * 매출조회
+	 */
 	@Override
 	public OrderDTO selectSales() throws SQLException {
 		Connection con = null;
@@ -42,7 +45,10 @@ public class SalesDAOImpl implements SalesDAO {
 		
 		return order;
 	}
-
+	
+	/***
+	 * 월별 매출 
+	 */
 	@Override
 	public List<OrderDTO> selectSalesByMonth() throws SQLException {
 		Connection con = null;
@@ -77,7 +83,10 @@ public class SalesDAOImpl implements SalesDAO {
 		
 		return list;
 	}
-
+	
+	/***
+	 * 브랜드별 월별 매출
+	 */
 	@Override
 	public List<OrderDTO> selectBrandSalesByMonth(String brand) throws SQLException {
 		Connection con = null;
@@ -117,8 +126,10 @@ public class SalesDAOImpl implements SalesDAO {
 		
 		return list;
 	}
-
 	
+	/***
+	 * 브랜드별 판매량
+	 */
 	@Override
 	public List<OrderDTO> selectSalesRateByBrand(String brand) throws SQLException {
 		Connection con = null;

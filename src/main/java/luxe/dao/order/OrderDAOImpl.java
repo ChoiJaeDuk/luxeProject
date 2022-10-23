@@ -12,7 +12,15 @@ import luxe.dto.SellDTO;
 import luxe.util.DbUtil;
 
 public class OrderDAOImpl implements OrderDAO {
-	@Override
+	//@Override
+	
+	/***
+	 * 알람등록
+	 * @param con
+	 * @param orderDTO
+	 * @return
+	 * @throws SQLException
+	 */
 	public int insertOrder(Connection con, OrderDTO orderDTO) throws SQLException {
 		
 		PreparedStatement ps = null;
@@ -42,7 +50,10 @@ public class OrderDAOImpl implements OrderDAO {
 		return result;
 
 	}
-
+	
+	/***
+	 * 주문내역조회
+	 */
 	@Override
 	public List<OrderDTO> selectOrder() throws SQLException {
 		Connection con = null;
@@ -116,6 +127,9 @@ public class OrderDAOImpl implements OrderDAO {
 		return list;
 	}
 	
+	/***
+	 * 주문내역조회(판매내역)
+	 */
 	@Override
 	public List<OrderDTO> selectOrderByUserIdForSell(String userId) throws SQLException {
 		Connection con = null;
@@ -153,7 +167,9 @@ public class OrderDAOImpl implements OrderDAO {
 		return list;
 	}
 	
-
+	/***
+	 * 주문상태 변경
+	 */
 	@Override
 	public int updateOrderByOrderNo(String orderNo, String orderStatus) throws SQLException {
 		Connection con = null;
