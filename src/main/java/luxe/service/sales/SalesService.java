@@ -13,5 +13,5 @@ public interface SalesService {
 	
 	List<OrderDTO> selectBrandSalesByMonth(String brand) throws SQLException;
 	
-	OrderDTO selectSalesRateByBrand(String brand) throws SQLException;
+	List<OrderDTO> selectSalesRateByBrand(String brand) throws SQLException;
 }

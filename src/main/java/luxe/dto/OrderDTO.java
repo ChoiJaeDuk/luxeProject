@@ -225,5 +225,13 @@ public class OrderDTO {
 	public void setTotalSalesRate(int totalSalesRate) {
 		this.totalSalesRate = totalSalesRate;
 	}
+
+	public String getGoodsName() {
+		return goodsName;
+	}
+
+	public void setGoodsName(String goodsName) {
+		this.goodsName = goodsName;
+	}
 	
 }

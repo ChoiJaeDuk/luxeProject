@@ -11,17 +11,17 @@ import luxe.dto.OrderDTO;
 import luxe.dto.SellDTO;
 import luxe.util.DbUtil;
 
-public class OrdersDAOImpl implements OrderDAO {
+public class OrderDAOImpl implements OrderDAO {
 	@Override
-	public int insertOrder(OrderDTO orderDTO) throws SQLException {
-		Connection con = null;
+	public int insertOrder(Connection con, OrderDTO orderDTO) throws SQLException {
+		
 		PreparedStatement ps = null;
 		
 		String sql = "insert into orders values(order_no_seq.nextval,?,?,?,current_date,'검수대기',?,?)";
 		int result=0;
 		
 		try {
-		   con = DbUtil.getConnection();
+		 
 		   ps = con.prepareStatement(sql);
 		   
 		   ps.setInt(1, orderDTO.getSellNo());
@@ -30,7 +30,6 @@ public class OrdersDAOImpl implements OrderDAO {
 		   ps.setString(5, orderDTO.getSellerId());
 		   ps.setString(4, orderDTO.getBuyerId());
 		  
-		   
 		   result = ps.executeUpdate();
 		   
 		}catch(SQLException e){

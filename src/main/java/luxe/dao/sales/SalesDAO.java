@@ -33,7 +33,7 @@ public interface SalesDAO {
 	 * @return
 	 * @throws SQLException
 	 */
-	OrderDTO selectSalesRateByBrand(String brand) throws SQLException;
+	List<OrderDTO> selectSalesRateByBrand(String brand) throws SQLException;
 	
 	
 }
