@@ -64,9 +64,9 @@ public class SellDAOImpl implements SellDAO {
 			//최고입찰가를 받아 비교 후 true일 경우 주문등록
 			if(priceCompare(bidDTO, goodsNo)) {//최고입찰가를 받아 비교 후 true일 경우 주문등록
 				OrderDTO orderDTO = new OrderDTO(sellNo, bidDTO.getBidNo(), bidDTO.getBidPrice(),sellUserId, bidDTO.getUserId());
-				orderDAO.
+				orderDAO.insertOrder(con, orderDTO);
 				
-				sellStatus = "판매완료";
+				
 			}
 			ps.setInt(1, updateSellPirce);
 			ps.setString(2, sellStatus);
@@ -95,7 +95,7 @@ public class SellDAOImpl implements SellDAO {
 			ps = con.prepareStatement(sql);
 			
 			int goodsNo = selectGoodsNoBySellNo(con ,sellNo);
-			BidDTO bidDTO = bidDAO.getLowestBidPrice(goodsNo);
+			BidDTO bidDTO = bidDAO.getHighestBidPrice(goodsNo);
 			
 			if(sellStatus.equals("판매중")) {				
 				if(priceCompare(bidDTO, goodsNo)) {//최고입찰가를 받아 비교 후 true일 경우 주문등록

@@ -53,7 +53,7 @@ public class SellServiceImpl implements SellService {
 
 	@Override
 	public SellDTO selectMaxPriceByGoodsNo(int goodsNo) throws SQLException {
-		SellDTO sellDTO = sellDAO.selectMaxPriceByGoodsNo(goodsNo);
+		SellDTO sellDTO = sellDAO.selectLowestPriceByGoodsNo(goodsNo);
 		
 		if(sellDTO==null) {
 			throw new SQLException("판매가 없습니다.");
