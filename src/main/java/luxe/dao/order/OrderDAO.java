@@ -3,8 +3,8 @@ package luxe.dao.order;
 import java.sql.SQLException;
 import java.util.List;
 
+import luxe.dto.OrderDTO;
 import luxe.dto.SellDTO;
-import luxe.dto.order.OrderDTO;
 
 public interface OrderDAO {
 	/***

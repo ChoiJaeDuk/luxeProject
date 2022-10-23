@@ -7,8 +7,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import luxe.dto.OrderDTO;
 import luxe.dto.SellDTO;
-import luxe.dto.order.OrderDTO;
 import luxe.util.DbUtil;
 
 public class OrdersDAOImpl implements OrderDAO {
@@ -17,20 +17,19 @@ public class OrdersDAOImpl implements OrderDAO {
 		Connection con = null;
 		PreparedStatement ps = null;
 		
+		String sql = "insert into orders values(order_no_seq.nextval,?,?,?,current_date,'검수대기',?,?)";
 		int result=0;
 		
 		try {
 		   con = DbUtil.getConnection();
-		   ps = con.prepareStatement("insert into orders values(order_no_seq.nextval,?,?,?,current_date,'검수대기',?,?)");
+		   ps = con.prepareStatement(sql);
 		   
-//		   ps.setInt(1, order.getOrderNo());
-//		   ps.setInt(2, order.getSellNo());
-//		   ps.setInt(3, order.getBidNo());
-//		   ps.setInt(4, order.getOrderPrice());
-//		   ps.setString(5, order.getOrderDate());
-//		   ps.setString(6, order.getOrderStatus());
-//		   ps.setString(7, order.getOrderDate());
-//		   ps.setString(8, order.getOrderStatus());
+		   ps.setInt(1, orderDTO.getSellNo());
+		   ps.setInt(2, orderDTO.getBidNo());
+		   ps.setInt(3, orderDTO.getOrderPrice());
+		   ps.setString(5, orderDTO.getSellerId());
+		   ps.setString(4, orderDTO.getBuyerId());
+		  
 		   
 		   result = ps.executeUpdate();
 		   
@@ -51,11 +50,12 @@ public class OrdersDAOImpl implements OrderDAO {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		
+		String sql = "select order_no, order_price, order_date, order_status, buyer_id, seller_id from orders order by order_date desc";
 		List<OrderDTO> list = new ArrayList<OrderDTO>();
 		
 		try {
 			con = DbUtil.getConnection();
-			ps = con.prepareStatement("select order_no, order_price, order_date, order_status, seller_id, buyer_id, from orders order by order_date desc");
+			ps = con.prepareStatement(sql);
 			rs  = ps.executeQuery();
 			
 			while(rs.next()){
@@ -86,15 +86,16 @@ public class OrdersDAOImpl implements OrderDAO {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		
+		String sql = "select goods_name, brand, order_status, order_price, order_date \r\n"
+				+ "from orders \r\n"
+				+ "join bid on orders.bid_no = bid.bid_no\r\n"
+				+ "join goods on goods.goods_no = bid.goods_no\r\n"
+				+ "where buyer_id = ? order by order_date desc";
 		List<OrderDTO> list = new ArrayList<OrderDTO>();
 		
 		try {
 			con = DbUtil.getConnection();
-			ps = con.prepareStatement("select goods_name, brand, order_status, order_price, order_date \r\n"
-					+ "from orders \r\n"
-					+ "join bid on orders.bid_no = bid.bid_no\r\n"
-					+ "join goods on goods.goods_no = bid.goods_no\r\n"
-					+ "where buyer_id = ? order by order_date desc"); 
+			ps = con.prepareStatement(sql); 
 			
 			ps.setString(1, userId);
 			
@@ -122,15 +123,16 @@ public class OrdersDAOImpl implements OrderDAO {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		
+		String sql = "select goods_name, brand, order_status, order_price, order_date \r\n"
+				+ "from orders \r\n"
+				+ "join sell on orders.sell_no = sell.sell_no\r\n"
+				+ "join goods on goods.goods_no = sell.goods_no\r\n"
+				+ "where seller_id = ? order by order_date desc";
 		List<OrderDTO> list = new ArrayList<OrderDTO>();
 		
 		try {
 			con = DbUtil.getConnection();
-			ps = con.prepareStatement("select goods_name, brand, order_status, order_price, order_date \r\n"
-					+ "from orders \r\n"
-					+ "join sell on orders.sell_no = sell.sell_no\r\n"
-					+ "join goods on goods.goods_no = sell.goods_no\r\n"
-					+ "where seller_id = ? order by order_date desc");
+			ps = con.prepareStatement(sql);
 			
 			ps.setString(1, userId);
 			
@@ -158,11 +160,12 @@ public class OrdersDAOImpl implements OrderDAO {
 		Connection con = null;
 		PreparedStatement ps = null;
 		
+		String sql = "update orders set order_status = ? where order_no = ?";
 		int result=0;
 		
 		try {
 		   con = DbUtil.getConnection();
-		   ps = con.prepareStatement("update orders set order_status = ? where order_no = ?");
+		   ps = con.prepareStatement(sql);
 		   
 		   ps.setString(1, orderStatus);
 		   ps.setString(2, orderNo);

@@ -5,7 +5,7 @@ import java.util.List;
 
 import luxe.dao.order.OrderDAO;
 import luxe.dao.order.OrdersDAOImpl;
-import luxe.dto.order.OrderDTO;
+import luxe.dto.OrderDTO;
 
 public class OrderServiceImpl implements OrderService {
 	OrderDAO dao = new OrdersDAOImpl();

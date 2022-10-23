@@ -3,7 +3,7 @@ package luxe.dao.sales;
 import java.sql.SQLException;
 import java.util.List;
 
-import luxe.dto.order.OrderDTO;
+import luxe.dto.OrderDTO;
 
 public interface SalesDAO {
 	
@@ -33,7 +33,7 @@ public interface SalesDAO {
 	 * @return
 	 * @throws SQLException
 	 */
-	List<OrderDTO> selectSalesRateByBrand(String brand) throws SQLException;
+	OrderDTO selectSalesRateByBrand(String brand) throws SQLException;
 	
 	
 }

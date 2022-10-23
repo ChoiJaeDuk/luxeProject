@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import luxe.controller.Controller;
 import luxe.controller.ModelAndView;
-import luxe.dto.order.OrderDTO;
+import luxe.dto.OrderDTO;
 import luxe.service.order.OrderService;
 import luxe.service.order.OrderServiceImpl;
 
@@ -60,9 +60,10 @@ public class OrderController implements Controller {
 			throws Exception{
 
 		List<OrderDTO> order = service.selectOrder();
+		System.out.println(order);
 		request.setAttribute("order", order);
 		
-		return new ModelAndView();
+		return new ModelAndView("jieunTest.jsp");
 	}
 	
 	/**

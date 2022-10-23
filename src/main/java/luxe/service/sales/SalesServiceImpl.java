@@ -5,7 +5,7 @@ import java.util.List;
 
 import luxe.dao.sales.SalesDAO;
 import luxe.dao.sales.SalesDAOImpl;
-import luxe.dto.order.OrderDTO;
+import luxe.dto.OrderDTO;
 
 public class SalesServiceImpl implements SalesService {
 	SalesDAO dao = new SalesDAOImpl();
@@ -31,10 +31,10 @@ public class SalesServiceImpl implements SalesService {
 	}
 
 	@Override
-	public List<OrderDTO> selectSalesRateByBrand(String brand) throws SQLException {
-		List<OrderDTO> list = dao.selectSalesRateByBrand(brand);
+	public OrderDTO selectSalesRateByBrand(String brand) throws SQLException {
+		OrderDTO order = dao.selectSalesRateByBrand(brand);
 		
-		return list;
+		return order;
 	}
 
 }
