@@ -56,11 +56,24 @@ public interface UserService {
 
 	/**
 	 * 회원정보 수정
-	 * @param userDto
-	 * @throws SQLException
+	 * 비밀번호
 	 */
-	void updateUser(UserDTO userDto) throws SQLException;
+	void updateUserPwd(String userId, String userOldPwd, String userNewPwd) throws SQLException;
+
+	/**
+	 * 회원정보 수정
+	 * 주소
+	 * @throws SQLException 
+	 */
+	void updateUserAddr(String userId, String userNewAddr,String userNewDetailAddr) throws SQLException;
 	
+	/**
+	 * 회원정보 수정
+	 * 전화번호
+	 */
+	
+	void updateUserPhone(String userId, String userNewPhone) throws SQLException;
+
 	/**
 	 * 회원 탈퇴 
 	 * @param userId

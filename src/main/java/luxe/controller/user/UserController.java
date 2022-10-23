@@ -36,7 +36,7 @@ public class UserController implements Controller {
 
 		userService.userIdCheck(userId);
 
-		return new ModelAndView("front", true);
+		return new ModelAndView("/front", true);
 
 	}
 
@@ -56,7 +56,7 @@ public class UserController implements Controller {
 
 		userService.insertUser(new UserDTO(userId, userPwd, userName, userAddr, userDetailAddr, userPhone, userJob));
 
-		return new ModelAndView("front", true);
+		return new ModelAndView("/front", true);
 	}
 
 	/**
@@ -93,20 +93,48 @@ public class UserController implements Controller {
 		return new ModelAndView("/front", true);
 	}
 
-	public ModelAndView updateUser(HttpServletRequest request, HttpServletResponse response)
+	/**
+	 * 회원정보 수정 비밀번호
+	 */
+	public ModelAndView updateUserPwd(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException, SQLException {
 
 		String userId = request.getParameter("userId");
-		String userPwd = request.getParameter("userPwd");
-		String userName = request.getParameter("userName");
-		String userAddr = request.getParameter("userAddr");
-		String userDetailAddr = request.getParameter("userDetailAddr");
-		String userPhone = request.getParameter("userPhone");
-		
-		userService.updateUser(new UserDTO(userId, userPwd, userName, userAddr, userDetailAddr, userPhone, userPhone));
-		
-		return new ModelAndView("/front", true);
+		String userOldPwd = request.getParameter("userOldPwd");
+		String userNewPwd = request.getParameter("userNewPwd");
 
+		userService.updateUserPwd(userId, userOldPwd, userNewPwd);
+
+		return new ModelAndView("/front", true);
+	}
+
+	/**
+	 * 회원정보 수정 주소
+	 */
+	public ModelAndView updateUserAddr(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException, SQLException {
+
+		String userId = request.getParameter("userId");
+		String userNewAddr = request.getParameter("userNewAddr");
+		String UserNewDetailAddr = request.getParameter("userNewDetailAddr");
+
+		userService.updateUserAddr(userId, userNewAddr, UserNewDetailAddr);
+
+		return new ModelAndView("/front", true);
+	}
+
+	/**
+	 * 회원정보 수정 전화번호
+	 */
+	public ModelAndView updateUserPhone(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException, SQLException {
+
+		String userId = request.getParameter("userId");
+		String userNewPhone = request.getParameter("userNewPhone");
+
+		userService.updateUserPhone(userId, userNewPhone);
+
+		return new ModelAndView("/front", true);
 	}
 
 	/**

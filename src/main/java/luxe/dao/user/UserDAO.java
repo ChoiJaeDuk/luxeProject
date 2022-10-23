@@ -5,7 +5,6 @@ import java.sql.SQLException;
 import luxe.dto.UserDTO;
 
 public interface UserDAO {
-
 	/**
 	 * 아이디 중복체크
 	 * 
@@ -64,13 +63,23 @@ public interface UserDAO {
 
 	/**
 	 * 회원정보 수정
-	 * 
-	 * @param userDto
-	 * @return
-	 * @throws SQLException
+	 * 비밀번호
 	 */
-	int updateUser(UserDTO userDto) throws SQLException;
+	int updateUserPwd(String userId, String userOldPwd, String userNewPwd) throws SQLException;
 
+	/**
+	 * 회원정보 수정
+	 * 주소
+	 */
+	int updateUserAddr(String userId, String userNewAddr,String userNewDetailAddr)throws SQLException;
+	
+	/**
+	 * 회원정보 수정
+	 * 전화번호
+	 */
+	
+	int updateUserPhone(String userId, String userNewPhone)throws SQLException;
+	
 	/**
 	 * 회원 탈퇴
 	 * 

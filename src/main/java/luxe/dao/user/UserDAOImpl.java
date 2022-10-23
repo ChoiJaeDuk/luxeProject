@@ -107,7 +107,7 @@ public class UserDAOImpl implements UserDAO {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		UserDTO userDto = null;
-		String sql = "select * from users where user_id =? and user_pwd=?";
+		String sql = "select * from users where user_id =?";
 
 		try {
 			con = DbUtil.getConnection();
@@ -127,33 +127,82 @@ public class UserDAOImpl implements UserDAO {
 	}
 
 	/**
-	 * 회원정보 수정
+	 * 회원정보 수정 - 비밀번호
 	 */
 	@Override
-	public int updateUser(UserDTO userDto) throws SQLException {
+	public int updateUserPwd(String userId, String userOldPwd, String userNewPwd) throws SQLException {
 		Connection con = null;
 		PreparedStatement ps = null;
-
-		String sql = "update users set user_pwd =?, user_addr =?, user_detailAddr=?, user_Phone=? where user_id";
-
 		int result = 0;
+		String sql = "update user set_user_pwd = ? where user_id=? and where user_pwd=? ";
 		try {
 			con = DbUtil.getConnection();
 			ps = con.prepareStatement(sql);
-			ps.setString(1, userDto.getUserPwd());
-			ps.setString(2, userDto.getUserAddr());
-			ps.setString(3, userDto.getUserDetailAddr());
-			ps.setString(4, userDto.getUserPhone());
+			ps.setString(1, userNewPwd);
+			ps.setString(2, userId);
+			ps.setString(3, userOldPwd);
 
 			result = ps.executeUpdate();
+
 		} finally {
 			DbUtil.dbClose(con, ps);
 		}
 
 		return result;
 	}
+
 	/**
-	 * 아이디 찾기 
+	 * 회원정보 수정 - 주소
+	 * 
+	 */
+	@Override
+	public int updateUserAddr(String userId, String userNewAddr, String userNewDetailAddr) throws SQLException {
+		Connection con = null;
+		PreparedStatement ps = null;
+		int result = 0;
+		String sql = "update users set user_addr =?, user_detailAddr=? where user_id=?";
+		try {
+			con = DbUtil.getConnection();
+			ps = con.prepareStatement(sql);
+			ps.setString(1, userId);
+			ps.setString(2, userNewAddr);
+			ps.setString(3, userNewDetailAddr);
+
+			result = ps.executeUpdate();
+
+		} finally {
+			DbUtil.dbClose(con, ps);
+		}
+
+		return result;
+	}
+
+	/**
+	 * 회원정보 수정 - 전화번호
+	 */
+	@Override
+	public int updateUserPhone(String userId, String userNewPhone) throws SQLException {
+		Connection con = null;
+		PreparedStatement ps = null;
+		int result = 0;
+		String sql = "update users set user_phone =? where user_id=?";
+		try {
+			con = DbUtil.getConnection();
+			ps = con.prepareStatement(sql);
+			ps.setString(1, userId);
+			ps.setString(2, userNewPhone);
+
+			result = ps.executeUpdate();
+
+		} finally {
+			DbUtil.dbClose(con, ps);
+		}
+
+		return result;
+	}
+
+	/**
+	 * 아이디 찾기
 	 */
 	@Override
 	public String selectUserId(String userName, String userPhone) throws SQLException {
@@ -180,6 +229,7 @@ public class UserDAOImpl implements UserDAO {
 		}
 		return userId;
 	}
+
 	/**
 	 * 비밀번호 찾기
 	 */

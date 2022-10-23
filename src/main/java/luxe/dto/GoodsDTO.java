@@ -10,7 +10,7 @@ public class GoodsDTO {
 	private String goodsDate;
 	private int goodsReadNo;
 	private String goodsModelNo;
-	private String goosReleaseDate;
+	private String goodsReleaseDate;
 	private int goodsReleasePrice;
 
 	public GoodsDTO() {
@@ -28,7 +28,7 @@ public class GoodsDTO {
 		this.goodsDate = goodsDate;
 		this.goodsReadNo = goodsReadNo;
 		this.goodsModelNo = goodsModelNo;
-		this.goosReleaseDate = goosReleaseDate;
+		this.goodsReleaseDate = goosReleaseDate;
 		this.goodsReleasePrice = goodsReleasePrice;
 	}
 
@@ -96,12 +96,12 @@ public class GoodsDTO {
 		this.goodsModelNo = goodsModelNo;
 	}
 
-	public String getGoosReleaseDate() {
-		return goosReleaseDate;
+	public String getGoodsReleaseDate() {
+		return goodsReleaseDate;
 	}
 
-	public void setGoosReleaseDate(String goosReleaseDate) {
-		this.goosReleaseDate = goosReleaseDate;
+	public void setGoosReleaseDate(String goodsReleaseDate) {
+		this.goodsReleaseDate = goodsReleaseDate;
 	}
 
 	public int getGoodsReleasePrice() {

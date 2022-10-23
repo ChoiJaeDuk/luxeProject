@@ -2,29 +2,29 @@ package luxe.dto;
 
 public class RegisGoodsDTO {
 
-	private String regisGoodsNo;
+	private int regisGoodsNo;
 	private String userId;
-	private String regisBrand;
-	private String regisName;
+	private String regisGoodsBrand;
+	private String regisGoodsName;
 	private String regisDate;
 
 	public RegisGoodsDTO() {
 	}
 
-	public RegisGoodsDTO(String regisGoodsNo, String userId, String regisBrand, String regisName, String regisDate) {
+	public RegisGoodsDTO(int regisGoodsNo, String userId, String regisBrand, String regisName, String regisDate) {
 		super();
 		this.regisGoodsNo = regisGoodsNo;
 		this.userId = userId;
-		this.regisBrand = regisBrand;
-		this.regisName = regisName;
+		this.regisGoodsBrand = regisGoodsBrand;
+		this.regisGoodsName = regisGoodsName;
 		this.regisDate = regisDate;
 	}
 
-	public String getRegisGoodsNo() {
+	public int getRegisGoodsNo() {
 		return regisGoodsNo;
 	}
 
-	public void setRegisGoodsNo(String regisGoodsNo) {
+	public void setRegisGoodsNo(int regisGoodsNo) {
 		this.regisGoodsNo = regisGoodsNo;
 	}
 
@@ -36,20 +36,20 @@ public class RegisGoodsDTO {
 		this.userId = userId;
 	}
 
-	public String getRegisBrand() {
-		return regisBrand;
+	public String getRegisGoodsBrand() {
+		return regisGoodsBrand;
 	}
 
-	public void setRegisBrand(String regisBrand) {
-		this.regisBrand = regisBrand;
+	public void setRegisGoodsBrand(String regisGoodsBrand) {
+		this.regisGoodsBrand = regisGoodsBrand;
 	}
 
-	public String getRegisName() {
-		return regisName;
+	public String getRegisGoodsName() {
+		return regisGoodsName;
 	}
 
-	public void setRegisName(String regisName) {
-		this.regisName = regisName;
+	public void setRegisGoodsName(String regisGoodsName) {
+		this.regisGoodsName = regisGoodsName;
 	}
 
 	public String getRegisDate() {

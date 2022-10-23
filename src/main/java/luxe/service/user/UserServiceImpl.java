@@ -55,6 +55,39 @@ public class UserServiceImpl implements UserService {
 	}
 
 	/**
+	 * 회원정보 수정 비밀번호
+	 */
+	@Override
+	public void updateUserPwd(String userId, String userOldPwd, String userNewPwd) throws SQLException {
+		int result = userDAO.updateUserPwd(userId, userOldPwd, userNewPwd);
+		if (result == 0) {
+			throw new SQLException("");
+		}
+	}
+
+	/**
+	 * 회원정보 수정 주소
+	 */
+	@Override
+	public void updateUserAddr(String userId, String userNewAddr, String userNewDetailAddr) throws SQLException {
+		int result = userDAO.updateUserAddr(userId, userNewAddr, userNewDetailAddr);
+		if (result == 0) {
+			throw new SQLException("");
+		}
+	}
+
+	/**
+	 * 회원정보 수정 전화번호
+	 */
+	@Override
+	public void updateUserPhone(String userId, String userNewPhone) throws SQLException {
+		int result = userDAO.updateUserPhone(userId, userNewPhone);
+		if (result == 0) {
+			throw new SQLException("");
+		}
+	}
+
+	/**
 	 * 아이디 찾기
 	 */
 	@Override
@@ -76,17 +109,6 @@ public class UserServiceImpl implements UserService {
 			throw new SQLException("PWD 찾기 오류");
 		}
 		return userPwd;
-	}
-
-	/**
-	 * 회원정보 수정
-	 */
-	@Override
-	public void updateUser(UserDTO userDto) throws SQLException {
-		int result = userDAO.updateUser(userDto);
-		if (result == 0) {
-			throw new SQLException("회원정보 수정 실패");
-		}
 	}
 
 	/**
