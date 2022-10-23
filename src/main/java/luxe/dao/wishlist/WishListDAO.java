@@ -6,7 +6,7 @@ import java.util.List;
 
 import luxe.dto.WishListDTO;
 
-public interface WhishListDAO {
+public interface WishListDAO {
 	
 	/**
 	 * 관심목록 등록
