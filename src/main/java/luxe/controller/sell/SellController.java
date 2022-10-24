@@ -91,9 +91,20 @@ public class SellController implements Controller {
 		//int goodsNo = Integer.parseInt(request.getParameter("goods"));
 		
 		SellDTO sellDTO = sellService.selectMaxPriceByGoodsNo(1);
-		int maxPrice = sellDTO.getSellPrice(); 
-		request.setAttribute("maxPrice", maxPrice);
+		int lowestPrice = sellDTO.getSellPrice(); 
+		request.setAttribute("lowestPrice", lowestPrice);
 		
 		return new ModelAndView("duckTest.jsp");
+	}
+	
+	public ModelAndView sellDuplicateCheck(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		
+		String serialNumber = request.getParameter(null);
+		
+		boolean result = sellService.sellDuplicateCheck(null);
+		
+		request.setAttribute("result", result);
+		
+		return new ModelAndView("");
 	}
 }
