@@ -10,37 +10,12 @@ public interface StyleBookDAO {
 	/**
 	 * 전체 스타일북 게시물 조회
 	 * 
-	 * @return List<StyleBookDTO>
+	 * @param 검색조건
+	 * @param 정렬조건
+	 * @return
 	 * @throws SQLException
 	 */
-	List<StyleBookDTO> selectAllStyleBook() throws SQLException;
-
-	/**
-	 * 좋아요 수, 조회수순, 최신순으로 게시물 조회
-	 * 
-	 * @param 조회 정렬 조건
-	 * @return List<StyleBookDTO>
-	 * @throws SQLException
-	 */
-	List<StyleBookDTO> selectSortedStyleBook(String sortCondition) throws SQLException;
-
-	/**
-	 * 검색조건별 스타일북 조회
-	 * 
-	 * @param 브랜드명, 상품번호 등 검색조건
-	 * @return List<StyleBookDTO>
-	 * @throws SQLException
-	 */
-	List<StyleBookDTO> selectStyleBookByBrand(String brand, String sortCondition) throws SQLException;
-
-	/**
-	 * 검색조건별 스타일북 조회
-	 * 
-	 * @param 브랜드명, 상품번호 등 검색조건
-	 * @return List<StyleBookDTO>
-	 * @throws SQLException
-	 */
-	List<StyleBookDTO> selectStyleBookByGoodsNo(int goodsNo, String sortCondition) throws SQLException;
+	List<StyleBookDTO> selectAllStyleBook(String filter, String sortCondition) throws SQLException;
 
 	/**
 	 * 스타일북 등록번호에 해당하는 스타일북 조회
