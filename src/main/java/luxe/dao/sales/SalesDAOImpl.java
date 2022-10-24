@@ -35,9 +35,6 @@ public class SalesDAOImpl implements SalesDAO {
 				order = (new OrderDTO(rs.getInt(1), rs.getInt(2)));
 			}
 			
-		}catch(SQLException e){
-			e.printStackTrace();
-			
 		}finally{
 			DbUtil.dbClose(con, ps, rs);
 			
@@ -71,10 +68,6 @@ public class SalesDAOImpl implements SalesDAO {
 			while(rs.next()){
 				list.add(new OrderDTO(rs.getString(1), rs.getInt(2), rs.getInt(3)));
 			}
-			
-			
-		}catch(SQLException e){
-			e.printStackTrace();
 			
 		}finally{
 			DbUtil.dbClose(con, ps, rs);
@@ -115,10 +108,6 @@ public class SalesDAOImpl implements SalesDAO {
 				list.add(new OrderDTO(rs.getString(1), rs.getInt(2)));
 			}
 			
-			
-		}catch(SQLException e){
-			e.printStackTrace();
-			
 		}finally{
 			DbUtil.dbClose(con, ps, rs);
 			
@@ -157,9 +146,6 @@ public class SalesDAOImpl implements SalesDAO {
 				list.add(new OrderDTO(rs.getInt(1), rs.getString(2)));
 			}
 			
-			
-		}catch(SQLException e){
-			e.printStackTrace();
 			
 		}finally{
 			DbUtil.dbClose(con, ps, rs);
