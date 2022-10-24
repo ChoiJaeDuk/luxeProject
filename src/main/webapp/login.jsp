@@ -98,7 +98,6 @@ font-family: 'Lora', serif;
 				<button id="login_btn"> 로그인 </button>
 			</div>
 			
-			
 			<ul class="look_box">
 				<li class="look_list">
 					<a href="#" class="look_link" >회원가입 </a>
