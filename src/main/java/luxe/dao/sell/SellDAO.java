@@ -74,4 +74,13 @@ public interface SellDAO {
 	 */
 	
 	public boolean sellDuplicateCheck(SellDTO sellDTO) throws SQLException;
+	
+	
+	/**
+	 * sellNo의에 해당하는 sellstatus를 판매완료로 변경한다.
+	 * @param sellNo
+	 * @return
+	 * @throws SQLException
+	 */
+	public int UpdateSellStatusComplete(int sellNo) throws SQLException;
 }
