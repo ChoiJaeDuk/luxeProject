@@ -41,6 +41,7 @@ public class SellServiceImpl implements SellService {
 	public List<SellDTO> selectSellingInfoByUserId(String userId) throws SQLException {
 		List<SellDTO> sellingList = new ArrayList<SellDTO>();
 		sellingList = sellDAO.selectSellingInfoByUserId(userId);
+		
 		return sellingList;
 	}
 	
@@ -54,7 +55,7 @@ public class SellServiceImpl implements SellService {
 	@Override
 	public SellDTO selectMaxPriceByGoodsNo(int goodsNo) throws SQLException {
 		SellDTO sellDTO = sellDAO.selectLowestPriceByGoodsNo(goodsNo);
-		
+	
 		if(sellDTO==null) {
 			throw new SQLException("판매가 없습니다.");
 		}
