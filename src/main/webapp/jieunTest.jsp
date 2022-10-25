@@ -69,6 +69,7 @@
 			<option value="검수중">검수중</option>
 			<option value="배송시작">배송시작</option>
 			<option value="배송완료">배송완료</option>
+			<option value="주문취소">주문취소</option>
 		</select>	
 
 	</th>
