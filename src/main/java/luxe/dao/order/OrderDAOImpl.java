@@ -9,6 +9,8 @@ import java.util.List;
 
 import luxe.dao.alarm.AlarmDAO;
 import luxe.dao.alarm.AlarmDAOImpl;
+import luxe.dao.goodsImages.GoodsImagesDAO;
+import luxe.dao.goodsImages.GoodsImagesDAOImpl;
 import luxe.dto.AlarmDTO;
 import luxe.dto.GoodsDTO;
 import luxe.dto.OrderDTO;
@@ -140,10 +142,14 @@ public class OrderDAOImpl implements OrderDAO {
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
+		GoodsImagesDAO dao = new GoodsImagesDAOImpl();
 
-		String sql = "select goods_name, brand, order_status, order_price, order_date \r\n" + "from orders \r\n"
-				+ "join bid on orders.bid_no = bid.bid_no\r\n" + "join goods on goods.goods_no = bid.goods_no\r\n"
-				+ "where buyer_id = ? order by order_date desc";
+		String sql = "select goods.goods_no, goods_name, brand, order_status, order_price, order_date\r\n"
+				+ "from orders join bid \r\n"
+				+ "on orders.bid_no = bid.bid_no join goods \r\n"
+				+ "on goods.goods_no = bid.goods_no\r\n"
+				+ "where buyer_id = ?\r\n"
+				+ "order by order_date desc";
 		List<OrderDTO> list = new ArrayList<OrderDTO>();
 
 		try {
@@ -153,10 +159,11 @@ public class OrderDAOImpl implements OrderDAO {
 			ps.setString(1, userId);
 
 			rs = ps.executeQuery();
+			
 
 			while (rs.next()) {
-				list.add(
-						new OrderDTO(rs.getString(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getString(5)));
+				String goodsMainImg = dao.selectMainImgByGoodsNo(rs.getInt(1));
+				list.add(new OrderDTO(goodsMainImg, rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getInt(5), rs.getString(6)));
 			}
 		} finally {
 			DbUtil.dbClose(con, ps, rs);
