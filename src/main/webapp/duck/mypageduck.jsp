@@ -50,7 +50,36 @@ font-family: 'Lora', serif;
 </style>
 
 <script type="text/javascript">
-	
+	$(function() {
+		function selectSellingInfoByUserId(){
+			   $.ajax({
+				url :"ajax" , //서버요청주소
+				type:"post", //요청방식(method방식 : get | post | put | delete )
+				dataType:"json"  , //서버가 보내온 데이터(응답)타입(text | html | xml | json )
+				data: {key:"sellAjax" , methodName : "selectSellingInfoByUserId", id : "id"}, //서버에게 보낼 데이터정보(parameter정보)
+				success :function(result){
+					let str="";
+					$.each(result, function(index, item){
+					    str+="<tr>";
+					    str+=`<td>${(index+1)}</td>`;
+					    str+=`<td>${item.sellName}</td>`;
+					    str+=`<td>${item.brand}</td>`;
+					    str+=`<td>${item.sellPrice}</td>`;
+					    str+=`<td>${item.sellDate}</td>`;
+					    str+=`<td><input type='button' value='삭제' name='${item.id}'></td>`;
+					    str+="</tr>";
+				  });
+					
+					$("#profile3 tr:gt(0)").remove();
+					$("#profile3 tr:eq(0)").after(str);
+					
+				} , //성공했을때 실행할 함수 
+				error : function(err){  
+					alert(err+"에러 발생했어요.");
+				}  //실팽했을때 실행할 함수 
+			});//ajax끝
+		   }//selectAll 함수끝
+	})
 </script>
 </head>
 <body>
@@ -205,7 +234,7 @@ font-family: 'Lora', serif;
 		  <h3>판매</h3>
 		 <ul class="nav nav-tabs" role="tablist">
   <li class="nav-item" role="presentation">
-    <a class="nav-link" data-bs-toggle="tab" href="#home2" aria-selected="false" role="tab" tabindex="0">판매내역</a>
+    <a class="nav-link" data-bs-toggle="tab" href="#home2" aria-selected="false" role="tab" tabindex="-1">판매내역</a>
   </li>
   <li class="nav-item" role="presentation">
     <a class="nav-link active" data-bs-toggle="tab" href="#profile2" aria-selected="false" role="tab" >판매중</a>
@@ -215,7 +244,8 @@ font-family: 'Lora', serif;
   </li>
 </ul>
 <div id="myTabContent" class="tab-content">
-  	<div class="tab-pane fade" id="home2" role="tabpanel">
+  <div class="tab-pane fade" id="home2" role="tabpanel">
+  	
  	<table>
  		<tr>
  			<td>상품이름</td>
@@ -241,7 +271,7 @@ font-family: 'Lora', serif;
 </div>
 
 <div id="myTabContent" class="tab-content">
-  	<div class="tab-pane fade active show" id="profile3" role="tabpanel">
+<div class="tab-pane fade" id="profile3" role="tabpanel">
  	<table>
  		<tr>
  			<td>상품이름</td>
