@@ -1,0 +1,195 @@
+@charset "EUC-KR";
+*{
+	padding: opx;
+	margin: 0px;
+}
+
+li{
+	list-style-type: none;
+}
+a{
+	text-decoration: none;
+}
+.clear{
+	clear: both;
+}
+
+#page{
+	width: 1280px;
+	margin: 0 auto;
+}
+
+header{
+	width: 1280px;
+	height: 100px;
+	margin: 0 auto;
+}
+#logo{
+	float: left;
+	margin:40px 0px 0px 20px;
+}
+#logo img{
+	width: 100px;
+	height: 30px;
+}
+#menus{
+	float: right;
+}
+#top_menu{
+	text-align: right;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+#top_menu a{
+	text-align: right;
+	margin-top: 20px;
+	text-decoration: none;
+	font-family: 'Noto Sans KR', sans-serif;
+	font-weight: 200;
+	font-size: 12px;
+	color: #222222;
+}
+#main_menu a{
+	margin-top: 24px;
+	text-decoration: none;
+	font-family: 'Noto Sans KR', sans-serif;
+	font-weight: 500;
+	font-size: 12px;
+	color: #222222;
+}
+
+#main_menu li{
+	display: inline;
+	margin-left: 80px;
+}	
+
+.search {
+	float: right;
+	text-align: left;
+	margin-left: 10px;
+	height: 25px;
+	width: 230px;
+	border: 0.1px #cccccc solid;
+	background-color: #cccccc20;
+	padding: 0px;
+	border-radius: 3px;
+	display: flex;
+
+}
+
+#searchbar {
+	margin: 0px;
+	padding: 0px;
+	width: 300px;
+	height: 24px;
+	border: none;
+	border-top-left-radius: 3px;
+	border-bottom-left-radius: 3px;
+}
+
+#contents{
+	width: 1280px;
+	height: 755.37px;
+	margin: 0 auto;
+	padding: 0 40px;
+	float: left;	
+}
+footer{
+	display: flex;
+	height: 350px;
+	min-width: 320px;
+	-webkit-box-align: center;
+	align-items: center;
+	background-color: #222222;
+}
+	
+img{
+	width:100%;
+	height:100%;
+	float:left;
+	margin: 0;
+	padding: 0;
+}
+#loginForm{
+	width: 400px;
+	height: 755.37px;
+	margin: 0px 400px;
+	padding: 60px 0px 160px;
+}
+#login_title{
+	width: 400px;
+	height: 160px;
+	padding: 0px 0px 50px;
+	margin: 0 auto;
+}
+#input_logo{
+	width: 150px;
+	height: 50px;
+	position: relative;
+	top: 60px;
+	left: 130px;
+}
+#input_box{
+	widows: 400px;
+	height: 79.96px;
+	padding: 10px 0px 14px;
+}
+#input_title{
+	width: 400px;
+	height: 17.99px;
+	color: #222222;
+	font-family: 'Noto Sans KR', sans-serif;
+	font-weight: 400;
+	font-size: 13px;
+	
+}
+#input_item{
+	width: 400px;
+	height: 37.99px;
+	border-bottom: 0.1px #cccccc solid;
+}
+.input_txt{
+	padding: 8px 30px 8px 0px;
+	width: 400px;
+	border: 0.05px #cccccc solid; 
+}
+#login_btn_box{
+	width: 400px;
+	height: 71.99px;
+	padding: 20px 0px 0px;
+}
+#login_btn{
+	width: 400px;
+	height: 51.99px;
+	font-family: 'Noto Sans KR', sans-serif;
+	font-weight: 700;
+}
+.look_box {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-evenly;
+}
+.look_list{
+	display: inline-flex;
+    -webkit-box-align: start;
+    align-items: flex-start;
+    -webkit-box-flex: 1;
+    flex: 1;
+}
+.look_link{
+	text-decoration: none;
+	color: #222222;
+	font-size: 13px;
+	font-family: 'Noto Sans KR', sans-serif;
+	font-weight: 200;
+	float: left;
+}
+#kakao_login{
+	width: 397.500px;
+	height: 49.492px;
+	font-family: 'Noto Sans KR', sans-serif;
+	font-weight: 700;
+}
+button {
+	border: none;
+}

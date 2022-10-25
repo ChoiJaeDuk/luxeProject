@@ -17,19 +17,20 @@ public class AlarmDAOImpl implements AlarmDAO {
 	/***
 	 * 알람등록
 	 * @param con
-	 * @param alarm
+	 * @param alarm 
 	 * @return
 	 * @throws SQLException
 	 */
-	//@Override
-	public int insertAlarm(Connection con, AlarmDTO alarm) throws SQLException {
+	@Override
+	public int insertAlarm(AlarmDTO alarm) throws SQLException {
+		Connection con = null;
 		PreparedStatement ps = null;
 		
 		String sql = "insert into alarm values(alarm_no_seq.nextval,?,?, current_date, ?)";
 		int result=0;
 		
 		try {
-		 
+		   con= DbUtil.getConnection();	
 		   ps = con.prepareStatement(sql);
 		   
 		   ps.setInt(1, alarm.getGoodsNo());
@@ -37,13 +38,10 @@ public class AlarmDAOImpl implements AlarmDAO {
 		   ps.setString(3, alarm.getAlarmSubject());
 		  
 		   result = ps.executeUpdate();
-		   selectUserId(con, alarm.getGoodsNo());
-		   
-		}catch(SQLException e){
-		   e.printStackTrace();
+		   if(result == 1) selectUserId(con, alarm.getGoodsNo());
 		   
 		}finally{
-			DbUtil.dbClose(null, ps);
+			DbUtil.dbClose(con, ps);
 		}
 		
 		return result;
@@ -54,7 +52,7 @@ public class AlarmDAOImpl implements AlarmDAO {
 	 * @param con
 	 * @param goodsNo
 	 */
-	private void selectUserId(Connection con, int goodsNo) {
+	private void selectUserId(Connection con, int goodsNo) throws SQLException {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		
@@ -66,7 +64,7 @@ public class AlarmDAOImpl implements AlarmDAO {
 				+ "from sell\r\n"
 				+ "where goods_no=? and sell_status='판매중'";
 		
-		//sList<AlarmReceiveUserDTO> list = new ArrayList<AlarmReceiveUserDTO>();
+		List<String> userIdList = new ArrayList<String>();
 		
 		try {
 		 
@@ -78,17 +76,15 @@ public class AlarmDAOImpl implements AlarmDAO {
 		   rs = ps.executeQuery();
 		  
 		   while(rs.next()) {
-			   String userId = rs.getString(1);
-			   //list.add(new AlarmReceiveUserDTO(userId));
-			   insertAlarmReceiveUser(con, userId);
+			   userIdList.add(rs.getString(1));
 			   
 		   }
 		   
-		}catch(SQLException e){
-		   e.printStackTrace();
+		   if(userIdList != null)
+			   insertAlarmReceiveUser(con, userIdList);
 		   
 		}finally{
-			DbUtil.dbClose(null, ps);
+			DbUtil.dbClose(null, ps, rs);
 		}
 	
 	}
@@ -99,21 +95,37 @@ public class AlarmDAOImpl implements AlarmDAO {
 	 * @param userId
 	 * @throws SQLException
 	 */
-	private void insertAlarmReceiveUser(Connection con, String userId) throws SQLException{
+	private void insertAlarmReceiveUser(Connection con, List<String> userIdList) throws SQLException{
 		PreparedStatement ps = null;
 		
 		String sql = "insert into alarm_receive_user values (alarm_receive_no_seq.nextval, alarm_no_seq.currval, ?, '안읽음')";
 		
 		try {
 		 
+		   con.setAutoCommit(false);
+		   
 		   ps = con.prepareStatement(sql);
 		   
-		   ps.setString(1, userId);
+		   for(String userId: userIdList) {
+			   ps.setString(1, userId);
+			   ps.addBatch();// 일괄처리작업을 하기 위한 문장 추가
+			   ps.clearParameters();// 들어가는 정보를 전송
+		   }
+		   //한번에 DBMS에 전송
+		   int result [] = ps.executeBatch(); //리턴값은 각 문장의 성공여부가 저장 
+		   System.out.println("result.length = " + result.length);
+		 
+		   boolean state = false; //true이면 취소, false이면 저장완료
+		   for(int i : result) {
+			   System.out.println(i);
+			   if(i==0) {
+				   state = true;
+				   break;
+			   }
+		   }
 		   
-		   ps.executeUpdate();
-		   
-		}catch(SQLException e){
-		   e.printStackTrace();
+		   if(state) con.rollback();
+		   else con.commit();
 		   
 		}finally{
 			DbUtil.dbClose(null, ps);
@@ -153,16 +165,45 @@ public class AlarmDAOImpl implements AlarmDAO {
 				alarm.add(new AlarmDTO(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4)));
 			}
 			
-			updateAlarmStatus(con, userId);
-		   
-		}catch(SQLException e){
-		   e.printStackTrace();
+			if(alarm != null)
+				updateAlarmStatus(con, userId);
 		   
 		}finally{
 			DbUtil.dbClose(con, ps, rs);
 		}
 		
 		return alarm;
+	}
+	
+	/***
+	 * 새로운 알람이 있는지 확인
+	 */
+	@Override
+	public List<AlarmReceiveUserDTO> checkNewAlarm(String userId) throws SQLException {
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
+		List<AlarmReceiveUserDTO> alarmReceive = new ArrayList<AlarmReceiveUserDTO>();
+
+		String sql = "select * from alarm_receive_user where user_id = ? and alarm_status='안읽음'";
+		try {
+			con = DbUtil.getConnection();
+			ps = con.prepareStatement(sql);
+			
+			ps.setString(1, userId);
+			
+			rs = ps.executeQuery();
+			
+			while(rs.next()) {
+				alarmReceive.add(new AlarmReceiveUserDTO(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getString(4)));
+			}
+			
+		}finally{
+			DbUtil.dbClose(con, ps, rs);
+		}
+		
+		return alarmReceive;
 	}
 	
 	/***
@@ -183,9 +224,6 @@ public class AlarmDAOImpl implements AlarmDAO {
 			ps.setString(1, userId);
 			
 			ps.executeUpdate();
-
-		}catch(SQLException e){
-		   e.printStackTrace();
 		   
 		}finally{
 			DbUtil.dbClose(null, ps);
@@ -216,10 +254,6 @@ public class AlarmDAOImpl implements AlarmDAO {
 			
 			result = ps.executeUpdate();
 			
-		   
-		}catch(SQLException e){
-		   e.printStackTrace();
-		   
 		}finally{
 			DbUtil.dbClose(con, ps);
 		}

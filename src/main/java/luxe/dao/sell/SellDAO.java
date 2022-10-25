@@ -23,7 +23,7 @@ public interface SellDAO {
 	 * @return
 	 * @throws SQLException
 	 */
-	int updateSellPrice(String sellUserId ,int sellNo, int updateSellPrice) throws SQLException;
+	int updateSellPrice(SellDTO sellDTO) throws SQLException;
 	
 	
 	/**
@@ -31,7 +31,7 @@ public interface SellDAO {
 	 * @return
 	 * @throws SQLException
 	 */
-	int updateSellStatus(String sellUserId, int sellNo, String sellStatus) throws SQLException;
+	int updateSellStatus(SellDTO sellDTO) throws SQLException;
 	
 	
 	/**
@@ -63,15 +63,8 @@ public interface SellDAO {
 	 * @return
 	 * @throws SQLException
 	 */
-	SellDTO selectMaxPriceByGoodsNo(int goodsNo) throws SQLException;
+	SellDTO selectLowestPriceByGoodsNo(int goodsNo) throws SQLException;
 	
-	
-	/**
-	 * 값 매칭
-	 * @return
-	 * @throws SQLException
-	 */
-	boolean priceCompare(BidDTO bidDTO, int goodsNo) throws SQLException;
 	
 	/**
 	 * sellNo를 이용해 goodsNo를 구한다.
@@ -80,5 +73,14 @@ public interface SellDAO {
 	 * @throws SQLException
 	 */
 	
+	public boolean sellDuplicateCheck(SellDTO sellDTO) throws SQLException;
 	
+	
+	/**
+	 * sellNo의에 해당하는 sellstatus를 판매완료로 변경한다.
+	 * @param sellNo
+	 * @return
+	 * @throws SQLException
+	 */
+	public int UpdateSellStatusComplete(int sellNo) throws SQLException;
 }
