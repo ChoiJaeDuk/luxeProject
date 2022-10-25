@@ -73,18 +73,18 @@ public class OrderController implements Controller {
 	 * @return
 	 * @throws Exception
 	 */
-	public ModelAndView selectOrderByUserIdForBuy(HttpServletRequest request, HttpServletResponse response)
-			throws Exception{
-
-		String buyerId = request.getParameter("userId");
-		
-		List<OrderDTO> buyerOrder = service.selectOrderByUserIdForBuy(buyerId);
-		
-		request.setAttribute("buyerOrder", buyerOrder);
-		
-		return new ModelAndView("mypage_jieun.jsp");
-	}
-	
+//	public ModelAndView selectOrderByUserIdForBuy(HttpServletRequest request, HttpServletResponse response)
+//			throws Exception{
+//
+//		String buyerId = request.getParameter("userId");
+//		
+//		List<OrderDTO> buyerOrder = service.selectOrderByUserIdForBuy(buyerId);
+//		
+//		request.setAttribute("buyerOrder", buyerOrder);
+//		
+//		return new ModelAndView("mypage_jieun.jsp");
+//	}
+//	
 	/**
 	 * 회원별 주문내역 조회(판매자)
 	 * @param request
