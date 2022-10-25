@@ -44,6 +44,7 @@ public class OrderAjaxController implements AjaxController {
 	
 	public void selectOrderByUserIdForBuy(HttpServletRequest request, HttpServletResponse response)
 			throws Exception{
+		System.out.println("와?");
 		response.setContentType("text/html;charset=UTF-8");
 		
 		HttpSession session =  request.getSession();
@@ -65,7 +66,7 @@ public class OrderAjaxController implements AjaxController {
 		HttpSession session =  request.getSession();
 		String sellerId = (String)session.getAttribute("userId");
 	
-		List<OrderDTO> sellOrder = service.selectOrderByUserIdForBuy(sellerId);
+		List<OrderDTO> sellOrder = service.selectOrderByUserIdForSell(sellerId);
 		
 		JSONArray arr = JSONArray.fromObject(sellOrder);
 		

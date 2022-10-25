@@ -45,7 +45,7 @@ font-family: 'Lora', serif;
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <!-- 외부의 css파일 연결하기 -->
-<link rel="stylesheet" type="text/css" href="css/mypage2.css">
+<!-- <link rel="stylesheet" type="text/css" href="css/mypage2.css"> -->
 <style type="text/css">
 </style>
 
