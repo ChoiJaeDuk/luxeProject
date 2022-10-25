@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
+    <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -47,6 +48,48 @@ font-family: 'Lora', serif;
 <link rel="stylesheet" type="text/css" href="css/mypage2.css">
 <style type="text/css">
 </style>
+
+<script type="text/javascript" src="js/jquery-3.6.1.min.js"></script>
+<script type="text/javascript">
+	$(function(){
+	
+		$("#orderList").on("click", function(){
+			$.ajax({
+				url :"ajax" , //서버요청주소
+				type:"post", //요청방식(method방식 : get | post | put | delete )
+				dataType:"json"  , //서버가 보내온 데이터(응답)타입(text | html | xml | json )
+				data: {key:"orderAjax" , methodName : "selectOrderByUserIdForBuy"}, //서버에게 보낼 데이터정보(parameter정보)
+				success :function(result){
+					let str="";
+					$.each(result, function(index, item){
+					    str+="<tr>";
+					    str+=`<td>${"${(index+1)}"}</td>`;
+					    str+=`<td>${"${item.goodsMainImg}"}</td>`;
+					    str+=`<td><a href='#'>${"${item.goodsName}"}</a></td>`;
+					    str+=`<td>${"${item.brand}"}</td>`;
+					    str+=`<td>${"${item.orderStatus}"}</td>`;
+					    str+=`<td>${"${item.orderPrice}"}</td>`;
+					    str+=`<td>${"${item.orderDate}"}</td>`;
+					   
+					    str+="</tr>";
+				  });
+					
+					$("#buyTable tr:gt(0)").remove();
+					$("#buyTable tr:eq(0)").after(str);
+					
+				} , //성공했을때 실행할 함수 
+				error : function(err){  
+					alert(err+"에러 발생했어요.");
+				}  //실팽했을때 실행할 함수 
+			});//ajax끝
+		})
+		
+		
+	})
+	
+	
+	
+</script>
 </head>
 <body>
 <div id='wrap'>
@@ -161,18 +204,21 @@ font-family: 'Lora', serif;
 		  <h3>구매</h3>
 		  <ul class="nav nav-tabs" role="tablist">
 			  <li class="nav-item" role="presentation">
-			    <a class="nav-link" data-bs-toggle="tab" href="#home" aria-selected="false" role="tab" tabindex="-1">구매내역</a>
+			    <a class="nav-link" data-bs-toggle="tab" href="#home" aria-selected="false" role="tab" tabindex="-1" id="orderList">구매내역</a>
 			  </li>
 			  <li class="nav-item" role="presentation">
 			    <a class="nav-link active" data-bs-toggle="tab" href="#profile" aria-selected="true" role="tab">입찰중</a>
 			  </li>
-			 
+		<%
+			session.setAttribute("userId", "id");
+		
+		%>	 
 	
 			</ul>
 			<div id="myTabContent" class="tab-content">
 			  <div class="tab-pane fade" id="home" role="tabpanel">
 			  <h3>구매내역</h3>
-				<table>
+				<table id= "buyTable">
 				<tr>
 					<th>상품명</th>
 					<th>브랜드명</th>
@@ -192,17 +238,7 @@ font-family: 'Lora', serif;
 					<th>거래일자</th>
 				</tr>
 				
-				<c:forEach items="${buyerOrder}" var="order">
-
-					<tr>
-					<th>${order.goodsName}</th>
-					<th>${order.brand}</th>
-					<th>${order.orderStatus}</th>
-					<th>${order.orderPrice}</th>
-					<th>${order.orderDate}</th>
-					</tr>
-
-				</c:forEach>
+				
 				</table>
 			  </div>
 			 
