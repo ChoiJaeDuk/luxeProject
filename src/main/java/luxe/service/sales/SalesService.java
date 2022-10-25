@@ -35,5 +35,5 @@ public interface SalesService {
 	 * @return
 	 * @throws SQLException
 	 */
-	List<OrderDTO> selectSalesRateByBrand(String brand) throws SQLException;
+	List<OrderDTO> selectSalesRateByBrand() throws SQLException;
 }

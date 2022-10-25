@@ -50,9 +50,9 @@ public class SalesController implements Controller {
 			throws Exception{
 
 		List<OrderDTO> list = service.selectSalesByMonth();
-		request.setAttribute("list", list);
+		request.setAttribute("salesByMonthlist", list);
 		
-		return new ModelAndView();
+		return new ModelAndView("jieunTest.jsp");
 	}
 	
 	/***
@@ -67,9 +67,9 @@ public class SalesController implements Controller {
 		String brand = request.getParameter("brand");
 
 		List<OrderDTO> list = service.selectBrandSalesByMonth(brand);
-		request.setAttribute("list", list);
+		request.setAttribute("brandList", list);
 		
-		return new ModelAndView();
+		return new ModelAndView("jieunTest.jsp");
 	}
 	
 	/***
@@ -81,12 +81,12 @@ public class SalesController implements Controller {
 	 */
 	public ModelAndView selectSalesRatesBrand(HttpServletRequest request, HttpServletResponse response)
 			throws Exception{
-		String brand = request.getParameter("brand");
+		//String brand = request.getParameter("brand");
 
-		List<OrderDTO> list = service.selectBrandSalesByMonth(brand);
-		request.setAttribute("list", list);
+		List<OrderDTO> list = service.selectSalesRateByBrand();
+		request.setAttribute("rateList", list);
 		
-		return new ModelAndView();
+		return new ModelAndView("jieunTest.jsp");
 	}
 
 }

@@ -26,17 +26,17 @@ public class AlarmController implements Controller {
 	
 	public ModelAndView insertAlarm(HttpServletRequest request, HttpServletResponse response)
 			throws Exception{
-		String alarmNo = request.getParameter("alarmNo");
-		String goodsNo = request.getParameter("goodsNo");
-		String alarmContent = request.getParameter("alarmContent");
-		String issueDate = request.getParameter("issueDate");
-		String alarmSubject = request.getParameter("alarmSubject");
 		
-		AlarmDTO alarm = new AlarmDTO(Integer.parseInt(alarmNo), Integer.parseInt(goodsNo), alarmContent, issueDate, alarmSubject);
+		String goodsNo = request.getParameter("goodsNo");
+		String alarmSubject = request.getParameter("alarmSubject");
+		String alarmContent = request.getParameter("alarmContent");
+		
+	
+		AlarmDTO alarm = new AlarmDTO(Integer.parseInt(goodsNo), alarmSubject, alarmContent);
 		
 		service.insertAlarm(alarm);
 		
-		return new ModelAndView("front", true);
+		return new ModelAndView("jieunStartjsp.jsp", true);
 	}
 	
 	public ModelAndView selectAlarm(HttpServletRequest request, HttpServletResponse response)
@@ -44,7 +44,7 @@ public class AlarmController implements Controller {
 
 		String userId = request.getParameter("userId");
 		List<AlarmDTO> list = service.selectAlarm(userId);
-		request.setAttribute("list", list);
+		request.setAttribute("alarmList", list);
 		
 		return new ModelAndView("jieunTest.jsp");
 	}

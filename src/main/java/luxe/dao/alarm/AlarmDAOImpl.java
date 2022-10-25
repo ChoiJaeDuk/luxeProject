@@ -186,7 +186,7 @@ public class AlarmDAOImpl implements AlarmDAO {
 		
 		List<AlarmReceiveUserDTO> alarmReceive = new ArrayList<AlarmReceiveUserDTO>();
 
-		String sql = "";
+		String sql = "select * from alarm_receive_user where user_id = ? and alarm_status='안읽음'";
 		try {
 			con = DbUtil.getConnection();
 			ps = con.prepareStatement(sql);
