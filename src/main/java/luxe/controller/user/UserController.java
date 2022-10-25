@@ -50,11 +50,11 @@ public class UserController implements Controller {
 		String userPwd = request.getParameter("userPwd");
 		String userName = request.getParameter("userName");
 		String userAddr = request.getParameter("userAddr");
-		String userDetailAddr = request.getParameter("userDetailAddr");
 		String userPhone = request.getParameter("userPhone");
 		String userJob = request.getParameter("userJob");
+		String userEMail = request.getParameter("userEMail");
 
-		userService.insertUser(new UserDTO(userId, userPwd, userName, userAddr, userDetailAddr, userPhone, userJob));
+		userService.insertUser(new UserDTO(userId, userPwd, userName, userAddr, userPhone, userJob,userEMail));
 
 		return new ModelAndView("/front", true);
 	}

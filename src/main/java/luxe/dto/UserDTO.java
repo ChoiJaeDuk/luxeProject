@@ -6,25 +6,25 @@ public class UserDTO {
 	private String userPwd;
 	private String userName;
 	private String userAddr;
-	private String userDetailAddr;
 	private String userPhone;
 	private String job;
+	private String userEmail;
 
 	public UserDTO() {
 	}
 
-	public UserDTO(String userId, String userPwd, String userName, String userAddr, String userDetailAddr,
-			String userPhone, String job) {
+	public UserDTO(String userId, String userPwd, String userName, String userAddr,
+			String userPhone, String job, String userEmail) {
 		this.userId = userId;
 		this.userPwd = userPwd;
 		this.userName = userName;
 		this.userAddr = userAddr;
-		this.userDetailAddr = userDetailAddr;
 		this.userPhone = userPhone;
 		this.job = job;
+		this.userEmail = userEmail;
 	}
 
-	public UserDTO(String userId, String UserPwd) {
+	public UserDTO(String userId, String userPwd) {
 		this.userId = userId;
 		this.userPwd = userPwd;
 	}
@@ -62,14 +62,6 @@ public class UserDTO {
 		this.userAddr = userAddr;
 	}
 
-	public String getUserDetailAddr() {
-		return userDetailAddr;
-	}
-
-	public void setUserDetailAddr(String userDetailAddr) {
-		this.userDetailAddr = userDetailAddr;
-	}
-
 	public String getUserPhone() {
 		return userPhone;
 	}
@@ -84,6 +76,14 @@ public class UserDTO {
 
 	public void setJob(String job) {
 		this.job = job;
+	}
+
+	public String getUserEmail() {
+		return userEmail;
+	}
+
+	public void setUserEmail(String userEmail) {
+		this.userEmail = userEmail;
 	}
 
 }

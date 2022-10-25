@@ -25,4 +25,12 @@ public interface GoodsImagesDAO {
 	
 	int deleteGoodsNoImgs(Connection con, int goodsNo) throws SQLException;
 
+	
+	/**
+	 * 상품번호를 통해 상품의 메인 이미지 주소를 호출한다.
+	 * @param goodsNo
+	 * @return
+	 * @throws SQLException
+	 */
+	String selectMainImgByGoodsNo(int goodsNo) throws SQLException;
 }

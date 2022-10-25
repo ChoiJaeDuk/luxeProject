@@ -2,6 +2,7 @@ package luxe.dao.goodsImages;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import luxe.dto.GoodsImagesDTO;
@@ -79,4 +80,30 @@ public class GoodsImagesDAOImpl implements GoodsImagesDAO {
 		}
 		return result;
 	}
+
+	@Override
+	public String selectMainImgByGoodsNo(int goodsNo) throws SQLException {
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		String goodsMainImg = null;
+
+		String sql = "SELECT GOODS_MAIN_IMG FROM GOODS_IMAGES WHERE GOODS_NO = ?";
+
+		try {
+			con = DbUtil.getConnection();
+			ps = con.prepareStatement(sql);
+			ps.setInt(1, goodsNo);
+		
+
+			rs = ps.executeQuery();
+			if (rs.next())
+				goodsMainImg = rs.getString(1);
+		} finally {
+			DbUtil.dbClose(con, ps, rs);
+
+		}
+		return goodsMainImg;
+	}
+	
 }
