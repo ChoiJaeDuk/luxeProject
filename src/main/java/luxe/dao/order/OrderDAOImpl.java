@@ -48,8 +48,7 @@ public class OrderDAOImpl implements OrderDAO {
 			result = ps.executeUpdate();
 			if (result == 1) {
 				GoodsDTO goods = selectGoodsNo(con, orderDTO.getSellNo());
-				AlarmDTO alarm = new AlarmDTO(0, goods.getGoodsNo(), goods.getGoodsName() + "상품의 주문이 성사되었습니다.", null,
-						"주문성사");
+				AlarmDTO alarm = new AlarmDTO(0, goods.getGoodsNo(), "주문성사", goods.getGoodsName() + "상품의 주문이 성사되었습니다.", null);
 				dao.insertAlarm(alarm);
 			}
 		
