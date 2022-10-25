@@ -38,7 +38,7 @@ public interface OrderService {
 	 * @param orderStatus
 	 * @throws SQLException
 	 */
-	void updateOrderByOrderNo(String orderNo, String orderStatus) throws SQLException;
+	int updateOrderByOrderNo(String orderNo, String orderStatus) throws SQLException;
 	
 
 }
