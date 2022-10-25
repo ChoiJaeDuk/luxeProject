@@ -22,9 +22,9 @@ public class BidServiceImpl implements BidService {
 	public List<BidDTO> selectAllBidByUserId(String userId, String bidState) throws SQLException {
 		String bidSql = "";
 		if (bidState != null) {
-			bidSql = " and where BID_STATUS='" + bidState + "'";
+			bidSql = bidState;
 		} else
-			bidSql = "";
+			bidSql = "%";
 
 		List<BidDTO> list = bidDao.selectAllBidByUserId(userId, bidSql);
 		if (list == null)

@@ -9,7 +9,18 @@ public class BidDTO {
 	String bidStatus;
 	String bidRegDate;
 
+	// 입찰 내역 조회
+	String goodsName;
+	String brand;
+
 	public BidDTO() {
+	}
+
+	public BidDTO(String goodsName, String brand, int bidPrice, String bidRegDate) {
+		this.bidPrice = bidPrice;
+		this.bidRegDate = bidRegDate;
+		this.goodsName = goodsName;
+		this.brand = brand;
 	}
 
 	public BidDTO(int bidNo, int goodsNo, String userId, int bidPrice, String bidStatus, String bidRegDate) {
@@ -20,7 +31,7 @@ public class BidDTO {
 		this.bidPrice = bidPrice;
 		this.bidStatus = bidStatus;
 		this.bidRegDate = bidRegDate;
-		
+
 	}
 
 	public int getBidNo() {
@@ -70,5 +81,24 @@ public class BidDTO {
 	public void setBidRegDate(String bidRegDate) {
 		this.bidRegDate = bidRegDate;
 	}
+
+	public String getGoodsName() {
+		return goodsName;
+	}
+
+	public void setGoodsName(String goodsName) {
+		this.goodsName = goodsName;
+	}
+
+	public String getBrand() {
+		return brand;
+	}
+
+	public void setBrand(String brand) {
+		this.brand = brand;
+	}
+	
+	
+	
 
 }

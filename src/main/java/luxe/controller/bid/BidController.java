@@ -46,9 +46,10 @@ public class BidController implements Controller {
 
 		List<BidDTO> list = bidService.selectAllBidByUserId(userId, bidStatus);
 
-		request.setAttribute("bidList", list);
+		request.setAttribute("bidUserList", list);
+		System.out.println(list.size());
 
-		return new ModelAndView("조회페이지");
+		return new ModelAndView("mypage_jojo.jsp");
 	}
 
 	/**
