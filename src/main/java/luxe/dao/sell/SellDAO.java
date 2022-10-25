@@ -35,15 +35,6 @@ public interface SellDAO {
 	int updateSellStatus(SellDTO sellDTO) throws SQLException;
 
 	/**
-	 * 판매 상태 완료로 변경
-	 * 
-	 * @param sellNo
-	 * @return
-	 * @throws SQLException
-	 */
-	int UpdateSellStatusComplete(int sellNo) throws SQLException;
-
-	/**
 	 * 관리자가 판매신청한 모든 유저의 정보를 조회한다.
 	 * 
 	 * @return
@@ -85,10 +76,10 @@ public interface SellDAO {
 	 */
 
 	public boolean sellDuplicateCheck(SellDTO sellDTO) throws SQLException;
-	
-	
+
 	/**
 	 * sellNo의에 해당하는 sellstatus를 판매완료로 변경한다.
+	 * 
 	 * @param sellNo
 	 * @return
 	 * @throws SQLException
