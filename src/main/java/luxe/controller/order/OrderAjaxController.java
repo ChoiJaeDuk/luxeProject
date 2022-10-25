@@ -26,9 +26,24 @@ public class OrderAjaxController implements AjaxController {
 
 	}
 	
+	public void selectOrder(HttpServletRequest request, HttpServletResponse response)
+			throws Exception{
+		
+		response.setContentType("text/html;charset=UTF-8");
+
+	
+		List<OrderDTO> list = service.selectOrder();
+		JSONArray arr = JSONArray.fromObject(list);
+		
+		PrintWriter out = response.getWriter();
+		out.print(arr);
+		
+	}
+	
+	
 	public void updateOrderByUserID(HttpServletRequest request, HttpServletResponse response)
 			throws Exception{
-		System.out.println("왔니 ?");
+		
 		response.setContentType("text/html;charset=UTF-8");
 		String orderStatus = request.getParameter("orderStatus");
 		System.out.println(orderStatus);
@@ -44,7 +59,7 @@ public class OrderAjaxController implements AjaxController {
 	
 	public void selectOrderByUserIdForBuy(HttpServletRequest request, HttpServletResponse response)
 			throws Exception{
-		System.out.println("와?");
+	
 		response.setContentType("text/html;charset=UTF-8");
 		
 		HttpSession session =  request.getSession();

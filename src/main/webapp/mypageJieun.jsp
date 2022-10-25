@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
     <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+    <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -68,7 +69,7 @@ font-family: 'Lora', serif;
 					    str+=`<td><a href='#'>${"${item.goodsName}"}</a></td>`;
 					    str+=`<td>${"${item.brand}"}</td>`;
 					    str+=`<td>${"${item.orderStatus}"}</td>`;
-					    str+=`<td>${"${item.orderPrice}"}</td>`;
+					    str+=`<td>${"${item.orderPrice.toLocaleString()}"}</td>`;
 					    str+=`<td>${"${item.orderDate}"}</td>`;
 					   
 					    str+="</tr>";
@@ -89,7 +90,7 @@ font-family: 'Lora', serif;
 				url :"ajax" , //서버요청주소
 				type:"post", //요청방식(method방식 : get | post | put | delete )
 				dataType:"json"  , //서버가 보내온 데이터(응답)타입(text | html | xml | json )
-				data: {key:"orderAjax" , methodName : "selectOrderByUserIdForSell"}, //서버에게 보낼 데이터정보(parameter정보)
+				data: {key:"orderAjax" , methodName : "selectOrderByUserIdForSell" },	
 				success :function(result){
 					let str="";
 					$.each(result, function(index, item){
@@ -99,7 +100,7 @@ font-family: 'Lora', serif;
 					    str+=`<td><a href='#'>${"${item.goodsName}"}</a></td>`;
 					    str+=`<td>${"${item.brand}"}</td>`;
 					    str+=`<td>${"${item.orderStatus}"}</td>`;
-					    str+=`<td>${"${item.orderPrice}"}</td>`;
+					    str+=`<td>${"${item.orderPrice.toLocaleString()}"}</td>`;
 					    str+=`<td>${"${item.orderDate}"}</td>`;
 					   
 					    str+="</tr>";
@@ -117,7 +118,6 @@ font-family: 'Lora', serif;
 		
 		
 	})
-	
 	
 	
 </script>
@@ -251,6 +251,8 @@ font-family: 'Lora', serif;
 			  <h3>구매내역</h3>
 				<table id= "buyTable">
 				<tr>
+					<th>번호</th>
+					<th>사진</th>
 					<th>상품명</th>
 					<th>브랜드명</th>
 					<th>진행상태</th>
@@ -293,10 +295,13 @@ font-family: 'Lora', serif;
   	<div class="tab-pane fade" id="home2" role="tabpanel">
  	<table id="sellTable">
  		<tr>
- 			<td>상품이름</td>
- 			<td>브랜드</td>
- 			<td>판매가격</td>
- 			<td>등록일</td>
+ 			<th>번호</th>
+			<th>사진</th>
+			<th>상품명</th>
+			<th>브랜드명</th>
+			<th>진행상태</th>
+			<th>거래가</th>
+			<th>거래일자</th>
  		</tr>
  	</table>
 	</div>

@@ -49,31 +49,31 @@
 <!-- 알람내용<input type="text" id="alarmContent" name="alarmContent"><p> -->
 <!-- <button type="submit">알람등록</button> -->
 <!-- </form> -->
-<%-- <form class="form-horizontal" method="post" action="${pageContext.request.contextPath}/front">
-			<input type="hidden" name="key" value = "alarm" /> Controller를 찾는 정보
-			<input type="hidden" name="methodName" value = "selectAlarm" />  메소드이름
-			<fieldset>
-				<legend>Login</legend>
-				<div class="form-group">
-					<label for="userId" class="col-lg-2 control-label">User Id</label>
-					<div class="col-lg-10">
-						<input type="text" class="form-control" id="userId" name="userId"
-							placeholder="userId">
-					</div>
-				</div>		
-				<div class="form-group">
-					<div class="col-lg-10 col-lg-offset-2">
-						<button class="btn btn-default">Cancel</button>
-						<button type="submit" class="btn btn-primary">Submit</button>
-					</div>
-				</div>
-			</fieldset>
-</form>
---%>
+<%--  <form class="form-horizontal" method="post" action="${pageContext.request.contextPath}/front"> --%>
+<!-- 			<input type="hidden" name="key" value = "alarm" /> Controller를 찾는 정보 -->
+<!-- 			<input type="hidden" name="methodName" value = "selectAlarm" />  메소드이름 -->
+<!-- 			<fieldset> -->
+<!-- 				<legend>Login</legend> -->
+<!-- 				<div class="form-group"> -->
+<!-- 					<label for="userId" class="col-lg-2 control-label">User Id</label> -->
+<!-- 					<div class="col-lg-10"> -->
+<!-- 						<input type="text" class="form-control" id="userId" name="userId" -->
+<!-- 							placeholder="userId"> -->
+<!-- 					</div> -->
+<!-- 				</div>		 -->
+<!-- 				<div class="form-group"> -->
+<!-- 					<div class="col-lg-10 col-lg-offset-2"> -->
+<!-- 						<button class="btn btn-default">Cancel</button> -->
+<!-- 						<button type="submit" class="btn btn-primary">Submit</button> -->
+<!-- 					</div> -->
+<!-- 				</div> -->
+<!-- 			</fieldset> -->
+<!-- </form> -->
+ 
 
 <form class="form-horizontal" method="post" action="${pageContext.request.contextPath}/front">
 			<input type="hidden" name="key" value = "alarm" /> Controller를 찾는 정보
-			<input type="hidden" name="methodName" value = "checkNewAlarm" />  메소드이름
+			<input type="hidden" name="methodName" value = "countNewAlarm" />  메소드이름
 			<fieldset>
 				<legend>Login</legend>
 				<div class="form-group">

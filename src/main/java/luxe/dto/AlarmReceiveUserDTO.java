@@ -5,10 +5,14 @@ public class AlarmReceiveUserDTO {
 	private int alarmNo;
 	private String userId;
 	private String alarmStatus;
+	private int count;
 	
 	public AlarmReceiveUserDTO() {}
-	
-	
+
+	public AlarmReceiveUserDTO(int count) {
+		super();
+		this.count = count;
+	}
 
 	public AlarmReceiveUserDTO(String userId) {
 		super();
@@ -55,5 +59,12 @@ public class AlarmReceiveUserDTO {
 		this.alarmStatus = alarmStatus;
 	}
 	
+	public int getCount() {
+		return count;
+	}
+
+	public void setCount(int count) {
+		this.count = count;
+	}
 	
 }

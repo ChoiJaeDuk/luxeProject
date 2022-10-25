@@ -8,6 +8,7 @@ public class AlarmDTO {
 	private String issueDate;
 	private String goodsName;
 	
+	
 	public AlarmDTO() {}
 	
 	
@@ -21,8 +22,9 @@ public class AlarmDTO {
 
 
 
-	public AlarmDTO(String goodsName, String alarmSubject, String alarmContent, String issueDate) {
+	public AlarmDTO(int alarmNo, String goodsName, String alarmSubject, String alarmContent, String issueDate) {
 		super();
+		this.alarmNo = alarmNo;
 		this.goodsName = goodsName;
 		this.alarmSubject = alarmSubject;
 		this.alarmContent = alarmContent;

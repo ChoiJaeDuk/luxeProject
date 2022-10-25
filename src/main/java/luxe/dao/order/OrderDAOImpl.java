@@ -183,7 +183,7 @@ public class OrderDAOImpl implements OrderDAO {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 
-		String sql = "select goods_name, brand, order_status, order_price, order_date \r\n" + "from orders \r\n"
+		String sql = "select goods.goods_no, goods_name, brand, order_status, order_price, order_date \r\n" + "from orders \r\n"
 				+ "join sell on orders.sell_no = sell.sell_no\r\n" + "join goods on goods.goods_no = sell.goods_no\r\n"
 				+ "where seller_id = ? order by order_date desc";
 		List<OrderDTO> list = new ArrayList<OrderDTO>();

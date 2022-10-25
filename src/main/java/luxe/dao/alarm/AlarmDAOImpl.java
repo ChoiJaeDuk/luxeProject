@@ -80,8 +80,9 @@ public class AlarmDAOImpl implements AlarmDAO {
 			   
 		   }
 		   
-		   if(userIdList != null)
+		   if(userIdList != null) 
 			   insertAlarmReceiveUser(con, userIdList);
+		   
 		   
 		}finally{
 			DbUtil.dbClose(null, ps, rs);
@@ -147,7 +148,7 @@ public class AlarmDAOImpl implements AlarmDAO {
 		
 		List<AlarmDTO> alarm = new ArrayList<AlarmDTO>();
 
-		String sql = "select goods_name, alarm_subject, alarm_content, issue_date \r\n"
+		String sql = "select a.alarm_no, goods_name, alarm_subject, alarm_content, issue_date \r\n"
 				+ "from alarm a join\r\n"
 				+ "goods g on g.goods_no = a.goods_no join\r\n"
 				+ "alarm_receive_user ar on ar.alarm_no = a.alarm_no\r\n"
@@ -162,7 +163,7 @@ public class AlarmDAOImpl implements AlarmDAO {
 			rs = ps.executeQuery();
 			
 			while(rs.next()) {
-				alarm.add(new AlarmDTO(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4)));
+				alarm.add(new AlarmDTO(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5)));
 			}
 			
 			if(alarm != null)
@@ -179,14 +180,15 @@ public class AlarmDAOImpl implements AlarmDAO {
 	 * 새로운 알람이 있는지 확인
 	 */
 	@Override
-	public List<AlarmReceiveUserDTO> checkNewAlarm(String userId) throws SQLException {
+	public int countNewAlarm(String userId) throws SQLException {
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		
-		List<AlarmReceiveUserDTO> alarmReceive = new ArrayList<AlarmReceiveUserDTO>();
+		AlarmReceiveUserDTO alarmReceive = null;
+		int result = 0; 
 
-		String sql = "select * from alarm_receive_user where user_id = ? and alarm_status='안읽음'";
+		String sql = "select count(*) as count from alarm_receive_user where user_id = ? and alarm_status='안읽음'";
 		try {
 			con = DbUtil.getConnection();
 			ps = con.prepareStatement(sql);
@@ -195,15 +197,17 @@ public class AlarmDAOImpl implements AlarmDAO {
 			
 			rs = ps.executeQuery();
 			
-			while(rs.next()) {
-				alarmReceive.add(new AlarmReceiveUserDTO(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getString(4)));
+			if(rs.next()) {
+				alarmReceive = new AlarmReceiveUserDTO(rs.getInt(1));
+				
 			}
+			System.out.println(alarmReceive.getCount());
 			
 		}finally{
 			DbUtil.dbClose(con, ps, rs);
 		}
 		
-		return alarmReceive;
+		return alarmReceive.getCount();
 	}
 	
 	/***

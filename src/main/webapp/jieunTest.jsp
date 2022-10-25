@@ -23,7 +23,7 @@
 		
 // 	})
 
-		$(document).on("change","select[name=orderStatus]" , function(){
+	/*	$(document).on("change","select[name=orderStatus]" , function(){
 			let result1;
 	 		result1 = confirm("배송상태를 변경하시겠습니까?");
 	 		if(result1 == true){
@@ -48,7 +48,34 @@
 			   		});//ajax끝
 	 		}
 		   });
+	   */
 	   
+	   $(function(){
+		   $("input[type=button]").on("click", function(){
+				let result = confirm("알람을 삭제하시겠습니까?");
+				if(result == true){
+					 $.ajax({
+						 
+				   			url :"ajax" , //서버요청주소
+				   			type:"post", //요청방식(method방식 : get | post | put | delete )
+				   			dataType:"text"  , //서버가 보내온 데이터(응답)타입(text | html | xml | json )
+				   			data: {key:"alarmAjax" , methodName : "deleteAlarm" , userId : 'id', alarmNo : $(this).attr('id') }, //서버에게 보낼 데이터정보(parameter정보)
+				   			success :function(result){
+				   				if(result==0){
+				   					alert("삭제되지 않았습니다.");
+				   				}else{
+				   					alert("삭제되었습니다.");
+				   				}
+				   				
+				   			} , //성공했을때 실행할 함수 
+				   			error : function(err){  
+				   				alert(err+"에러 발생했어요.");
+				   			}  //실팽했을때 실행할 함수 
+				   		});//ajax끝
+				}
+		   })
+		   
+	   })
 
 </script>
 <body>
@@ -147,10 +174,12 @@
 <c:forEach items="${alarmList}" var="list">
 
 	<tr>
-	<th>${list.goodsName}</th>
+	<th><a href="#">${list.goodsName}</a></th>
+	<td>${list.alarmNo}</td>
 	<td>${list.alarmSubject}</td>
 	<td>${list.alarmContent}</td>
 	<td>${list.issueDate}</td>
+	<td><input type="button" value ="삭제" id="${list.alarmNo}"></td>
 	</tr>
 
 </c:forEach>
@@ -158,6 +187,6 @@
 <c:if test="${not empty result }">
 	새로운 메시지
 </c:if>
-${result};
+${result}
 </body>
 </html>

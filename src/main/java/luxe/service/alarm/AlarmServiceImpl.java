@@ -27,21 +27,20 @@ public class AlarmServiceImpl implements AlarmService {
 	}
 	
 	@Override
-	public boolean checkNewAlarm(String userId) throws SQLException {
-		boolean result = false;
-		List<AlarmReceiveUserDTO> list = dao.checkNewAlarm(userId);
-		if(list != null) 
-			result = true;
+	public int countNewAlarm(String userId) throws SQLException {
+		
+		int result = dao.countNewAlarm(userId);
 		
 		return result;
 	}
 
 	@Override
-	public void deleteAlarm(String userId, int alarmNo) throws SQLException {
+	public int deleteAlarm(String userId, int alarmNo) throws SQLException {
 		int result = dao.deleteAlarm(userId, alarmNo);
 		
 		if(result == 0) throw new SQLException("알람을 삭제하지 못했습니다.");
 		
+		return result;
 	}
 
 }
