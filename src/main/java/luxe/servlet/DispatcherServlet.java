@@ -38,10 +38,10 @@ public class DispatcherServlet extends HttpServlet {
 		
 		
 		if(key==null || key.equals("")) {
-			key="elec"; 
+			key="sell"; 
 		}
 		if(methodName==null || methodName.equals("")) {
-			methodName="select"; 
+			methodName="selectSellingInfoByUserId"; 
 		}
 		
 		System.out.println("key = "+ key + " , methodName = " + methodName);

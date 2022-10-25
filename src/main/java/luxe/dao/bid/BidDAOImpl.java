@@ -29,7 +29,7 @@ public class BidDAOImpl implements BidDAO {
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		String sql = "select * from BID";
+		String sql = "select bid_no, goods_name, brand, bid_price, TO_CHAR(bid_regdate, 'YYYY-MM-DD') from bid b join goods g on b.goods_no=g.goods_no group by goods_name, brand, bid_price, bid_regdate, bid_no order by bid_no";
 		List<BidDTO> list = new ArrayList<BidDTO>();
 
 		try {
@@ -39,8 +39,7 @@ public class BidDAOImpl implements BidDAO {
 			rs = ps.executeQuery();
 
 			while (rs.next()) {
-				list.add(new BidDTO(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getInt(4), rs.getString(5),
-						rs.getDate(6).toString()));
+				list.add(new BidDTO(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getString(5)));
 			}
 
 		} finally {
@@ -54,7 +53,7 @@ public class BidDAOImpl implements BidDAO {
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		String sql = "select * from BID where USER_ID=?";
+		String sql = "select bid_no, goods_name, brand, bid_price, TO_CHAR(bid_regdate, 'YYYY-MM-DD') from bid b join goods g on b.goods_no=g.goods_no and user_id=? and bid_status like ? group by goods_name, brand, bid_price, bid_regdate, bid_no, user_id order by bid_no";
 		List<BidDTO> list = new ArrayList<BidDTO>();
 
 		try {
@@ -62,11 +61,11 @@ public class BidDAOImpl implements BidDAO {
 			con = DbUtil.getConnection();
 			ps = con.prepareStatement(sql);
 			ps.setString(1, userId);
+			ps.setString(2, bidState);
 			rs = ps.executeQuery();
 
 			while (rs.next()) {
-				list.add(new BidDTO(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getInt(4), rs.getString(5),
-						rs.getDate(6).toString()));
+				list.add(new BidDTO(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getString(5)));
 			}
 
 		} finally {
@@ -93,8 +92,8 @@ public class BidDAOImpl implements BidDAO {
 			int goodsNo = bid.getGoodsNo(); // 상품 번호
 			int bidPrice = bid.getBidPrice(); // 입찰 가격
 			String bidStatus = ""; // 입찰 상태
-			lowestSell = sellDao.selectLowestPriceByGoodsNo(goodsNo); // 판매 최저가
 
+			lowestSell = sellDao.selectLowestPriceByGoodsNo(goodsNo); // 판매 최저가
 			boolean isOnGoing = this.isOnGoingBid(goodsNo, bidPrice, lowestSell);
 
 			if (isOnGoing)
@@ -132,11 +131,13 @@ public class BidDAOImpl implements BidDAO {
 	 * 판매 최저가와 입찰가 비교: true면 입찰중, false면 즉시 구매
 	 */
 	private boolean isOnGoingBid(int goodsNo, int bidPrice, SellDTO lowestSell) throws SQLException {
-		int lowestSellPrice = lowestSell.getSellPrice(); // 판매 최저가
-		boolean result = false;
-		// 판매 최저가와 입찰가 비교
-		if (bidPrice != lowestSellPrice)
-			result = true;
+		boolean result = true;
+		if (lowestSell != null) {
+			// 판매 최저가와 입찰가 비교
+			int lowestSellPrice = lowestSell.getSellPrice(); // 판매 최저가
+			if (bidPrice == lowestSellPrice)
+				result = false;
+		}
 		return result;
 	}
 
@@ -147,13 +148,16 @@ public class BidDAOImpl implements BidDAO {
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		String sql = "SELECT BID_NO, USER_ID, MAX(BID_PRICE) FROM BID GROUP BY USER_ID, GOODS_NO, BID_STATUS HAVING GOODS_NO = ? AND BID_STATUS='입찰중'";
+
+		String sql = "select bid_no, user_id, bid_price from bid where goods_no=? and bid_status='입찰중' and bid_price=(select max(bid_price) from bid where goods_no=?)";
+
 		BidDTO highestBid = null;
 
 		try {
 			con = DbUtil.getConnection();
 			ps = con.prepareStatement(sql);
 			ps.setInt(1, goodsNo);
+			ps.setInt(2, goodsNo);
 			rs = ps.executeQuery();
 
 			if (rs.next())
@@ -238,7 +242,8 @@ public class BidDAOImpl implements BidDAO {
 			rs = ps.executeQuery();
 
 			if (rs.next())
-				dbBid = new BidDTO(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getInt(4), rs.getString(5), rs.getString(6));
+				dbBid = new BidDTO(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getInt(4), rs.getString(5),
+						rs.getString(6));
 
 		} finally {
 			DbUtil.dbClose(null, ps, rs);

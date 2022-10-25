@@ -13,9 +13,51 @@ public class GoodsDTO {
 	private String goodsReleaseDate;
 	private int goodsReleasePrice;
 
-	private String goodsMainImg;//재덕추가
+	private String goodsMainImg;// 재덕추가
+	private GoodsImagesDTO goodsImagesDTO;
+	private String mainImg;
+	private int sellPrice;
+
+	public void setGoodsReleaseDate(String goodsReleaseDate) {
+		this.goodsReleaseDate = goodsReleaseDate;
+	}
+
 	public GoodsDTO() {
 		super();
+	}
+
+	public GoodsDTO(String mainImg, String goodsName, String goodsNameKor, String brand, String category,
+			int sellPrice) {
+		this.brand = brand;
+		this.category = category;
+		this.goodsName = goodsName;
+		this.goodsNameKor = goodsNameKor;
+		this.mainImg = mainImg;
+		this.sellPrice = sellPrice;
+	}
+
+	public GoodsDTO(String brand, String category, String goodsName, String goodsNameKor, String goodsModelNo,
+			String goodsReleaseDate, int goodsReleasePrice) {
+		this.brand = brand;
+		this.category = category;
+		this.goodsName = goodsName;
+		this.goodsNameKor = goodsNameKor;
+		this.goodsModelNo = goodsModelNo;
+		this.goodsReleaseDate = goodsReleaseDate;
+		this.goodsReleasePrice = goodsReleasePrice;
+	}
+
+	public GoodsDTO(String brand, String category, String goodsName, String goodsNameKor, String goodsModelNo,
+			String goodsReleaseDate, int goodsReleasePrice, GoodsImagesDTO goodsImagesDTO) {
+		super();
+		this.brand = brand;
+		this.category = category;
+		this.goodsName = goodsName;
+		this.goodsNameKor = goodsNameKor;
+		this.goodsModelNo = goodsModelNo;
+		this.goodsReleaseDate = goodsReleaseDate;
+		this.goodsReleasePrice = goodsReleasePrice;
+		this.goodsImagesDTO = goodsImagesDTO;
 	}
 
 	public GoodsDTO(int goodsNo, String brand, String category, String goodsName, String goodsNameKor, String goodsDate,
@@ -32,8 +74,8 @@ public class GoodsDTO {
 		this.goodsReleaseDate = goosReleaseDate;
 		this.goodsReleasePrice = goodsReleasePrice;
 	}
-	
-	public GoodsDTO(String brand,  String goodsName, String goodsNameKor, String category,  String goodsMainImg) {
+
+	public GoodsDTO(String brand, String goodsName, String goodsNameKor, String category, String goodsMainImg) {
 		super();
 		this.brand = brand;
 		this.category = category;
@@ -42,7 +84,7 @@ public class GoodsDTO {
 		this.goodsMainImg = goodsMainImg;
 	}
 
-	public GoodsDTO(String goodsName, String brand) {//재덕추가
+	public GoodsDTO(String goodsName, String brand) {// 재덕추가
 		super();
 		this.brand = brand;
 		this.goodsName = goodsName;
@@ -135,4 +177,29 @@ public class GoodsDTO {
 	public void setGoodsMainImg(String goodsMainImg) {
 		this.goodsMainImg = goodsMainImg;
 	}
+
+	public GoodsImagesDTO getGoodsImagesDTO() {
+		return goodsImagesDTO;
+	}
+
+	public void setGoodsImagesDTO(GoodsImagesDTO goodsImagesDTO) {
+		this.goodsImagesDTO = goodsImagesDTO;
+	}
+
+	public String getMainImg() {
+		return mainImg;
+	}
+
+	public void setMainImg(String mainImg) {
+		this.mainImg = mainImg;
+	}
+
+	public int getSellPrice() {
+		return sellPrice;
+	}
+
+	public void setSellPrice(int sellPrice) {
+		this.sellPrice = sellPrice;
+	}
+
 }

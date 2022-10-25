@@ -17,7 +17,7 @@ public class AlarmDAOImpl implements AlarmDAO {
 	/***
 	 * 알람등록
 	 * @param con
-	 * @param alarm
+	 * @param alarm 
 	 * @return
 	 * @throws SQLException
 	 */
@@ -40,9 +40,6 @@ public class AlarmDAOImpl implements AlarmDAO {
 		   result = ps.executeUpdate();
 		   if(result == 1) selectUserId(con, alarm.getGoodsNo());
 		   
-		}catch(SQLException e){
-		   e.printStackTrace();
-		   
 		}finally{
 			DbUtil.dbClose(con, ps);
 		}
@@ -55,7 +52,7 @@ public class AlarmDAOImpl implements AlarmDAO {
 	 * @param con
 	 * @param goodsNo
 	 */
-	private void selectUserId(Connection con, int goodsNo) {
+	private void selectUserId(Connection con, int goodsNo) throws SQLException {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		
@@ -83,10 +80,8 @@ public class AlarmDAOImpl implements AlarmDAO {
 			   
 		   }
 		   
-		   insertAlarmReceiveUser(con, userIdList);
-		   
-		}catch(SQLException e){
-		   e.printStackTrace();
+		   if(userIdList != null)
+			   insertAlarmReceiveUser(con, userIdList);
 		   
 		}finally{
 			DbUtil.dbClose(null, ps, rs);
@@ -132,9 +127,6 @@ public class AlarmDAOImpl implements AlarmDAO {
 		   if(state) con.rollback();
 		   else con.commit();
 		   
-		}catch(SQLException e){
-		   e.printStackTrace();
-		   
 		}finally{
 			DbUtil.dbClose(null, ps);
 		}
@@ -173,10 +165,8 @@ public class AlarmDAOImpl implements AlarmDAO {
 				alarm.add(new AlarmDTO(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4)));
 			}
 			
-			updateAlarmStatus(con, userId);
-		   
-		}catch(SQLException e){
-		   e.printStackTrace();
+			if(alarm != null)
+				updateAlarmStatus(con, userId);
 		   
 		}finally{
 			DbUtil.dbClose(con, ps, rs);
@@ -196,7 +186,7 @@ public class AlarmDAOImpl implements AlarmDAO {
 		
 		List<AlarmReceiveUserDTO> alarmReceive = new ArrayList<AlarmReceiveUserDTO>();
 
-		String sql = "";
+		String sql = "select * from alarm_receive_user where user_id = ? and alarm_status='안읽음'";
 		try {
 			con = DbUtil.getConnection();
 			ps = con.prepareStatement(sql);
@@ -209,10 +199,6 @@ public class AlarmDAOImpl implements AlarmDAO {
 				alarmReceive.add(new AlarmReceiveUserDTO(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getString(4)));
 			}
 			
-		   
-		}catch(SQLException e){
-		   e.printStackTrace();
-		   
 		}finally{
 			DbUtil.dbClose(con, ps, rs);
 		}
@@ -238,9 +224,6 @@ public class AlarmDAOImpl implements AlarmDAO {
 			ps.setString(1, userId);
 			
 			ps.executeUpdate();
-
-		}catch(SQLException e){
-		   e.printStackTrace();
 		   
 		}finally{
 			DbUtil.dbClose(null, ps);
@@ -271,10 +254,6 @@ public class AlarmDAOImpl implements AlarmDAO {
 			
 			result = ps.executeUpdate();
 			
-		   
-		}catch(SQLException e){
-		   e.printStackTrace();
-		   
 		}finally{
 			DbUtil.dbClose(con, ps);
 		}

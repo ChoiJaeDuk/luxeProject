@@ -44,12 +44,13 @@ public class OrderServiceImpl implements OrderService {
 	}
 	
 	@Override
-	public void updateOrderByOrderNo(String orderNo, String orderStatus) throws SQLException {
+	public int updateOrderByOrderNo(String orderNo, String orderStatus) throws SQLException {
 		
 		int result = dao.updateOrderByOrderNo(orderNo, orderStatus);
 		
 		if(result == 0) throw new SQLException("주문상태를 변경하지 못했습니다.");
 		
+		return result;
 	}
 
 }

@@ -35,9 +35,6 @@ public class SalesDAOImpl implements SalesDAO {
 				order = (new OrderDTO(rs.getInt(1), rs.getInt(2)));
 			}
 			
-		}catch(SQLException e){
-			e.printStackTrace();
-			
 		}finally{
 			DbUtil.dbClose(con, ps, rs);
 			
@@ -71,10 +68,6 @@ public class SalesDAOImpl implements SalesDAO {
 			while(rs.next()){
 				list.add(new OrderDTO(rs.getString(1), rs.getInt(2), rs.getInt(3)));
 			}
-			
-			
-		}catch(SQLException e){
-			e.printStackTrace();
 			
 		}finally{
 			DbUtil.dbClose(con, ps, rs);
@@ -112,12 +105,8 @@ public class SalesDAOImpl implements SalesDAO {
 			rs  = ps.executeQuery();
 			
 			while(rs.next()){
-				list.add(new OrderDTO(rs.getString(1), rs.getInt(2)));
+				list.add(new OrderDTO(rs.getString(1), rs.getInt(2), rs.getInt(3)));
 			}
-			
-			
-		}catch(SQLException e){
-			e.printStackTrace();
 			
 		}finally{
 			DbUtil.dbClose(con, ps, rs);
@@ -131,7 +120,7 @@ public class SalesDAOImpl implements SalesDAO {
 	 * 브랜드별 판매량
 	 */
 	@Override
-	public List<OrderDTO> selectSalesRateByBrand(String brand) throws SQLException {
+	public List<OrderDTO> selectSalesRateByBrand() throws SQLException {
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -148,8 +137,7 @@ public class SalesDAOImpl implements SalesDAO {
 		try {
 			con = DbUtil.getConnection();
 			ps = con.prepareStatement(sql); 
-			
-			ps.setString(1, brand);
+	
 			
 			rs  = ps.executeQuery();
 
@@ -157,9 +145,6 @@ public class SalesDAOImpl implements SalesDAO {
 				list.add(new OrderDTO(rs.getInt(1), rs.getString(2)));
 			}
 			
-			
-		}catch(SQLException e){
-			e.printStackTrace();
 			
 		}finally{
 			DbUtil.dbClose(con, ps, rs);

@@ -73,18 +73,18 @@ public class OrderController implements Controller {
 	 * @return
 	 * @throws Exception
 	 */
-	public ModelAndView selectOrderByUserIdForBuy(HttpServletRequest request, HttpServletResponse response)
-			throws Exception{
-
-		String buyerId = request.getParameter("buyerId");
-		
-		List<OrderDTO> buyerOrder = service.selectOrderByUserIdForBuy(buyerId);
-		
-		request.setAttribute("buyerOrder", buyerOrder);
-		
-		return new ModelAndView();
-	}
-	
+//	public ModelAndView selectOrderByUserIdForBuy(HttpServletRequest request, HttpServletResponse response)
+//			throws Exception{
+//
+//		String buyerId = request.getParameter("userId");
+//		
+//		List<OrderDTO> buyerOrder = service.selectOrderByUserIdForBuy(buyerId);
+//		
+//		request.setAttribute("buyerOrder", buyerOrder);
+//		
+//		return new ModelAndView("mypage_jieun.jsp");
+//	}
+//	
 	/**
 	 * 회원별 주문내역 조회(판매자)
 	 * @param request
@@ -95,31 +95,31 @@ public class OrderController implements Controller {
 	public ModelAndView selectOrderByUserIdForSell(HttpServletRequest request, HttpServletResponse response)
 			throws Exception{
 
-		String sellerID = request.getParameter("sellerId");
+		String sellerID = request.getParameter("userId");
 		
 		List<OrderDTO> sellerOrder = service.selectOrderByUserIdForSell(sellerID);
 		
 		request.setAttribute("sellerOrder", sellerOrder);
 		
-		return new ModelAndView();
+		return new ModelAndView("jieunTest.jsp");
 	}
 	
 	 /***
-	  * 회원별 주문상태 수정
+	  * 주문별 주문상태 수정
 	  * @param request
 	  * @param response
 	  * @return
 	  * @throws Exception
 	  */
-	public ModelAndView updateOrderByUserID(HttpServletRequest request, HttpServletResponse response)
+	public void updateOrderByUserID(HttpServletRequest request, HttpServletResponse response)
 			throws Exception{
-		
+		System.out.println("왔니 ?");
 		String orderStatus = request.getParameter("orderStatus");
 		String orderNo = request.getParameter("orderNo");
 	
 		service.updateOrderByOrderNo(orderNo, orderStatus);
 		
-		return new ModelAndView("front",true);
+		
 	}
 	
 	

@@ -13,11 +13,13 @@ public class StyleBookServiceImpl implements StyleBookService {
 
 	@Override
 	public List<StyleBookDTO> selectAllStyleBook(String brand, int goodsNo, String sortCondition) throws SQLException {
-		String sqlFilter = "";
-		if (goodsNo != 0) {
-			sqlFilter = "having g.brand like '%" + brand;
+		String sqlFilter = "having g.brand like '%'";
+		if (brand == null)
+			brand = "";
+		if (goodsNo == 0) {
+			sqlFilter = "having g.brand like '%" + brand + "'";
 		} else {
-			sqlFilter = "having s.goods_no=" + goodsNo + "' and g.brand like '%" + brand;
+			sqlFilter = "having s.goods_no=" + goodsNo + " and g.brand like '%" + brand + "'";
 		}
 		String sqlSort = "";
 
