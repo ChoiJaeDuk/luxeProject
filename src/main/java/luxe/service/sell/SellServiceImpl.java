@@ -27,6 +27,8 @@ public class SellServiceImpl implements SellService {
 	public void updateSellStatus(SellDTO sellDTO) throws SQLException {
 		int result = sellDAO.updateSellStatus(sellDTO);
 		if (result==0) throw new SQLException("판매상태 업데이트 실패");
+		
+		
 	}
 
 	

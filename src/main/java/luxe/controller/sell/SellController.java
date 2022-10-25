@@ -44,9 +44,9 @@ public class SellController implements Controller {
 	
 	
 	public ModelAndView updateSellPrice(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		int sellNo = Integer.parseInt(request.getParameter(null));
-		int updateSellPrice = Integer.parseInt(request.getParameter(null));
-		String sellUserId = request.getParameter("sellUserId");	
+		int sellNo = Integer.parseInt(request.getParameter("sellNo"));
+		int updateSellPrice = Integer.parseInt(request.getParameter("sellPrice"));
+		String sellUserId = request.getParameter("userId");	
 		SellDTO sellDTO = new SellDTO(sellNo, updateSellPrice, sellUserId);
 		sellService.updateSellPrice(sellDTO);//sellUserId, sellNo, updateSellPrice
 		
@@ -61,7 +61,8 @@ public class SellController implements Controller {
 		int sellNo = Integer.parseInt(request.getParameter("sellNo"));
 		String sellStatus = request.getParameter("sellStatus");
 		String sellUserId = request.getParameter("sellUserId");	
-		SellDTO sellDTO = new SellDTO(sellNo, sellUserId, sellStatus);
+		int sellPrice = Integer.parseInt(request.getParameter("sellPrice"));
+		SellDTO sellDTO = new SellDTO(sellNo, sellUserId, sellStatus, sellPrice);
 		sellService.updateSellStatus(sellDTO);
 		
 		return new ModelAndView("/front",true);

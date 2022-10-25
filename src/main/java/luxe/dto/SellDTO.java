@@ -28,11 +28,12 @@ public class SellDTO {
 
 	
 
-	public SellDTO(int sellNo, String userId, String sellStatus) {
+	public SellDTO(int sellNo, String userId, String sellStatus,int sellPrice) {
 		super();
 		this.sellNo = sellNo;
 		this.userId = userId;
 		this.sellStatus = sellStatus;
+		this.sellPrice = sellPrice;
 	}
 
 

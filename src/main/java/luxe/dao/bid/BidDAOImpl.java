@@ -173,7 +173,7 @@ public class BidDAOImpl implements BidDAO {
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		String sql = "SELECT BID_NO, USER_ID, MAX(BID_PRICE) FROM BID GROUP BY USER_ID, GOODS_NO, BID_STATUS HAVING GOODS_NO = ? AND BID_STATUS='입찰중'";
+		String sql = "SELECT BID_NO, USER_ID, MAX(BID_PRICE) FROM BID GROUP BY BID_NO, USER_ID, GOODS_NO, BID_STATUS HAVING GOODS_NO = ? AND BID_STATUS='입찰중'";
 		BidDTO highestBid = null;
 
 		try {
