@@ -1,12 +1,11 @@
-package luxe.dao.bid;
+package luxe.service.bid;
 
-import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
 import luxe.dto.BidDTO;
 
-public interface BidDAO {
+public interface BidService {
 
 	/**
 	 * 관리자 - 전체 입찰 조회
@@ -42,7 +41,7 @@ public interface BidDAO {
 	 * @return : 1이면 등록 성공, 0이면 등록 실패
 	 * @throws SQLException
 	 */
-	int insertBid(BidDTO bid) throws SQLException;
+	void insertBid(BidDTO bid) throws SQLException;
 
 	/**
 	 * 상품 번호 해당 입찰 최고가 조회
@@ -61,15 +60,16 @@ public interface BidDAO {
 	 * @return : 1이면 수정 성공, 0이면 수정 실패
 	 * @throws SQLException
 	 */
-	int updateBidPrice(BidDTO bid) throws SQLException;
+	void updateBidPrice(BidDTO bid) throws SQLException;
 
-	/**입찰 상태 수정
+	/**
+	 * 입찰 상태 수정
 	 * 
 	 * @param 입찰 번호
 	 * @return : 1이면 수정 성공, 0이면 수정 실패
 	 * @throws SQLException
 	 */
-	int updateBidStatus(int bidNo) throws SQLException;
+	void updateBidStatus(int bidNo) throws SQLException;
 
 	/**
 	 * 입찰 삭제
@@ -79,6 +79,5 @@ public interface BidDAO {
 	 * @return : 1이면 삭제 성공, 0이면 삭제 실패
 	 * @throws SQLException
 	 */
-	int deleteBid(int goodsNo, String userId) throws SQLException;
-
+	void deleteBid(int goodsNo, String userId) throws SQLException;
 }

@@ -50,32 +50,6 @@ public class BidDAOImpl implements BidDAO {
 	}
 
 	@Override
-	public List<BidDTO> selectAllBidByUserId(String userId) throws SQLException {
-		Connection con = null;
-		PreparedStatement ps = null;
-		ResultSet rs = null;
-		String sql = "select * from BID where USER_ID=?";
-		List<BidDTO> list = new ArrayList<BidDTO>();
-
-		try {
-
-			con = DbUtil.getConnection();
-			ps = con.prepareStatement(sql);
-			ps.setString(1, userId);
-			rs = ps.executeQuery();
-
-			while (rs.next()) {
-				list.add(new BidDTO(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getInt(4), rs.getString(5),
-						rs.getDate(6).toString()));
-			}
-
-		} finally {
-			DbUtil.dbClose(con, ps, rs);
-		}
-		return list;
-	}
-
-	@Override
 	public List<BidDTO> selectAllBidByUserId(String userId, String bidState) throws SQLException {
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -229,7 +203,11 @@ public class BidDAOImpl implements BidDAO {
 			int result = orderDao.insertOrder(con, newOrder);
 			if (result != 0) {
 				// 주문 상태 변경
-				// sellDao.updateSellStatusComplete(lowestSell.getSellNo());
+				int sellStatusResult = sellDao.UpdateSellStatusComplete(lowestSell.getSellNo());
+				if (sellStatusResult == 0) {
+					con.rollback();
+					throw new SQLException("판매 상태 변경에 실패했습니다.");
+				}
 
 			} else {
 				con.rollback();
@@ -245,12 +223,12 @@ public class BidDAOImpl implements BidDAO {
 	 * 중복 체크
 	 */
 	@Override
-	public boolean checkDuplicatedBid(BidDTO bid) throws SQLException {
+	public BidDTO checkDuplicatedBid(BidDTO bid) throws SQLException {
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		String sql = "select * from BID where USER_ID=? and GOODS_NO=?";
-		boolean result = false;
+		BidDTO dbBid = null;
 
 		try {
 			con = DbUtil.getConnection();
@@ -259,12 +237,13 @@ public class BidDAOImpl implements BidDAO {
 			ps.setInt(2, bid.getGoodsNo());
 			rs = ps.executeQuery();
 
-			result = rs.next();
+			if (rs.next())
+				dbBid = new BidDTO(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getInt(4), rs.getString(5), rs.getString(6));
 
 		} finally {
 			DbUtil.dbClose(null, ps, rs);
 		}
-		return result;
+		return dbBid;
 	}
 
 	@Override

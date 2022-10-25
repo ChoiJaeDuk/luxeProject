@@ -12,6 +12,15 @@ public class AlarmDTO {
 	
 	
 
+	public AlarmDTO(int goodsNo, String alarmSubject, String alarmContent) {
+		super();
+		this.goodsNo = goodsNo;
+		this.alarmSubject = alarmSubject;
+		this.alarmContent = alarmContent;
+	}
+
+
+
 	public AlarmDTO(String goodsName, String alarmSubject, String alarmContent, String issueDate) {
 		super();
 		this.goodsName = goodsName;

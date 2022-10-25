@@ -31,8 +31,8 @@ public class SalesServiceImpl implements SalesService {
 	}
 
 	@Override
-	public List<OrderDTO> selectSalesRateByBrand(String brand) throws SQLException {
-		List<OrderDTO> list = dao.selectSalesRateByBrand(brand);
+	public List<OrderDTO> selectSalesRateByBrand() throws SQLException {
+		List<OrderDTO> list = dao.selectSalesRateByBrand();
 		
 		return list;
 	}
