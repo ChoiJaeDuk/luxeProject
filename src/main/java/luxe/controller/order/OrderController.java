@@ -82,7 +82,7 @@ public class OrderController implements Controller {
 		
 		request.setAttribute("buyerOrder", buyerOrder);
 		
-		return new ModelAndView("jieunTest.jsp");
+		return new ModelAndView("mypage_jieun.jsp");
 	}
 	
 	/**
