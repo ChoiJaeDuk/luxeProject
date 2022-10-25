@@ -19,8 +19,24 @@ public class OrderDTO {
 	private int totalSalesByBrand;
 	private int totalProfit;
 	private int totalSalesRate;
+	
+	private String GoodsMainImg;
+	private int goodsNo;
 
 	public OrderDTO(){}
+
+	
+	public OrderDTO(String goodsMainImg, int goodsNo, String goodsName, String brand, String orderStatus, int orderPrice, String orderDate) {
+		super();
+		this.orderPrice = orderPrice;
+		this.orderDate = orderDate;
+		this.orderStatus = orderStatus;
+		this.goodsName = goodsName;
+		this.brand = brand;
+		GoodsMainImg = goodsMainImg;
+		this.goodsNo = goodsNo;
+	}
+
 
 	public OrderDTO(int sellNo, int bidNo, int orderPrice, String sellerId, String buyerId) {
 		super();
@@ -233,5 +249,26 @@ public class OrderDTO {
 	public void setGoodsName(String goodsName) {
 		this.goodsName = goodsName;
 	}
+
+
+	public String getGoodsMainImg() {
+		return GoodsMainImg;
+	}
+
+
+	public void setGoodsMainImg(String goodsMainImg) {
+		GoodsMainImg = goodsMainImg;
+	}
+
+
+	public int getGoodsNo() {
+		return goodsNo;
+	}
+
+
+	public void setGoodsNo(int goodsNo) {
+		this.goodsNo = goodsNo;
+	}
+	
 	
 }

@@ -27,12 +27,13 @@
 			let result1;
 	 		result1 = confirm("배송상태를 변경하시겠습니까?");
 	 		if(result1 == true){
+	 			console.log(result1);
 				  $.ajax({
 					 
-			   			url :"/ajax" , //서버요청주소
+			   			url :"ajax" , //서버요청주소
 			   			type:"post", //요청방식(method방식 : get | post | put | delete )
 			   			dataType:"text"  , //서버가 보내온 데이터(응답)타입(text | html | xml | json )
-			   			data: {key:"orderAjax" , methodName : "updateOrderByUserID" ,orderNo : 17 , orderStatus : $(this).val() }, //서버에게 보낼 데이터정보(parameter정보)
+			   			data: {key:"orderAjax" , methodName : "updateOrderByUserID" ,orderNo : $(this).parent().prev().prev().prev().text(), orderStatus : $(this).val() }, //서버에게 보낼 데이터정보(parameter정보)
 			   			success :function(result){
 			   				if(result==0){
 			   					alert("변경되지 않았습니다.");
@@ -68,6 +69,7 @@
 			<option value="검수중">검수중</option>
 			<option value="배송시작">배송시작</option>
 			<option value="배송완료">배송완료</option>
+			<option value="주문취소">주문취소</option>
 		</select>	
 
 	</th>

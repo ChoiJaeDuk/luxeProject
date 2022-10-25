@@ -1,6 +1,7 @@
 package luxe.controller.order;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -25,9 +26,14 @@ public class OrderAjaxController implements AjaxController {
 		System.out.println("왔니 ?");
 		response.setContentType("text/html;charset=UTF-8");
 		String orderStatus = request.getParameter("orderStatus");
+		System.out.println(orderStatus);
 		String orderNo = request.getParameter("orderNo");
+		System.out.println(orderNo);
 	
-		service.updateOrderByOrderNo(orderNo, orderStatus);
+		int result = service.updateOrderByOrderNo(orderNo, orderStatus);
+		
+		PrintWriter out = response.getWriter();
+		out.print(result);
 		
 	}
 

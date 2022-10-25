@@ -148,7 +148,9 @@ public class BidDAOImpl implements BidDAO {
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
+
 		String sql = "select bid_no, user_id, bid_price from bid where goods_no=? and bid_status='입찰중' and bid_price=(select max(bid_price) from bid where goods_no=?)";
+
 		BidDTO highestBid = null;
 
 		try {
