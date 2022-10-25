@@ -14,7 +14,7 @@ public class GoodsImagesDTO {
 
 	public GoodsImagesDTO(String goodsMainImg, String goodsImg1, String goodsImg2, String goodsImg3, String goodsImg4) {
 		super();
-		this.GoodsImg1 = goodsMainImg;
+		this.GoodsMainImg = goodsMainImg;
 		this.GoodsImg1 = goodsImg1;
 		this.GoodsImg2 = goodsImg2;
 		this.GoodsImg3 = goodsImg3;

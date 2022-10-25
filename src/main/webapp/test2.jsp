@@ -37,14 +37,18 @@
 <body>
  <a href="testDuck.jsp/front?key=sell&methodName=updateSellPrice">나와랏!!!</a> 
 
-<form name="writeForm" method="post" action="${pageContext.request.contextPath}/front?key=user&methodName=login">
-	userId<input type="text" name="userId" size="30"><p>
-	userPwd<input type="text" name="userPwd" size="30"><p>
-	userName<input type="text" name="userName" size="30"><p>
-	userAddr<input type="text" name="userAddr" size="30"><p>
-	userPhone<input type="text" name="userPhone" size="30"><p>
-	userJob<input type="text" name="userJob" size="30"><p>
-	userEmail<input type="text" name="userEmail" size="30"><p>	
+<form name="writeForm" method="post" action="${pageContext.request.contextPath}/front?key=goods&methodName=insertGoods"
+enctype="multipart/form-data">
+	brand<input type="text" name="brand" size="30"><p>
+	category<input type="text" name="category" size="30"><p>
+	goodsName<input type="text" name="goodsName" size="30"><p>
+	goodsNamekor<input type="text" name="goodsNameKor" size="30"><p>
+	goodsModelNo<input type="text" name="goodsModelNo" size="30"><p>
+	releaseDate<input type="text" name="goodsReleaseDate" size="30"><p>
+	releasePrice<input type="text" name="goodsReleasePrice" size="30"><p>	
+
+   <input type="file" name="goodsMainImg" maxlength="60" size="40">
+  
 	<input type="submit" value="보내!">
 	
 	<a href="${pageContext.request.contextPath}/front?key=sell&methodName=selectSellAll"> tttt</a>

@@ -34,30 +34,30 @@ public class GoodsController implements Controller {
 	 */
 	public ModelAndView insertGoods(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-		String saveDir = request.getRealPath("/save");
+		String saveDir = request.getRealPath("/goodsImg");
 		int maxSize = 1024 * 1024 * 100; // 100M
 		String encoding = "UTF-8";
 
 		MultipartRequest m = new MultipartRequest(request, saveDir, maxSize, encoding, new DefaultFileRenamePolicy());
-
-		HttpSession session = request.getSession();
-		String userId = (String) session.getAttribute("userId");
 
 		String brand = m.getParameter("brand");
 		String category = m.getParameter("category");
 		String goodsName = m.getParameter("goodsName");
 		String goodsNameKor = m.getParameter("goodsNameKor");
 		String goodsModelNo = m.getParameter("goodsModelNo");
-		String goodReleaseDate = m.getParameter("goodReleaseDate");
+		String goodsReleaseDate = m.getParameter("goodsReleaseDate");
 		int goodsReleasePrice = Integer.parseInt(m.getParameter("goodsReleasePrice"));
+		System.out.println(goodsReleaseDate);
+		String goodsMainImg = m.getFilesystemName("goodsMainImg");
+		System.out.println(goodsMainImg);
+		String goodsImg1 = m.getFilesystemName("goodsImg1");
+		String goodsImg2 = m.getFilesystemName("goodsImg2");
+		String goodsImg3 = m.getFilesystemName("goodsImg3");
+		String goodsImg4 = m.getFilesystemName("goodsImg4");
+	
 
-		String goodsMainImg = m.getParameter("goodsMainImg");
-		String goodsImg1 = m.getParameter("goodsImg1");
-		String goodsImg2 = m.getParameter("goodsImg2");
-		String goodsImg3 = m.getParameter("goodsImg3");
-		String goodsImg4 = m.getParameter("goodsImg4");
-
-		GoodsDTO goodsDTO = new GoodsDTO(brand, category, goodsName, goodsNameKor, goodsModelNo, goodReleaseDate,
+		
+		GoodsDTO goodsDTO = new GoodsDTO(brand, category, goodsName, goodsNameKor, goodsModelNo, goodsReleaseDate,
 				goodsReleasePrice);
 
 		GoodsImagesDTO goodsImagesDTO = new GoodsImagesDTO(goodsMainImg, goodsImg1, goodsImg2, goodsImg3, goodsImg4);
@@ -65,6 +65,7 @@ public class GoodsController implements Controller {
 		goodsService.insertGoods(goodsDTO, goodsImagesDTO);
 
 		return new ModelAndView("front", true);
+		
 	}
 
 	/**
@@ -112,8 +113,6 @@ public class GoodsController implements Controller {
 
 		MultipartRequest m = new MultipartRequest(request, saveDir, maxSize, encoding, new DefaultFileRenamePolicy());
 
-		HttpSession session = request.getSession();
-		String userId = (String) session.getAttribute("userId");
 
 		String brand = m.getParameter("brand");
 		String category = m.getParameter("category");

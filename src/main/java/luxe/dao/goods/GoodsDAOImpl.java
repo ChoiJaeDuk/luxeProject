@@ -24,32 +24,33 @@ public class GoodsDAOImpl implements GoodsDAO {
 	public int insertGoods(GoodsDTO goodsDTO, GoodsImagesDTO goodImagesDTO) throws SQLException {
 		Connection con = null;
 		PreparedStatement ps = null;
-		String sql = "insert into goods values(goods_no_seq.nextval,?,?,?,?,current_date,?,?,?,?)";
+		String sql = "insert into goods values(goods_no_seq.nextval,?,?,?,?,current_date,0,?,TO_DATE(?),?)";
 
 		GoodsImagesDAO goodsimgDAO = new GoodsImagesDAOImpl();
-
+		
 		int result = 0;
 		try {
 			con = DbUtil.getConnection();
 			con.setAutoCommit(false);
 
 			ps = con.prepareStatement(sql);
+			System.out.println(goodsDTO.getGoodsModelNo());
 			ps.setString(1, goodsDTO.getBrand());
 			ps.setString(2, goodsDTO.getCategory());
 			ps.setString(3, goodsDTO.getGoodsName());
 			ps.setString(4, goodsDTO.getGoodsNameKor());
-			ps.setString(5, goodsDTO.getGoodsReleaseDate());
-			ps.setString(6, goodsDTO.getGoodsModelNo());
+			ps.setString(5, goodsDTO.getGoodsModelNo());
+			
+			ps.setString(6, goodsDTO.getGoodsReleaseDate());
 			ps.setInt(7, goodsDTO.getGoodsReleasePrice());
 
+			result = ps.executeUpdate();
 			result = goodsimgDAO.insertImages(con, goodImagesDTO);
 			if (result == 0) {
 				con.rollback();
 				throw new SQLException("상품등록에 실패했습니다");
 			}
-
-			result = ps.executeUpdate();
-
+			con.commit();
 		} finally {
 			DbUtil.dbClose(con, ps);
 		}
@@ -81,8 +82,8 @@ public class GoodsDAOImpl implements GoodsDAO {
 			while (rs.next()) {
 				list.add(new GoodsDTO(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4),
 						rs.getString(5), rs.getInt(6)));
-
 			}
+			
 		} finally {
 			DbUtil.dbClose(con, ps, rs);
 		}
@@ -207,7 +208,9 @@ public class GoodsDAOImpl implements GoodsDAO {
 				con.rollback();
 				throw new SQLException("상품 수정에 실패했습니다");
 			}
+			
 			result = ps.executeUpdate();
+			con.commit();
 		} finally {
 			DbUtil.dbClose(con, ps);
 		}
@@ -243,6 +246,7 @@ public class GoodsDAOImpl implements GoodsDAO {
 			}
 
 			result = ps.executeUpdate();
+			con.commit();
 		} finally {
 			DbUtil.dbClose(con, ps);
 		}

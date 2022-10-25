@@ -16,17 +16,17 @@ public class GoodsImagesDAOImpl implements GoodsImagesDAO {
 	@Override
 	public int insertImages(Connection con, GoodsImagesDTO goodsImgs) throws SQLException {
 		PreparedStatement ps = null;
-		String sql = "insert into goods_images values(?,?,?,?,?,?)";
+		String sql = "insert into goods_images values(GOODS_NO_SEQ.CURRVAL,?,?,?,?,?)";
 		int result = 0;
 
 		try {
 			ps = con.prepareStatement(sql);
-			ps.setInt(1, goodsImgs.getGoodsNO());
-			ps.setString(2, goodsImgs.getGoodsMainImg());
-			ps.setString(3, goodsImgs.getGoodsImg1());
-			ps.setString(4, goodsImgs.getGoodsImg2());
-			ps.setString(5, goodsImgs.getGoodsImg3());
-			ps.setString(6, goodsImgs.getGoodsImg4());
+			
+			ps.setString(1, goodsImgs.getGoodsMainImg());
+			ps.setString(2, goodsImgs.getGoodsImg1());
+			ps.setString(3, goodsImgs.getGoodsImg2());
+			ps.setString(4, goodsImgs.getGoodsImg3());
+			ps.setString(5, goodsImgs.getGoodsImg4());
 
 			result = ps.executeUpdate();
 		} finally {
