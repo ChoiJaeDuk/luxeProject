@@ -18,6 +18,7 @@ import luxe.dto.SellDTO;
 import luxe.util.DbUtil;
 
 public class OrderDAOImpl implements OrderDAO {
+	GoodsImagesDAO dao = new GoodsImagesDAOImpl();
 
 	/***
 	 * 주문등록
@@ -142,7 +143,7 @@ public class OrderDAOImpl implements OrderDAO {
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		GoodsImagesDAO dao = new GoodsImagesDAOImpl();
+		
 
 		String sql = "select goods.goods_no, goods_name, brand, order_status, order_price, order_date\r\n"
 				+ "from orders join bid \r\n"
@@ -196,8 +197,9 @@ public class OrderDAOImpl implements OrderDAO {
 			rs = ps.executeQuery();
 
 			while (rs.next()) {
+				String goodsMainImg = dao.selectMainImgByGoodsNo(rs.getInt(1));
 				list.add(
-						new OrderDTO(rs.getString(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getString(5)));
+						new OrderDTO(goodsMainImg, rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getInt(5), rs.getString(6)));
 			}
 
 		} finally {
