@@ -1,0 +1,6 @@
+@charset "utf-8";
+
+bady,div,ul,ui,dl,di,ol,h1,h2,h3,h4,h5,h6,input,
+fieldset,legend,p,seect,table,th,td,tr,textarea,button{
+	margin: 0; padding: 0;
+}
