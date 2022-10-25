@@ -51,10 +51,10 @@ public class UserController implements Controller {
 		String userName = request.getParameter("userName");
 		String userAddr = request.getParameter("userAddr");
 		String userPhone = request.getParameter("userPhone");
-		String userJob = request.getParameter("userJob");
-		String userEMail = request.getParameter("userEMail");
+	
+		String userEmail = request.getParameter("userEmail");
 
-		userService.insertUser(new UserDTO(userId, userPwd, userName, userAddr, userPhone, userJob,userEMail));
+		userService.insertUser(new UserDTO(userId, userPwd, userName, userAddr, userPhone,userEmail));
 
 		return new ModelAndView("/front", true);
 	}
@@ -74,7 +74,7 @@ public class UserController implements Controller {
 		session.setAttribute("loginUser", dbDTO);
 		session.setAttribute("loginUser", dbDTO.getUserName());
 
-		return new ModelAndView("/front", true);
+		return new ModelAndView("index.html", true);
 
 	}
 

@@ -48,7 +48,7 @@ public class UserDAOImpl implements UserDAO {
 
 		try {
 			con = DbUtil.getConnection();
-			ps = con.prepareStatement("insert into users values (?,?,?,?,?,?,?)");
+			ps = con.prepareStatement("insert into users values (?,?,?,?,?,'회원',?)");
 
 			ps.setString(1, userDto.getUserId());
 			ps.setString(2, userDto.getUserPwd());
@@ -56,6 +56,7 @@ public class UserDAOImpl implements UserDAO {
 			ps.setString(4, userDto.getUserAddr());
 			ps.setString(5, userDto.getUserPhone());
 			ps.setString(6, userDto.getJob());
+			ps.setString(7, userDto.getUserEmail());
 			result = ps.executeUpdate();
 
 		} finally {
