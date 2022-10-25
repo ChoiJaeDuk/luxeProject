@@ -44,10 +44,9 @@ font-family: 'Lora', serif;
 <!--아이콘-->
 <link rel="stylesheet"
 	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="js/jquery-3.6.1.min.js"></script>
 <!-- 외부의 css파일 연결하기 -->
-<link rel="stylesheet" type="text/css" href="css/mypage2.css">
+<!-- <link rel="stylesheet" type="text/css" href="css/mypage2.css"> -->
 <style type="text/css">
 </style>
 </head>
@@ -203,20 +202,14 @@ font-family: 'Lora', serif;
 							<h3>입찰중</h3>
 							<table>
 								<tr>
+									<th>번호</th>
+									<th>입찰번호</th>
 									<th>상품명</th>
 									<th>브랜드명</th>
 									<th>입찰가</th>
 									<th>거래일자</th>
 
 								</tr>
-								<c:forEach items="${bidUserList}" var="list" varStatus="state">
-									<tr>
-										<td>${list.goodsName}</td>
-										<td>${list.brand}</td>
-										<td>${list.bidPrice}</td>
-										<td>${list.bidRegDate}</td>
-									<tr>
-								</c:forEach>
 							</table>
 						</div>
 
@@ -512,10 +505,37 @@ font-family: 'Lora', serif;
 
 		// Get the element with id="defaultOpen" and click on it
 		document.getElementById("defaultOpen").click();
-		
-		$(function(){
+
+		$(function() {
 			$("#onGoingBid").on("click", function() {
-				location.href = "${path}/front?key=bid&methodName=selectAllBidByUserId";
+				$.ajax({
+					url : "ajax", //서버요청주소
+					type : "post", //요청방식(method방식 : get | post | put | delete )
+					dataType : "json", //서버가 보내온 데이터(응답)타입(text | html | xml | json )
+					data : {
+						key : "bidAjax",
+						methodName : "selectAllBidByUserId",
+						bidStatus : $(this).attr("입찰중")
+					}, //서버에게 보낼 데이터정보(parameter정보)
+					success : function(result) {
+						let str = "";
+						$.each(result, function(index, bid) {
+							str += "<tr>";
+							str += "<td>"+(index+1)+"</td>";
+							str += `<td>${"${bid.bidNo}"}</td>`;
+							str += `<td>${"${bid.goodsName}"}</td>`;
+							str += `<td>${"${bid.brand}"}</td>`;
+							str += `<td>${"${bid.bidPrice}"}</td>`;
+							str += `<td>${"${bid.bidRegDate}"}</td>`;
+							str += "</tr>";
+						});
+						$("#profile > table tr:eq(0)").after(str);
+
+					}, //성공했을때 실행할 함수 
+					error : function(err) {
+						alert(err + "에러 발생");
+					} //실패했을때 실행할 함수 
+				})
 			});
 		});
 	</script>

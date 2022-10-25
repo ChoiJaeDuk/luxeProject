@@ -16,7 +16,8 @@ public class BidDTO {
 	public BidDTO() {
 	}
 
-	public BidDTO(String goodsName, String brand, int bidPrice, String bidRegDate) {
+	public BidDTO(int bidNo, String goodsName, String brand, int bidPrice, String bidRegDate) {
+		this.bidNo = bidNo;
 		this.bidPrice = bidPrice;
 		this.bidRegDate = bidRegDate;
 		this.goodsName = goodsName;
