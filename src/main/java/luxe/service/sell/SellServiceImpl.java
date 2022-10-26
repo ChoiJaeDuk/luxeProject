@@ -17,14 +17,14 @@ public class SellServiceImpl implements SellService {
 	}
 
 	@Override
-	public void updateSellPrice(SellDTO sellDTO) throws SQLException {
+	public void updateSellPrice(SellDTO sellDTO) throws Exception {
 		int result = sellDAO.updateSellPrice(sellDTO);
 		if (result==0) throw new SQLException("업데이트 실패");
 	}
 
 	
 	@Override
-	public void updateSellStatus(SellDTO sellDTO) throws SQLException {
+	public void updateSellStatus(SellDTO sellDTO) throws Exception {
 		int result = sellDAO.updateSellStatus(sellDTO);
 		if (result==0) throw new SQLException("판매상태 업데이트 실패");
 		

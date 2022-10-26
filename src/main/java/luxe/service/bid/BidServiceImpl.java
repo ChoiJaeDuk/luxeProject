@@ -39,7 +39,7 @@ public class BidServiceImpl implements BidService {
 	}
 
 	@Override
-	public void insertBid(BidDTO bid) throws SQLException {
+	public void insertBid(BidDTO bid) throws Exception {
 		int result = bidDao.insertBid(bid);
 		if (result == 0)
 			throw new SQLException("입찰 등록 실패입니다.");
@@ -51,7 +51,7 @@ public class BidServiceImpl implements BidService {
 	}
 
 	@Override
-	public void updateBidPrice(BidDTO bid) throws SQLException {
+	public void updateBidPrice(BidDTO bid) throws Exception {
 		int result = bidDao.updateBidPrice(bid);
 		if (result == 0)
 			throw new SQLException("입찰 가격 수정에 실패했습니다.");

@@ -64,6 +64,36 @@ font-family: 'Lora', serif;
 <script type="text/javascript">
 
 	$(function(){
+		$(".tablinks").on("click", function(){
+			
+			
+			$.ajax({
+				url :"../ajax" , //서버요청주소
+				type:"post", //요청방식(method방식 : get | post | put | delete )
+				dataType:"json"  , //서버가 보내온 데이터(응답)타입(text | html | xml | json )
+				data: {key:"salesAjax" , methodName : "selectBrandSalesByMonth", brand : $(this).text() },	
+				success :function(result){
+					let str="";
+					$.each(result, function(index, item){
+						str+=`<tr>`;
+						str+=`<th>${"${item.month}"}</th>`;
+						str+=`<th>${"${item.totalSales.toLocaleString()}"}원</th>`;
+						str+=`<th>${"${item.totalProfit.toLocaleString()}"}원</th>`;
+						str+=`</tr>`;
+					})
+					
+					$("#myTable2 tr:gt(0)").remove();
+					$("#myTable2 tr:eq(0)").after(str);
+					
+					
+				} , //성공했을때 실행할 함수 
+				error : function(err){  
+					alert(err+"에러 발생했어요.");
+				}  //실팽했을때 실행할 함수 
+			});//ajax끝
+			
+		
+		})
 		
 		function salesList(){
 			
@@ -118,8 +148,6 @@ font-family: 'Lora', serif;
 
 		}
 		
-		
-		
 		function sellRate(){
 			let brand = [];
 			let rate = [];
@@ -144,17 +172,12 @@ font-family: 'Lora', serif;
 					var myChart = new Chart(context,{
 						type: 'bar', // 차트의 형태
 		                data: { // 차트에 들어갈 데이터
-		                    labels: 
-		                        //x 축
-		                        brand
-		                    ,
+		                    labels: brand,//x 축
 		                    datasets: [
 		                        { //데이터
-		                            label: '  ', //차트 제목
+		                            label: '판매량', //차트 제목
 		                            fill: false, // line 형태일 때, 선 안쪽을 채우는지 안채우는지
-		                            data: 
-		                                rate//브랜드별 판매 데이터 값
-		                            ,
+		                            data: rate, //브랜드별 판매 데이터 값
 		                            backgroundColor: [
 		                                //색상                               
 		                                '#330000',
@@ -170,9 +193,9 @@ font-family: 'Lora', serif;
 		                            borderWidth: 1 //경계선 굵기
 		                        }
 		                    ]	
-		
 					
-					 },
+					 }
+					,
 	                 options: {
 	                     scales: {
 	                         yAxes: [
@@ -183,7 +206,10 @@ font-family: 'Lora', serif;
 	                             }
 	                         ]
 	                     }
-	                 }	
+					 
+	                 }
+					 
+					 
 					})
 					
 				} , //성공했을때 실행할 함수 
@@ -191,8 +217,7 @@ font-family: 'Lora', serif;
 					alert(err+"에러 발생했어요.");
 				}  //실팽했을때 실행할 함수 
 			});//ajax끝
-			
-			
+
 			
 		}
 		
@@ -204,6 +229,10 @@ font-family: 'Lora', serif;
 				data: {key:"salesAjax" , methodName : "selectSalesByMonth" },	
 				success :function(result){
 					let str="";
+					let month = [];
+					let sales = [];
+					let profit = [];
+					
 					$.each(result, function(index, item){
 						str+=`<tr>`;
 						str+=`<th>${"${item.month}"}</th>`;
@@ -216,6 +245,71 @@ font-family: 'Lora', serif;
 					$("#myTable tr:gt(0)").remove();
 					$("#myTable tr:eq(0)").after(str);
 					
+					for(let i = 0; i<result.length; i++){
+						month.push(result[i].month);
+						sales.push(result[i].totalSales);
+						profit.push(result[i].totalProfit);
+						
+					}
+					
+					var context = document
+									.getElementById('myChart2')
+									.getContext('2d');
+					var myChart = new Chart(context,{
+					
+						type:'line',
+						data:{
+							labels: month,
+							datasets:[{
+								label:'전체매출',
+								fill:false,
+								type:'line',
+								data:sales,
+								backgroudColor:[
+									'#ff0000'
+									
+								],
+								borderColor: [
+	                                //경계선 색상                            
+	                                '#ff0000'
+	                                
+	                            ],
+	                            borderWidth: 1
+								},{
+								label:'전체순수익',
+								fill:false,
+								type:'line',
+								data:profit,
+								backgroudColor:[
+									'#ffcc00'
+									
+								],
+								borderColor: [
+	                                //경계선 색상                            
+	                                '#ffcc00'
+	                                
+	                            ],
+	                            borderWidth: 1
+
+								
+							}]
+						},
+					 options:{
+	                     scales: {
+	                         yAxes: [
+	                             {
+	                                 ticks: {
+	                                     beginAtZero: true
+	                                 }
+	                             }
+	                         ]
+	                     }
+					 
+					 }	
+						
+					})
+					
+
 					
 				} , //성공했을때 실행할 함수 
 				error : function(err){  
@@ -226,10 +320,7 @@ font-family: 'Lora', serif;
 			
 		})
 		
-		
-		
-		
-		
+
 		salesList();
 		brandSalesList();
 		sellRate();
@@ -340,6 +431,70 @@ font-family: 'Lora', serif;
 								    <th style="width:45%;">매출</th>
 								    <th style="width:45%;">수익</th>
 								  </tr>
+								  
+								</table>
+								 <div id = "salesChart" style="width: 100%; height: 50%;">
+								<!--차트가 그려질 부분-->
+								<canvas id="myChart2"></canvas>
+							</div>
+							</div>
+					      </div>
+					      
+					    </div>
+					  </div>
+					
+					  <div class="sales-brand-detail">
+					    <div class="sales-card">
+					    <div>
+					    	<table id="brandSales">
+					    		  <tr>
+					    		  <th style="width:30%;">브랜드</th>
+								    <th style="width:35%;">매출</th>
+								    <th style="width:35%;">수익</th>
+								  </tr>
+								  
+					    	</table>
+					    </div>
+					      <div class="tab">
+								  <button class="tablinks" onclick="openCity(event, 'Paris')">샤넬</button>
+								  <button class="tablinks" onclick="openCity(event, 'Paris')">프라다</button>
+								  <button class="tablinks" onclick="openCity(event, 'Paris')">디올</button>
+								</div>
+								
+								<!-- Tab content -->
+<!-- 								<div id="London" class="tabcontent"> -->
+<!-- 								  <table id="brandSalesTable"> -->
+<!-- 								  <tr class="header"> -->
+<!-- 								    <th style="width:10%;">월</th> -->
+<!-- 								    <th style="width:45%;">매출</th> -->
+<!-- 								    <th style="width:45%;">수익</th> -->
+<!-- 								  </tr> -->
+<!-- 								  <tr> -->
+<!-- 								  	<td>1월</td> -->
+<!-- 								    <td>000.000원</td> -->
+<!-- 								    <td>000.000원</td> -->
+<!-- 								  </tr> -->
+<!-- 								  <tr> -->
+<!-- 								  	<td>2월</td> -->
+<!-- 								    <td>000.000원</td> -->
+<!-- 								    <td>000.000원</td> -->
+<!-- 								  </tr> -->
+<!-- 								  <tr> -->
+<!-- 								    <td>3월</td> -->
+<!-- 								    <td>000.000원</td> -->
+<!-- 								    <td>000.000원</td> -->
+<!-- 								  </tr> -->
+								  
+<!-- 								</table>  -->
+<!-- 								</div> -->
+								
+								<div id="Paris" class="tabcontent">
+								  <table id="myTable2">
+								  <tr class="header">
+								    <th style="width:10%;">월</th>
+								    <th style="width:45%;">매출</th>
+								    <th style="width:45%;">수익</th>
+								  </tr>
 <!-- 								  <tr> -->
 <!-- 								  	<td>1월</td> -->
 <!-- 								    <td>000.000원</td> -->
@@ -357,122 +512,33 @@ font-family: 'Lora', serif;
 <!-- 								  </tr> -->
 								  
 								</table> 
-							</div>
-					      </div>
-					      
-					    </div>
-					  </div>
-					
-					  <div class="sales-brand-detail">
-					    <div class="sales-card">
-					    <div>
-					    	<table id="brandSales">
-					    		  <tr>
-					    		  <th style="width:30%;">브랜드</th>
-								    <th style="width:35%;">매출</th>
-								    <th style="width:35%;">수익</th>
-								  </tr>
-								  <!-- <tr>
-								  	<td>브랜드</td>
-								    <td>000.000원</td>
-								    <td>000.000원</td>
-								  </tr>
-								  <tr>
-								  	<td>브랜드</td>
-								    <td>000.000원</td>
-								    <td>000.000원</td>
-								  </tr>
-								  <tr>
-								    <td>브랜드</td>
-								    <td>000.000원</td>
-								    <td>000.000원</td>
-								  </tr> -->
-					    	</table>
-					    </div>
-					      <div class="tab">
-								  <button class="tablinks" onclick="openCity(event, 'London')">London</button>
-								  <button class="tablinks" onclick="openCity(event, 'Paris')">Paris</button>
-								  <button class="tablinks" onclick="openCity(event, 'Tokyo')">Tokyo</button>
 								</div>
 								
-								<!-- Tab content -->
-								<div id="London" class="tabcontent">
-								  <table id="myTable">
-								  <tr class="header">
-								    <th style="width:10%;">  </th>
-								    <th style="width:45%;">매출</th>
-								    <th style="width:45%;">수익</th>
-								  </tr>
-								  <tr>
-								  	<td>1월</td>
-								    <td>000.000원</td>
-								    <td>000.000원</td>
-								  </tr>
-								  <tr>
-								  	<td>2월</td>
-								    <td>000.000원</td>
-								    <td>000.000원</td>
-								  </tr>
-								  <tr>
-								    <td>3월</td>
-								    <td>000.000원</td>
-								    <td>000.000원</td>
-								  </tr>
+<!-- 								<div id="Tokyo" class="tabcontent"> -->
+<!-- 								  <table id="myTable"> -->
+<!-- 								  <tr class="header"> -->
+<!-- 								    <th style="width:10%;">월</th> -->
+<!-- 								    <th style="width:45%;">매출</th> -->
+<!-- 								    <th style="width:45%;">수익</th> -->
+<!-- 								  </tr> -->
+<!-- 								  <tr> -->
+<!-- 								  	<td>1월</td> -->
+<!-- 								    <td>000.000원</td> -->
+<!-- 								    <td>000.000원</td> -->
+<!-- 								  </tr> -->
+<!-- 								  <tr> -->
+<!-- 								  	<td>2월</td> -->
+<!-- 								    <td>000.000원</td> -->
+<!-- 								    <td>000.000원</td> -->
+<!-- 								  </tr> -->
+<!-- 								  <tr> -->
+<!-- 								    <td>3월</td> -->
+<!-- 								    <td>000.000원</td> -->
+<!-- 								    <td>000.000원</td> -->
+<!-- 								  </tr> -->
 								  
-								</table> 
-								</div>
-								
-								<div id="Paris" class="tabcontent">
-								  <table id="myTable">
-								  <tr class="header">
-								    <th style="width:10%;">  </th>
-								    <th style="width:45%;">매출</th>
-								    <th style="width:45%;">수익</th>
-								  </tr>
-								  <tr>
-								  	<td>1월</td>
-								    <td>000.000원</td>
-								    <td>000.000원</td>
-								  </tr>
-								  <tr>
-								  	<td>2월</td>
-								    <td>000.000원</td>
-								    <td>000.000원</td>
-								  </tr>
-								  <tr>
-								    <td>3월</td>
-								    <td>000.000원</td>
-								    <td>000.000원</td>
-								  </tr>
-								  
-								</table> 
-								</div>
-								
-								<div id="Tokyo" class="tabcontent">
-								  <table id="myTable">
-								  <tr class="header">
-								    <th style="width:10%;">  </th>
-								    <th style="width:45%;">매출</th>
-								    <th style="width:45%;">수익</th>
-								  </tr>
-								  <tr>
-								  	<td>1월</td>
-								    <td>000.000원</td>
-								    <td>000.000원</td>
-								  </tr>
-								  <tr>
-								  	<td>2월</td>
-								    <td>000.000원</td>
-								    <td>000.000원</td>
-								  </tr>
-								  <tr>
-								    <td>3월</td>
-								    <td>000.000원</td>
-								    <td>000.000원</td>
-								  </tr>
-								  
-								</table> 
-								</div>
+<!-- 								</table>  -->
+<!-- 								</div> -->
 					    </div>
 					  </div>
 					  

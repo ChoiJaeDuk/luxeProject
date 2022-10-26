@@ -16,7 +16,7 @@ public interface OrderDAO {
 	 * @return
 	 * @throws SQLException
 	 */
-	int insertOrder(Connection con, OrderDTO orderDTO) throws SQLException;
+	int insertOrder(Connection con, OrderDTO orderDTO) throws Exception;
 	
 	/***
 	 * 주문내역 조회

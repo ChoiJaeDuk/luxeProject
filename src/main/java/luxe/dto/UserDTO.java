@@ -13,6 +13,11 @@ public class UserDTO {
 	public UserDTO() {
 	}
 
+	public UserDTO(String userEmail) {
+		super();
+		this.userEmail = userEmail;
+	}
+
 	public UserDTO(String userId, String userPwd, String userName, String userAddr, String userPhone, String job,
 			String userEmail) {
 		super();

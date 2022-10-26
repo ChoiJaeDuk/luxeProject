@@ -50,7 +50,7 @@ public class SellDAOImpl implements SellDAO {
 	
 	
 	@Override
-	public int updateSellPrice(SellDTO sellDTO) throws SQLException {
+	public int updateSellPrice(SellDTO sellDTO) throws Exception {
 		Connection con = null;
 		PreparedStatement ps = null;
 		int result = 0;
@@ -113,7 +113,7 @@ public class SellDAOImpl implements SellDAO {
 	
 	
 	@Override
-	public int updateSellStatus(SellDTO sellDTO) throws SQLException {
+	public int updateSellStatus(SellDTO sellDTO) throws Exception {
 		Connection con = null;
 		PreparedStatement ps = null;
 		int result = 0;

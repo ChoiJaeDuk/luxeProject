@@ -21,7 +21,7 @@ public interface SellService {
 	 * @return
 	 * @throws SQLException
 	 */
-	void updateSellPrice(SellDTO sellDTO) throws SQLException;
+	void updateSellPrice(SellDTO sellDTO) throws Exception;
 	
 	
 	/**
@@ -29,7 +29,7 @@ public interface SellService {
 	 * @return
 	 * @throws SQLException
 	 */
-	void updateSellStatus(SellDTO sellDTO) throws SQLException;
+	void updateSellStatus(SellDTO sellDTO) throws Exception;
 	
 	
 	/**

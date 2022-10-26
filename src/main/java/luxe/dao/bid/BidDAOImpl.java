@@ -75,7 +75,7 @@ public class BidDAOImpl implements BidDAO {
 	}
 
 	@Override
-	public int insertBid(BidDTO bid) throws SQLException {
+	public int insertBid(BidDTO bid) throws Exception {
 		Connection con = null;
 		PreparedStatement ps = null;
 		SellDTO lowestSell = null;
@@ -188,7 +188,7 @@ public class BidDAOImpl implements BidDAO {
 	/**
 	 * 주문 호출 메소드
 	 */
-	private void callOrder(Connection con, BidDTO bid, SellDTO lowestSell) throws SQLException {
+	private void callOrder(Connection con, BidDTO bid, SellDTO lowestSell) throws Exception {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		String sql = "select BID_NO from bid where USER_ID=? and GOODS_NO=?";
@@ -252,7 +252,7 @@ public class BidDAOImpl implements BidDAO {
 	}
 
 	@Override
-	public int updateBidPrice(BidDTO bid) throws SQLException {
+	public int updateBidPrice(BidDTO bid) throws Exception {
 		Connection con = null;
 		PreparedStatement ps = null;
 		SellDTO lowestSell = null;
