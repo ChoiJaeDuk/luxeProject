@@ -53,6 +53,19 @@ public class SalesAjaxController implements AjaxController {
 		
 	}
 	
+	public void selectBrandSales(HttpServletRequest request, HttpServletResponse response)
+			throws Exception{
+		
+		response.setContentType("text/html;charset=UTF-8");
+		
+		List<OrderDTO> list = service.selectBrandSales();
+		JSONArray arr = JSONArray.fromObject(list);
+		
+		PrintWriter out = response.getWriter();
+		out.print(arr);
+		
+	}
+	
 	public void selectBrandSalesByMonth(HttpServletRequest request, HttpServletResponse response)
 			throws Exception{
 		
@@ -68,13 +81,11 @@ public class SalesAjaxController implements AjaxController {
 		
 	}
 	
-	public void selectSalesRatesBrand(HttpServletRequest request, HttpServletResponse response)
+	public void selectSalesRateByBrand(HttpServletRequest request, HttpServletResponse response)
 			throws Exception{
 		
 		response.setContentType("text/html;charset=UTF-8");
 
-		
-		
 		List<OrderDTO> list = service.selectSalesRateByBrand();
 		JSONArray arr = JSONArray.fromObject(list);
 		

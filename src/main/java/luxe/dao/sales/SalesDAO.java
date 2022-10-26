@@ -22,6 +22,13 @@ public interface SalesDAO {
 	List<OrderDTO> selectSalesByMonth () throws SQLException;
 	
 	/***
+	 * 브랜드별 매출
+	 * @return
+	 * @throws SQLException
+	 */
+	List<OrderDTO> selectBrandSales() throws SQLException;
+	
+	/***
 	 * 브랜드별 월매출 조회
 	 * @return
 	 * @throws SQLException

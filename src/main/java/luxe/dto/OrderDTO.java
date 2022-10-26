@@ -53,6 +53,12 @@ public class OrderDTO {
 		this.totalProfit = totalProfit;
 	}
 
+	public OrderDTO(int totalSales, int totalProfit,String brand) {
+		super();
+		this.brand = brand;
+		this.totalSales = totalSales;
+		this.totalProfit = totalProfit;
+	}
 	
 
 	public OrderDTO(String month, int totalSales, int totalProfit) {

@@ -55,6 +55,16 @@ public class SalesController implements Controller {
 		return new ModelAndView("jieunTest.jsp");
 	}
 	
+	public ModelAndView selectBrandSales(HttpServletRequest request, HttpServletResponse response)
+			throws Exception{
+		
+
+		List<OrderDTO> list = service.selectBrandSales();
+		request.setAttribute("brandList", list);
+		
+		return new ModelAndView("jieunTest.jsp");
+	}
+	
 	/***
 	 * 브랜드별 월별 매출
 	 * @param request
