@@ -53,7 +53,7 @@ font-family: 'Lora', serif;
 <link rel="stylesheet" type="text/css" href="../css/index.css">
 <link rel="stylesheet" type="text/css" href="../css/Layout.css">
 <link rel="stylesheet" type="text/css" href="../css/Manager/Manager_Layout.css">
-<link rel="stylesheet" type="text/css" href="../css/Manager/Manager_Order.css">
+<link rel="stylesheet" type="text/css" href="../css/Manager/Manager_Sales.css">
 
 <style type="text/css">
 </style>
@@ -122,75 +122,102 @@ font-family: 'Lora', serif;
 			<div class="container">
 				<div id='info-container'>
 					<h4>매출관리페이지</h4>
-					<p>관련 texttextexttext</p>
-					<div>
-						<table id="myTable">
-						  <tr class="header">
-						    <th style="width:10%;">번호</th>
-						    <th style="width:20%;">주문가격</th>
-						    <th style="width:20%;">주문날짜</th>
-						    <th style="width:15%;">배송상태</th>
-						    <th style="width:15%;">구매자ID</th>
-						    <th style="width:15%;">판매자ID</th>
-						  </tr>
-						  <tr>
-						    <td>a01</td>
-						    <td>000.000원</td>
-						    <td>0000-00-00</td>
-						    <td>배송상태</td>
-						    <td>Alfreds</td>
-						    <td>Germany</td>
-						  </tr>
-						  <tr>
-						    <td>a01</td>
-						    <td>000.000원</td>
-						    <td>0000-00-00</td>
-						    <td>배송상태</td>
-						    <td>Alfreds</td>
-						    <td>Germany</td>
-						  </tr>
-						  <tr>
-						    <td>a01</td>
-						    <td>000.000원</td>
-						    <td>0000-00-00</td>
-						    <td>배송상태</td>
-						    <td>Alfreds</td>
-						    <td>Germany</td>
-						  </tr>
-						  
-						</table>
-						<div id ='page-btn'>
-						<a href="#" class="previous">&laquo; Previous</a>
-						<a href="#" class="next">Next &raquo;</a>
-						</div>
-					</div>
-					
-					<div class="row">
-					  <div class="column-all">
-					    <div class="card">
-					      <h3>Card 1</h3>
-					      <p>Some text</p>
-					      <p>Some text</p>
+					<div class="sales-detail">	
+					 <div id='chart-box'>
+						  <div class="sales-card">
+						  <p>관련 texttextexttext</p>
+						  </div>
+					  </div>					
+					  <div class="sales-all-detail">
+					    <div class="sales-card">
+
+					      <div class='sales-all-box'>
+					      	  <div class='sales-all-box-title'>
+					     	  	<h3>전체매출</h3>
+					     	  </div>
+						      <div class='sales-all-box-text'>
+							      <span class='sales-price'>000000</span>
+							      <span class='sales-won'>원</span>
+						      </div>
+					      </div>
+					      
+					      <div class='sales-all-box'>
+					     	  <div class='sales-all-box-title'>
+					     	  	<h3>전체수익</h3>
+					     	  </div>
+						      <div class='sales-all-box-text'>
+							      <span class='sales-price'>000000</span>
+							      <span class='sales-won'>원</span>
+						      </div>
+					      </div>
+					      
+					      <div>
+					      	<button id="monthlySearch-dtn">월별조회하기</button>
+							<div id="monthlySearch" style="display: none;">
+							 <table id="myTable">
+								  <tr class="header">
+								    <th style="width:10%;">  </th>
+								    <th style="width:45%;">매출</th>
+								    <th style="width:45%;">수익</th>
+								  </tr>
+								  <tr>
+								  	<td>1월</td>
+								    <td>000.000원</td>
+								    <td>000.000원</td>
+								  </tr>
+								  <tr>
+								  	<td>2월</td>
+								    <td>000.000원</td>
+								    <td>000.000원</td>
+								  </tr>
+								  <tr>
+								    <td>3월</td>
+								    <td>000.000원</td>
+								    <td>000.000원</td>
+								  </tr>
+								  
+								</table> 
+							</div>
+					      </div>
+					      
 					    </div>
 					  </div>
 					
-					  <div class="column-brand">
-					    <div class="card">
-					      <h3>Card 2</h3>
-					      <p>Some text</p>
-					      <p>Some text</p>
+					  <div class="sales-brand-detail">
+					    <div class="sales-card">
+					      <div class="tab">
+								  <button class="tablinks" onclick="openCity(event, 'London')">London</button>
+								  <button class="tablinks" onclick="openCity(event, 'Paris')">Paris</button>
+								  <button class="tablinks" onclick="openCity(event, 'Tokyo')">Tokyo</button>
+								</div>
+								
+								<!-- Tab content -->
+								<div id="London" class="tabcontent">
+								  <h3>London</h3>
+								  <p>London is the capital city of England.</p>
+								</div>
+								
+								<div id="Paris" class="tabcontent">
+								  <h3>Paris</h3>
+								  <p>Paris is the capital of France.</p>
+								</div>
+								
+								<div id="Tokyo" class="tabcontent">
+								  <h3>Tokyo</h3>
+								  <p>Tokyo is the capital of Japan.</p>
+								</div>
 					    </div>
 					  </div>
 					  
-					  <div class="column-no">
-					    <div class="card">
+					  <div class="sales-non-detail">
+					    <div class="sales-card">
 					      <h3>Card 3</h3>
 					      <p>Some text</p>
 					      <p>Some text</p>
 					    </div>
-					  </div>
-					
+					  </div>	
 				</div>
+				
 			</div>
 		</div>
 		<!-- contents -->
@@ -212,6 +239,33 @@ font-family: 'Lora', serif;
 	  document.getElementById("mySidebar").style.width = "0";
 	  document.getElementById("main").style.marginLeft= "0";
 	}
+	
+	$(function (){
+		$("#monthlySearch-dtn").click(function (){
+	  	$("#monthlySearch").toggle();
+	  });
+	})
+	
+	function openCity(evt, cityName) {
+	  // Declare all variables
+	  var i, tabcontent, tablinks;
+	
+	  // Get all elements with class="tabcontent" and hide them
+	  tabcontent = document.getElementsByClassName("tabcontent");
+	  for (i = 0; i < tabcontent.length; i++) {
+	    tabcontent[i].style.display = "none";
+	  }
+	
+	  // Get all elements with class="tablinks" and remove the class "active"
+	  tablinks = document.getElementsByClassName("tablinks");
+	  for (i = 0; i < tablinks.length; i++) {
+	    tablinks[i].className = tablinks[i].className.replace(" active", "");
+	  }
+	
+	  // Show the current tab, and add an "active" class to the button that opened the tab
+	  document.getElementById(cityName).style.display = "block";
+	  evt.currentTarget.className += " active";
+	}
 	</script>
-</body>
+</body>w
 </html>
