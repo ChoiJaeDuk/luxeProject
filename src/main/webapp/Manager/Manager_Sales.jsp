@@ -258,13 +258,13 @@ font-family: 'Lora', serif;
 					  <div class="sales-brand-detail">
 					    <div class="sales-card">
 					    <div>
-					    	<table>
+					    	<table id="brandSales">
 					    		  <tr>
 					    		  <th style="width:30%;">브랜드</th>
 								    <th style="width:35%;">매출</th>
 								    <th style="width:35%;">수익</th>
 								  </tr>
-								  <tr>
+								  <!-- <tr>
 								  	<td>브랜드</td>
 								    <td>000.000원</td>
 								    <td>000.000원</td>
@@ -278,7 +278,7 @@ font-family: 'Lora', serif;
 								    <td>브랜드</td>
 								    <td>000.000원</td>
 								    <td>000.000원</td>
-								  </tr>
+								  </tr> -->
 					    	</table>
 					    </div>
 					      <div class="tab">
