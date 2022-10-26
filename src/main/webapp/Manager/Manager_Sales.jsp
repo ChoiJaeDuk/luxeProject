@@ -60,6 +60,75 @@ font-family: 'Lora', serif;
 
 <style type="text/css">
 </style>
+<script type="text/javascript" src="../js/jquery-3.6.1.min.js"></script>
+<script type="text/javascript">
+
+	$(function(){
+		
+		function salesList(){
+			
+			$.ajax({
+				url :"../ajax" , //서버요청주소
+				type:"post", //요청방식(method방식 : get | post | put | delete )
+				dataType:"json"  , //서버가 보내온 데이터(응답)타입(text | html | xml | json )
+				data: {key:"salesAjax" , methodName : "selectSales" },	
+				success :function(result){
+					
+			
+					$(".sales-price:eq(0)").text(result.totalSales.toLocaleString());
+					$(".sales-price:eq(1)").text(result.totalProfit.toLocaleString());
+					
+					
+				} , //성공했을때 실행할 함수 
+				error : function(err){  
+					alert(err+"에러 발생했어요.");
+				}  //실팽했을때 실행할 함수 
+			});//ajax끝
+			
+			
+			
+			
+		}
+		
+		$("#monthlySearch-dtn").on("click", function(){
+			$.ajax({
+				url :"../ajax" , //서버요청주소
+				type:"post", //요청방식(method방식 : get | post | put | delete )
+				dataType:"json"  , //서버가 보내온 데이터(응답)타입(text | html | xml | json )
+				data: {key:"salesAjax" , methodName : "selectSalesByMonth" },	
+				success :function(result){
+					let str="";
+					$.each(result, function(index, item){
+						str+=`<tr>`;
+						str+=`<th>${"${item.month}"}</th>`;
+						str+=`<th>${"${item.totalSales.toLocaleString()}"}</th>`;
+						str+=`<th>${"${item.totalProfit.toLocaleString()}"}</th>`;
+						str+=`</tr>`;
+					})
+					
+					
+					$("#myTable tr:gt(0)").remove();
+					$("#myTable tr:eq(0)").after(str);
+					
+					
+				} , //성공했을때 실행할 함수 
+				error : function(err){  
+					alert(err+"에러 발생했어요.");
+				}  //실팽했을때 실행할 함수 
+			});//ajax끝
+			
+			
+		})
+		
+		
+		
+		
+		
+		salesList();
+		
+	})
+
+</script>
 </head>
 <body>
 <div id="mySidebar" class="sidebar">
@@ -139,7 +208,7 @@ font-family: 'Lora', serif;
 					     	  	<h3>전체매출</h3>
 					     	  </div>
 						      <div class='sales-all-box-text'>
-							      <span class='sales-price'>000000</span>
+							      <span class='sales-price'></span>
 							      <span class='sales-won'>원</span>
 						      </div>
 					      </div>
@@ -149,7 +218,7 @@ font-family: 'Lora', serif;
 					     	  	<h3>전체수익</h3>
 					     	  </div>
 						      <div class='sales-all-box-text'>
-							      <span class='sales-price'>000000</span>
+							      <span class='sales-price'></span>
 							      <span class='sales-won'>원</span>
 						      </div>
 					      </div>
@@ -159,25 +228,25 @@ font-family: 'Lora', serif;
 							<div id="monthlySearch" style="display: none;">
 							 <table id="myTable">
 								  <tr class="header">
-								    <th style="width:10%;">  </th>
+								    <th style="width:10%;">월</th>
 								    <th style="width:45%;">매출</th>
 								    <th style="width:45%;">수익</th>
 								  </tr>
-								  <tr>
-								  	<td>1월</td>
-								    <td>000.000원</td>
-								    <td>000.000원</td>
-								  </tr>
-								  <tr>
-								  	<td>2월</td>
-								    <td>000.000원</td>
-								    <td>000.000원</td>
-								  </tr>
-								  <tr>
-								    <td>3월</td>
-								    <td>000.000원</td>
-								    <td>000.000원</td>
-								  </tr>
+<!-- 								  <tr> -->
+<!-- 								  	<td>1월</td> -->
+<!-- 								    <td>000.000원</td> -->
+<!-- 								    <td>000.000원</td> -->
+<!-- 								  </tr> -->
+<!-- 								  <tr> -->
+<!-- 								  	<td>2월</td> -->
+<!-- 								    <td>000.000원</td> -->
+<!-- 								    <td>000.000원</td> -->
+<!-- 								  </tr> -->
+<!-- 								  <tr> -->
+<!-- 								    <td>3월</td> -->
+<!-- 								    <td>000.000원</td> -->
+<!-- 								    <td>000.000원</td> -->
+<!-- 								  </tr> -->
 								  
 								</table> 
 							</div>

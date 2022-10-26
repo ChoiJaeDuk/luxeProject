@@ -72,7 +72,7 @@ $(function(){
 				let str="";
 				$.each(result, function(index, item){
 				    str+="<tr>";
-				    str+=`<td><a href='#'>${"${(item.orderNo)}"}</td>`;
+				    str+=`<td>${"${(item.orderNo)}"}</td>`;
 				    str+=`<td>${"${item.orderPrice.toLocaleString()}"}</td>`;
 				    str+=`<td>${"${item.orderDate}"}</a></td>`;
 				    str+=`<td>
