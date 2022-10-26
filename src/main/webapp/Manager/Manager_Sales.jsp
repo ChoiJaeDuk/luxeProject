@@ -124,14 +124,11 @@ font-family: 'Lora', serif;
 					<h4>매출관리페이지</h4>
 					<p>관련 texttextexttext</p>
 					<div>
-						<table id="myTable">
+						<table id="totalSales">
 						  <tr class="header">
-						    <th style="width:10%;">번호</th>
-						    <th style="width:20%;">주문가격</th>
-						    <th style="width:20%;">주문날짜</th>
-						    <th style="width:15%;">배송상태</th>
-						    <th style="width:15%;">구매자ID</th>
-						    <th style="width:15%;">판매자ID</th>
+						    <th style="width:50%;">번호</th>
+						    <th style="width:50%;">주문가격</th>
+						    
 						  </tr>
 						  <tr>
 						    <td>a01</td>
