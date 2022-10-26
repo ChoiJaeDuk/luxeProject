@@ -23,7 +23,9 @@ public class SalesDAOImpl implements SalesDAO {
 		
 		OrderDTO order = null;
 		
-		String sql = "select nvl(sum(order_price),0) as total_sales, nvl(sum(nvl(order_price,0)*0.03),0) as total_profit from orders";
+		String sql = "select nvl(sum(order_price),0) as total_sales, nvl(sum(nvl(order_price,0)*0.03),0) as total_profit \r\n"
+				+ "from orders\r\n"
+				+ "where not order_status in ('주문취소')";
 		
 		try {
 			
@@ -56,6 +58,7 @@ public class SalesDAOImpl implements SalesDAO {
 		
 		String sql = "select to_char(order_date,'MM') as month, nvl(sum(order_price),0) as total_sales, nvl(sum(nvl(order_price,0)*0.03),0) as total_profit\r\n"
 				+ "from orders\r\n"
+				+ "where not order_status in ('주문취소')\r\n"
 				+ "group by to_char(order_date,'MM')\r\n"
 				+ "order by month asc";
 		
@@ -67,6 +70,43 @@ public class SalesDAOImpl implements SalesDAO {
 			
 			while(rs.next()){
 				list.add(new OrderDTO(rs.getString(1), rs.getInt(2), rs.getInt(3)));
+			}
+			
+		}finally{
+			DbUtil.dbClose(con, ps, rs);
+			
+		}
+		
+		return list;
+	}
+	/***
+	 * 브랜드별 매출
+	 */
+	@Override
+	public List<OrderDTO> selectBrandSales() throws SQLException {
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
+		List<OrderDTO> list = new ArrayList<OrderDTO>();
+		
+		String sql = "select nvl(sum(order_price),0) as total_sales, nvl(sum(nvl(order_price,0)*0.03),0) as total_profit, goods.brand\r\n"
+				+ "from orders join sell\r\n"
+				+ "on orders.sell_no = sell.sell_no right outer join goods\r\n"
+				+ "on goods.goods_no = sell.goods_no\r\n"
+				+ "where not order_status in ('주문취소')\r\n"
+				+ "group by goods.brand\r\n"
+				+ "order by total_sales desc";
+		
+		try {
+			con = DbUtil.getConnection();
+			ps = con.prepareStatement(sql); 
+			
+			
+			rs  = ps.executeQuery();
+			
+			while(rs.next()){
+				list.add(new OrderDTO(rs.getInt(1), rs.getInt(2), rs.getString(3)));
 			}
 			
 		}finally{
@@ -92,6 +132,7 @@ public class SalesDAOImpl implements SalesDAO {
 				+ "from orders join sell\r\n"
 				+ "on orders.sell_no = sell.sell_no join goods\r\n"
 				+ "on goods.goods_no = sell.goods_no\r\n"
+				+ "where not order_status in ('주문취소')\r\n"
 				+ "group by to_char(order_date,'MM'), goods.brand\r\n"
 				+ "having goods.brand = ?\r\n"
 				+ "order by month asc";
@@ -131,6 +172,7 @@ public class SalesDAOImpl implements SalesDAO {
 				+ "from orders join sell\r\n"
 				+ "on orders.sell_no = sell.sell_no right outer join goods\r\n"
 				+ "on goods.goods_no = sell.goods_no\r\n"
+				+ "where not order_status in ('주문취소')\r\n"
 				+ "group by brand\r\n"
 				+ "order by total_sales_rate desc";
 		

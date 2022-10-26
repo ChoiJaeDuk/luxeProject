@@ -84,7 +84,113 @@ font-family: 'Lora', serif;
 					alert(err+"에러 발생했어요.");
 				}  //실팽했을때 실행할 함수 
 			});//ajax끝
+
+
+		}
+		
+		function brandSalesList(){
+			$.ajax({
+				url :"../ajax" , //서버요청주소
+				type:"post", //요청방식(method방식 : get | post | put | delete )
+				dataType:"json"  , //서버가 보내온 데이터(응답)타입(text | html | xml | json )
+				data: {key:"salesAjax" , methodName : "selectBrandSales"},	
+				success :function(result){
+					let str="";
+					$.each(result, function(index, item){
+						str+=`<tr>`;
+						str+=`<td>${"${item.brand}"}</th>`;
+						str+=`<td>${"${item.totalSales.toLocaleString()}"}원</th>`;
+						str+=`<td>${"${item.totalProfit.toLocaleString()}"}원</th>`;
+						str+=`</tr>`;
+					})
+					
+					
+					$("#brandSales tr:gt(0)").remove();
+					$("#brandSales tr:eq(0)").after(str);
+					
+					
+				} , //성공했을때 실행할 함수 
+				error : function(err){  
+					alert(err+"에러 발생했어요.");
+				}  //실팽했을때 실행할 함수 
+			});//ajax끝
 			
+
+		}
+		
+		
+		
+		function sellRate(){
+			let brand = [];
+			let rate = [];
+			
+			$.ajax({
+				url :"../ajax" , //서버요청주소
+				type:"post", //요청방식(method방식 : get | post | put | delete )
+				dataType:"json"  , //서버가 보내온 데이터(응답)타입(text | html | xml | json )
+				data: {key:"salesAjax" , methodName : "selectSalesRateByBrand" },	
+				success :function(result){
+					for(let i = 0; i< result.length; i++){
+						brand.push(result[i].brand);
+						rate.push(result[i].totalSalesRate);
+						console.log(brand);
+						console.log(rate);
+					}
+					
+					var context = document
+	                 .getElementById('myChart')
+	                 .getContext('2d');
+					
+					var myChart = new Chart(context,{
+						type: 'bar', // 차트의 형태
+		                data: { // 차트에 들어갈 데이터
+		                    labels: 
+		                        //x 축
+		                        brand
+		                    ,
+		                    datasets: [
+		                        { //데이터
+		                            label: '  ', //차트 제목
+		                            fill: false, // line 형태일 때, 선 안쪽을 채우는지 안채우는지
+		                            data: 
+		                                rate//브랜드별 판매 데이터 값
+		                            ,
+		                            backgroundColor: [
+		                                //색상                               
+		                                '#330000',
+		                                '#00ccff',
+		                                '#ff0033'
+		                            ],
+		                            borderColor: [
+		                                //경계선 색상                            
+		                                '#330000',
+		                                '#00ccff',                              
+		                                '#ff0033'
+		                            ],
+		                            borderWidth: 1 //경계선 굵기
+		                        }
+		                    ]	
+		
+					
+					 },
+	                 options: {
+	                     scales: {
+	                         yAxes: [
+	                             {
+	                                 ticks: {
+	                                     beginAtZero: true
+	                                 }
+	                             }
+	                         ]
+	                     }
+	                 }	
+					})
+					
+				} , //성공했을때 실행할 함수 
+				error : function(err){  
+					alert(err+"에러 발생했어요.");
+				}  //실팽했을때 실행할 함수 
+			});//ajax끝
 			
 			
 			
@@ -125,6 +231,8 @@ font-family: 'Lora', serif;
 		
 		
 		salesList();
+		brandSalesList();
+		sellRate();
 		
 	})
 
@@ -371,7 +479,7 @@ font-family: 'Lora', serif;
 					  <div class="sales-non-detail">
 					    <div class="sales-card">
 					      <h3>판매량통계</h3>
-					     	<div style="width: 400px; height: 200px;">
+					     	<div id = "sellRate" style="width: 400px; height: 200px;">
 								<!--차트가 그려질 부분-->
 								<canvas id="myChart"></canvas>
 							</div>
@@ -429,52 +537,6 @@ font-family: 'Lora', serif;
 	}
 	</script>
 	
-	<script type="text/javascript">
-            var context = document
-                .getElementById('myChart')
-                .getContext('2d');
-            var myChart = new Chart(context, {
-                type: 'bar', // 차트의 형태
-                data: { // 차트에 들어갈 데이터
-                    labels: [
-                        //x 축
-                        '디올','샤넬','프라다'
-                    ],
-                    datasets: [
-                        { //데이터
-                            label: '  ', //차트 제목
-                            fill: false, // line 형태일 때, 선 안쪽을 채우는지 안채우는지
-                            data: [
-                                5,12,32//브랜드별 판매 데이터 값
-                            ],
-                            backgroundColor: [
-                                //색상                               
-                                '#22222290',
-                                '#22222290',
-                                '#22222290'
-                            ],
-                            borderColor: [
-                                //경계선 색상                            
-                                '#222222',
-                                '#222222',                              
-                                '#222222'
-                            ],
-                            borderWidth: 1 //경계선 굵기
-                        }
-                    ]
-                },
-                options: {
-                    scales: {
-                        yAxes: [
-                            {
-                                ticks: {
-                                    beginAtZero: true
-                                }
-                            }
-                        ]
-                    }
-                }
-            });
-        </script>
+
 </body>
 </html>
