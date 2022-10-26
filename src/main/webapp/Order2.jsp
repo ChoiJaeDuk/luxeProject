@@ -45,12 +45,13 @@ font-family: 'Lora', serif;
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
 	crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <!-- 외부의 css파일 연결하기 -->
 <link rel="stylesheet" type="text/css" href="css/Reset.css">
 <link rel="stylesheet" type="text/css" href="css/Layout.css">
 <link rel="stylesheet" type="text/css" href="css/OrderByBuy.css">
-<link rel="stylesheet" type="text/css" href="css/Order.css">
+<link rel="stylesheet" type="text/css" href="css/Order2.css">
 
 <style type="text/css">
 </style>
@@ -178,8 +179,70 @@ font-family: 'Lora', serif;
 								</div>
 								<h4 id='method-title'>카드 간편결제</h4>
 								<div id='payment-box'>
-									<button>카드를 등록해주세요</button>
-								</div>
+									<a href="#pop_info_1" class="btn_open">카드등록</a>
+									
+									<!-- 팝업1 -->
+									<div id="pop_info_1" class="pop_wrap" style="display:none;">
+									  <div class="pop_inner">
+									    <div class="dsc">
+									    	<div class="row">
+											          <div class="col-50">
+											            <h3>Billing Address</h3>
+											            <label for="fname"><i class="fa fa-user"></i> Full Name</label>
+											            <input type="text" id="fname" name="firstname" placeholder="John M. Doe">
+											            <label for="email"><i class="fa fa-envelope"></i> Email</label>
+											            <input type="text" id="email" name="email" placeholder="john@example.com">
+											            <label for="adr"><i class="fa fa-address-card-o"></i> Address</label>
+											            <input type="text" id="adr" name="address" placeholder="542 W. 15th Street">
+											            <label for="city"><i class="fa fa-institution"></i> City</label>
+											            <input type="text" id="city" name="city" placeholder="New York">
+											
+											            <div class="row">
+											              <div class="col-50">
+											                <label for="state">State</label>
+											                <input type="text" id="state" name="state" placeholder="NY">
+											              </div>
+											              <div class="col-50">
+											                <label for="zip">Zip</label>
+											                <input type="text" id="zip" name="zip" placeholder="10001">
+											              </div>
+											            </div>
+											          </div>
+											
+											          <div class="col-50">
+											            <h3>Payment</h3>
+											            <label for="fname">Accepted Cards</label>
+											            <div class="icon-container">
+											              <i class="fa fa-cc-visa" style="color:navy;"></i>
+											              <i class="fa fa-cc-amex" style="color:blue;"></i>
+											              <i class="fa fa-cc-mastercard" style="color:red;"></i>
+											              <i class="fa fa-cc-discover" style="color:orange;"></i>
+											            </div>
+											            <label for="cname">Name on Card</label>
+											            <input type="text" id="cname" name="cardname" placeholder="John More Doe">
+											            <label for="ccnum">Credit card number</label>
+											            <input type="text" id="ccnum" name="cardnumber" placeholder="1111-2222-3333-4444">
+											            <label for="expmonth">Exp Month</label>
+											            <input type="text" id="expmonth" name="expmonth" placeholder="September">
+											            <div class="row">
+											              <div class="col-50">
+											                <label for="expyear">Exp Year</label>
+											                <input type="text" id="expyear" name="expyear" placeholder="2018">
+											              </div>
+											              <div class="col-50">
+											                <label for="cvv">CVV</label>
+											                <input type="text" id="cvv" name="cvv" placeholder="352">
+											              </div>
+											            </div>
+											          </div>
+											          <input type="button" value="Continue to checkout" class="btn">
+											        </div>
+																				    	
+									    </div>
+									    <button type="button" class="btn_close">닫기</button>
+									  </div>
+									</div>
+								</div><!-- payment-box -->
 									<div id='payment-total'>
 										<span>총 결제금액</span>
 										<div id='payment-total-price'>
@@ -204,6 +267,26 @@ font-family: 'Lora', serif;
 		
 	</div>
 	
+	<script>
+		var target = document.querySelectorAll('.btn_open');
+		var btnPopClose = document.querySelectorAll('.pop_wrap .btn_close');
+		var targetID;
+	
+		// 팝업 열기
+		for(var i = 0; i < target.length; i++){
+		  target[i].addEventListener('click', function(){
+		    targetID = this.getAttribute('href');
+		    document.querySelector(targetID).style.display = 'block';
+		  });
+		}
+	
+		// 팝업 닫기
+		for(var j = 0; j < target.length; j++){
+		  btnPopClose[j].addEventListener('click', function(){
+		    this.parentNode.parentNode.style.display = 'none';
+		  });
+		}
+	</script>
 	
 </body>
 </html>
