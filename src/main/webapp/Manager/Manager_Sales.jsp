@@ -185,6 +185,21 @@ font-family: 'Lora', serif;
 					
 					  <div class="sales-brand-detail">
 					    <div class="sales-card">
+					    <div class='sales-brand-box'>
+					      	  <div class='sales-brand-title'>
+					     	  	<h3>브랜드별 매출</h3>
+					     	  </div>
+						      <div class='sales-brand-box-table'>
+							      <table>
+							      	<tr>
+							      		<td>브랜드이름</td>
+							      		<td>000.000원</td>
+							      	<tr>
+							      	
+							      </table>
+						      </div>
+						      
+					      </div>
 					      <div class="tab">
 								  <button class="tablinks" onclick="openCity(event, 'London')">London</button>
 								  <button class="tablinks" onclick="openCity(event, 'Paris')">Paris</button>
