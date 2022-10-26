@@ -111,31 +111,19 @@ public class UserController implements Controller {
 	/**
 	 * 회원정보 수정 주소
 	 */
-	public ModelAndView updateUserAddr(HttpServletRequest request, HttpServletResponse response)
+	public ModelAndView updateUserInfo(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException, SQLException {
 
 		String userId = request.getParameter("userId");
-		String userNewAddr = request.getParameter("userNewAddr");
-		String UserNewDetailAddr = request.getParameter("userNewDetailAddr");
+		String userAddr = request.getParameter("userAddr");
+		String userPhone = request.getParameter("userPhone");
+		String userEmail = request.getParameter("userPhone");
 
-		userService.updateUserAddr(userId, userNewAddr, UserNewDetailAddr);
+		userService.updateUserInfo(userId, userAddr, userPhone, userEmail);
 
 		return new ModelAndView("/front", true);
 	}
 
-	/**
-	 * 회원정보 수정 전화번호
-	 */
-	public ModelAndView updateUserPhone(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException, SQLException {
-
-		String userId = request.getParameter("userId");
-		String userNewPhone = request.getParameter("userNewPhone");
-
-		userService.updateUserPhone(userId, userNewPhone);
-
-		return new ModelAndView("/front", true);
-	}
 
 	/**
 	 * 아이디 찾기

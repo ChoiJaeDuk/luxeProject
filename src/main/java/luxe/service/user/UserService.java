@@ -62,17 +62,11 @@ public interface UserService {
 
 	/**
 	 * 회원정보 수정
-	 * 주소
+	 * 
 	 * @throws SQLException 
 	 */
-	void updateUserAddr(String userId, String userNewAddr,String userNewDetailAddr) throws SQLException;
+	void updateUserInfo(String userId, String userAddr, String userPhone, String userEmail) throws SQLException;
 	
-	/**
-	 * 회원정보 수정
-	 * 전화번호
-	 */
-	
-	void updateUserPhone(String userId, String userNewPhone) throws SQLException;
 
 	/**
 	 * 회원 탈퇴 

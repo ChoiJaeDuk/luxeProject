@@ -43,13 +43,12 @@ public class UserDAOImpl implements UserDAO {
 
 		Connection con = null;
 		PreparedStatement ps = null;
-
+		String sql = "insert into users values(?,?,?,?,?,'회원',?)";
 		int result = 0;
 
 		try {
 			con = DbUtil.getConnection();
-			ps = con.prepareStatement("insert into users values (?,?,?,?,?,'회원',?)");
-
+			ps = con.prepareStatement(sql);
 			ps.setString(1, userDto.getUserId());
 			ps.setString(2, userDto.getUserPwd());
 			ps.setString(3, userDto.getUserName());
@@ -152,45 +151,21 @@ public class UserDAOImpl implements UserDAO {
 	}
 
 	/**
-	 * 회원정보 수정 - 주소
+	 * 회원정보 수정
 	 * 
 	 */
 	@Override
-	public int updateUserAddr(String userId, String userNewAddr, String userNewDetailAddr) throws SQLException {
+	public int updateUserInfo(String userId, String userAddr, String userPhone, String userEmail) throws SQLException {
 		Connection con = null;
 		PreparedStatement ps = null;
 		int result = 0;
-		String sql = "update users set user_addr =?, user_detailAddr=? where user_id=?";
+		String sql = "update users set user_addr =?, user_phone=?, user_email where user_id=?";
 		try {
 			con = DbUtil.getConnection();
 			ps = con.prepareStatement(sql);
-			ps.setString(1, userId);
-			ps.setString(2, userNewAddr);
-			ps.setString(3, userNewDetailAddr);
-
-			result = ps.executeUpdate();
-
-		} finally {
-			DbUtil.dbClose(con, ps);
-		}
-
-		return result;
-	}
-
-	/**
-	 * 회원정보 수정 - 전화번호
-	 */
-	@Override
-	public int updateUserPhone(String userId, String userNewPhone) throws SQLException {
-		Connection con = null;
-		PreparedStatement ps = null;
-		int result = 0;
-		String sql = "update users set user_phone =? where user_id=?";
-		try {
-			con = DbUtil.getConnection();
-			ps = con.prepareStatement(sql);
-			ps.setString(1, userId);
-			ps.setString(2, userNewPhone);
+			ps.setString(1, userAddr);
+			ps.setString(2, userPhone);
+			ps.setString(3, userEmail);
 
 			result = ps.executeUpdate();
 

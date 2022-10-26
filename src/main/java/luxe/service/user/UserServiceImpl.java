@@ -66,22 +66,11 @@ public class UserServiceImpl implements UserService {
 	}
 
 	/**
-	 * 회원정보 수정 주소
+	 * 회원정보 수정
 	 */
 	@Override
-	public void updateUserAddr(String userId, String userNewAddr, String userNewDetailAddr) throws SQLException {
-		int result = userDAO.updateUserAddr(userId, userNewAddr, userNewDetailAddr);
-		if (result == 0) {
-			throw new SQLException("");
-		}
-	}
-
-	/**
-	 * 회원정보 수정 전화번호
-	 */
-	@Override
-	public void updateUserPhone(String userId, String userNewPhone) throws SQLException {
-		int result = userDAO.updateUserPhone(userId, userNewPhone);
+	public void updateUserInfo(String userId, String userAddr, String userPhone, String userEmail) throws SQLException {
+		int result = userDAO.updateUserInfo(userId, userAddr, userPhone, userEmail);
 		if (result == 0) {
 			throw new SQLException("");
 		}
