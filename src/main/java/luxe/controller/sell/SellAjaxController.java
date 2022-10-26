@@ -59,10 +59,11 @@ public class SellAjaxController implements AjaxController {
 	
 	
 	public void updateSellPrice(HttpServletRequest request, HttpServletResponse response) throws Exception{
-		System.out.println(request.getParameter("sellNo"));
+		
 		int sellNo = Integer.parseInt(request.getParameter("sellNo"));
 		int updateSellPrice = Integer.parseInt(request.getParameter("sellPrice"));
 		String sellUserId = request.getParameter("userId");	
+		System.out.println("아작스에서 아이디 = "+ sellUserId);
 		SellDTO sellDTO = new SellDTO(sellNo, updateSellPrice, sellUserId);
 		sellService.updateSellPrice(sellDTO);//sellUserId, sellNo, updateSellPrice
 	}

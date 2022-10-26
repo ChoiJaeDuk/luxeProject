@@ -66,14 +66,14 @@ public class SellDAOImpl implements SellDAO {
 			
 			int goodsNo = selectGoodsNoBySellNo(con ,sellDTO.getSellNo());
 			
-			System.out.println("goodsNo = "+goodsNo);
 			
 			BidDTO bidDTO = bidDAO.getHighestBidPrice(goodsNo);
 			
 			
-			
 			if(this.priceCompare(bidDTO, sellDTO.getSellPrice())) {//최고입찰가를 받아 비교 후 true일 경우 주문등록(즉시판매)
-				OrderDTO orderDTO = new OrderDTO(sellDTO.getSellNo(), bidDTO.getBidNo(), bidDTO.getBidPrice(), sellDTO.getUserId(), bidDTO.getUserId());
+				System.out.println("USER_ID = "+bidDTO.getUserId());
+				System.out.println("USER_ID = "+sellDTO.getUserId());
+				OrderDTO orderDTO = new OrderDTO(sellDTO.getSellNo(), bidDTO.getBidNo(), bidDTO.getBidPrice(), bidDTO.getUserId(), sellDTO.getUserId());
 				
 				result = orderDAO.insertOrder(con, orderDTO);
 				if (result==0) {
@@ -130,10 +130,10 @@ public class SellDAOImpl implements SellDAO {
 			
 			int goodsNo = selectGoodsNoBySellNo(con ,sellDTO.getSellNo());
 			BidDTO bidDTO = bidDAO.getHighestBidPrice(goodsNo); //null일때 제어
-			
+		
 			if(sellDTO.getSellStatus().equals("판매중")) {		
 				if(this.priceCompare(bidDTO, sellDTO.getSellPrice())) {//최고입찰가를 받아 비교 후 true일 경우 주문등록(즉시판매)
-					OrderDTO orderDTO = new OrderDTO(sellDTO.getSellNo(), bidDTO.getBidNo(), bidDTO.getBidPrice(), sellDTO.getUserId(), bidDTO.getUserId());
+					OrderDTO orderDTO = new OrderDTO(sellDTO.getSellNo(), bidDTO.getBidNo(), bidDTO.getBidPrice(), bidDTO.getUserId(), sellDTO.getUserId());
 					
 					result = orderDAO.insertOrder(con, orderDTO);
 					
@@ -186,7 +186,6 @@ public class SellDAOImpl implements SellDAO {
 			con = DbUtil.getConnection();
 			ps = con.prepareStatement(sql);
 			rs = ps.executeQuery();
-			System.out.println("나오니?");
 			while (rs.next()) {
 				SellDTO sellDTO = new SellDTO(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getInt(4),rs.getString(5),rs.getString(6),rs.getString(7),rs.getString(8));
 				

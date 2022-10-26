@@ -195,17 +195,23 @@ input {
 			$("[name='sellNo']").val(sellNo);
 			popup.classList.remove('has-filter');
 			popup.classList.remove('hide');
+			$("[name=sellPrice]").val("");
 			
+		});
+		
+		
+		
+		
 		//가격수정하기	
-		$("#priceChange").on("click", function() {
+		$(document).on("click", "#priceChange", function() {
 			 if(confirm("정말 수정하시겠습니까?")){
 				$.ajax({
 					url :"../ajax" , //서버요청주소
 					type:"post", //요청방식(method방식 : get | post | put | delete )
 					dataType:"text"  , //서버가 보내온 데이터(응답)타입(text | html | xml | json )
-					data: {key:"sellAjax" , methodName : "updateSellPrice", id : "id", sellNo : $("[name='sellNo']").val(), sellPrice : $("[name='sellPrice']").val()}, //서버에게 보낼 데이터정보(parameter정보)
+					data: {key:"sellAjax" , methodName : "updateSellPrice", userId : "id", sellNo : $("[name='sellNo']").val(), sellPrice : $("[name='sellPrice']").val()}, //서버에게 보낼 데이터정보(parameter정보)
 					success :function(result){
-						
+						alert("수정 성공");
 						selectSellingInfoByUserId();
 						closePopup();
 					} , //성공했을때 실행할 함수 
@@ -214,10 +220,7 @@ input {
 					}  //실팽했을때 실행할 함수 
 				});//ajax끝
 			} 
-		})
-			
-			
-		})//on close
+		});
 		
 		
 		wishList();
@@ -225,10 +228,14 @@ input {
 		selectSellWaitInfoByUserId();
 	});//ready
 	
+	
+	
+	
 	function closePopup() {
 		const popup = document.querySelector('#popup');
 	  	popup.classList.add('hide');
-  }
+	}
+
 	
 </script>
 </head>
