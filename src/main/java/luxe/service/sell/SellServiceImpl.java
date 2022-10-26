@@ -50,7 +50,7 @@ public class SellServiceImpl implements SellService {
 	@Override
 	public List<SellDTO> selectSellWaitInfoByUserId(String userId) throws SQLException {
 		List<SellDTO> sellWaitList = new ArrayList<SellDTO>();
-		sellWaitList = sellDAO.selectSellingInfoByUserId(userId);
+		sellWaitList = sellDAO.selectSellWaitInfoByUserId(userId);
 		return sellWaitList;
 	}
 

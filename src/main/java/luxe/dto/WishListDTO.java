@@ -6,9 +6,8 @@ public class WishListDTO {
 	private int goodsNo;
 	
 	
-	public WishListDTO(int wishListNo, String userId, int goodsNo) {
+	public WishListDTO(String userId, int goodsNo) {
 		super();
-		this.wishListNo = wishListNo;
 		this.userId = userId;
 		this.goodsNo = goodsNo;
 	}
