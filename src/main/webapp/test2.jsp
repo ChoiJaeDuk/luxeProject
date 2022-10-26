@@ -37,7 +37,7 @@
 <body>
  <a href="testDuck.jsp/front?key=sell&methodName=updateSellPrice">나와랏!!!</a> 
 
-<form name="writeForm" method="post" action="${pageContext.request.contextPath}/front?key=goods&methodName=insertGoods"
+<form name="writeForm" method="post" action="${pageContext.request.contextPath}/front?key=order&methodName=insertOrders"
 enctype="multipart/form-data">
 	brand<input type="text" name="brand" size="30"><p>
 	category<input type="text" name="category" size="30"><p>

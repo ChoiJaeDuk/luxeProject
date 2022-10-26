@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import luxe.dao.order.MailTest;
 import luxe.dto.AlarmDTO;
 import luxe.dto.AlarmReceiveUserDTO;
 import luxe.util.DbUtil;
@@ -148,7 +149,7 @@ public class AlarmDAOImpl implements AlarmDAO {
 		
 		List<AlarmDTO> alarm = new ArrayList<AlarmDTO>();
 
-		String sql = "select a.alarm_no, goods_name, alarm_subject, alarm_content, issue_date \r\n"
+		String sql = "select a.alarm_no, goods_name, alarm_subject, alarm_content, to_char(issue_date, 'YY-MM-DD') \r\n"
 				+ "from alarm a join\r\n"
 				+ "goods g on g.goods_no = a.goods_no join\r\n"
 				+ "alarm_receive_user ar on ar.alarm_no = a.alarm_no\r\n"
@@ -181,6 +182,7 @@ public class AlarmDAOImpl implements AlarmDAO {
 	 */
 	@Override
 	public int countNewAlarm(String userId) throws SQLException {
+		
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -201,7 +203,7 @@ public class AlarmDAOImpl implements AlarmDAO {
 				alarmReceive = new AlarmReceiveUserDTO(rs.getInt(1));
 				
 			}
-			System.out.println(alarmReceive.getCount());
+			
 			
 		}finally{
 			DbUtil.dbClose(con, ps, rs);

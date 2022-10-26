@@ -6,8 +6,10 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<script type="text/javascript" src = "https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
 </head>
 <script type="text/javascript" src = "js/jquery-3.6.1.min.js"></script>
+<canvas id="myChart" width="400" height="400"></canvas>
 <script type="text/javascript">
 
 // 	$(document).on("change", "select[name=orderStatus]", function(){
@@ -23,7 +25,7 @@
 		
 // 	})
 
-	/*	$(document).on("change","select[name=orderStatus]" , function(){
+		$(document).on("change","select[name=orderStatus]" , function(){
 			let result1;
 	 		result1 = confirm("배송상태를 변경하시겠습니까?");
 	 		if(result1 == true){
@@ -48,7 +50,7 @@
 			   		});//ajax끝
 	 		}
 		   });
-	   */
+	  
 	   
 	   $(function(){
 		   $("input[type=button]").on("click", function(){
@@ -76,6 +78,7 @@
 		   })
 		   
 	   })
+	   
 
 </script>
 <body>
@@ -135,10 +138,10 @@
 </table> 
 
 
-<%-- 매출액 : ${orderSales.totalSales}<p>
-수익 : ${orderSales.totalProfit }<p> --%>
+- 매출액 : ${orderSales.totalSales}<p>
+수익 : ${orderSales.totalProfit }<p>
 
-<%-- <a href="${pageContext.request.contextPath}/front?key=sales&methodName=selectSalesByMonth" class="btn btn-danger">상세보기</a><p> --%>
+ <a href="${pageContext.request.contextPath}/front?key=sales&methodName=selectSalesByMonth" class="btn btn-danger">상세보기</a><p> --%>
 <c:forEach items="${salesByMonthlist}" var="list">
 
 	<tr>
@@ -158,6 +161,46 @@
 	</tr>
 
 </c:forEach>
+
+<script type="text/javascript">
+	const ctx = document.getElementById('myChart');
+	const myChart = new Chart(ctx,{
+	
+		type: 'bar',
+		data{
+			labels: ['샤넬', '디올', '프라다'],
+			datasets:[{
+				lable:'#브랜드',
+				data : [8,2,0],
+// 		        backgroundColor: [
+// 		        	'rgba(255, 99, 132, 0.2)',
+// 		        	'rgba(54, 162, 235, 0.2)',
+// 		        	'rgba(75, 192, 192, 0.2)'        
+// 		        ],
+// 		        borderColor: [
+// 		        	'rgba(255, 99, 132, 1)',
+// 		        	'rgba(54, 162, 235, 1)',
+ 
+// 		        	'rgba(75, 192, 192, 1)'        
+// 		        ],
+				borderWidth: 1
+				
+				
+				
+			}]
+		},
+		oprtions:{
+			
+		}
+		
+		
+	});
+	
+	
+	
+	
+
+</script>
 
 <table>
 <c:forEach items="${rateList}" var="list">

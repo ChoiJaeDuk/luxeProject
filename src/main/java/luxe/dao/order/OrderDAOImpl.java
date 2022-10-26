@@ -53,6 +53,7 @@ public class OrderDAOImpl implements OrderDAO {
 				GoodsDTO goods = selectGoodsNo(con, orderDTO.getSellNo());
 				AlarmDTO alarm = new AlarmDTO(0, goods.getGoodsNo(), "주문성사", goods.getGoodsName() + "상품의 주문이 성사되었습니다.", null);
 				dao.insertAlarm(alarm);
+
 			}
 		
 		}finally {
@@ -110,7 +111,7 @@ public class OrderDAOImpl implements OrderDAO {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 
-		String sql = "select order_no, order_price, order_date, order_status, buyer_id, seller_id from orders order by order_date desc";
+		String sql = "select order_no, order_price, to_char(order_date, 'YY-MM-DD'), order_status, buyer_id, seller_id from orders order by order_date desc";
 		List<OrderDTO> list = new ArrayList<OrderDTO>();
 
 		try {
@@ -122,6 +123,7 @@ public class OrderDAOImpl implements OrderDAO {
 				list.add(new OrderDTO(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getString(4), rs.getString(5),
 						rs.getString(6)));
 			}
+			
 
 		} finally {
 			DbUtil.dbClose(con, ps, rs);
@@ -145,7 +147,7 @@ public class OrderDAOImpl implements OrderDAO {
 		ResultSet rs = null;
 		
 
-		String sql = "select goods.goods_no, goods_name, brand, order_status, order_price, order_date\r\n"
+		String sql = "select goods.goods_no, goods_name, brand, order_status, order_price, to_char(order_date, 'YY-MM-DD')\r\n"
 				+ "from orders join bid \r\n"
 				+ "on orders.bid_no = bid.bid_no join goods \r\n"
 				+ "on goods.goods_no = bid.goods_no\r\n"
@@ -183,7 +185,7 @@ public class OrderDAOImpl implements OrderDAO {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 
-		String sql = "select goods.goods_no, goods_name, brand, order_status, order_price, order_date \r\n" + "from orders \r\n"
+		String sql = "select goods.goods_no, goods_name, brand, order_status, order_price, to_char(order_date, 'YY-MM-DD') \r\n" + "from orders \r\n"
 				+ "join sell on orders.sell_no = sell.sell_no\r\n" + "join goods on goods.goods_no = sell.goods_no\r\n"
 				+ "where seller_id = ? order by order_date desc";
 		List<OrderDTO> list = new ArrayList<OrderDTO>();
