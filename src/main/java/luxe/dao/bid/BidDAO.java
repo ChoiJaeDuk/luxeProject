@@ -74,11 +74,11 @@ public interface BidDAO {
 	/**
 	 * 입찰 삭제
 	 * 
-	 * @param 상품번호
+	 * @param 입찰 번호
 	 * @param 회원아이디
 	 * @return : 1이면 삭제 성공, 0이면 삭제 실패
 	 * @throws SQLException
 	 */
-	int deleteBid(int goodsNo, String userId) throws SQLException;
+	int deleteBid(int bidNo, String userId) throws SQLException;
 
 }

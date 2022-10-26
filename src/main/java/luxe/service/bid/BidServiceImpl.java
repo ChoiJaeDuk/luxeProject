@@ -65,8 +65,8 @@ public class BidServiceImpl implements BidService {
 	}
 
 	@Override
-	public void deleteBid(int goodsNo, String userId) throws SQLException {
-		int result = bidDao.deleteBid(goodsNo, userId);
+	public void deleteBid(int bidNo, String userId) throws SQLException {
+		int result = bidDao.deleteBid(bidNo, userId);
 		if (result == 0)
 			throw new SQLException("입찰 내역 삭제에 실패했습니다.");
 	}

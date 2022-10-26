@@ -74,10 +74,10 @@ public interface BidService {
 	/**
 	 * 입찰 삭제
 	 * 
-	 * @param 상품번호
+	 * @param 입찰번호
 	 * @param 회원아이디
 	 * @return : 1이면 삭제 성공, 0이면 삭제 실패
 	 * @throws SQLException
 	 */
-	void deleteBid(int goodsNo, String userId) throws SQLException;
+	void deleteBid(int bidNo, String userId) throws SQLException;
 }
