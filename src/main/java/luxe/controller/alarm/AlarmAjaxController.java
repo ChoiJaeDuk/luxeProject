@@ -35,7 +35,7 @@ public class AlarmAjaxController implements AjaxController {
 		//String userId = request.getParameter("userId");
 		
 		List<AlarmDTO> list = service.selectAlarm(userId);
-		
+		System.out.println(list);
 		JSONArray arr = JSONArray.fromObject(list);
 		
 		PrintWriter out = response.getWriter();
