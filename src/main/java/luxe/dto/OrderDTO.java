@@ -38,7 +38,7 @@ public class OrderDTO {
 	}
 
 
-	public OrderDTO(int sellNo, int bidNo, int orderPrice, String sellerId, String buyerId) {
+	public OrderDTO(int sellNo, int bidNo, int orderPrice, String buyerId, String sellerId) {
 		super();
 		this.sellNo = sellNo;
 		this.bidNo = bidNo;

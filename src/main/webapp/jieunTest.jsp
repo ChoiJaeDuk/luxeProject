@@ -137,7 +137,7 @@
 </table> 
 
 
-- 매출액 : ${orderSales.totalSales}<p>
+매출액 : ${orderSales.totalSales}<p>
 수익 : ${orderSales.totalProfit }<p>
 
  <a href="${pageContext.request.contextPath}/front?key=sales&methodName=selectSalesByMonth" class="btn btn-danger">상세보기</a><p> --%>

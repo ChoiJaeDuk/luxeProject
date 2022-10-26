@@ -13,6 +13,7 @@ import luxe.dto.OrderDTO;
 import luxe.service.sales.SalesService;
 import luxe.service.sales.SalesServiceImpl;
 import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 
 public class SalesAjaxController implements AjaxController {
 	SalesService service = new SalesServiceImpl();
@@ -31,9 +32,10 @@ public class SalesAjaxController implements AjaxController {
 
 	
 		OrderDTO order = service.selectSale();
+		JSONObject ord = JSONObject.fromObject(order);
 		
 		PrintWriter out = response.getWriter();
-		out.print(order);
+		out.print(ord);
 		
 	}
 	

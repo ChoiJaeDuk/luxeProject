@@ -45,8 +45,8 @@ public class OrderDAOImpl implements OrderDAO {
 			ps.setInt(1, orderDTO.getSellNo());
 			ps.setInt(2, orderDTO.getBidNo());
 			ps.setInt(3, orderDTO.getOrderPrice());
-			ps.setString(5, orderDTO.getSellerId());
 			ps.setString(4, orderDTO.getBuyerId());
+			ps.setString(5, orderDTO.getSellerId());
 
 			result = ps.executeUpdate();
 			if (result == 1) {
