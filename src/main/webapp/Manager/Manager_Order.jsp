@@ -57,6 +57,93 @@ font-family: 'Lora', serif;
 
 <style type="text/css">
 </style>
+<script type="text/javascript" src="../js/jquery-3.6.1.min.js"></script>
+<script type="text/javascript">
+
+$(function(){
+	
+	function orderList(){
+		$.ajax({
+			url :"../ajax" , //서버요청주소
+			type:"post", //요청방식(method방식 : get | post | put | delete )
+			dataType:"json"  , //서버가 보내온 데이터(응답)타입(text | html | xml | json )
+			data: {key:"orderAjax" , methodName : "selectOrder" },	
+			success :function(result){
+				let str="";
+				$.each(result, function(index, item){
+				    str+="<tr>";
+				    str+=`<td><a href='#'>${"${(item.orderNo)}"}</td>`;
+				    str+=`<td>${"${item.orderPrice.toLocaleString()}"}</td>`;
+				    str+=`<td>${"${item.orderDate}"}</a></td>`;
+				    str+=`<td>
+				    <select name="orderStatus">
+				    	<option value=${"${item.orderStatus}"} selected>${"${item.orderStatus}"}</option>
+				    	<option value="검수대기">검수대기</option>
+						<option value="검수중">검수중</option>
+						<option value="배송시작">배송시작</option>
+						<option value="배송완료">배송완료</option>
+						<option value="주문취소">주문취소</option>
+				    ${"${item.orderStatus}"}
+				    </select>
+				    </td>`;
+				   
+				    
+				    str+=`<td>${"${item.buyerId}"}</td>`;
+				    str+=`<td>${"${item.sellerId}"}</td>`;
+				    str+="</tr>";
+				   
+			  });
+				
+				$("#myTable tr:gt(0)").remove();
+				$("#myTable tr:eq(0)").after(str);
+				
+			} , //성공했을때 실행할 함수 
+			error : function(err){  
+				alert(err+"에러 발생했어요.");
+			}  //실팽했을때 실행할 함수 
+		});//ajax끝
+		
+		
+		
+		
+	}
+	
+	$(document).on("change","select[name=orderStatus]" , function(){
+		let result1;
+ 		result1 = confirm("배송상태를 변경하시겠습니까?");
+ 		if(result1 == true){
+ 			console.log(result1);
+			  $.ajax({
+				 
+		   			url :"../ajax" , //서버요청주소
+		   			type:"post", //요청방식(method방식 : get | post | put | delete )
+		   			dataType:"text"  , //서버가 보내온 데이터(응답)타입(text | html | xml | json )
+		   			data: {key:"orderAjax" , methodName : "updateOrderByUserID" ,orderNo : $(this).parent().prev().prev().prev().text(), orderStatus : $(this).val() }, //서버에게 보낼 데이터정보(parameter정보)
+		   			success :function(result){
+		   				if(result==0){
+		   					alert("변경되지 않았습니다.");
+		   				}else{
+		   					alert("변경되었습니다.");
+		   					orderList();
+		   				}
+		   				
+		   			} , //성공했을때 실행할 함수 
+		   			error : function(err){  
+		   				alert(err+"에러 발생했어요.");
+		   			}  //실팽했을때 실행할 함수 
+		   		});//ajax끝
+ 		}
+ 		
+	   });
+	
+	
+	
+	orderList();
+	
+	
+})
+
+</script>
 </head>
 <body>
 <div id="mySidebar" class="sidebar">
@@ -133,30 +220,30 @@ font-family: 'Lora', serif;
 						    <th style="width:15%;">구매자ID</th>
 						    <th style="width:15%;">판매자ID</th>
 						  </tr>
-						  <tr>
-						    <td>a01</td>
-						    <td>000.000원</td>
-						    <td>0000-00-00</td>
-						    <td>배송상태</td>
-						    <td>Alfreds</td>
-						    <td>Germany</td>
-						  </tr>
-						  <tr>
-						    <td>a01</td>
-						    <td>000.000원</td>
-						    <td>0000-00-00</td>
-						    <td>배송상태</td>
-						    <td>Alfreds</td>
-						    <td>Germany</td>
-						  </tr>
-						  <tr>
-						    <td>a01</td>
-						    <td>000.000원</td>
-						    <td>0000-00-00</td>
-						    <td>배송상태</td>
-						    <td>Alfreds</td>
-						    <td>Germany</td>
-						  </tr>
+<!-- 						  <tr> -->
+<!-- 						    <td>a01</td> -->
+<!-- 						    <td>000.000원</td> -->
+<!-- 						    <td>0000-00-00</td> -->
+<!-- 						    <td>배송상태</td> -->
+<!-- 						    <td>Alfreds</td> -->
+<!-- 						    <td>Germany</td> -->
+<!-- 						  </tr> -->
+<!-- 						  <tr> -->
+<!-- 						    <td>a01</td> -->
+<!-- 						    <td>000.000원</td> -->
+<!-- 						    <td>0000-00-00</td> -->
+<!-- 						    <td>배송상태</td> -->
+<!-- 						    <td>Alfreds</td> -->
+<!-- 						    <td>Germany</td> -->
+<!-- 						  </tr> -->
+<!-- 						  <tr> -->
+<!-- 						    <td>a01</td> -->
+<!-- 						    <td>000.000원</td> -->
+<!-- 						    <td>0000-00-00</td> -->
+<!-- 						    <td>배송상태</td> -->
+<!-- 						    <td>Alfreds</td> -->
+<!-- 						    <td>Germany</td> -->
+<!-- 						  </tr> -->
 						  
 						</table>
 						<div id ='page-btn'>

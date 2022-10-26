@@ -8,8 +8,7 @@
 <title>Insert title here</title>
 <script type="text/javascript" src = "https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.9.1/chart.min.js"></script>
 </head>
-<script type="text/javascript" src = "js/jquery-3.6.1.min.js"></script>
-<canvas id="myChart" width="400" height="400"></canvas>
+
 <script type="text/javascript">
 
 // 	$(document).on("change", "select[name=orderStatus]", function(){
@@ -161,46 +160,6 @@
 	</tr>
 
 </c:forEach>
-
-<script type="text/javascript">
-	const ctx = document.getElementById('myChart');
-	const myChart = new Chart(ctx,{
-	
-		type: 'bar',
-		data{
-			labels: ['샤넬', '디올', '프라다'],
-			datasets:[{
-				lable:'#브랜드',
-				data : [8,2,0],
-// 		        backgroundColor: [
-// 		        	'rgba(255, 99, 132, 0.2)',
-// 		        	'rgba(54, 162, 235, 0.2)',
-// 		        	'rgba(75, 192, 192, 0.2)'        
-// 		        ],
-// 		        borderColor: [
-// 		        	'rgba(255, 99, 132, 1)',
-// 		        	'rgba(54, 162, 235, 1)',
- 
-// 		        	'rgba(75, 192, 192, 1)'        
-// 		        ],
-				borderWidth: 1
-				
-				
-				
-			}]
-		},
-		oprtions:{
-			
-		}
-		
-		
-	});
-	
-	
-	
-	
-
-</script>
 
 <table>
 <c:forEach items="${rateList}" var="list">
