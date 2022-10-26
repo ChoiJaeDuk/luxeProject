@@ -28,7 +28,7 @@ public interface AlarmService {
 	 * @return
 	 * @throws SQLException
 	 */
-	boolean checkNewAlarm(String userId) throws SQLException;
+	int countNewAlarm(String userId) throws SQLException;
 	
 	/***
 	 * 알람삭제
@@ -36,5 +36,5 @@ public interface AlarmService {
 	 * @param alarmNo
 	 * @throws SQLException
 	 */
-	void deleteAlarm(String userId, int alarmNo) throws SQLException;
+	int deleteAlarm(String userId, int alarmNo) throws SQLException;
 }

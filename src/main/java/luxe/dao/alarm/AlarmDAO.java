@@ -31,7 +31,7 @@ public interface AlarmDAO {
 	 * @return
 	 * @throws SQLException
 	 */
-	List<AlarmReceiveUserDTO> checkNewAlarm(String userId) throws SQLException;
+	int countNewAlarm(String userId) throws SQLException;
 	/***
 	 * 알림 조회 상태 변경 
 	 * @param alarmNo

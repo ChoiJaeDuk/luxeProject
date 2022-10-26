@@ -49,25 +49,25 @@ public class AlarmController implements Controller {
 		return new ModelAndView("jieunTest.jsp");
 	}
 	
-	public ModelAndView checkNewAlarm(HttpServletRequest request, HttpServletResponse response)
+	public ModelAndView countNewAlarm(HttpServletRequest request, HttpServletResponse response)
 			throws Exception{
 
 		String userId = request.getParameter("userId");
-		boolean result = service.checkNewAlarm(userId);
+		int result = service.countNewAlarm(userId);
 		request.setAttribute("result", result);
 		
 		return new ModelAndView("jieunTest.jsp");
 	}
 	
-	public ModelAndView deleteAlarm(HttpServletRequest request, HttpServletResponse response)
-			throws Exception{
-
-		String userId = request.getParameter("userId");
-		String alarmNo = request.getParameter("alarmNo");
-		
-		service.deleteAlarm(userId, Integer.parseInt(alarmNo));
-		
-		return new ModelAndView("front", true);
-	}
+//	public ModelAndView deleteAlarm(HttpServletRequest request, HttpServletResponse response)
+//			throws Exception{
+//
+//		String userId = request.getParameter("userId");
+//		String alarmNo = request.getParameter("alarmNo");
+//		
+//		service.deleteAlarm(userId, Integer.parseInt(alarmNo));
+//		
+//		return new ModelAndView("front", true);
+//	}
 
 }

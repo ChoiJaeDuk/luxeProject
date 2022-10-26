@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
     pageEncoding="EUC-KR"%>
     <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+    <%@taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -47,6 +48,18 @@ font-family: 'Lora', serif;
 <!-- 외부의 css파일 연결하기 -->
 <!-- <link rel="stylesheet" type="text/css" href="css/mypage2.css"> -->
 <style type="text/css">
+	img {
+	  width: 100x;
+	  height: 100px;
+	  object-fit: cover;
+	}
+	
+	table {width:100% ; height:100% ;
+    	 border-collapse: collapse ;}
+    	 
+    th, td{
+    	text-align: center;
+    }
 </style>
 
 <script type="text/javascript" src="js/jquery-3.6.1.min.js"></script>
@@ -64,11 +77,11 @@ font-family: 'Lora', serif;
 					$.each(result, function(index, item){
 					    str+="<tr>";
 					    str+=`<td>${"${(index+1)}"}</td>`;
-					    str+=`<td>${"${item.goodsMainImg}"}</td>`;
+					    str+=`<td><img alt="상품이미지" src=${pageContext.request.contextPath}${"${item.goodsMainImg}"}></td>`;
 					    str+=`<td><a href='#'>${"${item.goodsName}"}</a></td>`;
 					    str+=`<td>${"${item.brand}"}</td>`;
 					    str+=`<td>${"${item.orderStatus}"}</td>`;
-					    str+=`<td>${"${item.orderPrice}"}</td>`;
+					    str+=`<td>${"${item.orderPrice.toLocaleString()}"}</td>`;
 					    str+=`<td>${"${item.orderDate}"}</td>`;
 					   
 					    str+="</tr>";
@@ -85,24 +98,25 @@ font-family: 'Lora', serif;
 		})
 		
 		$("#sellList").on("click", function(){
+			
 			$.ajax({
 				url :"ajax" , //서버요청주소
 				type:"post", //요청방식(method방식 : get | post | put | delete )
 				dataType:"json"  , //서버가 보내온 데이터(응답)타입(text | html | xml | json )
-				data: {key:"orderAjax" , methodName : "selectOrderByUserIdForSell"}, //서버에게 보낼 데이터정보(parameter정보)
+				data: {key:"orderAjax" , methodName : "selectOrderByUserIdForSell" },	
 				success :function(result){
 					let str="";
 					$.each(result, function(index, item){
 					    str+="<tr>";
 					    str+=`<td>${"${(index+1)}"}</td>`;
-					    str+=`<td>${"${item.goodsMainImg}"}</td>`;
+					    str+=`<td><img alt="상품이미지" src=${pageContext.request.contextPath}${"${item.goodsMainImg}"}></td>`;
 					    str+=`<td><a href='#'>${"${item.goodsName}"}</a></td>`;
 					    str+=`<td>${"${item.brand}"}</td>`;
 					    str+=`<td>${"${item.orderStatus}"}</td>`;
-					    str+=`<td>${"${item.orderPrice}"}</td>`;
+					    str+=`<td>${"${item.orderPrice.toLocaleString()}"}</td>`;
 					    str+=`<td>${"${item.orderDate}"}</td>`;
-					   
 					    str+="</tr>";
+					   
 				  });
 					
 					$("#sellTable tr:gt(0)").remove();
@@ -116,8 +130,73 @@ font-family: 'Lora', serif;
 		})
 		
 		
-	})
+		function alarmOpen(){
+			$.ajax({
+				url :"ajax" , //서버요청주소
+				type:"post", //요청방식(method방식 : get | post | put | delete )
+				dataType:"json"  , //서버가 보내온 데이터(응답)타입(text | html | xml | json )
+				data: {key:"alarmAjax" , methodName : "selectAlarm" },	
+				success :function(result){
+					let str="";
+					$.each(result, function(index, item){
+						
+					    str+="<tr>";
+					    str+=`<td>${"${(index+1)}"}</td>`;
+					    str+=`<td><a href='#'>${"${item.goodsName}"}</a></td>`;
+					    str+=`<td>${"${item.alarmSubject}"}</td>`;
+					    str+=`<td>${"${item.alarmContent}"}</td>`;
+					    str+=`<td>${"${item.issueDate}"}</td>`;
+					    str+=`<td><input type="button" name="alarmDelete" value ="삭제" id=${"${item.alarmNo}"}></td>`;
+					   
+					    str+="</tr>";
+				  });
+					
+					$("#alarmList tr:gt(0)").remove();
+					$("#alarmList tr:eq(0)").after(str);
+					
+				} , //성공했을때 실행할 함수 
+				error : function(err){  
+					alert(err+"에러 발생했어요.");
+				}  //실팽했을때 실행할 함수 
+			});//ajax끝
+		}
+		
+
+		$("#alarmOpen").on("click", function(){
 	
+			alarmOpen();
+			
+		})
+		
+		
+		$(document).on("click", "[name=alarmDelete]", function(){
+			let result = confirm("알람을 삭제하시겠습니까?");
+			if(result == true){
+				 $.ajax({
+					 
+			   			url :"ajax" , //서버요청주소
+			   			type:"post", //요청방식(method방식 : get | post | put | delete )
+			   			dataType:"text"  , //서버가 보내온 데이터(응답)타입(text | html | xml | json )
+			   			data: {key:"alarmAjax" , methodName : "deleteAlarm" , userId : 'id', alarmNo : $(this).attr('id') }, //서버에게 보낼 데이터정보(parameter정보)
+			   			success :function(result){
+			   				if(result==0){
+			   					alert("삭제되지 않았습니다.");
+			   				}else{
+			   					alert("삭제되었습니다.");
+			   					alarmOpen();
+			   				}
+			   				
+			   				
+			   			} , //성공했을때 실행할 함수 
+			   			error : function(err){  
+			   				alert(err+"에러 발생했어요.");
+			   			}  //실팽했을때 실행할 함수 
+			   		});//ajax끝
+			}
+			
+		})
+		
+	})
 	
 	
 </script>
@@ -173,7 +252,7 @@ font-family: 'Lora', serif;
 		<div class="container">
 		<div class="tab">
 		  <button class="tablinks" onclick="openCity(event, 'profile-info')" id="defaultOpen">프로필정보</button>
-		  <button class="tablinks" onclick="openCity(event, 'profile-alarm')">알람</button>
+		  <button class="tablinks" onclick="openCity(event, 'profile-alarm')" id="alarmOpen">알람</button>
 		  <button class="tablinks" onclick="openCity(event, 'shopping-buy')">구매내역</button>
 		  <button class="tablinks" onclick="openCity(event, 'shopping-sell')">판매내역</button>
 		  <button class="tablinks" onclick="openCity(event, 'shopping-wishList')">관심상품</button>
@@ -227,8 +306,17 @@ font-family: 'Lora', serif;
 		</div>
 		
 		<div id="profile-alarm" class="tabcontent">
-		  <h3>알람</h3>
-		  <p>Paris is the capital of France.</p> 
+		  <table id="alarmList">
+<%-- 		  	<caption>알람내역</caption> --%>
+		  	<tr>
+		  		<th>번호</th>
+		  		<th>상품명</th>
+		  		<th>제목</th>
+		  		<th>내용</th>
+		  		<th>날짜</th>
+		  		<th>삭제</th>
+		  	</tr>
+		  </table>
 		</div>
 		
 		<div id="shopping-buy" class="tabcontent">
@@ -251,6 +339,8 @@ font-family: 'Lora', serif;
 			  <h3>구매내역</h3>
 				<table id= "buyTable">
 				<tr>
+					<th>번호</th>
+					<th>사진</th>
 					<th>상품명</th>
 					<th>브랜드명</th>
 					<th>진행상태</th>
@@ -293,10 +383,13 @@ font-family: 'Lora', serif;
   	<div class="tab-pane fade" id="home2" role="tabpanel">
  	<table id="sellTable">
  		<tr>
- 			<td>상품이름</td>
- 			<td>브랜드</td>
- 			<td>판매가격</td>
- 			<td>등록일</td>
+ 			<th>번호</th>
+			<th>사진</th>
+			<th>상품명</th>
+			<th>브랜드명</th>
+			<th>진행상태</th>
+			<th>거래가</th>
+			<th>거래일자</th>
  		</tr>
  	</table>
 	</div>

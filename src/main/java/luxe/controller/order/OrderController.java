@@ -30,24 +30,24 @@ public class OrderController implements Controller {
 	 * @return
 	 * @throws Exception
 	 */
-	/*public ModelAndView insertOrder(HttpServletRequest request, HttpServletResponse response)
-			throws Exception{
-		
-		String orderNo = request.getParameter("orderNo");
-		String sellNo = request.getParameter("sellNo");
-		String bidNo = request.getParameter("bidNo");
-		String orderPrice = request.getParameter("orderPrice");
-		String orderDate = request.getParameter("orderDate");
-		String orderStatus = request.getParameter("orderStatus");
-		
-		OrderDTO order = new OrderDTO(Integer.parseInt(orderNo), Integer.parseInt(sellNo), Integer.parseInt(bidNo),
-										Integer.parseInt(orderPrice), orderDate, orderStatus);
-		
-		service.insertOrder(order);
-		
-		return new ModelAndView();
-
-	}*/
+//	public ModelAndView insertOrder(HttpServletRequest request, HttpServletResponse response)
+//			throws Exception{
+//		
+//		String orderNo = request.getParameter("orderNo");
+//		String sellNo = request.getParameter("sellNo");
+//		String bidNo = request.getParameter("bidNo");
+//		String orderPrice = request.getParameter("orderPrice");
+//		String orderDate = request.getParameter("orderDate");
+//		String orderStatus = request.getParameter("orderStatus");
+//		
+//		OrderDTO order = new OrderDTO(Integer.parseInt(orderNo), Integer.parseInt(sellNo), Integer.parseInt(bidNo),
+//										Integer.parseInt(orderPrice), orderDate, orderStatus);
+//		
+//		service.insertOrder(order);
+//		
+//		return new ModelAndView();
+//
+//	}
 	
 	/**
 	 * 주문내역 조회

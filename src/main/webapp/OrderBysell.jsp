@@ -50,7 +50,6 @@ font-family: 'Lora', serif;
 <link rel="stylesheet" type="text/css" href="css/Reset.css">
 <link rel="stylesheet" type="text/css" href="css/Layout.css">
 <link rel="stylesheet" type="text/css" href="css/OrderByBuy.css">
-<link rel="stylesheet" type="text/css" href="css/Order.css">
 
 <style type="text/css">
 </style>
@@ -115,84 +114,53 @@ font-family: 'Lora', serif;
 							<p id='model-title'>모델이름</p>
 							<p id='model-subtitle'>모델서브이름</p>
 						</div>
+						<div id='price-list'>
+							<div class='price01' id='pri01'>
+								<p id='title'>즉시 구매가</p>
+								<span id='price-now'>000,000</span><span id='won'>원</span>
+							</div>
+							<div class='price01'>
+								<p id='title'>즉시 구매가</p>
+								<span id='price-now'>000,000</span><span id='won'>원</span>
+							</div>
+						</div>
 					</div><!-- product_info -->
 					
-					<div id='delivery'><!-- 컨테이너 -->
-						<div id='delivery_detail'>
-							<h3>배송 주소</h3>
-							<div id='delivery-info-list'>
-							<span id='delivery-title'>주문자</span>
-							<span id='delivery-dese'>홍길동</span>
-							</div>
-							
-							<div id='delivery-info-list'>
-							<span id='delivery-title'>연락처</span>
-							<span id='delivery-dese'>010-0000-0000</span>
-							</div>
-							
-							<div id='delivery-info-list'>
-							<span id='delivery-title'>배송 주소</span>
-							<span id='delivery-dese'>경기도 오리역</span>
-							</div>
-							
+					<div id='order-tap'>
+						<div class="btn-group">
+						  <button onclick="myFunction01()">구매입찰</button>
+						  <button onclick="myFunction02()">즉시구매</button>
 						</div>
-					</div><!-- delivery -->
-					
-					<div id='instant_group'><!-- 컨테이너 -->
-						<h3>최종 주문 정보</h3>
-						<div id='instant'>
-							<div id='price_total_order'>
-								<p>총 결제금액</p>
-								<div id='price_total'>
-								<span id='price_total_num'>000.000</span><span  id='price_total_won'>원</span>
+						
+						<div id="buy-type01">
+							<div id='price'>
+								<span id='price-now-title'>구매희망가</span>
+								<div id='price-con'>
+									<input type="text"  id='input-amount'  placeholder="희망가 입력"  />
+									<span id ='won02'>원</span>
 								</div>
 							</div>
-							<div id='bind'>
-								<dl id='price_addition'>
-									<dt><b>구매가</b></dt>
-									<dd><span><b>000.000</b></span><span><b>원</b></span></dd>
-								</dl>
-								<dl id='price_addition'>
-									<dt>검수비</dt>
-									<dd><span><b>000.000</b></span><span>원</span></dd>
-								</dl>
-								<dl id='price_addition'>
-									<dt>수수료</dt>
-									<dd><span>000.000</span><span>원</span></dd>
-								</dl>
-								<dl id='price_addition'>
-									<dt>배송비[무료배송EVENT]</dt>
-									<dd><span>0</span><span>원</span></dd>
-								</dl>
+							<div id='price-total'>
+								<button type="button" class="price-total-btn">구매 입찰 계속</button>
 							</div>
 						</div>
-					</div><!-- instant_group_con -->
-					
-					<div id='payment-con'><!-- 컨테이너 -->
-						<form action="">
-								<div id='payment'>
-								<h3 id='payment-title'>결제방법</h3>
-								<h4 id='method-title'>계좌 간편결제</h4>
-								<div id='payment-box'>
-									<input type="text" placeholder='계좌번호를 입력해주세요' />
+						
+						<div id="buy-type02">
+							<div id='price'>
+								<span id='price-now-title'>즉시구매가</span>
+								<div id='price-con'>
+									<span id='price02'>000,0000</span>
+									<span id ='won02'>원</span>
 								</div>
-								<h4 id='method-title'>카드 간편결제</h4>
-								<div id='payment-box'>
-									<button>카드를 등록해주세요</button>
-								</div>
-									<div id='payment-total'>
-										<span>총 결제금액</span>
-										<div id='payment-total-price'>
-											<span>000.000</span><span>원</span>
-										</div>
-									</div>
-								</div><!-- payment -->
-								<button type="submit" id='payment-submit'>결제하기</button>
-							</form><!--결제방식 form으로 전송  -->
-						</div><!-- payment-con -->
-					</div><!-- con -->
-				</div><!-- container -->
-			</div><!-- contents -->
+							</div>
+							<div id='price-total'>
+								<button type="button" class="price-total-btn">즉시 구매 계속</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div><!-- container -->
+		</div><!-- contents -->
 		
 		<div class="clear"></div>
 		
@@ -204,6 +172,31 @@ font-family: 'Lora', serif;
 		
 	</div>
 	
-	
+	<script>
+		function myFunction01() {
+		  var x = document.getElementById("buy-type01");
+		  var y = document.getElementById("buy-type02");
+		  
+		 
+			  if (x.style.display === "none") {
+				    x.style.display = "block";
+				    y.style.display = "none";
+				  } else {
+				    x.style.display = "none";
+				  }
+		  
+		}
+		function myFunction02() {
+			var x = document.getElementById("buy-type02");
+			var y = document.getElementById("buy-type01");
+			
+			if (x.style.display === "none") {
+			  x.style.display = "block";
+			  y.style.display = "none";
+			} else {
+			  x.style.display = "none";
+		  }
+		}
+	</script>
 </body>
 </html>
