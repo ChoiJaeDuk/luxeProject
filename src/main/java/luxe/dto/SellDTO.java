@@ -56,10 +56,11 @@ public class SellDTO {
 		this.sellNo = sellNo;
 	}
 
-	public SellDTO(int sellPrice, String sellDate , GoodsDTO goodsDTO) {
+	public SellDTO(int sellPrice, String sellDate , int sellNo ,GoodsDTO goodsDTO) {
 		this.sellPrice = sellPrice;
 		this.sellDate = sellDate;
 		this.goodsDTO = goodsDTO;
+		this.sellNo = sellNo;
 	}
 	
 	

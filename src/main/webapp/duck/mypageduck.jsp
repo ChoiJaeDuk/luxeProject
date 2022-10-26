@@ -42,14 +42,193 @@ font-family: 'Lora', serif;
   -->
 
 <!--아이콘-->  
+<script src="../js/jquery-3.6.1.min.js"></script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <!-- 외부의 css파일 연결하기 -->
-<link rel="stylesheet" type="text/css" href="css/mypage2.css">
+<!-- <link rel="stylesheet" type="text/css" href="css/mypage2.css"> -->
 <style type="text/css">
+button {
+  height: 2.5em;
+  cursor: pointer;
+}
+
+#popup {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, .7);
+  z-index: 1;
+}
+
+#popup.hide {
+  display: none;
+}
+
+#popup.has-filter {
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+#popup .content {
+  padding: 20px;
+  background: #fff;
+  border-radius: 5px;
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, .3);
+}
+input {
+		background-color: white;
+		border: 1px solid black;
+		
+		box-sizing: border-box;
+	}
 </style>
 
 <script type="text/javascript">
+	
+	$(function() {
+		
+		
+		 function selectSellingInfoByUserId(){ //판매중 상품 조회
+			   $.ajax({
+				url :"../ajax" , //서버요청주소
+				type:"post", //요청방식(method방식 : get | post | put | delete )
+				dataType:"json"  , //서버가 보내온 데이터(응답)타입(text | html | xml | json )
+				data: {key:"sellAjax" , methodName : "selectSellingInfoByUserId", id : "id"}, //서버에게 보낼 데이터정보(parameter정보)
+				success :function(result){
+					let str="";
+					$.each(result, function(index, item){
+					    str+="<tr>";
+					    str+="<td>"+ (index+1) +"</td>";
+					    str+=`<td>${"${item.goodsDTO.goodsName}"}</td>`;
+					    str+=`<td>${"${item.goodsDTO.brand}"}</td>`;
+					    str+=`<td>${"${item.sellPrice}"}</td>`;
+					    str+=`<td>${"${item.sellDate}"}</td>`;
+					    str+=`<td><input type='button' value='가격수정' name=${'${item.sellNo}'}></td>`;
+					    str+=`<td><input type='button' value='판매취소' name=${'${item.sellNo}'}></td>`;
+					    str+="</tr>";
+				  });
+				 	$("#profile2 tr:gt(0)").remove();
+					$("#profile2 tr:eq(0)").after(str); 
+					
+				} , //성공했을때 실행할 함수 
+				error : function(err){  
+					alert(err+"에러 발생했어요.");
+				}  //실팽했을때 실행할 함수 
+			});//ajax끝
+		   }// 함수끝
+		
+			
+		
+		function selectSellWaitInfoByUserId() {//판매대기중 상품조회
+			$.ajax({
+				url :"../ajax" , //서버요청주소
+				type:"post", //요청방식(method방식 : get | post | put | delete )
+				dataType:"json"  , //서버가 보내온 데이터(응답)타입(text | html | xml | json )
+				data: {key:"sellAjax" , methodName : "selectSellWaitInfoByUserId", id : "id"}, //서버에게 보낼 데이터정보(parameter정보)
+				success :function(result){
+					let str="";
+					$.each(result, function(index, item){
+					    str+="<tr>";
+					    str+="<td>"+ (index+1) +"</td>";
+					    str+=`<td>${"${item.goodsDTO.goodsName}"}</td>`;
+					    str+=`<td>${"${item.goodsDTO.brand}"}</td>`;
+					    str+=`<td>${"${item.sellPrice}"}</td>`;
+					    str+=`<td>${"${item.sellDate}"}</td>`;
+					    str+=`<td><input type='button' value='판매취소' name=${'${item.sellNo}'} id = 'sellCancel'></td>`;
+					    str+="</tr>";
+				  });
+					$("#profile3 tr:gt(0)").remove();
+					$("#profile3 tr:eq(0)").after(str);
+					
+				} , //성공했을때 실행할 함수 
+				error : function(err){  
+					alert(err+"에러 발생했어요.");
+				}  //실팽했을때 실행할 함수 
+			});//ajax끝
+		};
+		
+		
+		 function wishList() {
+			$.ajax({
+				url :"../ajax" , //서버요청주소
+				type:"post", //요청방식(method방식 : get | post | put | delete )
+				dataType:"json"  , //서버가 보내온 데이터(응답)타입(text | html | xml | json )
+				data: {key:"wishListAjax" , methodName : "selectWishList", id :"id"}, //서버에게 보낼 데이터정보(parameter정보)
+				success :function(result){
+					let str="";  //str+=`<td>${"${item.goodsDTO.goodsName}"}</td>`;
+					$.each(result, function(index, item){
+						str += `<div class=${"bestItem item${index+1}"}>`;
+						str += `<div class="item_img_block">`;
+						str += `<div class="item_img">`;
+						str += `<img alt="상품이미지입니다." src=${pageContext.request.contextPath}/goodsImg/1.png id='product' ></div>`;		
+						str += `<div id='like'><img src="img/heart.svg" id='like_img'></div></div>`;
+						str += `<div id='item_text'>`;
+						str += `<div class="item_brand">`;
+						str += `<a href="#" id="brand_text">${"${item.brand}"}</a></div>`;
+						str += `<p id="name">${"${item.goodsName}"}</p>`;
+						str += `<div class="price">`;
+						str += `<p id="num">000,000원</p>`;
+						str += `<p id="p">즉시구매가</p></div></div></div>`;
+				  });
+					//$("#shopping-wishList tr:gt(0)").remove();
+					$("#product").before(str);
+					
+				} , //성공했을때 실행할 함수 
+				error : function(err){  
+					alert(err+"에러 발생했어요.");
+				}  //실팽했을때 실행할 함수
+			})
+		}
+		
+		
+		
+		//가격수정 팝업창
+		$(document).on("click","[value='가격수정']", function(){
+			let sellNo = $(this).attr("name");
+			const popup = document.querySelector('#popup');
+			$("[name='sellNo']").val(sellNo);
+			popup.classList.remove('has-filter');
+			popup.classList.remove('hide');
+			
+		//가격수정하기	
+		$("#priceChange").on("click", function() {
+			 if(confirm("정말 수정하시겠습니까?")){
+				$.ajax({
+					url :"../ajax" , //서버요청주소
+					type:"post", //요청방식(method방식 : get | post | put | delete )
+					dataType:"text"  , //서버가 보내온 데이터(응답)타입(text | html | xml | json )
+					data: {key:"sellAjax" , methodName : "updateSellPrice", id : "id", sellNo : $("[name='sellNo']").val(), sellPrice : $("[name='sellPrice']").val()}, //서버에게 보낼 데이터정보(parameter정보)
+					success :function(result){
+						
+						selectSellingInfoByUserId();
+						closePopup();
+					} , //성공했을때 실행할 함수 
+					error : function(err){  
+						alert(err+"에러 발생했어요.");
+					}  //실팽했을때 실행할 함수 
+				});//ajax끝
+			} 
+		})
+			
+			
+		})//on close
+		
+		
+		wishList();
+		selectSellingInfoByUserId();
+		selectSellWaitInfoByUserId();
+	});//ready
+	
+	function closePopup() {
+		const popup = document.querySelector('#popup');
+	  	popup.classList.add('hide');
+  }
 	
 </script>
 </head>
@@ -78,7 +257,7 @@ font-family: 'Lora', serif;
 			    <div class="collapse navbar-collapse" id="navbarColor03">
 			      <ul class="navbar-nav me-auto">
 			        <li class="nav-item">
-			          <a class="nav-link active" href="#">Home
+			          <a class="nav-link" href="#">Home
 			          </a>
 			        </li>
 			        <li class="nav-item">
@@ -205,23 +384,25 @@ font-family: 'Lora', serif;
 		  <h3>판매</h3>
 		 <ul class="nav nav-tabs" role="tablist">
   <li class="nav-item" role="presentation">
-    <a class="nav-link" data-bs-toggle="tab" href="#home2" aria-selected="false" role="tab" tabindex="0">판매내역</a>
+    <a class="nav-link" data-bs-toggle="tab" href="#home2" aria-selected="false" role="tab" tabindex="-1" >판매내역</a>
   </li>
-  <li class="nav-item" role="presentation">
-    <a class="nav-link active" data-bs-toggle="tab" href="#profile2" aria-selected="false" role="tab" >판매중</a>
+  <li class="nav-item active" role="presentation">
+    <a class="nav-link active show" data-bs-toggle="tab" href="#profile2" aria-selected="true" role="tab" id="sellingList">판매중</a>
   </li>
    <li class="nav-item" role="presentation">
-    <a class="nav-link" data-bs-toggle="tab" href="#profile3" aria-selected="false" role="tab">판매신청</a>
+    <a class="nav-link" data-bs-toggle="tab" href="#profile3" aria-selected="false" role="tab"id="sellWaitList">판매신청</a>
   </li>
 </ul>
 <div id="myTabContent" class="tab-content">
-  	<div class="tab-pane fade" id="home2" role="tabpanel">
+  <div class="tab-pane fade" id="home2" role="tabpanel">
+  	
  	<table>
  		<tr>
- 			<td>상품이름</td>
- 			<td>브랜드</td>
- 			<td>판매가격</td>
- 			<td>등록일</td>
+ 			<th>No</th>
+ 			<th>상품이름</th>
+ 			<th>브랜드</th>
+ 			<th>판매가격</th>
+ 			<th>등록일</th>
  		</tr>
  	</table>
 	</div>
@@ -231,32 +412,54 @@ font-family: 'Lora', serif;
   	<div class="tab-pane fade active show" id="profile2" role="tabpanel">
  	<table>
  		<tr>
- 			<td>상품이름</td>
- 			<td>브랜드</td>
- 			<td>판매가격</td>
- 			<td>등록일</td>
+ 			<th>No</th>	
+ 			<th>상품이름</th>
+ 			<th>브랜드</th>
+ 			<th>판매가격</th>
+ 			<th>등록일</th>
  		</tr>
  	</table>
 	</div>
 </div>
 
 <div id="myTabContent" class="tab-content">
-  	<div class="tab-pane fade active show" id="profile3" role="tabpanel">
+<div class="tab-pane fade" id="profile3" role="tabpanel">
  	<table>
  		<tr>
- 			<td>상품이름</td>
- 			<td>브랜드</td>
- 			<td>판매가격</td>
- 			<td>등록일</td>
+ 			<th>No</th>
+ 			<th>상품이름</th>
+ 			<th>브랜드</th>
+ 			<th>판매가격</th>
+ 			<th>등록일</th>
  		</tr>
  	</table>
 	</div>
+</div>
+
+<div id="popup" class="hide">
+  <div class="content">
+    <p>
+
+<form name="priceChange" method="post">
+	
+	<div>
+		판매 번호: <input type="text" name="sellNo" size="30" readonly="readonly"><p>
+		수정 가격: <input type="text" name="sellPrice" size="30"><p>
+		
+	</div>
+	<input type="button" value="수정" id="priceChange">
+</form>
+    <button onclick="closePopup()">닫기</button>
+  </div>
+</div>
+
 </div>
 		<div id="shopping-wishList" class="tabcontent">
 		  <h3>관심상품</h3>
 		  <section id='product'>
 				<div class="productBEST_container">
-					<div class="bestItem item1">
+					
+					<!-- <div class="bestItem item1">
 						<div class="item_img_block">
 						<div class="item_img">
 							<img alt="상품이미지입니다." src="" id='product' >
@@ -291,136 +494,8 @@ font-family: 'Lora', serif;
 								<p id="p">즉시구매가</p>
 							</div>
 						</div>
-					</div><div class="bestItem item1">
-						<div class="item_img_block">
-						<div class="item_img">
-							<img alt="상품이미지입니다." src="" id='product' >
-						</div>
-						<div id='like'><img src="img/heart.svg" id='like_img'></div>
-						</div>
-						<div id='item_text'>
-							<div class="item_brand">
-								<a href="#" id="brand_text">브랜드</a>
-							</div>
-							<p id="name">상품이름</p>
-							<div class="price">
-								<p id="num">000,000원</p>
-								<p id="p">즉시구매가</p>
-							</div>
-						</div>
-					</div>
-				</div>
-				
-				<div class="productBEST_container">
-					<div class="bestItem item1">
-						<div class="item_img_block">
-						<div class="item_img">
-							<img alt="상품이미지입니다." src="" id='product' >
-						</div>
-						<div id='like'><img src="img/heart.svg" id='like_img'></div>
-						</div>
-						<div id='item_text'>
-							<div class="item_brand">
-								<a href="#" id="brand_text">브랜드</a>
-							</div>
-							<p id="name">상품이름</p>
-							<div class="price">
-								<p id="num">000,000원</p>
-								<p id="p">즉시구매가</p>
-							</div>
-						</div>
-					</div>
-					<div class="bestItem item1">
-						<div class="item_img_block">
-						<div class="item_img">
-							<img alt="상품이미지입니다." src="" id='product' >
-						</div>
-						<div id='like'><img src="img/heart.svg" id='like_img'></div>
-						</div>
-						<div id='item_text'>
-							<div class="item_brand">
-								<a href="#" id="brand_text">브랜드</a>
-							</div>
-							<p id="name">상품이름</p>
-							<div class="price">
-								<p id="num">000,000원</p>
-								<p id="p">즉시구매가</p>
-							</div>
-						</div>
-					</div><div class="bestItem item1">
-						<div class="item_img_block">
-						<div class="item_img">
-							<img alt="상품이미지입니다." src="" id='product' >
-						</div>
-						<div id='like'><img src="img/heart.svg" id='like_img'></div>
-						</div>
-						<div id='item_text'>
-							<div class="item_brand">
-								<a href="#" id="brand_text">브랜드</a>
-							</div>
-							<p id="name">상품이름</p>
-							<div class="price">
-								<p id="num">000,000원</p>
-								<p id="p">즉시구매가</p>
-							</div>
-						</div>
-					</div>
-				</div>
-								<div class="productBEST_container">
-					<div class="bestItem item1">
-						<div class="item_img_block">
-						<div class="item_img">
-							<img alt="상품이미지입니다." src="" id='product' >
-						</div>
-						<div id='like'><img src="img/heart.svg" id='like_img'></div>
-						</div>
-						<div id='item_text'>
-							<div class="item_brand">
-								<a href="#" id="brand_text">브랜드</a>
-							</div>
-							<p id="name">상품이름</p>
-							<div class="price">
-								<p id="num">000,000원</p>
-								<p id="p">즉시구매가</p>
-							</div>
-						</div>
-					</div>
-					<div class="bestItem item1">
-						<div class="item_img_block">
-						<div class="item_img">
-							<img alt="상품이미지입니다." src="" id='product' >
-						</div>
-						<div id='like'><img src="img/heart.svg" id='like_img'></div>
-						</div>
-						<div id='item_text'>
-							<div class="item_brand">
-								<a href="#" id="brand_text">브랜드</a>
-							</div>
-							<p id="name">상품이름</p>
-							<div class="price">
-								<p id="num">000,000원</p>
-								<p id="p">즉시구매가</p>
-							</div>
-						</div>
-					</div><div class="bestItem item1">
-						<div class="item_img_block">
-						<div class="item_img">
-							<img alt="상품이미지입니다." src="" id='product' >
-						</div>
-						<div id='like'><img src="img/heart.svg" id='like_img'></div>
-						</div>
-						<div id='item_text'>
-							<div class="item_brand">
-								<a href="#" id="brand_text">브랜드</a>
-							</div>
-							<p id="name">상품이름</p>
-							<div class="price">
-								<p id="num">000,000원</p>
-								<p id="p">즉시구매가</p>
-							</div>
-						</div>
-					</div>
-				</div>
+					</div>-->
+				</div> 
 	
 					
 				
