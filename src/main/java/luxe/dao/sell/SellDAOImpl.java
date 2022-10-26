@@ -11,7 +11,6 @@ import luxe.dao.bid.BidDAO;
 import luxe.dao.bid.BidDAOImpl;
 import luxe.dao.order.OrderDAO;
 import luxe.dao.order.OrderDAOImpl;
-import luxe.dao.order.OrdersDAOImpl;
 import luxe.dto.BidDTO;
 import luxe.dto.GoodsDTO;
 import luxe.dto.OrderDTO;
@@ -48,32 +47,54 @@ public class SellDAOImpl implements SellDAO {
 	
 	
 	@Override
-	public int updateSellPrice(String sellUserId ,int sellNo, int updateSellPirce) throws SQLException {
+	public int updateSellPrice(SellDTO sellDTO) throws SQLException {
 		Connection con = null;
 		PreparedStatement ps = null;
 		int result = 0;
-		String sellStatus = "판매중";
-		String sql = "UPDATE SELL SET SELL_PRICE = ?, SELL_STATUS = ?  WHERE SELL_NO = ?";
+		
+		String sql = "UPDATE SELL SET SELL_PRICE = ? WHERE SELL_NO = ?";
 		BidDAO bidDAO = new BidDAOImpl();
-		OrderDAO orderDAO = new OrdersDAOImpl();
+		OrderDAO orderDAO = new OrderDAOImpl();
 		try {
 			con = DbUtil.getConnection();
+			con.setAutoCommit(false);
 			ps = con.prepareStatement(sql);
 			
-			int goodsNo = selectGoodsNoBySellNo(con ,sellNo);
-			BidDTO bidDTO = bidDAO.getLowestBidPrice(goodsNo);
-			//최고입찰가를 받아 비교 후 true일 경우 주문등록
-			if(priceCompare(bidDTO, goodsNo)) {//최고입찰가를 받아 비교 후 true일 경우 주문등록
-				OrderDTO orderDTO = new OrderDTO(sellNo, bidDTO.getBidNo(), bidDTO.getBidPrice(),sellUserId, bidDTO.getUserId());
-				orderDAO.insertOrder(con, orderDTO);
+			int goodsNo = selectGoodsNoBySellNo(con ,sellDTO.getSellNo());
+			
+			System.out.println("goodsNo = "+goodsNo);
+			
+			BidDTO bidDTO = bidDAO.getHighestBidPrice(goodsNo);
+			
+			System.out.println(bidDTO.getBidPrice());
+			
+			
+			if(this.priceCompare(bidDTO, sellDTO.getSellPrice())) {//최고입찰가를 받아 비교 후 true일 경우 주문등록(즉시판매)
+				OrderDTO orderDTO = new OrderDTO(sellDTO.getSellNo(), bidDTO.getBidNo(), bidDTO.getBidPrice(), sellDTO.getUserId(), bidDTO.getUserId());
 				
-				sellStatus = "판매완료";
+				result = orderDAO.insertOrder(con, orderDTO);
+				if (result==0) {
+					con.rollback();
+					throw new SQLException("");
+				} else {
+					int result1 = UpdateSellStatusComplete(sellDTO.getSellNo());
+					int result2 = bidDAO.updateBidStatus(bidDTO.getBidNo());
+					if (result1==0 || result2==0) {
+						con.rollback();
+						throw new SQLException("");
+					}
+					con.commit();
+				}	
+				return result;
+			}else {
+				System.out.println("여기로오면 잘온거야~~~!");
+				compareSellLowerPrice(goodsNo,sellDTO);
 			}
-			ps.setInt(1, updateSellPirce);
-			ps.setString(2, sellStatus);
-			ps.setInt(3, sellNo);
+			ps.setInt(1, sellDTO.getSellPrice());
+			ps.setInt(2, sellDTO.getSellNo());
 			
 			result = ps.executeUpdate();
+			con.commit();
 			
 		} finally {
 			DbUtil.dbClose(con, ps);
@@ -81,38 +102,58 @@ public class SellDAOImpl implements SellDAO {
 		return result;
 	}
 	
-
+	
+	
 	@Override
-	public int updateSellStatus(String sellUserId, int sellNo, String sellStatus) throws SQLException {
+	public int updateSellStatus(SellDTO sellDTO) throws SQLException {
 		Connection con = null;
 		PreparedStatement ps = null;
 		int result = 0;
+		
 		String sql = "UPDATE SELL SET SELL_STATUS=? WHERE SELL_NO = ?";
 		BidDAO bidDAO = new BidDAOImpl();
 		OrderDAO orderDAO = new OrderDAOImpl();
 		try {
 			
 			con = DbUtil.getConnection();
-			ps = con.prepareStatement(sql);
+			con.setAutoCommit(false);
+			ps = con.prepareStatement(sql);	
 			
-			int goodsNo = selectGoodsNoBySellNo(con ,sellNo);
-			BidDTO bidDTO = bidDAO.getLowestBidPrice(goodsNo);
+			int goodsNo = selectGoodsNoBySellNo(con ,sellDTO.getSellNo());
+			BidDTO bidDTO = bidDAO.getHighestBidPrice(goodsNo); //null일때 제어
 			
-			if(sellStatus.equals("판매중")) {				
-				if(priceCompare(bidDTO, goodsNo)) {//최고입찰가를 받아 비교 후 true일 경우 주문등록
-					OrderDTO orderDTO = new OrderDTO(sellNo, bidDTO.getBidNo(), bidDTO.getBidPrice(), sellUserId, bidDTO.getUserId());
-					orderDAO.insertOrder(con, orderDTO);
+			if(sellDTO.getSellStatus().equals("판매중")) {		
+				if(this.priceCompare(bidDTO, sellDTO.getSellPrice())) {//최고입찰가를 받아 비교 후 true일 경우 주문등록(즉시판매)
+					OrderDTO orderDTO = new OrderDTO(sellDTO.getSellNo(), bidDTO.getBidNo(), bidDTO.getBidPrice(), sellDTO.getUserId(), bidDTO.getUserId());
 					
-					result = UpdateSellStatusComplete(sellNo);
-					//입찰완료로 바꾸자~!
+					result = orderDAO.insertOrder(con, orderDTO);
 					
+					if (result==0) {
+						con.rollback();
+						throw new SQLException("");
+					} else {
+						int result1 = UpdateSellStatusComplete(sellDTO.getSellNo());
+						int result2 = bidDAO.updateBidStatus(bidDTO.getBidNo());
+			
+						if (result1==0 || result2==0) {
+							con.rollback();
+							throw new SQLException("");
+						}
+						con.commit();
+					}	
 					return result;
+				}else {
+					compareSellLowerPrice(goodsNo, sellDTO);//goodsNo, price를
 				}
 			}
-			ps.setString(1, sellStatus);
-			ps.setInt(2, sellNo);
+			
+			ps.setString(1, sellDTO.getSellStatus());
+			ps.setInt(2, sellDTO.getSellNo());
+
 			result = ps.executeUpdate();
-		
+			
+			con.commit();
+			
 		} finally {
 			DbUtil.dbClose(con, ps);
 		}
@@ -126,15 +167,16 @@ public class SellDAOImpl implements SellDAO {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		List<SellDTO> sellList = new ArrayList<SellDTO>();
-		String sql = "SELECT S.SELL_NO, S.USER_ID, G.GOODS_NAME, S.SELL_PRICE, S.PUR_DATE, S.SERIAL_NUMBER, S.SELL_DATE, S.SELL_STATUS\r\n"
-				+ "FROM SELL S, GOODS G WHERE S.GOODS_NO = G.GOODS_NO ORDER BY S.SELL_STATUS ASC";
+		String sql = "SELECT S.SELL_NO, S.USER_ID, G.GOODS_NAME, S.SELL_PRICE, S.PUR_DATE, S.SERIAL_NUMBER, S.SELL_DATE, S.SELL_STATUS \r\n"
+				+ "FROM SELL S, GOODS G \r\n"
+				+ "WHERE S.GOODS_NO = G.GOODS_NO ORDER BY S.SELL_STATUS ASC";
 		try {
 			con = DbUtil.getConnection();
 			ps = con.prepareStatement(sql);
 			rs = ps.executeQuery();
-			
+			System.out.println("나오니?");
 			while (rs.next()) {
-				SellDTO sellDTO = new SellDTO(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getInt(4),rs.getString(5),rs.getString(6),rs.getString(8),rs.getString(9));
+				SellDTO sellDTO = new SellDTO(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getInt(4),rs.getString(5),rs.getString(6),rs.getString(7),rs.getString(8));
 				
 				sellList.add(sellDTO);
 			}
@@ -154,7 +196,7 @@ public class SellDAOImpl implements SellDAO {
 		List<SellDTO> sellList = new ArrayList<SellDTO>();
 		String sql = "SELECT G.GOODS_NAME, G.BRAND, S.SELL_PRICE, S.SELL_DATE  \r\n"
 					+ "FROM SELL S, GOODS G\r\n"
-					+ "WHERE S.GOODS_NO = G.GOODS_NO AND S.USER_ID =? AND S.SELL_STATUS='판매중' ";
+					+ "WHERE S.GOODS_NO = G.GOODS_NO AND S.USER_ID =? AND S.SELL_STATUS='판매중'";
 		try {
 			con = DbUtil.getConnection();
 			ps = con.prepareStatement(sql);
@@ -205,20 +247,23 @@ public class SellDAOImpl implements SellDAO {
 	
 	
 	@Override
-	public SellDTO selectMaxPriceByGoodsNo(int goodsNo) throws SQLException {
+	public SellDTO selectLowestPriceByGoodsNo(int goodsNo) throws SQLException {
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		SellDTO sellDTO = null;
-		String sql = "SELECT USER_ID, MIN(SELL_PRICE) FROM SELL GROUP BY USER_ID, GOODS_NO, SELL_STATUS HAVING GOODS_NO = ? AND SELL_STATUS='판매중'";
+		String sql = "SELECT USER_ID, SELL_PRICE, SELL_NO "
+				+ "FROM SELL "
+				+ "WHERE GOODS_NO = ? AND SELL_STATUS='판매중' AND SELL_PRICE =(SELECT MIN(SELL_PRICE) FROM SELL WHERE GOODS_NO = ?)";
 		try {
 			con = DbUtil.getConnection();
 			ps = con.prepareStatement(sql);
 			ps.setInt(1,goodsNo);
+			ps.setInt(2,goodsNo);
 			rs = ps.executeQuery();
 			
 			if (rs.next()) {
-				sellDTO = new SellDTO(goodsNo ,rs.getString(1), rs.getInt(2));
+				sellDTO = new SellDTO(goodsNo ,rs.getString(1), rs.getInt(2), rs.getInt(3));
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -228,33 +273,28 @@ public class SellDAOImpl implements SellDAO {
 		return sellDTO;
 	}
 	
-	
-	@Override
-	public boolean priceCompare(BidDTO bidDTO, int goodsNo) throws SQLException{
-		Connection con = null;
-		PreparedStatement ps = null;
-		ResultSet rs = null;
+	/**
+	 * 값비교
+	 */
+	private boolean priceCompare(BidDTO bidDTO, int sellPrice) throws SQLException{
 		boolean result = false;
-		String sql = "SELECT SELL_NO FROM SELL WHERE GOODS_NO=? AND SELL_PRICE=? AND SELL_STATUS = '판매중'";
-		try {
-			con = DbUtil.getConnection();
-			ps = con.prepareStatement(sql);
-			ps.setInt(1, goodsNo);
-			ps.setInt(2, bidDTO.getBidPrice());
-			rs = ps.executeQuery();
-			
-			if(rs.next()) {
+		
+		if(bidDTO != null) {
+			if(bidDTO.getBidPrice() == sellPrice) {
 				result = true;
 			}
-		} catch (Exception e) {
-			e.printStackTrace();
-		} finally {
-			DbUtil.dbClose(con, ps, rs);
 		}
 		return result;
 	}
 	
 	
+	/**
+	 * SellNo를 통해 GoodsNo를 조회한다.
+	 * @param con
+	 * @param sellNo
+	 * @return
+	 * @throws SQLException
+	 */
 	private int selectGoodsNoBySellNo(Connection con, int sellNo) throws SQLException {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -296,4 +336,40 @@ public class SellDAOImpl implements SellDAO {
 		return result;
 	}
 	
+	
+	public boolean sellDuplicateCheck(SellDTO sellDTO) throws SQLException{
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		boolean result = false;
+		String sql = "SELECT SELL_NO FROM SELL WHERE SERIAL_NUMBER = ? AND USER_ID = ?";
+		try {
+			con = DbUtil.getConnection();
+			ps = con.prepareStatement(sql);
+			ps.setString(1, sellDTO.getSerialNumber());
+			ps.setString(2, sellDTO.getUserId());
+			rs = ps.executeQuery();
+		 
+			result = rs.next();
+	
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DbUtil.dbClose(con, ps, rs);
+		}
+		return result;
+	}
+	
+	private void compareSellLowerPrice(int goodsNo, SellDTO sellDTO) throws SQLException {
+		
+		SellDTO lowest = this.selectLowestPriceByGoodsNo(goodsNo);
+		if (lowest == null) {
+			return;
+		}
+		
+		if (lowest.getSellPrice() > sellDTO.getSellPrice()) {
+			// 알림 발송 (알림 내용 정하기)
+			// 화면에 입찰 최고가 바꾸기
+		}
+	}
 }

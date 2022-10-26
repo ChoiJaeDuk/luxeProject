@@ -12,7 +12,7 @@ public interface SellService {
 	 * @return
 	 * @throws SQLException
 	 */
-	void insertSell(SellDTO sell) throws SQLException;
+	void insertSell(SellDTO sellDTO) throws SQLException;
 	
 	
 	/**
@@ -21,7 +21,7 @@ public interface SellService {
 	 * @return
 	 * @throws SQLException
 	 */
-	void updateSellPrice(String sellUserId, int sellNo, int updateSellPrice) throws SQLException;
+	void updateSellPrice(SellDTO sellDTO) throws SQLException;
 	
 	
 	/**
@@ -29,7 +29,7 @@ public interface SellService {
 	 * @return
 	 * @throws SQLException
 	 */
-	void updateSellStatus(String sellUserId, int sellNo, String sellStatus) throws SQLException;
+	void updateSellStatus(SellDTO sellDTO) throws SQLException;
 	
 	
 	/**
@@ -61,5 +61,14 @@ public interface SellService {
 	 * @throws SQLException
 	 */
 	SellDTO selectMaxPriceByGoodsNo(int goodsNo) throws SQLException;
+	
+	
+	/**
+	 * 시리얼넘버를 통해 상품 중복검사 
+	 * @param serialNo
+	 * @return 중복이면 true 중복이 아니면 false
+	 * @throws SQLException
+	 */
+	public boolean sellDuplicateCheck(SellDTO sellDTO) throws SQLException;
 	
 }

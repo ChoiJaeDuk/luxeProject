@@ -8,12 +8,23 @@ public class AlarmDTO {
 	private String issueDate;
 	private String goodsName;
 	
+	
 	public AlarmDTO() {}
 	
 	
 
-	public AlarmDTO(String goodsName, String alarmSubject, String alarmContent, String issueDate) {
+	public AlarmDTO(int goodsNo, String alarmSubject, String alarmContent) {
 		super();
+		this.goodsNo = goodsNo;
+		this.alarmSubject = alarmSubject;
+		this.alarmContent = alarmContent;
+	}
+
+
+
+	public AlarmDTO(int alarmNo, String goodsName, String alarmSubject, String alarmContent, String issueDate) {
+		super();
+		this.alarmNo = alarmNo;
 		this.goodsName = goodsName;
 		this.alarmSubject = alarmSubject;
 		this.alarmContent = alarmContent;

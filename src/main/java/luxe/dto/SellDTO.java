@@ -13,11 +13,31 @@ public class SellDTO {
 	
 	
 	private String goodsName;
-
+	private GoodsDTO goodsDTO;
 	
 	public SellDTO() {}
 
 	
+	
+	public SellDTO(int sellNo, int sellPrice, String userId) {
+		super();
+		this.sellNo = sellNo;
+		this.userId = userId;
+		this.sellPrice = sellPrice;
+	}
+
+	
+
+	public SellDTO(int sellNo, String userId, String sellStatus,int sellPrice) {
+		super();
+		this.sellNo = sellNo;
+		this.userId = userId;
+		this.sellStatus = sellStatus;
+		this.sellPrice = sellPrice;
+	}
+
+
+
 	public SellDTO( int goodsNo, String userId, String accountNo, int sellPrice, String purdate, String serialNumber) {
 		this.goodsNo = goodsNo;
 		this.userId = userId;
@@ -28,16 +48,18 @@ public class SellDTO {
 	}
 	
 	
-	public SellDTO(int goodsNo, String userId, int sellPrice) {
+	public SellDTO(int goodsNo, String userId, int sellPrice, int sellNo) {
 		super();
 		this.goodsNo = goodsNo;
 		this.userId = userId;
 		this.sellPrice = sellPrice;
+		this.sellNo = sellNo;
 	}
 
 	public SellDTO(int sellPrice, String sellDate , GoodsDTO goodsDTO) {
 		this.sellPrice = sellPrice;
 		this.sellDate = sellDate;
+		this.goodsDTO = goodsDTO;
 	}
 	
 	
@@ -117,6 +139,48 @@ public class SellDTO {
 	}
 
 	public void setSerial_number(String serialNumber) {
+		this.serialNumber = serialNumber;
+	}
+
+
+
+	public String getSellDate() {
+		return sellDate;
+	}
+
+
+
+	public void setSellDate(String sellDate) {
+		this.sellDate = sellDate;
+	}
+
+
+
+	public String getGoodsName() {
+		return goodsName;
+	}
+
+
+
+	public void setGoodsName(String goodsName) {
+		this.goodsName = goodsName;
+	}
+
+
+
+	public GoodsDTO getGoodsDTO() {
+		return goodsDTO;
+	}
+
+
+
+	public void setGoodsDTO(GoodsDTO goodsDTO) {
+		this.goodsDTO = goodsDTO;
+	}
+
+
+
+	public void setSerialNumber(String serialNumber) {
 		this.serialNumber = serialNumber;
 	}
 	

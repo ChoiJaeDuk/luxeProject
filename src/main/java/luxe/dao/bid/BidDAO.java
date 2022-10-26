@@ -17,15 +17,6 @@ public interface BidDAO {
 	List<BidDTO> selectAllBid() throws SQLException;
 
 	/**
-	 * 회원 - 전체 입찰 조회
-	 * 
-	 * @param 회원아이디
-	 * @return List<BidDTO>
-	 * @throws SQLException
-	 */
-	List<BidDTO> selectAllBidByUserId(String userId) throws SQLException;
-
-	/**
 	 * 회원 - 입찰 상태별 조회
 	 * 
 	 * @param userId
@@ -34,6 +25,15 @@ public interface BidDAO {
 	 * @throws SQLException
 	 */
 	List<BidDTO> selectAllBidByUserId(String userId, String bidState) throws SQLException;
+
+	/**
+	 * 입찰 내역 중복 확인
+	 * 
+	 * @param bid객체
+	 * @return BidDTO
+	 * @throws SQLException
+	 */
+	BidDTO checkDuplicatedBid(BidDTO bid) throws SQLException;
 
 	/**
 	 * 입찰 등록
@@ -55,13 +55,21 @@ public interface BidDAO {
 	BidDTO getHighestBidPrice(int goodsNo) throws SQLException;
 
 	/**
-	 * 입찰 가격, 상태 수정
+	 * 입찰 가격 수정
 	 * 
 	 * @param 회원아이디, 상품번호, 수정 가격
 	 * @return : 1이면 수정 성공, 0이면 수정 실패
 	 * @throws SQLException
 	 */
-	int updateBid(Connection con, BidDTO bid) throws SQLException;
+	int updateBidPrice(BidDTO bid) throws SQLException;
+
+	/**입찰 상태 수정
+	 * 
+	 * @param 입찰 번호
+	 * @return : 1이면 수정 성공, 0이면 수정 실패
+	 * @throws SQLException
+	 */
+	int updateBidStatus(int bidNo) throws SQLException;
 
 	/**
 	 * 입찰 삭제

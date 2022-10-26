@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.tomcat.jni.Mmap;
+
 import luxe.controller.Controller;
 import luxe.controller.ModelAndView;
 import luxe.dto.SellDTO;
@@ -28,12 +30,12 @@ public class SellController implements Controller {
 	
 	public ModelAndView insertSell(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		
-		int goodsNo = Integer.parseInt(request.getParameter(null));
-		String userId = request.getParameter(null);
-		String accountNo = request.getParameter(null);
-		int sellPrice = Integer.parseInt(request.getParameter(null));
-		String purDate = request.getParameter(null);
-		String serialNumber = request.getParameter(null);
+		int goodsNo = Integer.parseInt(request.getParameter("goodsNo"));
+		String userId = request.getParameter("userId");
+		String accountNo = request.getParameter("accountNo");
+		int sellPrice = Integer.parseInt(request.getParameter("sellPrice"));
+		String purDate = request.getParameter("purDate");
+		String serialNumber = request.getParameter("serialNumber");
 		
 		sellService.insertSell(new SellDTO(goodsNo, userId, accountNo, sellPrice, purDate, serialNumber));
 		
@@ -42,10 +44,11 @@ public class SellController implements Controller {
 	
 	
 	public ModelAndView updateSellPrice(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		int sellNo = Integer.parseInt(request.getParameter(null));
-		int updateSellPrice = Integer.parseInt(request.getParameter(null));
-		String sellUserId = request.getParameter("sellUserId");	
-		sellService.updateSellPrice(sellUserId, sellNo, updateSellPrice);
+		int sellNo = Integer.parseInt(request.getParameter("sellNo"));
+		int updateSellPrice = Integer.parseInt(request.getParameter("sellPrice"));
+		String sellUserId = request.getParameter("userId");	
+		SellDTO sellDTO = new SellDTO(sellNo, updateSellPrice, sellUserId);
+		sellService.updateSellPrice(sellDTO);//sellUserId, sellNo, updateSellPrice
 		
 		return new ModelAndView("/front",true);
 	}
@@ -55,25 +58,34 @@ public class SellController implements Controller {
 	
 	public ModelAndView updateSellStatus(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		
-		int sellNo = Integer.parseInt(request.getParameter(null));
-		String sellStatus = request.getParameter(null);
+		int sellNo = Integer.parseInt(request.getParameter("sellNo"));
+		String sellStatus = request.getParameter("sellStatus");
 		String sellUserId = request.getParameter("sellUserId");	
-		
-		sellService.updateSellStatus(sellUserId, sellNo, sellStatus);
+		int sellPrice = Integer.parseInt(request.getParameter("sellPrice"));
+		SellDTO sellDTO = new SellDTO(sellNo, sellUserId, sellStatus, sellPrice);
+		sellService.updateSellStatus(sellDTO);
 		
 		return new ModelAndView("/front",true);
 	}
 	
 	
+	public ModelAndView selectSellAll(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		List<SellDTO> sellAllList = sellService.selectSellAll();
+		
+		request.setAttribute("sellAllList", sellAllList);
+		
+		return new ModelAndView("test2.jsp");
+	}
+	
 	public ModelAndView selectSellingInfoByUserId(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		
-		String userId = request.getParameter(null);
+		String userId = request.getParameter("id");
 		
 		List<SellDTO> sellingList = sellService.selectSellingInfoByUserId(userId);
 		
 		request.setAttribute("sellingList", sellingList);
 		
-		return new ModelAndView("duckTest.jsp");
+		return new ModelAndView("test2.jsp");
 	}
 	
 	public ModelAndView selectSellWaitInfoByUserId(HttpServletRequest request, HttpServletResponse response) throws Exception{
@@ -91,9 +103,20 @@ public class SellController implements Controller {
 		//int goodsNo = Integer.parseInt(request.getParameter("goods"));
 		
 		SellDTO sellDTO = sellService.selectMaxPriceByGoodsNo(1);
-		int maxPrice = sellDTO.getSellPrice(); 
-		request.setAttribute("maxPrice", maxPrice);
+		int lowestPrice = sellDTO.getSellPrice(); 
+		request.setAttribute("lowestPrice", lowestPrice);
 		
 		return new ModelAndView("duckTest.jsp");
+	}
+	
+	public ModelAndView sellDuplicateCheck(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		
+		String serialNumber = request.getParameter(null);
+		
+		boolean result = sellService.sellDuplicateCheck(null);
+		
+		request.setAttribute("result", result);
+		
+		return new ModelAndView("");
 	}
 }

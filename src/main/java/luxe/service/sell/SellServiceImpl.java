@@ -11,22 +11,24 @@ import luxe.dto.SellDTO;
 public class SellServiceImpl implements SellService {
 	private SellDAO sellDAO = new SellDAOImpl();
 	@Override
-	public void insertSell(SellDTO sell) throws SQLException {
-		int result = sellDAO.insertSell(sell);
+	public void insertSell(SellDTO sellDTO) throws SQLException {
+		int result = sellDAO.insertSell(sellDTO);
 		if (result==0) throw new SQLException("등록실패");
 	}
 
 	@Override
-	public void updateSellPrice(String sellUserId, int sellNo, int updateSellPrice) throws SQLException {
-		int result = sellDAO.updateSellPrice(sellUserId, sellNo, updateSellPrice);
+	public void updateSellPrice(SellDTO sellDTO) throws SQLException {
+		int result = sellDAO.updateSellPrice(sellDTO);
 		if (result==0) throw new SQLException("업데이트 실패");
 	}
 
 	
 	@Override
-	public void updateSellStatus(String sellUserId, int sellNo, String sellStatus) throws SQLException {
-		int result = sellDAO.updateSellStatus(sellUserId, sellNo, sellStatus);
+	public void updateSellStatus(SellDTO sellDTO) throws SQLException {
+		int result = sellDAO.updateSellStatus(sellDTO);
 		if (result==0) throw new SQLException("판매상태 업데이트 실패");
+		
+		
 	}
 
 	
@@ -41,6 +43,7 @@ public class SellServiceImpl implements SellService {
 	public List<SellDTO> selectSellingInfoByUserId(String userId) throws SQLException {
 		List<SellDTO> sellingList = new ArrayList<SellDTO>();
 		sellingList = sellDAO.selectSellingInfoByUserId(userId);
+		
 		return sellingList;
 	}
 	
@@ -53,14 +56,20 @@ public class SellServiceImpl implements SellService {
 
 	@Override
 	public SellDTO selectMaxPriceByGoodsNo(int goodsNo) throws SQLException {
-		SellDTO sellDTO = sellDAO.selectMaxPriceByGoodsNo(goodsNo);
-		
+		SellDTO sellDTO = sellDAO.selectLowestPriceByGoodsNo(goodsNo);
+	
 		if(sellDTO==null) {
 			throw new SQLException("판매가 없습니다.");
 		}
 		return sellDTO;
 	}
-
 	
+	
+	public boolean sellDuplicateCheck(SellDTO sellDTO) throws SQLException{
+		boolean result = sellDAO.sellDuplicateCheck(sellDTO);
+		return result;
+	}
 
 }
+
+

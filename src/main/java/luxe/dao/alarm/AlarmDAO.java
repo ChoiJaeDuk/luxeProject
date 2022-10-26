@@ -5,6 +5,7 @@ import java.sql.SQLException;
 import java.util.List;
 
 import luxe.dto.AlarmDTO;
+import luxe.dto.AlarmReceiveUserDTO;
 
 public interface AlarmDAO {
 
@@ -14,7 +15,7 @@ public interface AlarmDAO {
 	 * @return
 	 * @throws SQLException
 	 */
-	//int insertAlarm(Connection con, AlarmDTO alarm) throws SQLException;
+	int insertAlarm(AlarmDTO alarm) throws SQLException;
 	
 	/***
 	 * 알람 조회
@@ -24,6 +25,13 @@ public interface AlarmDAO {
 	 */
 	List<AlarmDTO> selectAlarm(String userId) throws SQLException;
 	
+	/***
+	 * 새로운 알람이 있는지 확인 
+	 * @param userId
+	 * @return
+	 * @throws SQLException
+	 */
+	int countNewAlarm(String userId) throws SQLException;
 	/***
 	 * 알림 조회 상태 변경 
 	 * @param alarmNo
