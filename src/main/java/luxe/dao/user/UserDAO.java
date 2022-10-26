@@ -71,14 +71,7 @@ public interface UserDAO {
 	 * 회원정보 수정
 	 * 주소
 	 */
-	int updateUserAddr(String userId, String userNewAddr,String userNewDetailAddr)throws SQLException;
-	
-	/**
-	 * 회원정보 수정
-	 * 전화번호
-	 */
-	
-	int updateUserPhone(String userId, String userNewPhone)throws SQLException;
+	int updateUserInfo(String userId, String userAddr,String userPhone, String userEmail)throws SQLException;
 	
 	/**
 	 * 회원 탈퇴

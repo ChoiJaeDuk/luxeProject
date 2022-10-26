@@ -12,7 +12,7 @@ public class UserDTO {
 
 	public UserDTO() {
 	}
-	
+
 	public UserDTO(String userId, String userPwd, String userName, String userAddr, String userPhone, String job,
 			String userEmail) {
 		super();
@@ -25,14 +25,21 @@ public class UserDTO {
 		this.userEmail = userEmail;
 	}
 
-	public UserDTO(String userId, String userPwd, String userName, String userAddr,
-			String userPhone, String userEmail) {
+	public UserDTO(String userId, String userPwd, String userName, String userAddr, String userPhone,
+			String userEmail) {
 		this.userId = userId;
 		this.userPwd = userPwd;
 		this.userName = userName;
 		this.userAddr = userAddr;
 		this.userPhone = userPhone;
+		this.userEmail = userEmail;
+	}
 
+	public UserDTO(String userId, String userAddr, String userPhone, String userEmail) {
+		super();
+		this.userId = userId;
+		this.userAddr = userAddr;
+		this.userPhone = userPhone;
 		this.userEmail = userEmail;
 	}
 
@@ -40,8 +47,7 @@ public class UserDTO {
 		this.userId = userId;
 		this.userPwd = userPwd;
 	}
-	
-	
+
 	public String getUserId() {
 		return userId;
 	}
