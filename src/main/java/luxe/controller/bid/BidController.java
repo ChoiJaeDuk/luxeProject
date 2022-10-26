@@ -101,13 +101,14 @@ public class BidController implements Controller {
 	 */
 	public ModelAndView updateBidPrice(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
+		String bidNoStr = request.getParameter("bidNo");
 		String goodsNostr = request.getParameter("goodsNo");
 		HttpSession session = request.getSession();
 		String userId = (String) session.getAttribute("userId");
 		String bidPrice = request.getParameter("bidPrice");
 
-		bidService.updateBidPrice(
-				new BidDTO(0, Integer.parseInt(goodsNostr), userId, Integer.parseInt(bidPrice), null, null));
+		bidService.updateBidPrice(new BidDTO(Integer.parseInt(bidNoStr), Integer.parseInt(goodsNostr), userId,
+				Integer.parseInt(bidPrice), null, null));
 
 		return new ModelAndView("조회페이지", true);
 	}
@@ -127,11 +128,11 @@ public class BidController implements Controller {
 	 * 입찰 삭제
 	 */
 	public ModelAndView deleteBid(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		String goodsNostr = request.getParameter("goodsNo");
+		String bidNoStr = request.getParameter("bidNo");
 		HttpSession session = request.getSession();
 		String userId = (String) session.getAttribute("userId");
 
-		bidService.deleteBid(Integer.parseInt(goodsNostr), userId);
+		bidService.deleteBid(Integer.parseInt(bidNoStr), userId);
 
 		return new ModelAndView("조회페이지", false);
 	}

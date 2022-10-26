@@ -106,7 +106,8 @@ font-family: 'Lora', serif;
 					<button class="tablinks" onclick="openCity(event, 'profile-info')"
 						id="defaultOpen">프로필정보</button>
 					<button class="tablinks" onclick="openCity(event, 'profile-alarm')">알람</button>
-					<button class="tablinks" onclick="openCity(event, 'shopping-buy')">구매내역</button>
+					<button class="tablinks" onclick="openCity(event, 'shopping-buy')"
+						id="purchaseButton">구매내역</button>
 					<button class="tablinks" onclick="openCity(event, 'shopping-sell')">판매내역</button>
 					<button class="tablinks"
 						onclick="openCity(event, 'shopping-wishList')">관심상품</button>
@@ -203,12 +204,12 @@ font-family: 'Lora', serif;
 							<table>
 								<tr>
 									<th>번호</th>
-									<th>입찰번호</th>
 									<th>상품명</th>
 									<th>브랜드명</th>
 									<th>입찰가</th>
 									<th>거래일자</th>
-
+									<th>수정</th>
+									<th>삭제</th>
 								</tr>
 							</table>
 						</div>
@@ -506,37 +507,81 @@ font-family: 'Lora', serif;
 		// Get the element with id="defaultOpen" and click on it
 		document.getElementById("defaultOpen").click();
 
+
 		$(function() {
-			$("#onGoingBid").on("click", function() {
+			
+			//입찰 중인 내역 조회
+			function selectAllBid(){
 				$.ajax({
 					url : "ajax", //서버요청주소
 					type : "post", //요청방식(method방식 : get | post | put | delete )
 					dataType : "json", //서버가 보내온 데이터(응답)타입(text | html | xml | json )
-					data : {
-						key : "bidAjax",
-						methodName : "selectAllBidByUserId",
-						bidStatus : $(this).attr("입찰중")
-					}, //서버에게 보낼 데이터정보(parameter정보)
+					data : {key : "bidAjax", methodName : "selectAllBidByUserId", bidStatus : "입찰중"}, //서버에게 보낼 데이터정보(parameter정보)
 					success : function(result) {
 						let str = "";
 						$.each(result, function(index, bid) {
 							str += "<tr>";
-							str += "<td>"+(index+1)+"</td>";
-							str += `<td>${"${bid.bidNo}"}</td>`;
+							str += "<td>" + (index + 1) + "</td>";
 							str += `<td>${"${bid.goodsName}"}</td>`;
 							str += `<td>${"${bid.brand}"}</td>`;
 							str += `<td>${"${bid.bidPrice}"}</td>`;
 							str += `<td>${"${bid.bidRegDate}"}</td>`;
+							str += `<td><input type="button" value="수정" onclick="popUpOpen();" name=${"${bid.bidNo}"}></td>`;
+							str += `<td><input type="button" value="삭제" name=${"${bid.bidNo}"}></td>`;
 							str += "</tr>";
 						});
+						
+						$("#profile > table tr:gt(0)").remove();
 						$("#profile > table tr:eq(0)").after(str);
 
 					}, //성공했을때 실행할 함수 
 					error : function(err) {
 						alert(err + "에러 발생");
 					} //실패했을때 실행할 함수 
-				})
+				}) // ajax end
+			};
+			
+			// 구매탭 선택시 기본으로 입찰중인 내역 출력
+			$("#purchaseButton").on("click", function(){
+				$("#profile").css("visibility", "visible");
+				selectAllBid();
 			});
+
+			
+			/**입찰 중 내역 조회*/
+			$("#onGoingBid").on("click", function() {
+				selectAllBid();
+			});
+			
+			
+			//선택 내역 삭제
+			$(document).on("click", "#profile input[value='삭제']", function () {
+				if(confirm("삭제하시겠습니까?")){
+					let bidNo = $(this).attr("name");
+					$.ajax({
+						url : "ajax", //서버요청주소
+						type : "post", //요청방식(method방식 : get | post | put | delete )
+						dataType : "text", //서버가 보내온 데이터(응답)타입(text | html | xml | json )
+						data : {key : "bidAjax", methodName : "deleteBid", bidNo:bidNo}, //서버에게 보낼 데이터정보(parameter정보)
+						success : function(result) {
+							//$(this).parent().parent().find('td').eq(1).text()
+							alert("삭제에 성공했습니다.");
+							selectAllBid();
+						}, //성공했을때 실행할 함수 
+						error : function(err) {
+							alert(err + "에러 발생");
+						} //실패했을때 실행할 함수 
+					});
+				}
+			});
+			
+			// 선택 입찰 내역 수정
+			$(document).on("click", "#profile input[value='수정']", function () {
+				let bidNo = $(this).attr("name");
+				window.open('https://www.naver.com', '_blank'); 
+			});
+			
+			
 		});
 	</script>
 </body>

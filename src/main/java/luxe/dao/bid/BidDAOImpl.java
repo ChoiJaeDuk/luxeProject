@@ -149,7 +149,7 @@ public class BidDAOImpl implements BidDAO {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 
-		String sql = "select bid_no, user_id, bid_price from bid where goods_no=? and bid_status='입찰중' and bid_price=(select max(bid_price) from bid where goods_no=?)";
+		String sql = "select bid_no, user_id, bid_price from bid where goods_no=? AND bid_status='입찰중' and bid_price=(select max(bid_price) from bid where goods_no=? AND bid_status='입찰중')";
 
 		BidDTO highestBid = null;
 
@@ -257,7 +257,7 @@ public class BidDAOImpl implements BidDAO {
 		PreparedStatement ps = null;
 		SellDTO lowestSell = null;
 		int result = 0;
-		String sql = "update bid set BID_PRICE=?, BID_STATUS=? where USER_ID=? and GOODS_NO=?";
+		String sql = "update bid set BID_PRICE=?, BID_STATUS=? where USER_ID=? and bid_No=?";
 
 		try {
 
@@ -277,7 +277,7 @@ public class BidDAOImpl implements BidDAO {
 			ps.setInt(1, bidPrice);
 			ps.setString(2, bidStatus);
 			ps.setString(3, bid.getUserId());
-			ps.setInt(4, goodsNo);
+			ps.setInt(4, bid.getBidNo());
 			result = ps.executeUpdate();
 
 			// 입찰 등록 후 알람 발송 또는 주문 등록
@@ -317,16 +317,16 @@ public class BidDAOImpl implements BidDAO {
 	}
 
 	@Override
-	public int deleteBid(int goodsNo, String userId) throws SQLException {
+	public int deleteBid(int bidNo, String userId) throws SQLException {
 		Connection con = null;
 		PreparedStatement ps = null;
 		int result = 0;
-		String sql = "delete from bid where GOODS_NO=? and USER_ID=?";
+		String sql = "delete from bid where BID_NO=? and USER_ID=?";
 
 		try {
 			con = DbUtil.getConnection();
 			ps = con.prepareStatement(sql);
-			ps.setInt(1, goodsNo);
+			ps.setInt(1, bidNo);
 			ps.setString(2, userId);
 			result = ps.executeUpdate();
 

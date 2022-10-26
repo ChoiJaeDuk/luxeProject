@@ -56,7 +56,41 @@ public class BidAjaxController implements AjaxController {
 
 		PrintWriter out = response.getWriter();
 		out.print(arr);
+	}
 
+	/**
+	 * 입찰 삭제
+	 */
+	public void updateBidPrice(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		response.setContentType("text/html;charset=UTF-8");
+
+		String bidNoStr = request.getParameter("bidNo");
+		String goodsNostr = request.getParameter("goodsNo");
+		HttpSession session = request.getSession();
+		String userId = (String) session.getAttribute("userId");
+		String bidPrice = request.getParameter("bidPrice");
+
+		bidService.updateBidPrice(new BidDTO(Integer.parseInt(bidNoStr), Integer.parseInt(goodsNostr), userId,
+				Integer.parseInt(bidPrice), null, null));
+		
+		PrintWriter out = response.getWriter();
+		out.print("수정성공");
+	}
+
+	/**
+	 * 입찰 삭제
+	 */
+	public void deleteBid(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		response.setContentType("text/html;charset=UTF-8");
+
+		String bidNostr = request.getParameter("bidNo");
+		HttpSession session = request.getSession();
+		String userId = (String) session.getAttribute("userId");
+
+		bidService.deleteBid(Integer.parseInt(bidNostr), userId);
+
+		PrintWriter out = response.getWriter();
+		out.print("삭제성공");
 	}
 
 }
