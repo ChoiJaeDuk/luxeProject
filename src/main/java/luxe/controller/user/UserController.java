@@ -94,7 +94,10 @@ public class UserController implements Controller {
 		return new ModelAndView("/front", true);
 	}
 
-
+	
+	
+	
+	
 	/**
 	 * 회원정보 수정 
 	 */

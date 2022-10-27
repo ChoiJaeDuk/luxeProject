@@ -57,9 +57,31 @@ font-family: 'Lora', serif;
 </style>
 <script src="js/jquery-3.6.1.min.js"></script>
 <script type="text/javascript">
-	function() {
-		location.href='${path}/front?key=user&methodName=sellApplication&goodsNo=${goodsDTO.goodsNo}&inputPrice=${goodsDTO.highestPrice}';
-	}
+	$(function() {
+		function sellUserInfo() {
+			$.ajax({
+				url :"ajax" , //서버요청주소
+				type:"post", //요청방식(method방식 : get | post | put | delete )
+				dataType:"json"  , //서버가 보내온 데이터(응답)타입(text | html | xml | json )
+				data: {key:"userAjax" , methodName : "sellUserInfo", userId:"id"}, //서버에게 보낼 데이터정보(parameter정보)
+				success :function(result){
+					$("#seller-name").text(result.userName);
+					$("#seller-phone").text(result.userPhone);
+					$("#seller-email").text(result.userEmail);
+				} , //성공했을때 실행할 함수 
+				error : function(err){  
+					alert(err+"에러 발생했어요.");
+				}  //실팽했을때 실행할 함수 
+			});//ajax끝
+		}
+		sellUserInfo();
+		
+		$("#sell").on("click", function() {
+			
+		})
+	})
+	
+	
 </script>
 </head>
 <body>
@@ -128,18 +150,18 @@ font-family: 'Lora', serif;
 						<div id='delivery_detail'>
 							<h3>배송 주소</h3>
 							<div id='delivery-info-list'>
-							<span id='delivery-title'>판매자</span>
-							<span id='delivery-dese'>홍길동</span>
+							<span id='delivery-title'>판매자: </span>
+							<span id='seller-name'></span>
 							</div>
 							
 							<div id='delivery-info-list'>
-							<span id='delivery-title'>연락처</span>
-							<span id='delivery-dese'>010-0000-0000</span>
+							<span id='delivery-title'>연락처: </span>
+							<span id='seller-phone'></span>
 							</div>
 							
 							<div id='delivery-info-list'>
-							<span id='delivery-title'>이메일 주소</span>
-							<span id='delivery-dese'>eee@naver.com</span>
+							<span id='delivery-title'>이메일: </span>
+							<span id='seller-email'></span>
 							</div>
 							
 						</div>
@@ -186,7 +208,7 @@ font-family: 'Lora', serif;
 								</div>
 								
 								</div><!-- payment-box -->
-									<button type="button" id='payment-submit'>판매하기</button>
+									<button type="button" id='sell'>판매하기</button>
 								</div><!-- payment -->
 								
 	
