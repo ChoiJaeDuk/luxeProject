@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import luxe.dao.sell.SellDAO;
+import luxe.dao.sell.SellDAOImpl;
 import luxe.dto.GoodsDTO;
 import luxe.dto.SellDTO;
 import luxe.dto.WishListDTO;
@@ -38,16 +40,16 @@ public class WishListDAOImpl implements WishListDAO {
 	}
 
 	@Override
-	public int deleteWishList(int wishListNo) throws SQLException {
+	public int deleteWishList(int goodsNo) throws SQLException {
 		Connection con = null;
 		PreparedStatement ps = null;
 		int result = 0;
-		String sql = "DELETE FROM WISH_LIST WHERE WISH_LIST_NO = ?";
+		String sql = "DELETE FROM WISH_LIST WHERE GOODS_NO = ?";
 
 		try {
 			con = DbUtil.getConnection();
 			ps = con.prepareStatement(sql);
-			ps.setInt(1, wishListNo);
+			ps.setInt(1, goodsNo);
 
 			result = ps.executeUpdate();
 
@@ -64,7 +66,8 @@ public class WishListDAOImpl implements WishListDAO {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		List<GoodsDTO> wishList = new ArrayList<GoodsDTO>();
-		String sql = "SELECT  G.BRAND, G.GOODS_NAME, G.GOODS_NAME_KOR , G.CATEGORY, I.GOODS_MAIN_IMG\r\n"
+		SellDAO sellDAO = new SellDAOImpl();
+		String sql = "SELECT  G.BRAND, G.GOODS_NAME, G.GOODS_NAME_KOR , G.CATEGORY, I.GOODS_MAIN_IMG, G.GOODS_NO\r\n"
 				+ "FROM WISH_LIST W, GOODS G, GOODS_IMAGES I\r\n"
 				+ "WHERE W.GOODS_NO = G.GOODS_NO AND W.GOODS_NO = I.GOODS_NO AND\r\n"
 				+ "W.USER_ID = ?";
@@ -75,7 +78,16 @@ public class WishListDAOImpl implements WishListDAO {
 			rs = ps.executeQuery();
 			
 			while (rs.next()) {
-				GoodsDTO goodsDTO = new GoodsDTO(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5));
+				int lowestPrice;
+				SellDTO sellDTO = sellDAO.selectLowestPriceByGoodsNo(rs.getInt(6));
+				if( sellDTO==null) {
+					lowestPrice = 0;
+				}else {
+					lowestPrice = sellDTO.getSellPrice();
+				}
+				
+				System.out.println("lowestPrice" + lowestPrice);
+				GoodsDTO goodsDTO = new GoodsDTO(lowestPrice, rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5),rs.getInt(6));
 				
 				wishList.add(goodsDTO);
 			}
