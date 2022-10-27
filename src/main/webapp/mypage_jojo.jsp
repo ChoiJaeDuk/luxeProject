@@ -48,6 +48,35 @@ font-family: 'Lora', serif;
 <!-- 외부의 css파일 연결하기 -->
 <!-- <link rel="stylesheet" type="text/css" href="css/mypage2.css"> -->
 <style type="text/css">
+#popup {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, .7);
+  z-index: 1;
+}
+
+#popup.hide {
+  display: none;
+}
+
+#popup.has-filter {
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+#popup .content {
+  padding: 20px;
+  background: #fff;
+  border-radius: 5px;
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, .3);
+}
+
 </style>
 </head>
 <body>
@@ -488,6 +517,20 @@ font-family: 'Lora', serif;
 		</div>
 
 	</div>
+	
+	
+		
+<div id="popup" class="hide">
+  <div class="content">
+    <p>
+    <form name="writeForm" method="post">
+			입찰 번호<input type="text" name="bidNo" size="30"><p>
+			수정 가격<input type="text" name="bidPrice" size="30" maxlength="9"><p>
+			<input type="button" value="수정">
+	</form>
+  </div>
+</div>
+
 	<script>
 		function openCity(evt, cityName) {
 			var i, tabcontent, tablinks;
@@ -507,6 +550,23 @@ font-family: 'Lora', serif;
 		// Get the element with id="defaultOpen" and click on it
 		document.getElementById("defaultOpen").click();
 
+		function showPopup(hasFilter) {
+			const popup = document.querySelector('#popup');
+			  
+			  if (hasFilter) {
+			  	popup.classList.add('has-filter');
+			  } else {
+			  	popup.classList.remove('has-filter');
+			  }
+			  
+			  popup.classList.remove('hide');
+			}
+		
+
+		function closePopup() {
+			const popup = document.querySelector('#popup');
+		  popup.classList.add('hide');
+		}
 
 		$(function() {
 			
@@ -526,8 +586,9 @@ font-family: 'Lora', serif;
 							str += `<td>${"${bid.brand}"}</td>`;
 							str += `<td>${"${bid.bidPrice}"}</td>`;
 							str += `<td>${"${bid.bidRegDate}"}</td>`;
-							str += `<td><input type="button" value="수정" onclick="popUpOpen();" name=${"${bid.bidNo}"}></td>`;
+							str += `<td><input type="button" value="수정" onclick="showPopup();" name=${"${bid.bidNo}"}></td>`;
 							str += `<td><input type="button" value="삭제" name=${"${bid.bidNo}"}></td>`;
+							str += `<td><input type="hidden" name="goodsNo" value=${"${bid.goodsNo}"}></td>`;
 							str += "</tr>";
 						});
 						
@@ -544,7 +605,7 @@ font-family: 'Lora', serif;
 			// 구매탭 선택시 기본으로 입찰중인 내역 출력
 			$("#purchaseButton").on("click", function(){
 				$("#profile").css("visibility", "visible");
-				selectAllBid();
+				$("#onGoingBid").trigger("click");
 			});
 
 			
@@ -578,11 +639,53 @@ font-family: 'Lora', serif;
 			// 선택 입찰 내역 수정
 			$(document).on("click", "#profile input[value='수정']", function () {
 				let bidNo = $(this).attr("name");
-				window.open('https://www.naver.com', '_blank'); 
+				let goodsNo = $("input[name=goodsNo]").val();
+				showPopup(false);
+				$("input[name=bidNo]").val(bidNo);
+				$("input[name=bidNo]").attr("readonly", "readonly");
+				//popUp(bidNo, goodsNo);
+					
 			});
-			
-			
+
+				$("form[name=writeForm] input[value=수정]").on("click", function() {
+					let state = true;
+					let bidNo = $("form[name=writeForm] input[name=bidNo]").val();
+					let goodsNo = $("input[name=goodsNo]").val();
+					let bidPrice = $("input[name=bidPrice]").val();
+					console.log(typeof bidPrice);
+					if(bidPrice=="")
+						state=false;
+					
+					if(state){
+						$.ajax({
+							url : "ajax", //서버요청주소
+							type : "post", //요청방식(method방식 : get | post | put | delete )
+							dataType : "text", //서버가 보내온 데이터(응답)타입(text | html | xml | json )
+							data : {key : "bidAjax", methodName : "updateBidPrice", bidNo:bidNo, goodsNo: goodsNo, bidPrice:bidPrice}, //서버에게 보낼 데이터정보(parameter정보)
+							success : function(result) {
+								//$(this).parent().parent().find('td').eq(1).text()
+								if(result!=0){
+									alert("수정에 성공했습니다.");
+									closePopup();
+									selectAllBid();
+									$("input[name=bidPrice]").val("");
+								} else 
+									alert("수정에 실패했습니다.");
+							}, //성공했을때 실행할 함수 
+							error : function(err) {
+								alert(err + "에러 발생");
+							} //실패했을때 실행할 함수 
+						});	
+					} else {
+						alert("변경 가격을 입력해주세요.");
+						return false;
+					}
+						
+				});
+
 		});
 	</script>
+
+	
 </body>
 </html>

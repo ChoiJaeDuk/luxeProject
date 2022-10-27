@@ -59,7 +59,7 @@ public class BidAjaxController implements AjaxController {
 	}
 
 	/**
-	 * 입찰 삭제
+	 * 입찰 가격 수정
 	 */
 	public void updateBidPrice(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		response.setContentType("text/html;charset=UTF-8");
@@ -69,12 +69,14 @@ public class BidAjaxController implements AjaxController {
 		HttpSession session = request.getSession();
 		String userId = (String) session.getAttribute("userId");
 		String bidPrice = request.getParameter("bidPrice");
+		System.out.println(bidPrice);
+		
 
-		bidService.updateBidPrice(new BidDTO(Integer.parseInt(bidNoStr), Integer.parseInt(goodsNostr), userId,
+		int result= bidService.updateBidPrice(new BidDTO(Integer.parseInt(bidNoStr), Integer.parseInt(goodsNostr), userId,
 				Integer.parseInt(bidPrice), null, null));
 		
 		PrintWriter out = response.getWriter();
-		out.print("수정성공");
+		out.print(result);
 	}
 
 	/**
