@@ -92,136 +92,337 @@ font-family: 'Lora', serif;
 				<div id='con'>
 				<div class="title">
 					<div id="main_title">STYLE</div>
-					<div id="sub_title">스타일</div>
-					<div class="select">
-						<select class="text">
-						  	<option value="none" selected="selected">선택</option> 
-						      <option value="like">LIKE</option>
-						      <option class="view">VIEW</option>
-						      <option class="update">UPDATE</option>
-						  
-						  </select>
-					  </div>
 				</div>
-			
-				<div class="gallery-row"> 
-				  <div class="gallery-column">
-					    <div class='gallery-fram'>
-					    	<div class='gallery-card'>
-						    	<div id='like' onclick="likeEvent()"></div>
-						    	<div id=gallery-con onclick='showPopup(false)'>			
-						    		<img id="card-img" src="../img/product01.webp" alt="스타일이미지"/> 						    		
-						    	</div>
-					    	</div>
-					    </div>
-					    <div class='gallery-fram'>
-					    	<div class='gallery-card'>
-						    	<div id='like' onclick="likeEvent()"></div>
-						    	<div id=gallery-con onclick='showPopup(false)'>			
-						    		<img id="card-img" src="../img/product01.webp" alt="스타일이미지"/> 						    		
-						    	</div>
-					    	</div>
-					    </div>
-					    <div class='gallery-fram'>
-					    	<div class='gallery-card'>
-						    	<div id='like' onclick="likeEvent()"></div>
-						    	<div id=gallery-con onclick='showPopup(false)'>			
-						    		<img id="card-img" src="../img/product01.webp" alt="스타일이미지"/> 						    		
-						    	</div>
-					    	</div>
-					    </div>
-				  </div>
-				  <!-- gallery-column -->
-				  
-				  <div class="gallery-column">
-				     <div class='gallery-fram'>
-					    	<div class='gallery-card'>
-						    	<div id='like' onclick="likeEvent()"></div>
-						    	<div id=gallery-con onclick='showPopup(false)'>			
-						    		<img id="card-img" src="../img/product01.webp" alt="스타일이미지"/> 						    		
-						    	</div>
-					    	</div>
-					    </div>
-					    <div class='gallery-fram'>
-					    	<div class='gallery-card'>
-						    	<div id='like' onclick="likeEvent()"></div>
-						    	<div id=gallery-con onclick='showPopup(false)'>			
-						    		<img id="card-img" src="../img/product01.webp" alt="스타일이미지"/> 						    		
-						    	</div>
-					    	</div>
-					    </div>
-					    <div class='gallery-fram'>
-					    	<div class='gallery-card'>
-						    	<div id='like' onclick="likeEvent()"></div>
-						    	<div id=gallery-con onclick='showPopup(false)'>			
-						    		<img id="card-img" src="../img/product01.webp" alt="스타일이미지"/> 						    		
-						    	</div>
-					    	</div>
-					    </div>
-				  </div>
-				  <!-- gallery-column -->
-				  
-				   
-				  <div class="gallery-column">
-				     <div class='gallery-fram'>
-					    	<div class='gallery-card'>
-						    	<div id='like' onclick="likeEvent()"></div>
-						    	<div id=gallery-con onclick='showPopup(false)'>			
-						    		<img id="card-img" src="../img/product01.webp" alt="스타일이미지"/> 						    		
-						    	</div>
-					    	</div>
-					    </div>
-					    <div class='gallery-fram'>
-					    	<div class='gallery-card'>
-						    	<div id='like' onclick="likeEvent()"></div>
-						    	<div id=gallery-con onclick='showPopup(false)'>			
-						    		<img id="card-img" src="../img/product01.webp" alt="스타일이미지"/> 						    		
-						    	</div>
-					    	</div>
-					    </div>
-					    <div class='gallery-fram'>
-					    	<div class='gallery-card'>
-						    	<div id='like' onclick="likeEvent()"></div>
-						    	<div id=gallery-con onclick='showPopup(false)'>			
-						    		<img id="card-img" src="../img/product01.webp" alt="스타일이미지"/> 						    		
-						    	</div>
-					    	</div>
-					    </div>
-				  </div>
-				  <!-- gallery-column -->
-				  
-				  
-				   <div class="gallery-column">
-				     <div class='gallery-fram'>
-					    	<div class='gallery-card'>
-						    	<div id='like' onclick="likeEvent()"></div>
-						    	<div id=gallery-con onclick='showPopup(false)'>			
-						    		<img id="card-img" src="../img/product01.webp" alt="스타일이미지"/> 						    		
-						    	</div>
-					    	</div>
-					    </div>
-					    <div class='gallery-fram'>
-					    	<div class='gallery-card'>
-						    	<div id='like' onclick="likeEvent()"></div>
-						    	<div id=gallery-con onclick='showPopup(false)'>			
-						    		<img id="card-img" src="../img/product01.webp" alt="스타일이미지"/> 						    		
-						    	</div>
-					    	</div>
-					    </div>
-					    <div class='gallery-fram'>
-					    	<div class='gallery-card'>
-						    	<div id='like' onclick="likeEvent()"></div>
-						    	<div id=gallery-con onclick='showPopup(false)'>			
-						    		<img id="card-img" src="../img/product01.webp" alt="스타일이미지"/> 						    		
-						    	</div>
-					    	</div>
-					    </div>
-				  </div>
-				  <!-- gallery-column -->
-				</div>
-				<!-- gallery-row -->
+				
+				<div class='tap-box'>
+					<div class="tab">
+					  <button class="tablinks"  id="defaultOpen" onclick="openBrand(event, 'all')">ALL</button>
+					  <button class="tablinks" onclick="openBrand(event, 'chanel')">CHANEL</button>
+					  <button class="tablinks" onclick="openBrand(event, 'dior')">DIOR</button>
+					  <button class="tablinks" onclick="openBrand(event, 'prada')">PRADA</button>
+					</div>
+					
+					<!-- 글쓰기 -->
+					<div class='gallery-insert' >
+						<button id='gallery-insertbtn' onclick='insertForm(false)'>글쓰기</button>
+					</div>
+					
+					<!-- 정렬 -->
+					<select class="select">
+						<option value="none" selected="selected">정렬</option> 
+						<option value="like">LIKE</option>
+						<option class="view">VIEW</option>
+						<option class="update">UPDATE</option>							  
+					</select>
 					
 				</div>
+				
+				<div id='all' class="gallery">
+					<div class="gallery-row">
+						<div class='gallery-fram'>
+							<div class='gallery-card'>
+								<div id=gallery-con onclick='showPopup(false)'>
+									<img id="card-img" src="../img/product01.webp" alt="스타일이미지" />
+								</div>
+							</div>
+						</div>
+						<div class='gallery-fram'>
+							<div class='gallery-card'>
+								<div id=gallery-con onclick='showPopup(false)'>
+									<img id="card-img" src="../img/product01.webp" alt="스타일이미지" />
+								</div>
+							</div>
+						</div>
+						<div class='gallery-fram'>
+							<div class='gallery-card'>
+								<div id=gallery-con onclick='showPopup(false)'>
+									<img id="card-img" src="../img/product01.webp" alt="스타일이미지" />
+								</div>
+							</div>
+						</div>
+
+						<div class='gallery-fram'>
+							<div class='gallery-card'>
+								<div id=gallery-con onclick='showPopup(false)'>
+									<img id="card-img" src="../img/product01.webp" alt="스타일이미지" />
+								</div>
+							</div>
+						</div>
+					</div><!-- gallery-row -->
+
+					<div class="gallery-row">
+						<div class='gallery-fram'>
+							<div class='gallery-card'>
+								<div id=gallery-con onclick='showPopup(false)'>
+									<img id="card-img" src="" alt="디올이미지" />
+								</div>
+							</div>
+						</div>
+						<div class='gallery-fram'>
+							<div class='gallery-card'>
+								<div id=gallery-con onclick='showPopup(false)'>
+									<img id="card-img" src="" alt="디올이미지" />
+								</div>
+							</div>
+						</div>
+						<div class='gallery-fram'>
+							<div class='gallery-card'>
+								<div id=gallery-con onclick='showPopup(false)'>
+									<img id="card-img" src="" alt="디올이미지" />
+								</div>
+							</div>
+						</div>
+
+						<div class='gallery-fram'>
+							<div class='gallery-card'>
+								<div id=gallery-con onclick='showPopup(false)'>
+									<img id="card-img" src="" alt="디올이미지" />
+								</div>
+							</div>
+						</div>
+					</div><!-- gallery-row -->
+					<div class="gallery-row">
+						<div class='gallery-fram'>
+							<div class='gallery-card'>
+								<div id=gallery-con onclick='showPopup(false)'>
+									<img id="card-img" src="" alt="프라다이미지" />
+								</div>
+							</div>
+						</div>
+						<div class='gallery-fram'>
+							<div class='gallery-card'>
+								<div id=gallery-con onclick='showPopup(false)'>
+									<img id="card-img" src="" alt="프라다이미지" />
+								</div>
+							</div>
+						</div>
+						<div class='gallery-fram'>
+							<div class='gallery-card'>
+								<div id=gallery-con onclick='showPopup(false)'>
+									<img id="card-img" src="" alt="프라다이미지" />
+								</div>
+							</div>
+						</div>
+
+						<div class='gallery-fram'>
+							<div class='gallery-card'>
+								<div id=gallery-con onclick='showPopup(false)'>
+									<img id="card-img" src="" alt="프라다이미지" />
+								</div>
+							</div>
+						</div>
+					</div><!-- gallery-row -->
+
+
+				</div><!-- all -->
+				
+				<div id='chanel' class="gallery">
+					<div class="gallery-row">
+						<div class='gallery-fram'>
+							<div class='gallery-card'>
+								<div id=gallery-con onclick='showPopup(false)'>
+									<img id="card-img" src="../img/product01.webp" alt="스타일이미지" />
+								</div>
+							</div>
+						</div>
+						<div class='gallery-fram'>
+							<div class='gallery-card'>
+								<div id=gallery-con onclick='showPopup(false)'>
+									<img id="card-img" src="../img/product01.webp" alt="스타일이미지" />
+								</div>
+							</div>
+						</div>
+						<div class='gallery-fram'>
+							<div class='gallery-card'>
+								<div id=gallery-con onclick='showPopup(false)'>
+									<img id="card-img" src="../img/product01.webp" alt="스타일이미지" />
+								</div>
+							</div>
+						</div>
+
+						<div class='gallery-fram'>
+							<div class='gallery-card'>
+								<div id=gallery-con onclick='showPopup(false)'>
+									<img id="card-img" src="../img/product01.webp" alt="스타일이미지" />
+								</div>
+							</div>
+						</div>
+					</div><!-- gallery-row -->
+
+					
+					<div class="gallery-row">
+						<div class='gallery-fram'>
+							<div class='gallery-card'>
+								<div id=gallery-con onclick='showPopup(false)'>
+									<img id="card-img" src="../img/product01.webp" alt="스타일이미지" />
+								</div>
+							</div>
+						</div>
+						<div class='gallery-fram'>
+							<div class='gallery-card'>
+								<div id=gallery-con onclick='showPopup(false)'>
+									<img id="card-img" src="../img/product01.webp" alt="스타일이미지" />
+								</div>
+							</div>
+						</div>
+						<div class='gallery-fram'>
+							<div class='gallery-card'>
+								<div id=gallery-con onclick='showPopup(false)'>
+									<img id="card-img" src="../img/product01.webp" alt="스타일이미지" />
+								</div>
+							</div>
+						</div>
+
+						<div class='gallery-fram'>
+							<div class='gallery-card'>
+								<div id=gallery-con onclick='showPopup(false)'>
+									<img id="card-img" src="../img/product01.webp" alt="스타일이미지" />
+								</div>
+							</div>
+						</div>
+					</div><!-- gallery-row -->
+
+				</div><!-- 샤넬 -->
+				
+				<div id='dior' class="gallery">
+					<div class="gallery-row">
+						<div class='gallery-fram'>
+							<div class='gallery-card'>
+								<div id=gallery-con onclick='showPopup(false)'>
+									<img id="card-img" src="" alt="스타일이미지" />
+								</div>
+							</div>
+						</div>
+						<div class='gallery-fram'>
+							<div class='gallery-card'>
+								<div id=gallery-con onclick='showPopup(false)'>
+									<img id="card-img" src="" alt="스타일이미지" />
+								</div>
+							</div>
+						</div>
+						<div class='gallery-fram'>
+							<div class='gallery-card'>
+								<div id=gallery-con onclick='showPopup(false)'>
+									<img id="card-img" src="" alt="스타일이미지" />
+								</div>
+							</div>
+						</div>
+
+						<div class='gallery-fram'>
+							<div class='gallery-card'>
+								<div id=gallery-con onclick='showPopup(false)'>
+									<img id="card-img" src="" alt="스타일이미지" />
+								</div>
+							</div>
+						</div>
+					</div><!-- gallery-row -->
+
+					
+					<div class="gallery-row">
+						<div class='gallery-fram'>
+							<div class='gallery-card'>
+								<div id=gallery-con onclick='showPopup(false)'>
+									<img id="card-img" src="" alt="스타일이미지" />
+								</div>
+							</div>
+						</div>
+						<div class='gallery-fram'>
+							<div class='gallery-card'>
+								<div id=gallery-con onclick='showPopup(false)'>
+									<img id="card-img" src="" alt="스타일이미지" />
+								</div>
+							</div>
+						</div>
+						<div class='gallery-fram'>
+							<div class='gallery-card'>
+								<div id=gallery-con onclick='showPopup(false)'>
+									<img id="card-img" src="" alt="스타일이미지" />
+								</div>
+							</div>
+						</div>
+
+						<div class='gallery-fram'>
+							<div class='gallery-card'>
+								<div id=gallery-con onclick='showPopup(false)'>
+									<img id="card-img" src="" alt="스타일이미지" />
+								</div>
+							</div>
+						</div>
+					</div><!-- gallery-row -->
+				</div>
+				
+				
+				<!-- 디올 -->
+				
+				<div id='prada' class="gallery">
+					<div class="gallery-row">
+						<div class='gallery-fram'>
+							<div class='gallery-card'>
+								<div id=gallery-con onclick='showPopup(false)'>
+									<img id="card-img" src="" alt="프라다이미지" />
+								</div>
+							</div>
+						</div>
+						<div class='gallery-fram'>
+							<div class='gallery-card'>
+								<div id=gallery-con onclick='showPopup(false)'>
+									<img id="card-img" src="" alt="프라다이미지" />
+								</div>
+							</div>
+						</div>
+						<div class='gallery-fram'>
+							<div class='gallery-card'>
+								<div id=gallery-con onclick='showPopup(false)'>
+									<img id="card-img" src="" alt="프라다이미지" />
+								</div>
+							</div>
+						</div>
+
+						<div class='gallery-fram'>
+							<div class='gallery-card'>
+								<div id=gallery-con onclick='showPopup(false)'>
+									<img id="card-img" src="" alt="프라다이미지" />
+								</div>
+							</div>
+						</div>
+					</div><!-- gallery-row -->
+
+					
+					<div class="gallery-row">
+						<div class='gallery-fram'>
+							<div class='gallery-card'>
+								<div id=gallery-con onclick='showPopup(false)'>
+									<img id="card-img" src="" alt="프라다이미지" />
+								</div>
+							</div>
+						</div>
+						<div class='gallery-fram'>
+							<div class='gallery-card'>
+								<div id=gallery-con onclick='showPopup(false)'>
+									<img id="card-img" src="" alt="프라다이미지" />
+								</div>
+							</div>
+						</div>
+						<div class='gallery-fram'>
+							<div class='gallery-card'>
+								<div id=gallery-con onclick='showPopup(false)'>
+									<img id="card-img" src="" alt="프라다이미지" />
+								</div>
+							</div>
+						</div>
+
+						<div class='gallery-fram'>
+							<div class='gallery-card'>
+								<div id=gallery-con onclick='showPopup(false)'>
+									<img id="card-img" src="" alt="프라다이미지" />
+								</div>
+							</div>
+						</div>
+					</div><!-- gallery-row -->
+
+				</div>
+				<!-- 프라다 -->
+				</div><!-- con -->
 			</div><!-- container -->
 		</div><!-- contents -->
 		<div class="clear"></div>
@@ -250,7 +451,7 @@ font-family: 'Lora', serif;
    						<p>날짜</p>
    					</div> 
    					<div id='drop-btn'>
-   					 <div class="select">
+   					 <div class="select-tap">
 					    <div class="text">선택</div>
 					    <ul class="option-list">
 					      <li class="option">선택</li>
@@ -303,6 +504,24 @@ font-family: 'Lora', serif;
 		  popup.classList.add('hide');
 		}
 	
+	//등록
+	function insertForm(hasFilter) {
+		const popup = document.querySelector('#popup');
+		  
+		  if (hasFilter) {
+		  	popup.classList.add('has-filter');
+		  } else {
+		  	popup.classList.remove('has-filter');
+		  }
+		  
+		  popup.classList.remove('hide');
+		}
+		
+		function closePopup() {
+			const popup = document.querySelector('#popup');
+		  popup.classList.add('hide');
+		}
+		
 	//좋아요
 	function likeEvent() {
 		let like = document.querySelector("#like");
@@ -313,13 +532,13 @@ font-family: 'Lora', serif;
 	function onClickSelect(e) {
 	  const isActive = e.currentTarget.className.indexOf("active") !== -1;
 	  if (isActive) {
-	    e.currentTarget.className = "select";
+	    e.currentTarget.className = "select-tap";
 	  } else {
-	    e.currentTarget.className = "select active";
+	    e.currentTarget.className = "select-tap active";
 	  }
 	}
 	
-	document.querySelector("#drop-btn .select").addEventListener("click", onClickSelect);
+	document.querySelector("#drop-btn .select-tap").addEventListener("click", onClickSelect);
 	
 	function onClickOption(e) {
 	  const selectedValue = e.currentTarget.innerHTML;
@@ -331,6 +550,24 @@ font-family: 'Lora', serif;
 	  var option = optionList[i];
 	  option.addEventListener("click", onClickOption);
 	}
+	
+	
+	/* 브랜드탭 */
+	function openBrand(evt, brandName) {
+		  var i, gallery, tablinks;
+		  gallery = document.getElementsByClassName("gallery");
+		  for (i = 0; i < gallery.length; i++) {
+			  gallery[i].style.display = "none";
+		  }
+		  tablinks = document.getElementsByClassName("tablinks");
+		  for (i = 0; i < tablinks.length; i++) {
+		    tablinks[i].className = tablinks[i].className.replace(" active", "");
+		  }
+		  document.getElementById(brandName).style.display = "block";
+		  evt.currentTarget.className += " active";
+		  
+	}
+	document.getElementById("defaultOpen").click();
 	</script>
 </body>
 </html>
