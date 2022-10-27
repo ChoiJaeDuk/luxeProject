@@ -21,4 +21,6 @@ public interface WishListDAO {
 	
 	List<GoodsDTO> selectWishList(String userId) throws SQLException;
 	
+	
+	boolean selectWishState(int goodsNo, String userId) throws SQLException;
 }

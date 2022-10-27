@@ -38,6 +38,7 @@ public class WishListController implements Controller{
 		
 //		HttpSession session = request.getSession();
 //		String userId = (String)session.getAttribute("id");
+		System.out.println("위시리스트 나오니?");
 		String userId = request.getParameter("userId");
 		int goodsNo = Integer.parseInt(request.getParameter("goodsNo"));
 		WishListDTO wishListDTO = new WishListDTO(userId, goodsNo);
@@ -45,5 +46,19 @@ public class WishListController implements Controller{
 		wishListService.insertWishList(wishListDTO);
 		
 		return new ModelAndView("front",true);
+	}
+	
+	public ModelAndView selectWishState(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		
+//		HttpSession session = request.getSession();
+//		String userId = (String)session.getAttribute("id");
+		String userId = request.getParameter("userId");
+		int goodsNo = Integer.parseInt(request.getParameter("goodsNo"));
+		
+		boolean wishState = wishListService.selectWishState(goodsNo, userId);
+		
+		request.setAttribute("wishState", wishState);
+		
+		return new ModelAndView("ProductDetails.jsp");
 	}
 }

@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import luxe.controller.AjaxController;
 import luxe.dto.GoodsDTO;
+import luxe.dto.WishListDTO;
 import luxe.service.wishList.WishListService;
 import luxe.service.wishList.WishListServiceImpl;
 import net.sf.json.JSONArray;
@@ -23,6 +24,17 @@ public class WishListAjaxController implements AjaxController{
 		
 	}
 	
+	
+	public void insertWishList(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		response.setContentType("text/html;charset=UTF-8");
+//		HttpSession session = request.getSession();
+//		String userId = (String)session.getAttribute("id");
+		String userId = request.getParameter("id");
+		int goodsNo = Integer.parseInt(request.getParameter("goodsNo"));
+		WishListDTO wishListDTO = new WishListDTO(userId, goodsNo);
+		
+		wishListService.insertWishList(wishListDTO);
+	}
 	
 	public void selectWishList(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		response.setContentType("text/html;charset=UTF-8");
@@ -51,4 +63,17 @@ public class WishListAjaxController implements AjaxController{
 //		out.print(arr);
 	}
 
+	
+	public void selectWishState(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		response.setContentType("text/html;charset=UTF-8");
+//		HttpSession session = request.getSession();
+//		String userId = (String)session.getAttribute("id");
+		String userId = request.getParameter("userId");
+		int goodsNo = Integer.parseInt(request.getParameter("goodsNo"));
+		System.out.println("userId = " + userId + "  goodsNo = " + goodsNo);
+		boolean wishState = wishListService.selectWishState(goodsNo, userId);
+		
+		PrintWriter out = response.getWriter();
+		out.print(wishState);
+	}
 }
