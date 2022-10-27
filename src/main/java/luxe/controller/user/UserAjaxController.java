@@ -13,6 +13,7 @@ import luxe.controller.AjaxController;
 import luxe.dto.UserDTO;
 import luxe.service.user.UserService;
 import luxe.service.user.UserServiceImpl;
+import net.sf.json.JSONObject;
 
 public class UserAjaxController implements AjaxController {
 
@@ -32,10 +33,14 @@ public class UserAjaxController implements AjaxController {
 
 		HttpSession session = request.getSession();
 		String userId = (String) session.getAttribute("userId");
-
+		System.out.println(userId);
 		UserDTO userDto = userService.selectUser(userId);
+		System.out.println(userDto);
+
+		JSONObject user = JSONObject.fromObject(userDto);
+
 		PrintWriter out = response.getWriter();
-		out.print(userId);
+		out.print(user);
 
 	}
 
@@ -53,7 +58,7 @@ public class UserAjaxController implements AjaxController {
 
 		UserDTO userDto = new UserDTO(userId, userAddr, userPhone, userEmail);
 		userService.updateUserInfo(userId, userAddr, userPhone, userEmail);
-		
+
 		PrintWriter out = response.getWriter();
 		out.print(userDto);
 
