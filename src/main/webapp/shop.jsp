@@ -63,11 +63,11 @@ font-family: 'Lora', serif;
 						let str="";
 						
 							$.each(result, function(index, item){
-							
-								str += `<div class="bestItem item1" float="left">`;
+								
+								str += `<div class="bestItem item1" style = "float:left; width:23%">`;
 								str += `<div class="item_img_block">`;
 								str += `<div class="item_img">`;
-								str += `<img alt="상품이미지입니다." src=${path}/${"${item.mainImg}"} id='product' >`;
+								str += `<img alt="상품이미지입니다." src=${path}/${"${item.mainImg}"}  id='product' >`;
 								str += `</div>`;
 								str += `<div id='like'><img src="img/heart.svg" id='like_img' ></div>`;
 								str += `</div>`;
@@ -82,9 +82,10 @@ font-family: 'Lora', serif;
 								str += `</div>`;
 								str += `</div>`;
 								str += `</div>`;
-
+								
+		
 					  });
-							$("#product").before(str);
+							$("#product").prepend(str);
 							 
 					 	//$(".productBEST_container tr:gt(0)").remove();
 							
@@ -213,7 +214,7 @@ font-family: 'Lora', serif;
 			</div>
 			
 			<section id='product'>
-<!-- 				<div class="productBEST_container"> -->
+< 				<div class="productBEST_container"> 
 				<!-- 
 					<div class="bestItem item1">
 						<div class="item_img_block">
@@ -252,7 +253,7 @@ font-family: 'Lora', serif;
 						</div>
 					</div>
 					 -->
-<!-- 				</div> -->
+				</div>
 				
 	
 					
