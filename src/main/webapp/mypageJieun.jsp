@@ -66,6 +66,7 @@ font-family: 'Lora', serif;
 <script type="text/javascript">
 	$(function(){
 	
+		//구매내역 조회
 		$("#buyList").on("click", function(){
 			$.ajax({
 				url :"ajax" , //서버요청주소
@@ -97,6 +98,7 @@ font-family: 'Lora', serif;
 			});//ajax끝
 		})
 		
+		//판매내역 조회
 		$("#sellList").on("click", function(){
 			
 			$.ajax({
@@ -129,7 +131,7 @@ font-family: 'Lora', serif;
 			});//ajax끝
 		})
 		
-		
+		//알람조회
 		function alarmOpen(){
 			$.ajax({
 				url :"ajax" , //서버요청주소
@@ -168,7 +170,7 @@ font-family: 'Lora', serif;
 			
 		})
 		
-		
+		//알람삭제
 		$(document).on("click", "[name=alarmDelete]", function(){
 			let result = confirm("알람을 삭제하시겠습니까?");
 			if(result == true){

@@ -1,6 +1,7 @@
 package luxe.service.user;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import luxe.dto.UserDTO;
 
@@ -75,6 +76,14 @@ public interface UserService {
 	 * @throws Exception
 	 */
 	void deleteUser(String userId, String userPwd) throws Exception;
+
+	/**
+	 *  회원 전체 검색
+	 * @return
+	 * @throws Exception
+	 */
+	List<UserDTO> selectAllUsers() throws Exception;
+
 
 	
 }

@@ -2,7 +2,9 @@ package luxe.controller.user;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.security.Provider.Service;
 import java.sql.SQLException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -13,6 +15,7 @@ import luxe.controller.AjaxController;
 import luxe.dto.UserDTO;
 import luxe.service.user.UserService;
 import luxe.service.user.UserServiceImpl;
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 public class UserAjaxController implements AjaxController {
@@ -63,5 +66,22 @@ public class UserAjaxController implements AjaxController {
 		out.print(userDto);
 
 	}
+	
+	public void selectAllUsers(HttpServletRequest request, HttpServletResponse response)
+			throws Exception {
+
+		response.setContentType("text/html;charset=UTF-8");
+
+		HttpSession session = request.getSession();
+		//String userId = (String) session.getAttribute("userId");
+
+		List<UserDTO> list = userService.selectAllUsers();
+		JSONArray arr = JSONArray.fromObject(list);
+
+		PrintWriter out = response.getWriter();
+		out.print(arr);
+
+	}
+
 
 }
