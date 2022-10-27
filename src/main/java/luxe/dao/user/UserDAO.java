@@ -65,12 +65,6 @@ public interface UserDAO {
 
 	/**
 	 * 회원정보 수정
-	 * 비밀번호
-	 */
-	int updateUserPwd(String userId, String userOldPwd, String userNewPwd) throws SQLException;
-
-	/**
-	 * 회원정보 수정
 	 * 주소
 	 */
 	int updateUserInfo(String userId, String userAddr,String userPhone, String userEmail)throws SQLException;
@@ -92,6 +86,15 @@ public interface UserDAO {
 	 * @throws Exception
 	 */
 	List<String> selectEmailAddressByUserId(Connection con, String buyerId, String sellerId) throws Exception;
+	
+	/**
+	 * 비밀번호 체크
+	 * 
+	 * @return
+	 */
+
+	String userPwdCheck(UserDTO userDto) throws Exception;
+
 	
 	/**
 	 * 회원 전체조회

@@ -10,9 +10,10 @@ public interface UserService {
 	/**
 	 * 아이디 중복체크
 	 * @param userId
+	 * @return 
 	 * @throws SQLException
 	 */
-	void userIdCheck(String userId) throws SQLException;
+	boolean userIdCheck(String userId) throws SQLException;
 	
 	/**
 	 * 회원가입
@@ -57,12 +58,6 @@ public interface UserService {
 
 	/**
 	 * 회원정보 수정
-	 * 비밀번호
-	 */
-	void updateUserPwd(String userId, String userOldPwd, String userNewPwd) throws SQLException;
-
-	/**
-	 * 회원정보 수정
 	 * 
 	 * @throws SQLException 
 	 */
@@ -83,6 +78,8 @@ public interface UserService {
 	 * @throws Exception
 	 */
 	List<UserDTO> selectAllUsers() throws Exception;
+
+	void userPwdCheck(UserDTO userDto) throws Exception;
 
 
 	
