@@ -24,7 +24,7 @@ public interface SellDAO {
 	 * @return
 	 * @throws SQLException
 	 */
-	int updateSellPrice(SellDTO sellDTO) throws SQLException;
+	int updateSellPrice(SellDTO sellDTO) throws Exception;
 
 	/**
 	 * 관리자 판매신청 승인단계
@@ -32,8 +32,18 @@ public interface SellDAO {
 	 * @return
 	 * @throws SQLException
 	 */
-	int updateSellStatus(SellDTO sellDTO) throws SQLException;
+	int updateSellStatus(SellDTO sellDTO) throws Exception;
 
+	
+	/**
+	 * 판매취소 누르면 삭제
+	 * @param sellNo
+	 * @return
+	 * @throws SQLException
+	 */
+	int deleteSell(int sellNo) throws SQLException;
+	
+	
 	/**
 	 * 관리자가 판매신청한 모든 유저의 정보를 조회한다.
 	 * 

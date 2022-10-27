@@ -41,7 +41,7 @@ public interface BidService {
 	 * @return : 1이면 등록 성공, 0이면 등록 실패
 	 * @throws SQLException
 	 */
-	void insertBid(BidDTO bid) throws SQLException;
+	void insertBid(BidDTO bid) throws Exception;
 
 	/**
 	 * 상품 번호 해당 입찰 최고가 조회
@@ -60,7 +60,7 @@ public interface BidService {
 	 * @return : 1이면 수정 성공, 0이면 수정 실패
 	 * @throws SQLException
 	 */
-	void updateBidPrice(BidDTO bid) throws SQLException;
+	void updateBidPrice(BidDTO bid) throws Exception;
 
 	/**
 	 * 입찰 상태 수정

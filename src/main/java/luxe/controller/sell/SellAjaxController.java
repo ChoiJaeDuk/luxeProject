@@ -32,7 +32,7 @@ public class SellAjaxController implements AjaxController {
 		response.setContentType("text/html;charset=UTF-8");
 //		HttpSession session = request.getSession();
 //		String userId = (String)session.getAttribute("id");
-		System.out.println("연결되니?");
+	
 		String userId = request.getParameter("id");
 		List<SellDTO> sellingList = sellService.selectSellingInfoByUserId(userId);
 		JSONArray arr = JSONArray.fromObject(sellingList);
@@ -46,7 +46,6 @@ public class SellAjaxController implements AjaxController {
 	public void selectSellWaitInfoByUserId(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		
 		response.setContentType("text/html;charset=UTF-8");
-		System.out.println("연결되니?");
 		String userId = request.getParameter("id");
 //		HttpSession session = request.getSession();
 //		String userId = (String)session.getAttribute("id");
@@ -59,11 +58,19 @@ public class SellAjaxController implements AjaxController {
 	
 	
 	public void updateSellPrice(HttpServletRequest request, HttpServletResponse response) throws Exception{
-		System.out.println(request.getParameter("sellNo"));
+		
 		int sellNo = Integer.parseInt(request.getParameter("sellNo"));
 		int updateSellPrice = Integer.parseInt(request.getParameter("sellPrice"));
 		String sellUserId = request.getParameter("userId");	
+	
 		SellDTO sellDTO = new SellDTO(sellNo, updateSellPrice, sellUserId);
 		sellService.updateSellPrice(sellDTO);//sellUserId, sellNo, updateSellPrice
+	}
+	
+	public void deleteSell(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		
+		int sellNo = Integer.parseInt(request.getParameter("sellNo"));
+		System.out.println("sellNo = " +  sellNo);
+		sellService.deleteSell(sellNo);
 	}
 }

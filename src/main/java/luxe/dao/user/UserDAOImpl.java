@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 import luxe.dto.UserDTO;
 import luxe.util.DbUtil;
@@ -257,6 +259,39 @@ public class UserDAOImpl implements UserDAO {
 			DbUtil.dbClose(con, ps);
 		}
 		return result;
+	}
+	
+	@Override
+	public List<String> selectEmailAddressByUserId(Connection con, String buyerId, String sellerId) throws Exception{ //지은
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
+		//List<UserDTO> list = new ArrayList<UserDTO>();
+		List<String> address = new ArrayList<String>();
+		
+		String sql = "select user_e_mail from users where user_id in (?,?)";
+		
+		try {
+			
+			ps = con.prepareStatement(sql);
+			
+			ps.setString(1, buyerId);
+			ps.setString(2, sellerId);
+			
+			rs = ps.executeQuery();
+			while(rs.next()) {
+				address.add(rs.getString(1));
+			}
+			
+			
+			
+		}finally {
+			DbUtil.dbClose(null, ps, rs);
+		}
+		
+		
+		
+		return address;
 	}
 
 }

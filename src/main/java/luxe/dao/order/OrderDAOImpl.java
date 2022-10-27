@@ -11,10 +11,13 @@ import luxe.dao.alarm.AlarmDAO;
 import luxe.dao.alarm.AlarmDAOImpl;
 import luxe.dao.goodsImages.GoodsImagesDAO;
 import luxe.dao.goodsImages.GoodsImagesDAOImpl;
+import luxe.dao.user.UserDAO;
+import luxe.dao.user.UserDAOImpl;
 import luxe.dto.AlarmDTO;
 import luxe.dto.GoodsDTO;
 import luxe.dto.OrderDTO;
 import luxe.dto.SellDTO;
+import luxe.dto.UserDTO;
 import luxe.util.DbUtil;
 
 public class OrderDAOImpl implements OrderDAO {
@@ -26,10 +29,10 @@ public class OrderDAOImpl implements OrderDAO {
 	 * @param con
 	 * @param orderDTO
 	 * @return
-	 * @throws SQLException
+	 * @throws Exception 
 	 */
 	@Override
-	public int insertOrder(Connection con, OrderDTO orderDTO) throws SQLException {
+	public int insertOrder(Connection con, OrderDTO orderDTO) throws Exception {
 
 		PreparedStatement ps = null;
 
@@ -37,6 +40,7 @@ public class OrderDAOImpl implements OrderDAO {
 
 		String sql = "insert into orders values(order_no_seq.nextval,?,?,?,current_date,'검수대기',?,?)";
 		int result = 0;
+		List<String> list = new ArrayList<String>();
 
 		try {
 
@@ -47,13 +51,20 @@ public class OrderDAOImpl implements OrderDAO {
 			ps.setInt(3, orderDTO.getOrderPrice());
 			ps.setString(4, orderDTO.getBuyerId());
 			ps.setString(5, orderDTO.getSellerId());
+			
 
 			result = ps.executeUpdate();
 			if (result == 1) {
 				GoodsDTO goods = selectGoodsNo(con, orderDTO.getSellNo());
 				AlarmDTO alarm = new AlarmDTO(0, goods.getGoodsNo(), "주문성사", goods.getGoodsName() + "상품의 주문이 성사되었습니다.", null);
 				dao.insertAlarm(alarm);
+				UserDAO user = new UserDAOImpl();
+				list = user.selectEmailAddressByUserId(con, orderDTO.getBuyerId(), orderDTO.getSellerId());
+				for(String address : list) {
+					MailTest.MailSend(address, alarm.getAlarmSubject(), alarm.getAlarmContent());
 
+				}
+				
 			}
 		
 		}finally {
@@ -63,6 +74,7 @@ public class OrderDAOImpl implements OrderDAO {
 		return result;
 
 	}
+	
 	
 	/***
 	 * 거래에 해당하는 상품 정보 불러오기
@@ -110,7 +122,8 @@ public class OrderDAOImpl implements OrderDAO {
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-
+		List<String> list2 = new ArrayList<String>();
+				
 		String sql = "select order_no, order_price, to_char(order_date, 'YY-MM-DD'), order_status, buyer_id, seller_id from orders order by order_date desc";
 		List<OrderDTO> list = new ArrayList<OrderDTO>();
 
@@ -123,7 +136,7 @@ public class OrderDAOImpl implements OrderDAO {
 				list.add(new OrderDTO(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getString(4), rs.getString(5),
 						rs.getString(6)));
 			}
-			
+
 
 		} finally {
 			DbUtil.dbClose(con, ps, rs);

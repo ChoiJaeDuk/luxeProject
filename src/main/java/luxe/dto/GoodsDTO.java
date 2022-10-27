@@ -17,6 +17,8 @@ public class GoodsDTO {
 	private GoodsImagesDTO goodsImagesDTO;
 	private String mainImg;
 	private int sellPrice;
+	private int lowestPrice;
+	private int highestPrice;
 
 	public void setGoodsReleaseDate(String goodsReleaseDate) {
 		this.goodsReleaseDate = goodsReleaseDate;
@@ -75,17 +77,20 @@ public class GoodsDTO {
 		this.goodsReleasePrice = goodsReleasePrice;
 	}
 
-	public GoodsDTO(String brand, String goodsName, String goodsNameKor, String category, String goodsMainImg) {
+	public GoodsDTO(int lowestPrice ,String brand, String goodsName, String goodsNameKor, String category, String goodsMainImg, int goodsNo) {
 		super();
 		this.brand = brand;
 		this.category = category;
 		this.goodsName = goodsName;
 		this.goodsNameKor = goodsNameKor;
 		this.goodsMainImg = goodsMainImg;
+		this.lowestPrice = lowestPrice;
+		this.goodsNo = goodsNo;
 	}
 
-	public GoodsDTO(String goodsName, String brand) {// 재덕추가
+	public GoodsDTO(String goodsName, String brand, int highestPrice) {// 재덕추가
 		super();
+		this.highestPrice = highestPrice;
 		this.brand = brand;
 		this.goodsName = goodsName;
 	}
@@ -200,6 +205,22 @@ public class GoodsDTO {
 
 	public void setSellPrice(int sellPrice) {
 		this.sellPrice = sellPrice;
+	}
+
+	public int getLowestPrice() {
+		return lowestPrice;
+	}
+
+	public void setLowestPrice(int lowestPrice) {
+		this.lowestPrice = lowestPrice;
+	}
+
+	public int getHighestPrice() {
+		return highestPrice;
+	}
+
+	public void setHighestPrice(int highestPrice) {
+		this.highestPrice = highestPrice;
 	}
 
 }

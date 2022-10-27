@@ -17,14 +17,14 @@ public class SellServiceImpl implements SellService {
 	}
 
 	@Override
-	public void updateSellPrice(SellDTO sellDTO) throws SQLException {
+	public void updateSellPrice(SellDTO sellDTO) throws Exception {
 		int result = sellDAO.updateSellPrice(sellDTO);
 		if (result==0) throw new SQLException("업데이트 실패");
 	}
 
 	
 	@Override
-	public void updateSellStatus(SellDTO sellDTO) throws SQLException {
+	public void updateSellStatus(SellDTO sellDTO) throws Exception {
 		int result = sellDAO.updateSellStatus(sellDTO);
 		if (result==0) throw new SQLException("판매상태 업데이트 실패");
 		
@@ -68,6 +68,14 @@ public class SellServiceImpl implements SellService {
 	public boolean sellDuplicateCheck(SellDTO sellDTO) throws SQLException{
 		boolean result = sellDAO.sellDuplicateCheck(sellDTO);
 		return result;
+	}
+	
+	
+	public void deleteSell(int sellNo) throws SQLException{
+		int result = sellDAO.deleteSell(sellNo);
+		if(result ==0) {
+			throw new SQLException("삭제에 실패했습니다.");
+		}
 	}
 
 }

@@ -50,7 +50,7 @@ public class SellDAOImpl implements SellDAO {
 	
 	
 	@Override
-	public int updateSellPrice(SellDTO sellDTO) throws SQLException {
+	public int updateSellPrice(SellDTO sellDTO) throws Exception {
 		Connection con = null;
 		PreparedStatement ps = null;
 		int result = 0;
@@ -66,14 +66,14 @@ public class SellDAOImpl implements SellDAO {
 			
 			int goodsNo = selectGoodsNoBySellNo(con ,sellDTO.getSellNo());
 			
-			System.out.println("goodsNo = "+goodsNo);
 			
 			BidDTO bidDTO = bidDAO.getHighestBidPrice(goodsNo);
 			
 			
-			
 			if(this.priceCompare(bidDTO, sellDTO.getSellPrice())) {//최고입찰가를 받아 비교 후 true일 경우 주문등록(즉시판매)
-				OrderDTO orderDTO = new OrderDTO(sellDTO.getSellNo(), bidDTO.getBidNo(), bidDTO.getBidPrice(), sellDTO.getUserId(), bidDTO.getUserId());
+				System.out.println("USER_ID = "+bidDTO.getUserId());
+				System.out.println("USER_ID = "+sellDTO.getUserId());
+				OrderDTO orderDTO = new OrderDTO(sellDTO.getSellNo(), bidDTO.getBidNo(), bidDTO.getBidPrice(), bidDTO.getUserId(), sellDTO.getUserId());
 				
 				result = orderDAO.insertOrder(con, orderDTO);
 				if (result==0) {
@@ -113,7 +113,7 @@ public class SellDAOImpl implements SellDAO {
 	
 	
 	@Override
-	public int updateSellStatus(SellDTO sellDTO) throws SQLException {
+	public int updateSellStatus(SellDTO sellDTO) throws Exception {
 		Connection con = null;
 		PreparedStatement ps = null;
 		int result = 0;
@@ -130,10 +130,10 @@ public class SellDAOImpl implements SellDAO {
 			
 			int goodsNo = selectGoodsNoBySellNo(con ,sellDTO.getSellNo());
 			BidDTO bidDTO = bidDAO.getHighestBidPrice(goodsNo); //null일때 제어
-			
+		
 			if(sellDTO.getSellStatus().equals("판매중")) {		
 				if(this.priceCompare(bidDTO, sellDTO.getSellPrice())) {//최고입찰가를 받아 비교 후 true일 경우 주문등록(즉시판매)
-					OrderDTO orderDTO = new OrderDTO(sellDTO.getSellNo(), bidDTO.getBidNo(), bidDTO.getBidPrice(), sellDTO.getUserId(), bidDTO.getUserId());
+					OrderDTO orderDTO = new OrderDTO(sellDTO.getSellNo(), bidDTO.getBidNo(), bidDTO.getBidPrice(), bidDTO.getUserId(), sellDTO.getUserId());
 					
 					result = orderDAO.insertOrder(con, orderDTO);
 					
@@ -186,7 +186,6 @@ public class SellDAOImpl implements SellDAO {
 			con = DbUtil.getConnection();
 			ps = con.prepareStatement(sql);
 			rs = ps.executeQuery();
-			System.out.println("나오니?");
 			while (rs.next()) {
 				SellDTO sellDTO = new SellDTO(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getInt(4),rs.getString(5),rs.getString(6),rs.getString(7),rs.getString(8));
 				
@@ -206,7 +205,8 @@ public class SellDAOImpl implements SellDAO {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		List<SellDTO> sellList = new ArrayList<SellDTO>();
-		String sql = "SELECT G.GOODS_NAME, G.BRAND, S.SELL_PRICE, S.SELL_DATE, S.SELL_NO  \r\n"
+		BidDAO bidDAO = new BidDAOImpl();
+		String sql = "SELECT G.GOODS_NAME, G.BRAND, S.SELL_PRICE, S.SELL_DATE, S.SELL_NO, S.GOODS_NO  \r\n"
 					+ "FROM SELL S, GOODS G\r\n"
 					+ "WHERE S.GOODS_NO = G.GOODS_NO AND S.USER_ID =? AND S.SELL_STATUS='판매중'";
 		try {
@@ -214,9 +214,16 @@ public class SellDAOImpl implements SellDAO {
 			ps = con.prepareStatement(sql);
 			ps.setString(1, userId);
 			rs = ps.executeQuery();
-			
+			int highestPrice;
 			while (rs.next()) {
-				GoodsDTO goodsDTO= new GoodsDTO(rs.getString(1), rs.getString(2));
+				BidDTO bidDTO = bidDAO.getHighestBidPrice(rs.getInt(6));
+				if(bidDTO==null) {
+					highestPrice = 0;
+				}else {
+					highestPrice = bidDTO.getBidPrice();
+				}
+				
+				GoodsDTO goodsDTO= new GoodsDTO(rs.getString(1), rs.getString(2), highestPrice);
 				
 				sellList.add(new SellDTO(rs.getInt(3), rs.getString(4), rs.getInt(5), goodsDTO));
 			}
@@ -234,8 +241,9 @@ public class SellDAOImpl implements SellDAO {
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
+		BidDAO bidDAO = new BidDAOImpl();
 		List<SellDTO> sellList = new ArrayList<SellDTO>();
-		String sql = "SELECT G.GOODS_NAME, G.BRAND, S.SELL_PRICE, S.SELL_DATE, S.SELL_NO  \r\n"
+		String sql = "SELECT G.GOODS_NAME, G.BRAND, S.SELL_PRICE, S.SELL_DATE, S.SELL_NO, S.GOODS_NO\r\n"
 					+ "FROM SELL S, GOODS G\r\n"
 					+ "WHERE S.GOODS_NO = G.GOODS_NO AND S.USER_ID =? AND S.SELL_STATUS= '판매대기' ";
 		try {
@@ -243,9 +251,17 @@ public class SellDAOImpl implements SellDAO {
 			ps = con.prepareStatement(sql);
 			ps.setString(1, userId);
 			rs = ps.executeQuery();
-			
+			int highestPrice;
 			while (rs.next()) {
-				GoodsDTO goodsDTO= new GoodsDTO(rs.getString(1), rs.getString(2));
+				
+				BidDTO bidDTO = bidDAO.getHighestBidPrice(rs.getInt(6));
+				if(bidDTO==null) {
+					highestPrice = 0;
+				}else {
+					highestPrice = bidDTO.getBidPrice();
+				}
+				 
+				GoodsDTO goodsDTO= new GoodsDTO(rs.getString(1), rs.getString(2), highestPrice);
 				
 				sellList.add(new SellDTO(rs.getInt(3), rs.getString(4), rs.getInt(5), goodsDTO));
 			}
@@ -383,5 +399,27 @@ public class SellDAOImpl implements SellDAO {
 			// 알림 발송 (알림 내용 정하기)
 			// 화면에 입찰 최고가 바꾸기
 		}
+	}
+
+
+	@Override
+	public int deleteSell(int sellNo) throws SQLException {
+		Connection con = null;
+		PreparedStatement ps = null;
+		int result = 0;
+		String sql = "DELETE FROM SELL WHERE SELL_NO = ?";
+
+		try {
+			con = DbUtil.getConnection();
+			ps = con.prepareStatement(sql);
+			ps.setInt(1, sellNo);
+			
+			result = ps.executeUpdate();
+
+		} finally {
+			DbUtil.dbClose(con, ps);
+		}
+
+		return result;
 	}
 }

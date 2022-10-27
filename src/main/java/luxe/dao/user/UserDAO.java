@@ -1,6 +1,8 @@
 package luxe.dao.user;
 
+import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.List;
 
 import luxe.dto.UserDTO;
 
@@ -80,5 +82,15 @@ public interface UserDAO {
 	 * @throws Exception
 	 */
 	int deleteUser(String userId, String userPwd) throws Exception;
+	
+	/***
+	 * 회원아이디에 해당하는 email주소 조회
+	 * @param con
+	 * @param buyerId
+	 * @param sellerId
+	 * @return
+	 * @throws Exception
+	 */
+	List<String> selectEmailAddressByUserId(Connection con, String buyerId, String sellerId) throws Exception;
 
 }

@@ -18,8 +18,8 @@ public class WishListServiceImpl implements WishListService {
 	}
 
 	@Override
-	public int deleteWishList(int wishListNo) throws SQLException {
-		int result = wishListDAO.deleteWishList(wishListNo);
+	public int deleteWishList(int goodsNo) throws SQLException {
+		int result = wishListDAO.deleteWishList(goodsNo);
 		if (result==0) throw new SQLException("삭제실패");
 		return result;
 	}

@@ -5,8 +5,23 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Properties;
 
+import javax.mail.Authenticator;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+
+import luxe.dao.order.MailTest;
+import luxe.dao.user.UserDAO;
+import luxe.dao.user.UserDAOImpl;
 import luxe.dto.AlarmDTO;
 import luxe.dto.AlarmReceiveUserDTO;
 import luxe.util.DbUtil;
@@ -204,6 +219,8 @@ public class AlarmDAOImpl implements AlarmDAO {
 			}
 			
 			
+			
+			
 		}finally{
 			DbUtil.dbClose(con, ps, rs);
 		}
@@ -248,6 +265,7 @@ public class AlarmDAOImpl implements AlarmDAO {
 		Connection con = null;
 		PreparedStatement ps = null;
 		int result = 0;
+		List<String> list = new ArrayList<String>();
 		
 		String sql = "delete from alarm_receive_user where user_id = ? and alarm_no = ?";
 		try {
@@ -265,5 +283,8 @@ public class AlarmDAOImpl implements AlarmDAO {
 		
 		return result;
 	}
+	
+	
+
 
 }
