@@ -23,14 +23,19 @@ public class GoodsServiceImpl implements GoodsService {
 	@Override
 	public List<GoodsDTO> selectAllGoods(String brand, String category, String arrange) throws SQLException {
 
-		if (brand == null) {
+		if (brand.equals("")) {
 			brand = "'%'";
+			System.out.println("확인1");
 		}
-		if (category == null) {
+		if (category.equals("")) {
 			category = "'%'";
+			System.out.println("확인2");
 		}
-		// if (arrange == )
-		List<GoodsDTO> list = selectAllGoods(brand, category, arrange);
+		if (arrange.equals("")) {
+			System.out.println("확인3");
+			arrange = "";
+		}
+		List<GoodsDTO> list = goodsDAO.selectAllGoods(brand, category, arrange);
 
 		return list;
 	}
