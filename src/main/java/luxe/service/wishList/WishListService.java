@@ -10,7 +10,7 @@ public interface WishListService {
 	int insertWishList(WishListDTO wishListDTO) throws SQLException;
 	
 	
-	int deleteWishList(int wishListNo) throws SQLException;
+	int deleteWishList(int goodsNo) throws SQLException;
 	
 	
 	List<GoodsDTO> selectWishList(String userId) throws SQLException;

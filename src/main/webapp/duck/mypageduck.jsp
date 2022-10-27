@@ -109,8 +109,9 @@ input {
 					    str+=`<td>${"${item.goodsDTO.brand}"}</td>`;
 					    str+=`<td>${"${item.sellPrice}"}</td>`;
 					    str+=`<td>${"${item.sellDate}"}</td>`;
+					    str+=`<td id='highestPrice'>${"${item.goodsDTO.highestPrice}"}`
 					    str+=`<td><input type='button' value='가격수정' name=${'${item.sellNo}'}></td>`;
-					    str+=`<td><input type='button' value='판매취소' name=${'${item.sellNo}'}></td>`;
+					    str+=`<td><input type='button' value='판매취소' name='sellCancel' id = ${'${item.sellNo}'}></td>`;
 					    str+="</tr>";
 				  });
 				 	$("#profile2 tr:gt(0)").remove();
@@ -140,7 +141,8 @@ input {
 					    str+=`<td>${"${item.goodsDTO.brand}"}</td>`;
 					    str+=`<td>${"${item.sellPrice}"}</td>`;
 					    str+=`<td>${"${item.sellDate}"}</td>`;
-					    str+=`<td><input type='button' value='판매취소' name=${'${item.sellNo}'} id = 'sellCancel'></td>`;
+					    str+=`<td id='highestPrice'>${"${item.goodsDTO.highestPrice}"}`
+					    str+=`<td><input type='button' value='판매취소' name='sellCancel' id =${'${item.sellNo}'}></td>`;
 					    str+="</tr>";
 				  });
 					$("#profile3 tr:gt(0)").remove();
@@ -153,7 +155,7 @@ input {
 			});//ajax끝
 		};
 		
-		
+		//관심목록 조회
 		 function wishList() {
 			$.ajax({
 				url :"../ajax" , //서버요청주소
@@ -163,21 +165,23 @@ input {
 				success :function(result){
 					let str="";  //str+=`<td>${"${item.goodsDTO.goodsName}"}</td>`;
 					$.each(result, function(index, item){
-						str += `<div class=${"bestItem item${index+1}"}>`;
+						str += "<tr>";
+						str += `<td><div class=${"bestItem item${index+1}"}>`;
 						str += `<div class="item_img_block">`;
 						str += `<div class="item_img">`;
-						str += `<img alt="상품이미지입니다." src=${pageContext.request.contextPath}/goodsImg/1.png id='product' ></div>`;		
+						str += `<img alt="상품이미지입니다." src=${pageContext.request.contextPath}/goodsImg/1.png id='product' width = "150" height="150" ></div>`;		
 						str += `<div id='like'><img src="img/heart.svg" id='like_img'></div></div>`;
 						str += `<div id='item_text'>`;
 						str += `<div class="item_brand">`;
 						str += `<a href="#" id="brand_text">${"${item.brand}"}</a></div>`;
 						str += `<p id="name">${"${item.goodsName}"}</p>`;
 						str += `<div class="price">`;
-						str += `<p id="num">000,000원</p>`;
-						str += `<p id="p">즉시구매가</p></div></div></div>`;
+						str += `<p id="num">${"${item.lowestPrice}"}원</p>`;
+						str += `<p id="p">즉시구매가  <input type='button' value='삭제' name='deleteWishList' id =${'${item.goodsNo}'}></div></div></div>`;
+						str += "</td></tr>";
 				  });
-					//$("#shopping-wishList tr:gt(0)").remove();
-					$("#product").before(str);
+					$(".productBEST_container tr:gt(0)").remove();
+					$(".productBEST_container tr:eq(0)").after(str);
 					
 				} , //성공했을때 실행할 함수 
 				error : function(err){  
@@ -186,6 +190,26 @@ input {
 			})
 		}
 		
+		
+		//관심목록 삭제
+			$(document).on("click", "[name=deleteWishList]", function() {
+				if(confirm("관심목록에서 삭제하시겠습니까?")){
+					$.ajax({
+						url :"../ajax" , //서버요청주소
+						type:"post", //요청방식(method방식 : get | post | put | delete )
+						dataType:"text"  , //서버가 보내온 데이터(응답)타입(text | html | xml | json )
+						data: {key:"wishListAjax" , methodName : "deleteWishList", goodsNo : $(this).attr("id")}, //서버에게 보낼 데이터정보(parameter정보)
+						success :function(result){
+							alert("관심목록에서 삭제되었습니다.");
+			
+							wishList();
+						} , //성공했을때 실행할 함수 
+						error : function(err){  
+							alert(err+"에러 발생했어요.");
+						}  //실팽했을때 실행할 함수 
+					});//ajax끝
+				} 
+			})
 		
 		
 		//가격수정 팝업창
@@ -196,36 +220,78 @@ input {
 			popup.classList.remove('has-filter');
 			popup.classList.remove('hide');
 			$("[name=sellPrice]").val("");
+		});
+		
+		//가격수정하기	
+		
+		$(document).on("click", "#priceChange", function() {
+			//alert($("#highestPrice").text());
+				alert($("[name='sellPrice']").val() < $("#highestPrice").text())
+				if($("[name='sellPrice']").val() > $("#highestPrice").text()){
+					if(confirm("정말 수정하시겠습니까?")){
+						$.ajax({
+							url :"../ajax" , //서버요청주소
+							type:"post", //요청방식(method방식 : get | post | put | delete )
+							dataType:"text"  , //서버가 보내온 데이터(응답)타입(text | html | xml | json )
+							data: {key:"sellAjax" , methodName : "updateSellPrice", userId : "id", sellNo : $("[name='sellNo']").val(), sellPrice : $("[name='sellPrice']").val()}, //서버에게 보낼 데이터정보(parameter정보)
+							success :function(result){
+								alert("수정 성공");
+								selectSellingInfoByUserId();
+								closePopup();
+							} , //성공했을때 실행할 함수 
+							error : function(err){  
+								alert(err+"에러 발생했어요.");
+							}  //실팽했을때 실행할 함수 
+						});//ajax끝
+					}
+				}else {
+					if(confirm("즉시판매를 하시겠습니까?")){
+						$.ajax({
+							url :"../ajax" , //서버요청주소
+							type:"post", //요청방식(method방식 : get | post | put | delete )
+							dataType:"text"  , //서버가 보내온 데이터(응답)타입(text | html | xml | json )
+							data: {key:"sellAjax" , methodName : "updateSellPrice", userId : "id", sellNo : $("[name='sellNo']").val(), sellPrice : $("#highestPrice").text()}, //서버에게 보낼 데이터정보(parameter정보)
+							success :function(result){
+								alert("즉시판매 되었습니다.");
+								selectSellingInfoByUserId();
+								closePopup();
+							} , //성공했을때 실행할 함수 
+							error : function(err){  
+								alert(err+"에러 발생했어요.");
+							}  //실팽했을때 실행할 함수 
+						});//ajax끝
+					}
+				}
 			
 		});
 		
+		//판매취소(sell테이블에서 삭제한다.)
+		$(document).on("click", "[name='sellCancel']", function() {
 		
-		
-		
-		//가격수정하기	
-		$(document).on("click", "#priceChange", function() {
-			 if(confirm("정말 수정하시겠습니까?")){
+			 if(confirm("정말 판매를 취소하시겠습니까??")){
 				$.ajax({
 					url :"../ajax" , //서버요청주소
 					type:"post", //요청방식(method방식 : get | post | put | delete )
 					dataType:"text"  , //서버가 보내온 데이터(응답)타입(text | html | xml | json )
-					data: {key:"sellAjax" , methodName : "updateSellPrice", userId : "id", sellNo : $("[name='sellNo']").val(), sellPrice : $("[name='sellPrice']").val()}, //서버에게 보낼 데이터정보(parameter정보)
+					data: {key:"sellAjax" , methodName : "deleteSell", sellNo : $(this).attr("id")}, //서버에게 보낼 데이터정보(parameter정보)
 					success :function(result){
-						alert("수정 성공");
+						alert("판매가 취소됐습니다.");
 						selectSellingInfoByUserId();
-						closePopup();
+						selectSellWaitInfoByUserId();
 					} , //성공했을때 실행할 함수 
 					error : function(err){  
 						alert(err+"에러 발생했어요.");
 					}  //실팽했을때 실행할 함수 
 				});//ajax끝
 			} 
-		});
-		
+		}); 
 		
 		wishList();
 		selectSellingInfoByUserId();
 		selectSellWaitInfoByUserId();
+		
+		
+		
 	});//ready
 	
 	
@@ -395,6 +461,7 @@ input {
   </li>
   <li class="nav-item active" role="presentation">
     <a class="nav-link active show" data-bs-toggle="tab" href="#profile2" aria-selected="true" role="tab" id="sellingList">판매중</a>
+ 
   </li>
    <li class="nav-item" role="presentation">
     <a class="nav-link" data-bs-toggle="tab" href="#profile3" aria-selected="false" role="tab"id="sellWaitList">판매신청</a>
@@ -410,6 +477,7 @@ input {
  			<th>브랜드</th>
  			<th>판매가격</th>
  			<th>등록일</th>
+ 			<th>즉시판매가</th>
  		</tr>
  	</table>
 	</div>
@@ -424,6 +492,7 @@ input {
  			<th>브랜드</th>
  			<th>판매가격</th>
  			<th>등록일</th>
+ 			<th>즉시판매가</th>
  		</tr>
  	</table>
 	</div>
@@ -438,11 +507,12 @@ input {
  			<th>브랜드</th>
  			<th>판매가격</th>
  			<th>등록일</th>
+ 			<th>즉시판매가</th>
  		</tr>
  	</table>
 	</div>
 </div>
-
+<!-- 팝업창 띄우기  -->
 <div id="popup" class="hide">
   <div class="content">
     <p>
@@ -461,47 +531,18 @@ input {
 </div>
 
 </div>
+<!--  -->
 		<div id="shopping-wishList" class="tabcontent">
 		  <h3>관심상품</h3>
 		  <section id='product'>
 				<div class="productBEST_container">
+					<table>
+						<tr>
+							<td></td>
+						</tr>
+						
+					</table>
 					
-					<!-- <div class="bestItem item1">
-						<div class="item_img_block">
-						<div class="item_img">
-							<img alt="상품이미지입니다." src="" id='product' >
-						</div>
-						<div id='like'><img src="img/heart.svg" id='like_img' ></div>
-						</div>
-						<div id='item_text'>
-							<div class="item_brand">
-								<a href="#" id="brand_text">브랜드</a>
-							</div>
-							<p id="name">상품이름</p>
-							<div class="price">
-								<p id="num">000,000원</p>
-								<p id="p">즉시구매가</p>
-							</div>
-						</div>
-					</div>
-					<div class="bestItem item1">
-						<div class="item_img_block">
-						<div class="item_img">
-							<img alt="상품이미지입니다." src="" id='product' >
-						</div>
-						<div id='like'><img src="img/heart.svg" id='like_img'></div>
-						</div>
-						<div id='item_text'>
-							<div class="item_brand">
-								<a href="#" id="brand_text">브랜드</a>
-							</div>
-							<p id="name">상품이름</p>
-							<div class="price">
-								<p id="num">000,000원</p>
-								<p id="p">즉시구매가</p>
-							</div>
-						</div>
-					</div>-->
 				</div> 
 	
 					

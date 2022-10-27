@@ -69,6 +69,14 @@ public class SellServiceImpl implements SellService {
 		boolean result = sellDAO.sellDuplicateCheck(sellDTO);
 		return result;
 	}
+	
+	
+	public void deleteSell(int sellNo) throws SQLException{
+		int result = sellDAO.deleteSell(sellNo);
+		if(result ==0) {
+			throw new SQLException("삭제에 실패했습니다.");
+		}
+	}
 
 }
 

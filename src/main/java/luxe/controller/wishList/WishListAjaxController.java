@@ -28,9 +28,10 @@ public class WishListAjaxController implements AjaxController{
 		response.setContentType("text/html;charset=UTF-8");
 //		HttpSession session = request.getSession();
 //		String userId = (String)session.getAttribute("id");
-		System.out.println("연결되니?");
+		
 		String userId = request.getParameter("id");
 		List<GoodsDTO> wishList = wishListService.selectWishList(userId);
+		System.out.println("wishList.size() = "+wishList.size());
 		JSONArray arr = JSONArray.fromObject(wishList);
 		
 		PrintWriter out = response.getWriter();
@@ -43,8 +44,8 @@ public class WishListAjaxController implements AjaxController{
 //		HttpSession session = request.getSession();
 //		String userId = (String)session.getAttribute("id");
 		System.out.println("연결되니?");
-		int wishListNo = Integer.parseInt(request.getParameter("wishListNo"));
-		wishListService.deleteWishList(wishListNo);
+		int goodsNo = Integer.parseInt(request.getParameter("goodsNo"));
+		wishListService.deleteWishList(goodsNo);
 		
 //		PrintWriter out = response.getWriter();
 //		out.print(arr);

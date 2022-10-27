@@ -71,4 +71,11 @@ public interface SellService {
 	 */
 	public boolean sellDuplicateCheck(SellDTO sellDTO) throws SQLException;
 	
+	/**
+	 * SellNo를 받아 해당되는 sell을 삭제한다.
+	 * @param sellNo
+	 * @throws SQLException
+	 */
+	public void deleteSell(int sellNo) throws SQLException;
+	
 }
