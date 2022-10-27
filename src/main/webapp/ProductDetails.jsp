@@ -48,6 +48,7 @@ font-family: 'Lora', serif;
 <link rel="stylesheet" type="text/css" href="css/ProductDetails.css">
 <style type="text/css">
 </style>
+<script src="js/jquery-3.6.1.min.js"></script>
 </head>
 <body>
 <div id='wrap'>
@@ -101,21 +102,21 @@ font-family: 'Lora', serif;
 		
 			<div class="slideshow-container">
 			  <!-- Full-width images with number and caption text -->
-			  <div class="mySlides fade">
+			  <div class="mySlides fade" style="display: none">
 			    <div class="numbertext">1 / 3</div>
-			    <img alt="이미지" src="img/banner01.png" style="width:500px; height: 500px;">
+			    <img alt="이미지" src="${path}/${goodsDTO.goodsImagesDTO.goodsMainImg}" style="width:500px; height: 500px;">
 			    <div class="text">Caption Text</div>
 			  </div>
 			
-			  <div class="mySlides fade">
+			  <div class="mySlides fade" style="display: none">
 			    <div class="numbertext">2 / 3</div>
-			    <img alt="이미지" src="img/banner02.png" style="width:500px; height: 500px;">
+			    <img alt="이미지" src="${path}/${goodsDTO.goodsImagesDTO.goodsImg1}" style="width:500px; height: 500px;">
 			    <div class="text">Caption Two</div>
 			  </div>
 			
-			  <div class="mySlides fade">
+			  <div class="mySlides fade" style="display: none">
 			    <div class="numbertext">3 / 3</div>
-			    <img alt="이미지" src="img/logo.PNG" style="width:500px; height: 500px;">
+			    <img alt="이미지" src="${path}/${goodsDTO.goodsImagesDTO.goodsImg2}" style="width:500px; height: 500px;">
 			    <div class="text">Caption Three</div>
 			  </div>
 			
@@ -136,14 +137,14 @@ font-family: 'Lora', serif;
 		
 		<div class="product-cont">
 			<div class="column-col">
-				<div><a href="">브랜드</a></div>
-				<p>메인타이틀제목입니다</p><p>서브타이틀타이틀제목입니다</p>
+				<div><a href="">${goodsDTO.brand}</a></div>
+				<p>${goodsDTO.goodsName}</p><p>${goodsDTO.goodsNameKor}</p>
 				<div id='detail-price'>
 					<span id='title'>최근거래가</span>
 					<div id='amount'><span id='num'>000,000</span><span id='won'>원</span> </div>
 				</div>
-				<button class="btn-order sell"><span>판매</span> <span id='num'>000,000</span><span id='won'>원</span></button>
-				<button class="btn-order buy"><span>구매</span> <span id='num'>000,000</span><span id='won'>원</span></button>
+				<button class="btn-order sell"><span>즉시판매</span> <span id='num'>${goodsDTO.lowestPrice}</span><span id='won'>원</span></button>
+				<button class="btn-order buy"><span>즉시구매</span> <span id='num'>${goodsDTO.highestPrice}</span><span id='won'>원</span></button>
 				<button class="btn-wish">관심상품</button>
 				
 				<div id='detail-info'>

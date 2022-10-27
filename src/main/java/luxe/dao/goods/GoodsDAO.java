@@ -22,7 +22,7 @@ public interface GoodsDAO {
 	 * 상품 상세 조회
 	 */
 	
-	List<GoodsDTO>selectGoodsLine(int goodsNo)throws SQLException;
+	GoodsDTO selectGoodsLine(int goodsNo)throws SQLException;
 	
 	/**
 	 * 조회수를 증가 시키는 기능

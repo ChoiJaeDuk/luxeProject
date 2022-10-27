@@ -41,17 +41,13 @@ public class GoodsServiceImpl implements GoodsService {
 	}
 
 	@Override
-	public List<GoodsDTO> selectGoodsLine(int goodsNo, boolean flag) throws SQLException {
-		if (flag) {
-			if (goodsDAO.increaseGoodsReadNo(goodsNo) == 0) {
-				throw new SQLException("조회수 증가 오류");
-			}
-		}
-		List<GoodsDTO> list = goodsDAO.selectGoodsLine(goodsNo);
-		if (list == null) {
+	public GoodsDTO selectGoodsLine(int goodsNo, boolean flag) throws SQLException {
+		
+		GoodsDTO goodsDTO = goodsDAO.selectGoodsLine(goodsNo);
+		if (goodsDTO == null) {
 			throw new SQLException("");
 		}
-		return list;
+		return goodsDTO;
 	}
 
 	@Override

@@ -22,7 +22,7 @@ public interface GoodsService {
 	 * 상품 상세 조회
 	 */
 	
-	List<GoodsDTO>selectGoodsLine(int goodsNo, boolean flag)throws SQLException;
+	GoodsDTO selectGoodsLine(int goodsNo, boolean flag)throws SQLException;
 	
 	/**
 	 * 상품명으로 상품 검색

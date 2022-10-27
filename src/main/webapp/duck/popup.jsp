@@ -63,7 +63,7 @@ function showPopup(hasFilter) {
 <body>
 <button onclick="showPopup(false)">필터없는 팝업창 보기</button>
 
-<div id="popup" class="hide">
+<div id="popup">
   <div class="content">
     <p>
 
