@@ -60,7 +60,7 @@ public interface BidService {
 	 * @return : 1이면 수정 성공, 0이면 수정 실패
 	 * @throws SQLException
 	 */
-	void updateBidPrice(BidDTO bid) throws Exception;
+	int updateBidPrice(BidDTO bid) throws Exception;
 
 	/**
 	 * 입찰 상태 수정

@@ -51,10 +51,11 @@ public class BidServiceImpl implements BidService {
 	}
 
 	@Override
-	public void updateBidPrice(BidDTO bid) throws Exception {
+	public int updateBidPrice(BidDTO bid) throws Exception {
 		int result = bidDao.updateBidPrice(bid);
 		if (result == 0)
 			throw new SQLException("입찰 가격 수정에 실패했습니다.");
+		return result;
 	}
 
 	@Override
