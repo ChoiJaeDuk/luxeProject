@@ -29,7 +29,8 @@ public class BidDAOImpl implements BidDAO {
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		String sql = "select bid_no, goods_name, brand, bid_price, TO_CHAR(bid_regdate, 'YYYY-MM-DD') from bid b join goods g on b.goods_no=g.goods_no group by goods_name, brand, bid_price, bid_regdate, bid_no order by bid_no";
+		String sql = "select bid_no, b.goods_no, goods_name, brand, bid_price, TO_CHAR(bid_regdate, 'YYYY-MM-DD') \r\n"
+				+ "from bid b join goods g on b.goods_no=g.goods_no group by b.goods_no, goods_name, brand, bid_price, bid_regdate, bid_no, user_id order by bid_no";
 		List<BidDTO> list = new ArrayList<BidDTO>();
 
 		try {
@@ -39,7 +40,8 @@ public class BidDAOImpl implements BidDAO {
 			rs = ps.executeQuery();
 
 			while (rs.next()) {
-				list.add(new BidDTO(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getString(5)));
+				list.add(new BidDTO(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getString(4), rs.getInt(5),
+						rs.getString(6)));
 			}
 
 		} finally {
@@ -53,7 +55,9 @@ public class BidDAOImpl implements BidDAO {
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		String sql = "select bid_no, goods_name, brand, bid_price, TO_CHAR(bid_regdate, 'YYYY-MM-DD') from bid b join goods g on b.goods_no=g.goods_no and user_id=? and bid_status like ? group by goods_name, brand, bid_price, bid_regdate, bid_no, user_id order by bid_no";
+		String sql = "select bid_no, b.goods_no, goods_name, brand, bid_price, TO_CHAR(bid_regdate, 'YYYY-MM-DD') \r\n"
+				+ "from bid b join goods g on b.goods_no=g.goods_no and user_id=? and bid_status like ? \r\n"
+				+ "group by b.goods_no, goods_name, brand, bid_price, bid_regdate, bid_no, user_id order by bid_no";
 		List<BidDTO> list = new ArrayList<BidDTO>();
 
 		try {
@@ -65,7 +69,8 @@ public class BidDAOImpl implements BidDAO {
 			rs = ps.executeQuery();
 
 			while (rs.next()) {
-				list.add(new BidDTO(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getInt(4), rs.getString(5)));
+				list.add(new BidDTO(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getString(4), rs.getInt(5),
+						rs.getString(6)));
 			}
 
 		} finally {
