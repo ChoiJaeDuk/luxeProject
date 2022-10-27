@@ -152,5 +152,6 @@ margin-right:20px;}
 }
 #banner{
 	width: 100%;
-	background-color: #222222;
+	border-top: 1px double #222222;
+	border-bottom: 1px double #222222;
 }

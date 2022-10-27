@@ -49,6 +49,36 @@ font-family: 'Lora', serif;
 <link rel="stylesheet" type="text/css" href="../css/style/StyleBoard.css">
 <style type="text/css">
 </style>
+<script type="text/javascript" src="../js/jquery-3.6.1.min.js"></script>
+<script type="text/javascript">
+	//인수받기(test)
+	let chanel = [ "징거버거", "타워버거", "불고기버거" ]
+	let dior = [ "라이스버거", "데리버거", "새우버거", "한우버거", "치즈버거" ]
+	let prada = [ "1997버거", "맥모닝", "빅맥", "베이컨버거", "치킨버거" ]
+
+	function subMenu(th) {
+
+		let arr = new Function("return " + th.value)();
+		let product = document.f.menu;
+
+		//옵션제거
+		while (product.length > 1) {
+			product.options[1] = null;
+		}
+
+		//옵션추가
+		for (let i = 0; i < arr.length; i++) {
+			product.options[product.length] = new Option(arr[i], arr[i])
+		}
+	}
+</script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("#changeProduct").change(function() {
+			$("#changeInput").val($(this).val());
+		});
+	});
+</script>
 </head>
 <body>
 	<div id='wrap'>
@@ -68,9 +98,9 @@ font-family: 'Lora', serif;
 				    <div id='logo'>
 				    	LUXE
 					</div>
-					  <a href="#">HOME</a>
-					  <a href="#news">STYLE</a>
-					  <a href="#contact">SHOP</a>
+					  <a href="../index.jsp">HOME</a>
+					  <a href="#">STYLE</a>
+					  <a href="../shop/shop.jsp">SHOP</a>
 					  <div class="split">
 					  	<input class="nav-search" type="text" name="search">
 					  </div>
@@ -104,7 +134,18 @@ font-family: 'Lora', serif;
 					
 					<!-- 글쓰기 -->
 					<div class='gallery-insert' >
-						<button id='gallery-insertbtn' onclick="location.href='StyleInsert.jsp'">글쓰기</button>
+
+						<form name="f" id='getProductCode'>
+							<select name="brandSelect" id='brandSelect' onchange="subMenu(this)">
+								<option value="0">BRAND</option>
+								<option value="chanel">CHANEL</option>
+								<option value="dior">DIOR</option>
+								<option value="prada">PRADA</option>
+							</select> <select name="menu" id='changeProduct'>
+								<option value="0">PRODUCT-SELECT</option>
+							</select>
+							<button id='gallery-insertbtn' type="button" onclick="showInsertform(false)">글쓰기</button>
+						</form>
 					</div>
 					
 					<!-- 정렬 -->
@@ -485,6 +526,48 @@ font-family: 'Lora', serif;
    			</div>
  		</div>
 	</div>
+
+<div id="insert-pop" class="hide">
+	<div id='insert-contents'>
+		<form id='insert-form' name="writeForm" method="post" action="">
+			<div id='productImg'>
+				<img src="../img/product01.webp" alt="상품이미지" />
+			</div>
+
+			<div id='insert-con'>
+				<div id='insert-title-text'>
+					<span>이름</span><input type="text" class="form-control"
+						placeholder="이름" readonly="readonly"> <span>상품이름</span><input
+						type="text" class="form-control" placeholder="상품이름"
+						id='changeInput' readonly="readonly"> <span>상품코드</span><input
+						type="text" class="form-control" placeholder="상품코드"
+						readonly="readonly">
+				</div>
+
+
+				<div id='insert-text'>
+					<div class="form-group">
+						<span>내용</span>
+						<textarea class="form-control" id="exampleTextarea" rows="3"></textarea>
+					</div>
+				</div>
+
+				<div id='insertImg'>
+					<span>스타일업로드</span> <input class="form-control" type="file"
+						id="formFile">
+				</div>
+
+
+				<div id='insert-submt'>
+					<input type="submit" value="등록" id='submitBtn'>
+					<button onclick="closeInsertform()" id='closeBtn'>취소</button>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
+
+
 	<script type="text/javascript">
 	function showPopup(hasFilter) {
 		const popup = document.querySelector('#popup');
@@ -503,6 +586,25 @@ font-family: 'Lora', serif;
 		  popup.classList.add('hide');
 		}
 		
+	//등록
+	function showInsertform(hasFilter){
+		const insert = document.querySelector('#insert-pop');
+		  
+		  if (hasFilter) {
+			  insert.classList.add('has-filter');
+		  } else {
+			  insert.classList.remove('has-filter');
+		  }
+		  
+		  insert.classList.remove('hide');
+		}
+		
+		function closeInsertform() {
+			const insert = document.querySelector('#insert-pop');
+			insert.classList.add('hide');
+		}
+	
+	
 	//좋아요
 	function likeEvent() {
 		let like = document.querySelector("#like");
