@@ -29,13 +29,14 @@ public class GoodsDTO {
 	}
 
 	public GoodsDTO(String mainImg, String goodsName, String goodsNameKor, String brand, String category,
-			int sellPrice) {
+			int sellPrice, int goodsNo) {
 		this.brand = brand;
 		this.category = category;
 		this.goodsName = goodsName;
 		this.goodsNameKor = goodsNameKor;
 		this.mainImg = mainImg;
 		this.sellPrice = sellPrice;
+		this.goodsNo = goodsNo;
 	}
 
 	public GoodsDTO(String brand, String category, String goodsName, String goodsNameKor, String goodsModelNo,
@@ -50,7 +51,7 @@ public class GoodsDTO {
 	}
 
 	public GoodsDTO(String brand, String category, String goodsName, String goodsNameKor, String goodsModelNo,
-			String goodsReleaseDate, int goodsReleasePrice, GoodsImagesDTO goodsImagesDTO) {
+			String goodsReleaseDate, int goodsReleasePrice, int lowestPrice, int highestPrice, GoodsImagesDTO goodsImagesDTO) {
 		super();
 		this.brand = brand;
 		this.category = category;
@@ -60,6 +61,8 @@ public class GoodsDTO {
 		this.goodsReleaseDate = goodsReleaseDate;
 		this.goodsReleasePrice = goodsReleasePrice;
 		this.goodsImagesDTO = goodsImagesDTO;
+		this.lowestPrice = lowestPrice;
+		this.highestPrice = highestPrice;
 	}
 
 	public GoodsDTO(int goodsNo, String brand, String category, String goodsName, String goodsNameKor, String goodsDate,

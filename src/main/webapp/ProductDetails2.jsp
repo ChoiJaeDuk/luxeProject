@@ -109,7 +109,7 @@ font-family: 'Lora', serif;
 			
 			  <div class="mySlides2 fade2" style="display: none">
 			    <div class="numbertext">2 / 3</div>
-			    <img alt="이미지" src="img/banner02.png" style="width:500px; height: 500px;">
+			    <img alt="이미지" src="${path}/images/main.jpg" style="width:500px; height: 500px;">
 			    <div class="text">Caption Two</div>
 			  </div>
 			

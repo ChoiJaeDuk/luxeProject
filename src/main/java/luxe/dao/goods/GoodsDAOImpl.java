@@ -7,10 +7,16 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import luxe.dao.bid.BidDAO;
+import luxe.dao.bid.BidDAOImpl;
 import luxe.dao.goodsImages.GoodsImagesDAO;
 import luxe.dao.goodsImages.GoodsImagesDAOImpl;
+import luxe.dao.sell.SellDAO;
+import luxe.dao.sell.SellDAOImpl;
+import luxe.dto.BidDTO;
 import luxe.dto.GoodsDTO;
 import luxe.dto.GoodsImagesDTO;
+import luxe.dto.SellDTO;
 import luxe.util.DbUtil;
 
 public class GoodsDAOImpl implements GoodsDAO {
@@ -66,12 +72,12 @@ public class GoodsDAOImpl implements GoodsDAO {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 
-		String sql = "SELECT I.GOODS_MAIN_IMG, GOODS_NAME, GOODS_NAME_KOR, G.BRAND, G.CATEGORY, S.SELL_PRICE \r\n"
+		String sql = "SELECT I.GOODS_MAIN_IMG, GOODS_NAME, GOODS_NAME_KOR, G.BRAND, G.CATEGORY, S.SELL_PRICE, G.GOODS_NO \r\n"
 				+ "FROM GOODS G LEFT OUTER JOIN GOODS_IMAGES I \r\n"
 				+ "ON G.GOODS_NO = I.GOODS_NO LEFT OUTER JOIN WISH_LIST W\r\n"
 				+ "ON G.GOODS_NO = W.GOODS_NO LEFT OUTER JOIN (SELECT MIN(SELL_PRICE) AS SELL_PRICE, GOODS_NO FROM SELL GROUP BY GOODS_NO) S\r\n"
 				+ "ON G.GOODS_NO = S.GOODS_NO\r\n"
-				+ "GROUP BY I.GOODS_MAIN_IMG, GOODS_NAME, GOODS_NAME_KOR, G.BRAND, G.CATEGORY, G.GOODS_DATE, S.SELL_PRICE HAVING BRAND LIKE "
+				+ "GROUP BY I.GOODS_MAIN_IMG, GOODS_NAME, GOODS_NAME_KOR, G.BRAND, G.CATEGORY, G.GOODS_DATE, S.SELL_PRICE, G.GOODS_NO HAVING BRAND LIKE "
 				+ brand + "AND category LIKE " + category + arrange;
 
 		List<GoodsDTO> list = new ArrayList<GoodsDTO>();
@@ -82,7 +88,7 @@ public class GoodsDAOImpl implements GoodsDAO {
 
 			while (rs.next()) {
 				list.add(new GoodsDTO(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4),
-						rs.getString(5), rs.getInt(6)));
+						rs.getString(5), rs.getInt(6), rs.getInt(7)));
 			}
 			
 		} finally {
@@ -95,32 +101,35 @@ public class GoodsDAOImpl implements GoodsDAO {
 	 * 상품 상세 조회
 	 */
 	@Override
-	public List<GoodsDTO> selectGoodsLine(int goodsNo) throws SQLException {
+	public GoodsDTO selectGoodsLine(int goodsNo) throws SQLException {
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		String sql = "SELECT G.BRAND, G.GOODS_NAME, G.GOODS_NAME_KOR, G.CATEGORY, G.GOODS_MODEL_NO, G.GOODS_RELEASE_DATE, G.GOODS_RELEASE_PRICE, \n"
 				+ "I.GOODS_MAIN_IMG, I.GOODS_IMG1, I.GOODS_IMG2, I.GOODS_IMG3, I.GOODS_IMG4\n"
 				+ "FROM GOODS G, GOODS_IMAGES I\n" + "WHERE G.GOODS_NO = I.GOODS_NO AND G.GOODS_NO =? ";
-		List<GoodsDTO> list = new ArrayList<GoodsDTO>();
-
+		GoodsDTO goodsDTO = new GoodsDTO();
+		SellDAO sellDAO = new SellDAOImpl();
+		BidDAO bidDAO = new BidDAOImpl();
 		try {
 			con = DbUtil.getConnection();
 			ps = con.prepareStatement(sql);
+			ps.setInt(1, goodsNo);
 			rs = ps.executeQuery();
 
 			while (rs.next()) {
+				int sellLowestPrice = sellDAO.selectLowestPriceByGoodsNo(goodsNo).getSellPrice();
+				int bidHighestPrice = bidDAO.getHighestBidPrice(goodsNo).getBidPrice();
 				GoodsImagesDTO goodsImagesDTO = new GoodsImagesDTO(rs.getString(8), rs.getString(9), rs.getString(10),
 						rs.getString(11), rs.getString(12));
-				GoodsDTO goodDTO = new GoodsDTO(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4),
-						rs.getString(5), rs.getString(6), rs.getInt(7), goodsImagesDTO);
+				goodsDTO = new GoodsDTO(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4),
+						rs.getString(5), rs.getString(6), rs.getInt(7), sellLowestPrice, bidHighestPrice, goodsImagesDTO);
 
-				list.add(goodDTO);
 			}
 		} finally {
 			DbUtil.dbClose(con, ps, rs);
 		}
-		return list;
+		return goodsDTO;
 	}
 
 	/**

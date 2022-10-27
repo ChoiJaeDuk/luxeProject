@@ -48,7 +48,7 @@ public class GoodsController implements Controller {
 		String goodsReleaseDate = m.getParameter("goodsReleaseDate");
 		int goodsReleasePrice = Integer.parseInt(m.getParameter("goodsReleasePrice"));
 
-		System.out.println(goodsReleaseDate);
+	
 		String goodsMainImg = m.getFilesystemName("goodsMainImg");
 
 		String goodsImg1 = m.getFilesystemName("goodsImg1");
@@ -85,20 +85,20 @@ public class GoodsController implements Controller {
 	 * 상품 상세 조회
 	 */
 	public ModelAndView selectGoodsLine(HttpServletRequest request, HttpServletResponse response) throws Exception {
-		String goodsNoStr = request.getParameter("goodsReadNo");
-		boolean state = request.getParameter("flag") == null ? true : false;
+		//String goodsNoStr = request.getParameter("goodsReadNo");
+		
+		boolean state = true;//request.getParameter("flag") == null ? true : false;
 
-		int goodsNo = 0;
-		if (goodsNoStr != null) {
-			goodsNo = Integer.parseInt(goodsNoStr);
+		int goodsNo = Integer.parseInt(request.getParameter("goodsNo"));
+	
 
-			List<GoodsDTO> goodsDTO = goodsService.selectGoodsLine(goodsNo, state);
-
+			GoodsDTO goodsDTO = goodsService.selectGoodsLine(goodsNo, state);
+		
 			request.setAttribute("goodsDTO", goodsDTO);
 
-		}
+		
 
-		return new ModelAndView("front", true);
+		return new ModelAndView("ProductDetails.jsp");
 	}
 
 	/**

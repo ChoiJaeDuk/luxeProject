@@ -25,6 +25,7 @@ public class GoodsAjaxController implements AjaxController {
 	}
 	
 	public void selectAllGoods(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		response.setContentType("text/html;charset=UTF-8");
 		String brand = request.getParameter("brand");
 		String category = request.getParameter("category");
 		String arrange = request.getParameter("arrange");
@@ -38,5 +39,6 @@ public class GoodsAjaxController implements AjaxController {
 		out.print(arr);
 		
 	}
+	
 
 }

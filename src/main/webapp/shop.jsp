@@ -67,15 +67,15 @@ font-family: 'Lora', serif;
 								str += `<div class="bestItem item1" style = "float:left; width:23%">`;
 								str += `<div class="item_img_block">`;
 								str += `<div class="item_img">`;
-								str += `<img alt="상품이미지입니다." src=${path}/${"${item.mainImg}"}  id='product' >`;
+								str += `<img alt="상품이미지입니다." src=${path}/${"${item.mainImg}"}  id='product'>`;
 								str += `</div>`;
-								str += `<div id='like'><img src="img/heart.svg" id='like_img' ></div>`;
+								str += `<div id='like'><img src="img/heart.svg" id='like_img'></div>`;
 								str += `</div>`;
 								str += `<div id='item_text'>`;
 								str += `<div class="item_brand">`;
-								str += `<a href="#" id="brand_text">${"${item.brand}"}</a>`;
+								str += `<a href= "#" id="brand_text">${"${item.brand}"}</a>`;
 								str += `</div>`;
-								str += `<p id="name"><a href="#">${"${item.goodsName}"}</a></p>`;
+								str += `<p id="name"><a href=${path}/front?key=goods&methodName=selectGoodsLine&goodsNo=${"${item.goodsNo}"}>${"${item.goodsName}"}</a></p>`;
 								str += `<div class="price">`;
 								str += `<p id="num">${"${item.sellPrice}"}</p>`;
 								str += `<p id="p">즉시구매가</p>`;
@@ -85,9 +85,9 @@ font-family: 'Lora', serif;
 								
 		
 					  });
+							$("#product:lt(0)").remove();
 							$("#product").prepend(str);
-							 
-					 	//$(".productBEST_container tr:gt(0)").remove();
+					 		
 							
 					} , //성공했을때 실행할 함수 
 					error : function(err){  
@@ -96,7 +96,17 @@ font-family: 'Lora', serif;
 				});//ajax끝
 		}
 		
-		
+		var i = 0;
+        $(document).on('click','#like_img',function(){
+            if(i==0){
+                $(this).attr('src','img/heart-fill.svg');
+                i++;
+            }else if(i==1){
+                $(this).attr('src','img/heart.svg');
+                i--;
+            }
+
+        });
 		
 		
 	})
@@ -214,7 +224,7 @@ font-family: 'Lora', serif;
 			</div>
 			
 			<section id='product'>
-< 				<div class="productBEST_container"> 
+ 				<div class="productBEST_container"> 
 				<!-- 
 					<div class="bestItem item1">
 						<div class="item_img_block">
@@ -287,17 +297,7 @@ font-family: 'Lora', serif;
 	
 	   <script>
 
-        var i = 0;
-        $('#like_img').on('click',function(){
-            if(i==0){
-                $(this).attr('src','img/heart-fill.svg');
-                i++;
-            }else if(i==1){
-                $(this).attr('src','img/heart.svg');
-                i--;
-            }
-
-        });
+        
     </script>
 </body>
 </html>

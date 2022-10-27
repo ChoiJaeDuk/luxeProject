@@ -54,11 +54,82 @@ font-family: 'Lora', serif;
 <link rel="stylesheet" type="text/css" href="../css/Layout.css">
 <link rel="stylesheet" type="text/css" href="../css/Manager/Manager_Layout.css">
 <link rel="stylesheet" type="text/css" href="../css/Manager/Manager_Member.css">
-
+<script src="../js/jquery-3.6.1.min.js"></script>
 <style type="text/css">
+button {
+  height: 2.5em;
+  cursor: pointer;
+}
+
+#popup {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, .7);
+  z-index: 1;
+}
+
+#popup.hide {
+  display: none;
+}
+
+#popup.has-filter {
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+#popup .content {
+  padding: 20px;
+  background: #fff;
+  border-radius: 5px;
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, .3);
+}
 </style>
+
+<script type="text/javascript">
+
+function showPopup(hasFilter) {
+	const popup = document.querySelector('#popup');
+	  
+	  if (hasFilter) {
+	  	popup.classList.add('has-filter');
+	  } else {
+	  	popup.classList.remove('has-filter');
+	  }
+	  
+	  popup.classList.remove('hide');
+	}
+	
+	function closePopup() {
+		const popup = document.querySelector('#popup');
+	  popup.classList.add('hide');
+	}
+</script>
 </head>
 <body>
+
+<div id="popup" >
+  <div class="content">
+    <p>
+
+<form name="priceChange" method="post">
+	
+	<div>
+		판매 번호: <input type="text" name="sellNo" size="30" readonly="readonly"><p>
+		수정 가격: <input type="text" name="sellPrice" size="30"><p>
+		
+	</div>
+	<input type="button" value="수정" id="priceChange">
+</form>
+    <button onclick="closePopup()">닫기</button>
+  </div>
+</div>
+
 <div id="mySidebar" class="sidebar">
 		  <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
 		  <a href="Manager_Member.jsp">회원관리</a>
