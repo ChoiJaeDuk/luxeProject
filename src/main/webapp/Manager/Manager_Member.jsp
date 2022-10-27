@@ -182,17 +182,18 @@ function closePopup() {
 <form name="pwdCheck" method="post" style="text-align: center">
 	
 	<div style="text-align: center">
-		비밀번호: <input type="text" name="userPwd" size="30"><p>
+		비밀번호: <input type="password" name="userPwd" size="30"><p>
 		
 		
 	
 	 <input type="button" value="확인" id="pwdCheck" style="text-align: center">
+	 <input type="button" value="닫기" onclick=history.back()>
 
  		<p>
 <!--  		<button id="checkbtn">확인</button> -->
   		
   	</div>
-  	<input type="button" value="닫기" onclick=history.back()>
+  	
 
 </form>
    
