@@ -29,6 +29,19 @@ public class UserAjaxController implements AjaxController {
 
 	}
 
+	public void userIdCheck(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException, SQLException {
+
+		response.setContentType("text/html;charset=UTF-8");
+		String userId = request.getParameter("userId");
+
+		boolean result = userService.userIdCheck(userId);
+
+		PrintWriter out = response.getWriter();
+		out.print(result);
+
+	}
+
 	public void selectUser(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException, SQLException {
 
@@ -66,14 +79,13 @@ public class UserAjaxController implements AjaxController {
 		out.print(userDto);
 
 	}
-	
-	public void selectAllUsers(HttpServletRequest request, HttpServletResponse response)
-			throws Exception {
+
+	public void selectAllUsers(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
 		response.setContentType("text/html;charset=UTF-8");
 
 		HttpSession session = request.getSession();
-		//String userId = (String) session.getAttribute("userId");
+		// String userId = (String) session.getAttribute("userId");
 
 		List<UserDTO> list = userService.selectAllUsers();
 		JSONArray arr = JSONArray.fromObject(list);
@@ -82,6 +94,5 @@ public class UserAjaxController implements AjaxController {
 		out.print(arr);
 
 	}
-
 
 }

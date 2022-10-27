@@ -46,7 +46,7 @@ font-family: 'Lora', serif;
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <!-- 외부의 css파일 연결하기 -->
-<link rel="stylesheet" type="text/css" href="css/mypage2.css">
+<!-- <link rel="stylesheet" type="text/css" href="css/mypage2.css">-->
 <style type="text/css">
 </style>
 </head>
@@ -122,20 +122,20 @@ font-family: 'Lora', serif;
 								<fieldset disabled="">
 									<label class="form-label" for="disabledInput">아이디</label> <input
 										class="form-control" id="userId" type="text"
-										placeholder="Disabled input here..." disabled="">
+										placeholder="Disabled input here..." disabled="" readonly="">
 								</fieldset>
 							</div>
 							<div class="form-group">
 								<fieldset>
 									<label class="form-label mt-4" for="readOnlyInput">비밀번호</label>
 									<input class="form-control" id="userPwd" type="text"
-										placeholder="Readonly input here..." readonly="">
+										placeholder="Readonly input here..." readonly="readonly">
 								</fieldset>
 							</div>
 						</div>
 
 						<div id='profile_group'>
-							<form action="">
+							<form action="#">
 								<h4 id='grop_title'>개인정보</h4>
 								<div class="form-group">
 									<fieldset>
@@ -148,17 +148,24 @@ font-family: 'Lora', serif;
 									<fieldset>
 										<label class="form-label mt-4" for="readOnlyInput">전화번호</label>
 										<input class="form-control" id="userPhone" type="text"
-											placeholder="Readonly input here...">
+											placeholder="Readonly input here..." readonly="">
 									</fieldset>
 								</div>
 								<div class="form-group">
 									<fieldset>
 										<label class="form-label mt-4" for="readOnlyInput">주소</label>
 										<input class="form-control" id="userAddr" type="text"
-											placeholder="Readonly input here...">
+											placeholder="Readonly input here..." readonly="">
 									</fieldset>
 								</div>
-								<button>수정하기</button>
+								<div class="form-group">
+									<fieldset>
+										<label class="form-label mt-4" for="readOnlyInput">이메일</label>
+										<input class="form-control" id="userEmail" type="text"
+											placeholder="Readonly input here..." readonly="">
+									</fieldset>
+								</div>
+								<button type="submit" id="userUpdate">수정하기</button>
 							</form>
 						</div>
 					</div>
@@ -516,27 +523,34 @@ font-family: 'Lora', serif;
 						let name = userDto.userName;
 						let phone = userDto.userPhone;
 						let addr = userDto.userAddr;
+						let email = userDto.userEmail;
 
 						$("#userId").val(id);
 						$("#userPwd").val(pwd);
 						$("#userName").val(name);
 						$("#userPhone").val(phone);
 						$("#userAddr").val(addr);
+						$("#userEmail").val(email);
 
 					}, //성공했을때 실행할 함수 
 					error : function(err) {
 						alert(err + "에러 발생");
 					} //실패했을때 실행할 함수 
-				})
+				});//아작스 끝
+			}//조회 함수 끝
 
-			}
-			selectUser();
+			$("#userUpdate").click(function() {
+				if (confirm("개인정보를 변경하시겠습니까??")) {
+					$("#userPwd").removeAttr("readonly");
+					$("#userPwd").focus();
+					$("#userPhone").removeAttr("readonly");
+					$("#userAddr").removeAttr("readonly");
+					$("#userEmail").removeAttr("readonly");
+				}
+				selectUser();
+			});// 클릭 
+
 		});
-
-		// 		$(function selectUser() {
-		// 			$("#defaultOpen").on("click", function() {
-
-		// 		});
 	<%session.setAttribute("userId", "id");%>
 		
 	</script>
