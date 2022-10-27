@@ -181,4 +181,16 @@ public class UserController implements Controller {
 
 		return new ModelAndView("/front", true);
 	}
+	/**
+	 * 회원 전체검색
+	 * 
+	 * @throws Exception
+	 */
+
+	public ModelAndView selectAllUsers(HttpServletRequest request, HttpServletResponse response) throws Exception {
+
+		userService.selectAllUsers();
+
+		return new ModelAndView("/front", true);
+	}
 }

@@ -293,5 +293,31 @@ public class UserDAOImpl implements UserDAO {
 		
 		return address;
 	}
+	
+	@Override
+	public List<UserDTO> selectAllUsers() throws Exception {
+
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		String sql = "select * from users where not user_job = '관리자'";
+		List<UserDTO> selectAllUsers = new ArrayList<UserDTO>();
+
+		try {
+			con = DbUtil.getConnection();
+			ps = con.prepareStatement(sql);
+			rs = ps.executeQuery();
+
+			while (rs.next()) {
+				UserDTO userDTO = new UserDTO(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4),
+						rs.getString(5), rs.getString(6), rs.getString(7));
+				selectAllUsers.add(userDTO);
+			}
+
+		} finally {
+			DbUtil.dbClose(con, ps, rs);
+		}
+		return selectAllUsers;
+	}
 
 }

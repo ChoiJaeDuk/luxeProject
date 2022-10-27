@@ -92,5 +92,12 @@ public interface UserDAO {
 	 * @throws Exception
 	 */
 	List<String> selectEmailAddressByUserId(Connection con, String buyerId, String sellerId) throws Exception;
+	
+	/**
+	 * 회원 전체조회
+	 */
+
+	List<UserDTO> selectAllUsers() throws Exception;
+
 
 }

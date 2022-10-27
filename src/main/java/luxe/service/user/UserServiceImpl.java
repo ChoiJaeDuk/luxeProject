@@ -1,6 +1,7 @@
 package luxe.service.user;
 
 import java.sql.SQLException;
+import java.util.List;
 
 import luxe.dao.user.UserDAO;
 import luxe.dao.user.UserDAOImpl;
@@ -108,6 +109,19 @@ public class UserServiceImpl implements UserService {
 		int result = userDAO.deleteUser(userId, userPwd);
 		if (result == 0)
 			throw new Exception("회원탈퇴 실패");
+	}
+
+	/**
+	 * 회원 전체검색
+	 */
+	@Override
+	public List<UserDTO> selectAllUsers() throws Exception {
+
+		List<UserDTO> list = userDAO.selectAllUsers();
+		if (list == null) {
+			throw new Exception("회원정보 조회 실패");
+		}
+		return list;
 	}
 
 }
