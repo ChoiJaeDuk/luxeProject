@@ -170,6 +170,38 @@
 	
 }
 
+
+#popup-like{
+	width: 100%;
+	clear: both;
+	margin: 0 20px;
+}
+#popup-like-con{
+	width: 100%;
+	padding: 0;
+	margin: 0;
+}
+#popup-tag{
+	width: 100%;
+	clear: both;
+	margin: 0 20px;
+}
+#popup-tag span{
+	font-weight:200;
+	color: #3f729b;
+	text-decoration: underline;
+}
+#popup-like-con span{
+	font-family: 'Noto Sans KR', sans-serif;
+	font-weight:500;
+	padding: 0;
+	margin: 0;
+}
+
+
+
+
+
 #gallery-con{
 	position: relative;
 	cursor : pointer;
@@ -329,5 +361,17 @@
 
 .gallery-insert{
 	float: right;
-	background-color: black;
+}
+
+#gallery-insertbtn{
+  border: 0.1px solid #22222220;
+  outline: none;
+  cursor: pointer;
+  padding: 4px 8px;
+  transition: 0.3s;
+  font-size: 14px;
+  margin: 0 5px;
+  position: relative;
+  top:-5px;
+  margin-right: 20px;
 }
