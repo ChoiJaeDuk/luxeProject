@@ -6,6 +6,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
+
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link
@@ -55,23 +56,36 @@ font-family: 'Lora', serif;
 
 <script type="text/javascript" src="../js/jquery-3.6.1.min.js"></script>
 <script type="text/javascript">
-var malls = false;
+ 	 	//인수받기(test)
+	 	let chanel=["징거버거","타워버거","불고기버거"]
+	 	let dior=["라이스버거","데리버거","새우버거","한우버거","치즈버거"]
+	 	let prada=["1997버거","맥모닝","빅맥","베이컨버거","치킨버거"]
 
-function update_selected() {
-  $("#mallSelect").val(0);
-  $("#mallSelect").find("option[value!=0]").detach();
+	 	function subMenu(th) {
 
-  $("#mallSelect").append(malls.filter(".mall" + $(this).val()));
-}
-
-$(function() {
-  malls = $("#mallSelect").find("option[value!=0]");
-  malls.detach();
-
-  $("#productSelect").change(update_selected);
-  $("#productSelect").trigger("change");
-});
-</script>
+			let arr = new Function("return "+th.value)();
+			let product = document.f.menu;
+			
+			//옵션제거
+			while(product.length>1){
+				product.options[1]=null;
+			}
+			
+			
+			//옵션추가
+			for(let i=0 ; i<arr.length ;i++){
+				product.options[product.length]=
+					new Option(arr[i],arr[i])
+			}
+		} 
+	</script>
+	<script type="text/javascript">
+		$(document).ready(function () {
+			$("#changeProduct").change(function () {
+				$("#changeInput").val($(this).val());
+			});
+		});
+	</script>
 </head>
 <body>
 	<div id='wrap'>
@@ -120,58 +134,51 @@ $(function() {
 					<div id="insert-form">
 						<div id="insert-form" class="hide">
 							<div class="insert-con">
-								<div id='insert-contents'>
+								<div id='insert-contents'>						
+									<form name="f">
+										<select name="brandSelect" onchange="subMenu(this)">
+											<option value="0">BRAND-SELECT</option>
+											<option value="chanel">CHANEL</option>
+											<option value="dior">DIOR</option>
+											<option value="prada">PRADA</option>
+										</select> 
+										<select name="menu"  id='changeProduct'>
+											<option value="0">PRODUCT-SELECT</option>
+										</select> 
+									</form>
+																		
 									<form name="writeForm" method="post" action="">
-										<div id='insert-title'>
-											<img src="../img/icon/userphoto_icon.png"
-												style="width: 60px; opacity: 0.8; float: left;" />
-											<div id='insert-title-text'>
-												<input type="text" placeholder="이름" readonly="readonly">
-											</div>
-											<button onclick="closeInsert()">닫기</button>
+									<div id='readonly'>
+										<div id='productImg'>
+											<img src="../img/product01.webp" alt="상품이미지" />
 										</div>
-										<div id='insert-img'>
-											<img src="../img/product01.webp" alt="스타일이미지" />
+										<div id='insert-title-text'>
+											<span>이름</span><input type="text" class="form-control"  placeholder="이름" readonly="readonly">
+											<span>상품이름</span><input type="text" class="form-control" placeholder="상품이름" id='changeInput' readonly="readonly">
+											<span>상품코드</span><input type="text" class="form-control" placeholder="상품코드" readonly="readonly">
 										</div>
+									</div>
+										
 										<div id='insert-text'>
 											<div class="form-group">
-												<label for="exampleTextarea" class="form-label mt-4">Example
-													textarea</label>
+												<span>내용</span>
 												<textarea class="form-control" id="exampleTextarea" rows="3"></textarea>
 											</div>
 										</div>
-										<div id='insert-tag'>
-											<div class="form-group">
-												<select class="form-select" id="brandSelect">
-													   <option value="0" selected="selected">BRAND</option>
-													   <option value="chanel">CHANEL</option>
-													   <option value="dior">DIOR</option>
-													   <option value="prada">PRADA</option>
-												</select>
-										
-												<select class="form-select" id="productSelect">
-													   <option value="0">제품명선택</option>
-													   <option value="샤넬01" class="chanel">샤넬01</option>
-													   <option value="샤넬02" class="chanel">샤넬02</option>
-													   <option value="샤넬03" class="chanel">샤넬03</option>
-													   <option value="디올01" class="dior">디올01</option>
-													   <option value="디올02" class="dior">디올02</option>
-													   <option value="디올03" class="dior">디올03</option>
-													   <option value="프라다01" class="prada">프라다01</option>
-													   <option value="프라다02" class="prada">프라다02</option>
-													   <option value="프라다03" class="prada">프라다03</option>
-												</select>
-												
-												
-											</div>
 
+										<div id='insertImg'>
+										<input class="form-control" type="file" id="formFile">
 										</div>
+
+
 										<div id='insert-submt'>
-											<div id='insert-submt'>
-												<input type="submit" value="등록">
-											</div>
+											<input type="submit" value="등록">
+											<button onclick="closeInsert()">닫기</button>
 										</div>
+
 									</form>
+									
+									
 								</div>
 							</div>
 						</div>
@@ -205,85 +212,26 @@ $(function() {
 	</div>
 
 
-	<div id="popup" class="hide">
-		<div class="popup-form">
-			<div id='popup-contents'>
-				<div id='popup-title'>
-					<img src="../img/icon/userphoto_icon.png"
-						style="width: 60px; opacity: 0.8; float: left;" />
-					<div id='popup-title-text'>
-						<h4>작성자이름</h4>
-						<p>날짜</p>
-					</div>
-					<div id='drop-btn'>
-						<div class="select-tap">
-							<div class="text">선택</div>
-							<ul class="option-list">
-								<li class="option">선택</li>
-								<li class="option">삭제</li>
-								<li class="option">수정</li>
-							</ul>
-						</div>
-					</div>
-				</div>
-				<div id='popup-img'>
-					<img src="../img/product01.webp" alt="스타일이미지" />
-				</div>
-				<div id='popup-like'>
-					<div id='popup-like-con'>
-						<img src='../img/icon/favorite01.png'
-							style="width: 20px; height: 20px;"> <span>좋아요</span> <span
-							style="font-family: 'Roboto', sans-serif;">0</span> <span>개</span>
-					</div>
-				</div>
-				<div id='popup-text'>
-					<p style="width: 100%; overflow: hidden;">내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다내용입니다s</p>
-				</div>
-				<div id='popup-tag'>
-					<span>#모델번호</span> <span>#상품명</span> <span>#브랜드</span>
-				</div>
-				<div id='popup-close'>
-					<button onclick="closePopup()">닫기</button>
-				</div>
-			</div>
-		</div>
-	</div>
+
+	
 	<script type="text/javascript">
-	function showPopup(hasFilter) {
-		const popup = document.querySelector('#popup');
-		  
-		  if (hasFilter) {
-		  	popup.classList.add('has-filter');
-		  } else {
-		  	popup.classList.remove('has-filter');
-		  }
-		  
-		  popup.classList.remove('hide');
+		function showPopup(hasFilter) {
+			const popup = document.querySelector('#popup');
+
+			if (hasFilter) {
+				popup.classList.add('has-filter');
+			} else {
+				popup.classList.remove('has-filter');
+			}
+
+			popup.classList.remove('hide');
 		}
-		
+
 		function closePopup() {
 			const popup = document.querySelector('#popup');
-		  popup.classList.add('hide');
+			popup.classList.add('hide');
 		}
-		
-	
-		/* 중분류소분류 */
-		var brands = false;
-		
-		function update_selected() {
-		  $("#productSelect").val(0);
-		  $("#productSelect").find("option[value!=0]").detach();
-		
-		  $("#productSelect").append(brands.filter($(this).val()));
-		}
-		
-		$(function() {
-			brands = $("#productSelect").find("option[value!=0]");
-			brands.detach();
-		
-		  $("#brandSelect").change(update_selected);
-		  $("#brandSelect").trigger("change");
-		});
 	</script>
+	
 </body>
 </html>
