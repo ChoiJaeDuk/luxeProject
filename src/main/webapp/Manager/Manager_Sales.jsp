@@ -82,8 +82,8 @@ font-family: 'Lora', serif;
 						str+=`</tr>`;
 					})
 					
-					$("#myTable2 tr:gt(0)").remove();
-					$("#myTable2 tr:eq(0)").after(str);
+					$("#myTable3 tr:gt(0)").remove();
+					$("#myTable3 tr:eq(0)").after(str);
 					
 					
 				} , //성공했을때 실행할 함수 
@@ -135,8 +135,8 @@ font-family: 'Lora', serif;
 					})
 					
 					
-					$("#brandSales tr:gt(0)").remove();
-					$("#brandSales tr:eq(0)").after(str);
+					$("#myTable2 tr:gt(0)").remove();
+					$("#myTable2 tr:eq(0)").after(str);
 					
 					
 				} , //성공했을때 실행할 함수 
@@ -425,14 +425,13 @@ font-family: 'Lora', serif;
 					      <div>
 					      	<button id="monthlySearch-dtn">월별조회하기</button>
 							<div id="monthlySearch" style="display: none;">
-							 <table id="myTable">
+							 <table id="myTable" class="myTable">
 								  <tr class="header">
 								    <th style="width:10%;">월</th>
 								    <th style="width:45%;">매출</th>
 								    <th style="width:45%;">수익</th>
 								  </tr>
-								  
-								</table>
+							</table>
 								 <div id = "salesChart" style="width: 100%; height: 50%;">
 								<!--차트가 그려질 부분-->
 								<canvas id="myChart2"></canvas>
@@ -446,8 +445,8 @@ font-family: 'Lora', serif;
 					  <div class="sales-brand-detail">
 					    <div class="sales-card">
 					    <div>
-					    	<table id="brandSales">
-					    		  <tr>
+					    	<table id="myTable2" class="myTable">
+					    		  <tr class="header">
 					    		  <th style="width:30%;">브랜드</th>
 								    <th style="width:35%;">매출</th>
 								    <th style="width:35%;">수익</th>
@@ -489,7 +488,7 @@ font-family: 'Lora', serif;
 <!-- 								</div> -->
 								
 								<div id="Paris" class="tabcontent">
-								  <table id="myTable2">
+								  <table id="myTable3" class="myTable">
 								  <tr class="header">
 								    <th style="width:10%;">월</th>
 								    <th style="width:45%;">매출</th>
