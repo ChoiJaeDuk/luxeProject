@@ -1,0 +1,294 @@
+@charset "UTF-8";
+
+.gallery-row {
+  clear:both;
+  display: flex;
+  flex-wrap: wrap;
+  box-sizing: border-box;
+}
+
+/* Create two equal columns that sits next to each other */
+.gallery-column {
+  flex: 25%;
+  box-sizing: border-box;
+}
+
+
+/*카드*/
+.gallery-fram{
+	width:90%;
+	max-width: 300px;
+	height: 300px;
+	margin:20px;
+	transition: transform 200ms;
+}
+.gallery-fram:hover{
+	transform: scale3d(1.05, 1.05, 1.05);
+}
+.gallery-card{
+	width:100%;
+	height: 100%;
+	background-color: #ffffff;
+	border-radius: 12px;
+	box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.1);
+    position: relative;
+    transition-duration: 250ms;
+    transition-property: transform, box-shadow;
+    transition-timing-function: ease-out;
+}
+#card-img {
+   width: 100%;
+   height: 100%;
+}
+#gallery-con{
+	width: 100%;
+	height: 100%;	
+}
+#gallery-con button{
+	width: 100%;
+	height: 100%;
+	border: none;
+}
+/* 팝업 */
+#popup {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, .7);
+  z-index: 1;
+}
+
+#popup.hide {
+  display: none;
+}
+
+#popup.has-filter {
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+#popup .popup-form {
+  overflow:hidden;
+  padding: 20px;
+  background: #fff;
+  border-radius: 5px;
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, .3);
+}
+#popup-contents{
+	width: 400px;
+	min-height: 600px;
+}
+#popup-title{
+	
+	width: 90%;
+	margin: 20px auto 0px;
+}
+#popup-title-text{
+	width: 60%;
+	height: 100%;
+	float: left;
+	padding-left: 10px;
+}
+#popup-title-text h4{
+	font-size: 22px;
+	font-family: 'Noto Sans KR', sans-serif;
+	font-weight: 400;
+}
+#popup-title-text p{
+	font-size: 16px;
+	font-family: 'Noto Sans KR', sans-serif;
+	font-weight: 300;
+	color: #22222290;
+}
+
+#popup-img{
+	width: 360px;
+	height: 360px;
+	margin: 0 auto;
+	padding: 10px 0px;
+	clear: both;
+}
+#popup-img img{
+	width: 100%;
+	height: 100%;
+}
+#popup-contents button{
+	width: 90%;
+	margin: 2px 0px;
+	padding: 5px 0px;
+}
+#popup-text{
+	width: 90%;
+	clear: both;
+	margin: 0 auto;
+	padding: 0px 0px10px 0px;
+}
+
+#popup-like{
+	width: 100%;
+	clear: both;
+	margin: 0 20px;
+}
+#popup-like-con{
+	width: 100%;
+	padding: 0;
+	margin: 0;
+}
+#popup-tag{
+	width: 100%;
+	clear: both;
+	margin: 0 20px;
+}
+#popup-tag span{
+	font-weight:200;
+	color: #3f729b;
+	text-decoration: underline;
+}
+#popup-like-con span{
+	font-family: 'Noto Sans KR', sans-serif;
+	font-weight:500;
+	padding: 0;
+	margin: 0;
+}
+#popup-close{
+	width: 100%;
+	clear: both;
+	margin: 0 20px;
+	margin-top: 20px;
+}
+#popup-close button{
+	background-color: #3f729b;
+	color: white;
+	border: none;
+	outline: none;
+	padding: 10px 0px;
+	
+}
+
+#gallery-con{
+	position: relative;
+	cursor : pointer;
+}
+#like{
+	position: absolute;
+	top:20px;
+	left:230px;
+	z-index: 1;
+	width: 30px;
+	height: 30px;
+	background-image: url('../../img/icon/favorite02.png');
+	background-size: contain;
+	background-position: center;
+	background-repeat: no-repeat;
+	cursor: pointer;
+	transition:0.3s;
+}
+
+#like.active{
+	position: absolute;
+	top:20px;
+	left:230px;
+	z-index: 1;
+	width: 35px;
+	height: 35px;
+	background-image: url('../../img/icon/favorite01.png');
+	background-size: contain;
+	background-position: center;
+	background-repeat: no-repeat;
+	cursor: pointer;
+	transition:0.3s;
+}
+
+/*title*/
+.title {
+	float: left;
+	display: block;
+	width: 100%;
+	padding: 0px 20px 0px;
+	height: 80px;
+	margin: 0;
+	margin-top: 10px;
+}
+
+#main_title {
+	width: 20%;
+	height: 30px;
+	color: #222222;
+	text-align: left;
+	font-size: 20px;
+	font-family: 'Lora', serif;
+	font-weight: 800;
+	font-size: 28px;
+	margin: 0;
+	padding: 0px 20px;
+	float: left;
+}
+
+#sub_title {
+	width: 20%;
+	height: 24px;
+	color: #22222280;
+	text-align: left;
+	font-size: 18px;
+	font-family: 'Noto Sans KR', sans-serif;
+	padding: 0px 20px;
+	clear: both;
+	float: left;
+}	
+
+
+/*드롭다운*/
+.select {
+  position: relative;
+  z-index: 1;
+}
+
+.select .option-list {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  overflow: hidden;
+  max-height: 0;
+}
+
+.select.active .option-list {
+  max-height: none;
+}
+
+/* 테마 적용하기 */
+#drop-btn{
+  width: 18%;
+  height: 70px;
+  float: right;
+}  
+  
+#drop-btn .select {
+  box-shadow: 0 0 2px rgba(0,0,0,0.3);
+  border-radius: 5px;
+  padding: 10px 15px;
+  cursor: pointer;
+}
+#drop-btn .select:hover {
+  color: #333;
+  transition: all .3s;
+}
+
+#drop-btn .select .option-list {
+  list-style: none;
+  padding: 0;
+  border-radius: 5px;
+  box-shadow: 0 0 2px rgba(0,0,0,0.3);
+  background-color: #ffffff;
+}
+#drop-btn .select .option-list .option {
+  padding: 10px 15px;
+}
+#drop-btn .select .option-list .option:hover {
+  background-color: #f2f2f2;
+}

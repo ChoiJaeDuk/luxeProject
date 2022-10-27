@@ -31,9 +31,6 @@ font-family: 'Lora', serif;
 
   -->
 
-<!--아이콘-->  
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 <!-- 템플릿요소 css -->
 <link
@@ -47,8 +44,9 @@ font-family: 'Lora', serif;
 	crossorigin="anonymous"></script>
 
 <!-- 외부의 css파일 연결하기 -->
-<link rel="stylesheet" type="text/css" href="css/Reset.css">
-<link rel="stylesheet" type="text/css" href="css/Layout.css">
+<link rel="stylesheet" type="text/css" href="../css/setting/Reset.css">
+<link rel="stylesheet" type="text/css" href="../css/setting/Layout.css">
+
 <style type="text/css">
 </style>
 </head>
@@ -56,67 +54,63 @@ font-family: 'Lora', serif;
 	<div id='wrap'>
 	
 		<div id='header'>
-			<div class="container">
 				<div id='header-top'>
-					<div class="container">
 					<div id='header-top-menu'>
 						<a href="">마이페이지</a>
 						<a href="">관심상품</a>
 						<a href="">로그인</a>
-					</div>
-					</div><!-- container -->			
+						<a href="" class='managermode'>관리자모드</a>
+					</div>		
 				</div><!--header-top -->
 				
-				<div id='header-nav'>
-					<div class="container">
-					<nav class="navbar navbar-expand-lg navbar-light bg-light">
-					  <div class="container-fluid">
-					    <a class="navbar-brand" href="#">Navbar</a>
-					    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
-					      <span class="navbar-toggler-icon"></span>
-					    </button>
-					    <div class="collapse navbar-collapse" id="navbarColor03">
-					      <ul class="navbar-nav me-auto">
-					        <li class="nav-item">
-					          <a class="nav-link active" href="#">Home
-					          </a>
-					        </li>
-					        <li class="nav-item">
-					          <a class="nav-link" href="#">Shop</a>
-					        </li>
-					        <li class="nav-item">
-					          <a class="nav-link" href="#">Style</a>
-					        </li>
-					      </ul>
-					      <form class="d-flex">
-					        <input class="form-control me-sm-2" type="text" placeholder="Search">
-					        <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-					      </form>
-					    </div>
+				<div id='header-bottom'>
+				    <div class="topnav">
+				    <div id='logo'>
+				    	LUXE
+					</div>
+					  <a href="#">HOME</a>
+					  <a href="#news">STYLE</a>
+					  <a href="#contact">SHOP</a>
+					  <div class="split">
+					  	<input class="nav-search" type="text" name="search">
 					  </div>
-					</nav>
-					</div><!-- container -->
-				</div><!-- header-nav -->	
-				
-			</div><!--header container -->	
+					</div>
+				</div>									
 		</div><!-- header -->
 		<div class="clear"></div>
+		
+		<div id="banner">
+			<div class="banner_img">
+				<img alt="배너이미지입니다." src="">
+			</div>
+		</div>
+		<div class="clear"></div>
+		
 		
 		<div id='contents'>
 			<div class="container">
 				<div id='con'>
-				
+				kl
 				</div>
 			</div><!-- container -->
 		</div><!-- contents -->
 		<div class="clear"></div>
 		
 		<div id='footer'>
-			<div class="container">
-		
+			<div id='footer-textbox'>
+				<h5>고객센터 1588-1588</h5>
+				<p>운영시간 평일 11:00-18:00(토,일,공휴일휴무)<br>
+				점심시간 평일 13:00-14:00</p>
+				<h6>주소 : 경기도 성남시 분당구 오리역 16번출구</h6>
+				<p>LUXE(주)는 통신판매 중개자로서 통신판매의 당사자가 아니므로 개별 판매자가 등록한 상품정보에 대해서 책임을 지지 않습니다.
+				<br>단, 거래과정에서 검수하고 보증하는 내용에 대한 책임은 당사에 있습니다</p>
 			</div>
+		
+		
 		</div>
 		
 	</div>
+	<!-- 스크립트 -->
+	<script type="text/javascript" src="StyleBoard.js"></script>
 </body>
 </html>
