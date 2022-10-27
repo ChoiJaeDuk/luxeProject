@@ -64,6 +64,7 @@ font-family: 'Lora', serif;
 <script type="text/javascript">
 
 	$(function(){
+		//브랜드당월별매출 조회
 		$(".tablinks").on("click", function(){
 			
 			
@@ -95,6 +96,7 @@ font-family: 'Lora', serif;
 		
 		})
 		
+		//전체 매출 조회
 		function salesList(){
 			
 			$.ajax({
@@ -118,6 +120,7 @@ font-family: 'Lora', serif;
 
 		}
 		
+		//브랜드당 매출 조회
 		function brandSalesList(){
 			$.ajax({
 				url :"../ajax" , //서버요청주소
@@ -148,6 +151,7 @@ font-family: 'Lora', serif;
 
 		}
 		
+		//판매량 조회
 		function sellRate(){
 			let brand = [];
 			let rate = [];
@@ -221,6 +225,7 @@ font-family: 'Lora', serif;
 			
 		}
 		
+		//월별매출 조회
 		$("#monthlySearch-dtn").on("click", function(){
 			$.ajax({
 				url :"../ajax" , //서버요청주소
