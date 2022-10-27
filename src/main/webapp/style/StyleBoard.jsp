@@ -46,7 +46,7 @@ font-family: 'Lora', serif;
 <!-- 외부의 css파일 연결하기 -->
 <link rel="stylesheet" type="text/css" href="../css/setting/Reset.css">
 <link rel="stylesheet" type="text/css" href="../css/setting/Layout.css">
-<link rel="stylesheet" type="text/css" href="../css/page/StyleBoard.css">
+<link rel="stylesheet" type="text/css" href="../css/style/StyleBoard.css">
 <style type="text/css">
 </style>
 </head>
@@ -104,7 +104,7 @@ font-family: 'Lora', serif;
 					
 					<!-- 글쓰기 -->
 					<div class='gallery-insert' >
-						<button id='gallery-insertbtn' onclick='insertForm(false)'>글쓰기</button>
+						<button id='gallery-insertbtn' onclick="location.href='StyleInsert.jsp'">글쓰기</button>
 					</div>
 					
 					<!-- 정렬 -->
@@ -441,6 +441,7 @@ font-family: 'Lora', serif;
 		</div>
 		
 	</div>
+	
 	<div id="popup" class="hide">
   		<div class="popup-form">
    			<div id='popup-contents'>
@@ -459,7 +460,7 @@ font-family: 'Lora', serif;
 					      <li class="option">수정</li>
 					    </ul>
 					  </div>
-   					</div>					
+   					</div>						
    				</div>
    				<div id='popup-img'>
    					<img src="../img/product01.webp" alt="스타일이미지"/>
@@ -484,28 +485,8 @@ font-family: 'Lora', serif;
    			</div>
  		</div>
 	</div>
-	
-	
 	<script type="text/javascript">
 	function showPopup(hasFilter) {
-		const popup = document.querySelector('#popup');
-		  
-		  if (hasFilter) {
-		  	popup.classList.add('has-filter');
-		  } else {
-		  	popup.classList.remove('has-filter');
-		  }
-		  
-		  popup.classList.remove('hide');
-		}
-		
-		function closePopup() {
-			const popup = document.querySelector('#popup');
-		  popup.classList.add('hide');
-		}
-	
-	//등록
-	function insertForm(hasFilter) {
 		const popup = document.querySelector('#popup');
 		  
 		  if (hasFilter) {
