@@ -76,7 +76,6 @@ public class OrderDAOImpl implements OrderDAO {
 	}
 	
 	
-	
 	/***
 	 * 거래에 해당하는 상품 정보 불러오기
 	 * @param con
@@ -123,7 +122,8 @@ public class OrderDAOImpl implements OrderDAO {
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-
+		List<String> list2 = new ArrayList<String>();
+				
 		String sql = "select order_no, order_price, to_char(order_date, 'YY-MM-DD'), order_status, buyer_id, seller_id from orders order by order_date desc";
 		List<OrderDTO> list = new ArrayList<OrderDTO>();
 
@@ -136,7 +136,7 @@ public class OrderDAOImpl implements OrderDAO {
 				list.add(new OrderDTO(rs.getInt(1), rs.getInt(2), rs.getString(3), rs.getString(4), rs.getString(5),
 						rs.getString(6)));
 			}
-			
+
 
 		} finally {
 			DbUtil.dbClose(con, ps, rs);
