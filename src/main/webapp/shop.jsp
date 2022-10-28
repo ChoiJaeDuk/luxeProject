@@ -68,35 +68,13 @@ font-family: 'Lora', serif;
 						
 						let str="";
 						let count=0;
-							$.each(result, function(index, item){
-								/* $.ajax({
-									url:"ajax",
-									type:"post",
-									dataType:"text",
-									data:{key:"wishListAjax" , methodName : "selectWishState", userId: "id", goodsNo: item.goodsNo},
-									success : function(result) {
-								
-										if(result=="true"){
-											heartState = "img/heart-fill.svg";
-											console.log("b="+heartState);
-										}
-										
-									},
-									error : function(err) {
-										alert(err+"에러  발생");
-									}
-								}); */
-								
-								
-								if(item.goodsLikeByUser==1){
-									
+							$.each(result, function(index, item){		
+								if(item.goodsLikeByUser==1){	
 									heartState = "img/heart-fill.svg";
 								}else{
 									heartState = "img/heart.svg";
 								}
-											
-								
-								
+												
 								if(count%4==0){
 									str += "<tr>";
 								}
@@ -106,7 +84,7 @@ font-family: 'Lora', serif;
 								str += `<div class="item_img">`;
 								str += `<img alt="상품이미지입니다." src=${path}/${"${item.mainImg}"}  id='product'>`;
 								str += `</div>`;
-								str += `<div id='like'><img src= ${"${heartState}"} id='like_img'></div>`;
+								str += `<div id='like'><img src= ${"${heartState}"} id='like_img' name=${"${item.goodsNo}"}></div>`;
 								str += `</div>`;
 								str += `<div id='item_text'>`;
 								str += `<div class="item_brand">`;
@@ -180,17 +158,38 @@ font-family: 'Lora', serif;
 		});
         
         
-/* 	ㄴ	var  = 0;
+ 
         $(document).on('click','#like_img',function(){
-            if(i==0){
-                $(this).attr('src','img/heart-fill.svg');
-                i++;
-            }else if(i==1){
-                $(this).attr('src','img/heart.svg');
-                i--;
+            if($(this).attr("src")=="img/heart.svg"){
+                $.ajax({
+					url:"ajax",
+					type:"post",
+					dataType:"text",
+					data:{key:"wishListAjax" , methodName : "insertWishList", id: "id", goodsNo: $(this).attr("name")},
+					success : function(result) {
+						console.log(result);
+					},
+					error : function(err) {
+						alert(err+"에러  발생");
+					}
+				})//ajax끝
+            }else if($(this).attr("src")=="img/heart-fill.svg"){
+            	$.ajax({
+					url:"ajax",
+					type:"post",
+					dataType:"text",
+					data:{key:"wishListAjax" , methodName : "deleteWishList", id: "id", goodsNo: $(this).attr("name")},
+					success : function(result) {
+						console.log(result);
+					},
+					error : function(err) {
+						alert(err+"에러  발생");
+					}
+				})
             }
+            selectAllGoods();
 
-        }); */
+        }); 
         
 	});
 </script>
