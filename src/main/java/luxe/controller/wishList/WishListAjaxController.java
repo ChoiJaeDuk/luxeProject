@@ -7,6 +7,7 @@ import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import luxe.controller.AjaxController;
 import luxe.dto.GoodsDTO;
@@ -38,10 +39,10 @@ public class WishListAjaxController implements AjaxController{
 	
 	public void selectWishList(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		response.setContentType("text/html;charset=UTF-8");
-//		HttpSession session = request.getSession();
-//		String userId = (String)session.getAttribute("id");
+		HttpSession session = request.getSession();
+		String userId = (String)session.getAttribute("userId");
 		
-		String userId = request.getParameter("id");
+		//String userId = request.getParameter("id");
 		List<GoodsDTO> wishList = wishListService.selectWishList(userId);
 		System.out.println("wishList.size() = "+wishList.size());
 		JSONArray arr = JSONArray.fromObject(wishList);

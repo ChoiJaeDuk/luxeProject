@@ -59,10 +59,10 @@ public class AlarmAjaxController implements AjaxController {
 	
 	public void deleteAlarm(HttpServletRequest request, HttpServletResponse response)
 			throws Exception{
-		System.out.println("왔니 ?");
 		
-		String userId = request.getParameter("userId");
-		System.out.println(userId);
+		HttpSession session =  request.getSession();
+		String userId = (String)session.getAttribute("userId");
+
 		String alarmNo = request.getParameter("alarmNo");
 		System.out.println(alarmNo);
 
