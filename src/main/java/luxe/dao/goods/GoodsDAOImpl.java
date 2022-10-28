@@ -166,12 +166,13 @@ public class GoodsDAOImpl implements GoodsDAO {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 
-		String sql = "select * from goods where goods_name= ?";
+		String sql = "select * from goods where goods_name like ? or goods_name_kor like ?";
 
 		try {
 			con = DbUtil.getConnection();
 			ps = con.prepareStatement(sql);
-			ps.setString(1, goodsName);
+			ps.setString(1,  "%"+goodsName+"%");
+			ps.setString(2,  "%"+goodsName+"%");
 			rs = ps.executeQuery();
 
 			if (rs.next()) {
