@@ -184,8 +184,9 @@ public class GoodsController implements Controller {
 
 		List<GoodsDTO> list = goodsService.selectGoodsByGoodsName(goodName);
 		request.setAttribute("goodList", list);
+		request.setAttribute("state", "1");
 
-		return new ModelAndView("shop.jsp");
+		return new ModelAndView("shop/shop.jsp");
 	}
 
 }
