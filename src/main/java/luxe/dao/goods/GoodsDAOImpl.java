@@ -166,22 +166,21 @@ public class GoodsDAOImpl implements GoodsDAO {
 		ResultSet rs = null;
 		List<GoodsDTO> list = new ArrayList<GoodsDTO>();
 
-		String sql = "select * from goods where goods_name like ? or goods_name_kor like ? or category like ?";
+		String sql = "select * from goods where upper(goods_name) like upper(?) or goods_name_kor like ? or category like ?";
 
 		try {
 			con = DbUtil.getConnection();
 			System.out.println(goodsName);
 			ps = con.prepareStatement(sql);
 			
-			ps.setString(1, "%"+goodsName+"%");
-			ps.setString(2, "%"+goodsName+"%");
-			ps.setString(3, "%"+goodsName+"%");
+			ps.setString(1, goodsName+"%");
+			ps.setString(2, goodsName+"%");
+			ps.setString(3, goodsName+"%");
 			rs = ps.executeQuery();
 
 			while(rs.next()) {
 				list.add(new GoodsDTO(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5),
 						rs.getString(6), rs.getInt(7), rs.getString(8), rs.getString(9), rs.getInt(10)));
-		
 			}
 			
 		} finally {

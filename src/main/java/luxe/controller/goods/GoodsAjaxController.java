@@ -60,10 +60,7 @@ public class GoodsAjaxController implements AjaxController {
 		
 		String keyWord = request.getParameter("keyWord");
 		List<String> list = this.search(keyWord);
-		for(String name : list) {
-			System.out.println(name);
-		}
-		
+
 		JSONArray arr = JSONArray.fromObject(list);
 		
 		
@@ -79,12 +76,15 @@ public class GoodsAjaxController implements AjaxController {
 			goodsDTO = goodsService.selectGoodsByGoodsName(keyWord);
 			
 			for(GoodsDTO goods :goodsDTO) {
+				System.out.println(goods);
 		
-				if(goods.getGoodsName().toUpperCase().startsWith(keyWord.toUpperCase())) {
+				if(goods.getGoodsNameKor().startsWith(keyWord)) {
+					list.add(goods.getGoodsNameKor());
+					
+					
+				}else if(goods.getGoodsName().toUpperCase().startsWith(keyWord.toUpperCase())){
 					list.add(goods.getGoodsName());
 					
-				}else if(goods.getGoodsNameKor().startsWith(keyWord)){
-					list.add(goods.getGoodsNameKor());
 				}else if(goods.getCategory().startsWith(keyWord)) {
 					list.add(goods.getGoodsNameKor());
 				}
