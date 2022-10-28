@@ -30,10 +30,10 @@ public class SellAjaxController implements AjaxController {
 	
 	public void selectSellingInfoByUserId(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		response.setContentType("text/html;charset=UTF-8");
-//		HttpSession session = request.getSession();
-//		String userId = (String)session.getAttribute("id");
+		HttpSession session = request.getSession();
+		String userId = (String)session.getAttribute("userId");
 	
-		String userId = request.getParameter("id");
+		//String userId = request.getParameter("id");
 		List<SellDTO> sellingList = sellService.selectSellingInfoByUserId(userId);
 		JSONArray arr = JSONArray.fromObject(sellingList);
 		
@@ -46,9 +46,9 @@ public class SellAjaxController implements AjaxController {
 	public void selectSellWaitInfoByUserId(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		
 		response.setContentType("text/html;charset=UTF-8");
-		String userId = request.getParameter("id");
-//		HttpSession session = request.getSession();
-//		String userId = (String)session.getAttribute("id");
+		//String userId = request.getParameter("id");
+		HttpSession session = request.getSession();
+		String userId = (String)session.getAttribute("userId");
 		List<SellDTO> sellWaitList = sellService.selectSellWaitInfoByUserId(userId);
 		System.out.println(sellWaitList.size());
 		JSONArray arr = JSONArray.fromObject(sellWaitList);
@@ -61,9 +61,10 @@ public class SellAjaxController implements AjaxController {
 		
 		int sellNo = Integer.parseInt(request.getParameter("sellNo"));
 		int updateSellPrice = Integer.parseInt(request.getParameter("sellPrice"));
-		String sellUserId = request.getParameter("userId");	
-	
-		SellDTO sellDTO = new SellDTO(sellNo, updateSellPrice, sellUserId);
+		//String sellUserId = request.getParameter("userId");	
+		HttpSession session = request.getSession();
+		String userId = (String)session.getAttribute("userId");
+		SellDTO sellDTO = new SellDTO(sellNo, updateSellPrice, userId);
 		sellService.updateSellPrice(sellDTO);//sellUserId, sellNo, updateSellPrice
 	}
 	
