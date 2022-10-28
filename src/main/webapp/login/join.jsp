@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<jsp:include page="../header.jsp"/>
 <!DOCTYPE html>
 <html>
 <head>
@@ -53,46 +54,21 @@ font-family: 'Lora', serif;
 <body>
 	<div id='wrap'>
 
-		<div id='header'>
-			<div id='header-top'>
-				<div id='header-top-menu'>
-					<a href="">마이페이지</a> <a href="">관심상품</a> <a href="">로그인</a> <a
-						href="" class='managermode'>관리자모드</a>
-				</div>
-			</div>
-			<!--header-top -->
-
-			<div id='header-bottom'>
-				<div class="topnav">
-					<div id='logo'>LUXE</div>
-					<a href="#">HOME</a> <a href="#news">STYLE</a> <a href="#contact">SHOP</a>
-					<div class="split">
-						<input class="nav-search" type="text" name="search">
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- header -->
 		<div class="clear"></div>
 
 
 		<div id='contents'>
 			<div class="container">
 				<div id='con'>
-						<div id='insert-contents'>
+						
 							<form id='insert-form' name="writeForm" method="post" action="">
-								<div id='productImg'>
-									<img src="../img/product01.webp" alt="상품이미지" />
-								</div>
-
-								<div id='insert-con'>
+								
 									<div id='insert-title-text'>
-										<span>이름</span><input type="text" class="form-control"
-											placeholder="이름" readonly="readonly"> <span>상품이름</span><input
-											type="text" class="form-control" placeholder="상품이름"
-											id='changeInput' readonly="readonly"> <span>상품코드</span><input
-											type="text" class="form-control" placeholder="상품코드"
-											readonly="readonly">
+									<h3>회원가입</h3>
+										<span>아이디</span><input type="text" class="form-control" placeholder="아이디">
+										<span>아이디</span><input type="text" class="form-control" placeholder="아이디">
+										<span>아이디</span><input type="text" class="form-control" placeholder="아이디">
+										<span>아이디</span><input type="text" class="form-control" placeholder="아이디">
 									</div>
 
 
@@ -113,9 +89,9 @@ font-family: 'Lora', serif;
 										<input type="submit" value="등록" id='submitBtn'>
 										<button onclick="closeInsertform()" id='closeBtn'>취소</button>
 									</div>
-								</div>
+								
 							</form>
-						</div>
+						
 					
 				</div>
 			</div>
@@ -124,21 +100,7 @@ font-family: 'Lora', serif;
 		<!-- contents -->
 		<div class="clear"></div>
 
-		<div id='footer'>
-			<div id='footer-textbox'>
-				<h5>고객센터 1588-1588</h5>
-				<p>
-					운영시간 평일 11:00-18:00(토,일,공휴일휴무)<br> 점심시간 평일 13:00-14:00
-				</p>
-				<h6>주소 : 경기도 성남시 분당구 오리역 16번출구</h6>
-				<p>
-					LUXE(주)는 통신판매 중개자로서 통신판매의 당사자가 아니므로 개별 판매자가 등록한 상품정보에 대해서 책임을 지지
-					않습니다. <br>단, 거래과정에서 검수하고 보증하는 내용에 대한 책임은 당사에 있습니다
-				</p>
-			</div>
-
-
-		</div>
+		<jsp:include page="../footer.jsp"/>
 
 	</div>
 	<!-- 스크립트 -->
