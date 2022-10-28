@@ -70,6 +70,7 @@ public class GoodsController implements Controller {
 	/**
 	 * 상품 전체 조회
 	 */
+	/*
 	public ModelAndView selectAllGoods(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String brand = request.getParameter("brand");
 		String category = request.getParameter("category");
@@ -79,26 +80,24 @@ public class GoodsController implements Controller {
 		request.setAttribute("list", list);
 
 		return new ModelAndView("front", true);
-	}
+	}*/
 
 	/**
 	 * 상품 상세 조회
 	 */
 	public ModelAndView selectGoodsLine(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		//String goodsNoStr = request.getParameter("goodsReadNo");
-		
+		String addr = request.getParameter("addr");
 		boolean state = true;//request.getParameter("flag") == null ? true : false;
-
+		
 		int goodsNo = Integer.parseInt(request.getParameter("goodsNo"));
-	
-
+		
 			GoodsDTO goodsDTO = goodsService.selectGoodsLine(goodsNo, state);
 		
 			request.setAttribute("goodsDTO", goodsDTO);
-
 		
-
-		return new ModelAndView("ProductDetails.jsp");
+	
+		return new ModelAndView(addr);
 	}
 	
 	
@@ -119,7 +118,7 @@ public class GoodsController implements Controller {
 	
 	public ModelAndView sellApplication(HttpServletRequest request, HttpServletResponse response) throws Exception {//재덕 판매신청 창 넘어갈때 정보 전송용
 		//String goodsNoStr = request.getParameter("goodsReadNo");
-		
+		String addr = request.getParameter("");
 		boolean state = true;//request.getParameter("flag") == null ? true : false;
 		int inputPrice = Integer.parseInt(request.getParameter("inputPrice"));
 		int goodsNo = Integer.parseInt(request.getParameter("goodsNo"));
@@ -177,6 +176,16 @@ public class GoodsController implements Controller {
 		goodsService.deleteGoodsDTO(goodsNo);
 
 		return new ModelAndView("front", true);
+	}
+	
+	public ModelAndView selectGoodsByGoodsName(HttpServletRequest request, HttpServletResponse response) throws Exception {
+
+		String goodName = request.getParameter("goodsName");
+
+		List<GoodsDTO> list = goodsService.selectGoodsByGoodsName(goodName);
+		request.setAttribute("goodList", list);
+
+		return new ModelAndView("shop.jsp");
 	}
 
 }

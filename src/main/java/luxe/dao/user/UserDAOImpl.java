@@ -132,17 +132,19 @@ public class UserDAOImpl implements UserDAO {
 	 * 
 	 */
 	@Override
-	public int updateUserInfo(String userId, String userAddr, String userPhone, String userEmail) throws SQLException {
+	public int updateUserInfo(String userId, String userPwd, String userAddr, String userPhone, String userEmail)
+			throws SQLException {
 		Connection con = null;
 		PreparedStatement ps = null;
 		int result = 0;
-		String sql = "update users set user_addr =?, user_phone=?, user_email where user_id=?";
+		String sql = "update users set user_pwd=?, user_addr =?, user_phone=?, user_email =? where user_id=?";
 		try {
 			con = DbUtil.getConnection();
 			ps = con.prepareStatement(sql);
-			ps.setString(1, userAddr);
-			ps.setString(2, userPhone);
-			ps.setString(3, userEmail);
+			ps.setString(1, userPwd);
+			ps.setString(2, userAddr);
+			ps.setString(3, userPhone);
+			ps.setString(4, userEmail);
 
 			result = ps.executeUpdate();
 

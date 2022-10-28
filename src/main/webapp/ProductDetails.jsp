@@ -112,7 +112,7 @@ font-family: 'Lora', serif;
 				data:{key:"wishListAjax" , methodName : "selectWishState", userId: "id", goodsNo: ${goodsDTO.goodsNo}},
 				success : function(result) {
 			
-					if(result=="true"){
+					if(result==1){
 						$(".btn-wish").text("관심취소");
 					}else{
 						$(".btn-wish").text("관심등록");
@@ -222,7 +222,7 @@ font-family: 'Lora', serif;
 					<span id='title'>최근거래가</span>
 					<div id='amount'><span id='num'>000,000</span><span id='won'>원</span> </div>
 				</div>
-				<button class="btn-order sell" onclick = "location.href= '${path}/front?key=goods&methodName=selectOrderPrice&goodsNo=${goodsDTO.goodsNo}'"><span>즉시판매</span> <span id='num'>${goodsDTO.lowestPrice}</span><span id='won'>원</span></button>
+				<button class="btn-order sell" onclick = "location.href='${path}/front?key=goods&methodName=selectGoodsLine&goodsNo=${goodsDTO.goodsNo}&addr=OrderBysell.jsp'"><span>즉시판매</span> <span id='num'>${goodsDTO.lowestPrice}</span><span id='won'>원</span></button>
 				<button class="btn-order buy"><span>즉시구매</span> <span id='num'>${goodsDTO.highestPrice}</span><span id='won'>원</span></button>
 				<button class="btn-wish"></button>
 				

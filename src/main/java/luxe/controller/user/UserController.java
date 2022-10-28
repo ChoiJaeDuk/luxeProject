@@ -105,11 +105,12 @@ public class UserController implements Controller {
 			throws ServletException, IOException, SQLException {
 
 		String userId = request.getParameter("userId");
+		String userPwd = request.getParameter("userPwd");
 		String userAddr = request.getParameter("userAddr");
 		String userPhone = request.getParameter("userPhone");
-		String userEmail = request.getParameter("userPhone");
+		String userEmail = request.getParameter("userEmail");
 
-		userService.updateUserInfo(userId, userAddr, userPhone, userEmail);
+		userService.updateUserInfo(userId, userPwd, userAddr, userPhone, userEmail);
 
 		return new ModelAndView("/front", true);
 	}

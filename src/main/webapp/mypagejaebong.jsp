@@ -46,9 +46,74 @@ font-family: 'Lora', serif;
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <!-- 외부의 css파일 연결하기 -->
-<!-- <link rel="stylesheet" type="text/css" href="css/mypage2.css">-->
+<!-- <link rel="stylesheet" type="text/css" href="css/mypage2.css"> -->
+<!-- daum 도로명주소 찾기 api -->
+<script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
+
 <style type="text/css">
 </style>
+<script type="text/javascript">
+	//모든 공백 체크 정규식
+	let empJ = /\s/g;
+	// 비밀번호 정규식
+	let pwJ = /^[A-Za-z0-9]{4,12}$/;
+	// 이메일 검사 정규식
+	let mailJ = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+	// 휴대폰 번호 정규식
+	let phoneJ = /^01([0|1|6|7|8|9]?)?([0-9]{3,4})?([0-9]{4})$/;
+
+	//우편번호 찾기 버튼 클릭시 발생 이벤트
+	function execPostCode() {
+		new daum.Postcode({
+			oncomplete : function(data) {
+				// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
+
+				// 도로명 주소의 노출 규칙에 따라 주소를 조합한다.
+				// 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+				let fullRoadAddr = data.roadAddress; // 도로명 주소 변수
+				let extraRoadAddr = ''; // 도로명 조합형 주소 변수
+
+				// 법정동명이 있을 경우 추가한다. (법정리는 제외)
+				// 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
+				if (data.bname !== '' && /[동|로|가]$/g.test(data.bname)) {
+					extraRoadAddr += data.bname;
+				}
+				// 건물명이 있고, 공동주택일 경우 추가한다.
+				if (data.buildingName !== '' && data.apartment === 'Y') {
+					extraRoadAddr += (extraRoadAddr !== '' ? ', '
+							+ data.buildingName : data.buildingName);
+				}
+				// 도로명, 지번 조합형 주소가 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
+				if (extraRoadAddr !== '') {
+					extraRoadAddr = ' (' + extraRoadAddr + ')';
+				}
+				// 도로명, 지번 주소의 유무에 따라 해당 조합형 주소를 추가한다.
+				if (fullRoadAddr !== '') {
+					fullRoadAddr += extraRoadAddr;
+				}
+
+				// 우편번호와 주소 정보를 해당 필드에 넣는다.
+				console.log(data.zonecode);
+				console.log(fullRoadAddr);
+				/*      let a = console.log(data.zonecode);
+				   let b = console.log(fullRoadAddr);
+				   
+				   if(a == null || b = null){
+				      alert("주소를 확인하세요.");
+				      return false;
+				   }   */
+
+				$("[name=mem_oaddress]").val(data.zonecode);
+				$("[name=mem_address]").val(fullRoadAddr);
+
+				document.getElementById('mem_oaddress').value = data.zonecode; //5자리 새우편번호 사용
+				document.getElementById('mem_address').value = fullRoadAddr;
+
+				//document.getElementById('userAddr').value = data.jibunAddress; 
+			}
+		}).open();
+	}
+</script>
 </head>
 <body>
 	<div id='wrap'>
@@ -122,7 +187,8 @@ font-family: 'Lora', serif;
 								<fieldset disabled="">
 									<label class="form-label" for="disabledInput">아이디</label> <input
 										class="form-control" id="userId" type="text"
-										placeholder="Disabled input here..." disabled="" readonly="">
+										placeholder="Disabled input here..." disabled=""
+										readonly="readonly">
 								</fieldset>
 							</div>
 							<div class="form-group">
@@ -135,37 +201,58 @@ font-family: 'Lora', serif;
 						</div>
 
 						<div id='profile_group'>
-							<form action="#">
+							<form name="userDto" method="post" id="userDto">
 								<h4 id='grop_title'>개인정보</h4>
 								<div class="form-group">
 									<fieldset>
 										<label class="form-label mt-4" for="readOnlyInput">이름</label>
 										<input class="form-control" id="userName" type="text"
-											placeholder="Readonly input here..." readonly="">
+											placeholder="Readonly input here..." readonly="readonly" />
 									</fieldset>
 								</div>
 								<div class="form-group">
 									<fieldset>
 										<label class="form-label mt-4" for="readOnlyInput">전화번호</label>
 										<input class="form-control" id="userPhone" type="text"
-											placeholder="Readonly input here..." readonly="">
+											placeholder="Readonly input here..." readonly="readonly" />
 									</fieldset>
-								</div>
-								<div class="form-group">
+									<div class="form-group">
+										<fieldset>
+											<label class="form-label mt-4" for="readOnlyInput">주소</label>
+											<input class="form-control" id="userAddr" type="text"
+												placeholder="Readonly input here..." readonly="readonly" />
+										</fieldset>
+									</div>
 									<fieldset>
-										<label class="form-label mt-4" for="readOnlyInput">주소</label>
-										<input class="form-control" id="userAddr" type="text"
-											placeholder="Readonly input here..." readonly="">
+										<div class="form-group">
+											<input class="form-control"
+												style="width: 40%; display: inline;" placeholder="우편번호" na
+												me="mem_oaddress" id="mem_oaddress" type="text"
+												readonly="readonly">
+											<button type="button" class="btn btn-default"
+												onclick="execPostCode();">
+												<i class="fa fa-search"></i> 우편번호 찾기
+											</button>
+										</div>
+									</fieldset>
+									<fieldset>
+										<div class="form-group">
+											<input class="form-control" style="top: 5px;"
+												placeholder="도로명 주소" name="mem_address" id="mem_address"
+												type="text" readonly="readonly" />
+										</div>
 									</fieldset>
 								</div>
 								<div class="form-group">
 									<fieldset>
 										<label class="form-label mt-4" for="readOnlyInput">이메일</label>
 										<input class="form-control" id="userEmail" type="text"
-											placeholder="Readonly input here..." readonly="">
+											placeholder="Readonly input here..." readonly="readonly" />
 									</fieldset>
 								</div>
-								<button type="submit" id="userUpdate">수정하기</button>
+								<input type="hidden" name="key" value="customer"> <input
+									type="hidden" name="methodName" value="updateUserInfo">
+								<input type="button" value="수정하기" id="userUpdate">
 							</form>
 						</div>
 					</div>
@@ -517,8 +604,8 @@ font-family: 'Lora', serif;
 						methodName : "selectUser",
 					},
 					success : function(userDto) {
+
 						let id = userDto.userId;
-						console.log(id);
 						let pwd = userDto.userPwd;
 						let name = userDto.userName;
 						let phone = userDto.userPhone;
@@ -536,21 +623,50 @@ font-family: 'Lora', serif;
 					error : function(err) {
 						alert(err + "에러 발생");
 					} //실패했을때 실행할 함수 
-				});//아작스 끝
-			}//조회 함수 끝
+				})// 아작스 
+			}// 유저  끝
 
 			$("#userUpdate").click(function() {
-				if (confirm("개인정보를 변경하시겠습니까??")) {
+
+				if ($(this).val() == "수정하기") {
+					$("[name=methodName]").val("selectUser");
 					$("#userPwd").removeAttr("readonly");
 					$("#userPwd").focus();
 					$("#userPhone").removeAttr("readonly");
 					$("#userAddr").removeAttr("readonly");
 					$("#userEmail").removeAttr("readonly");
-				}
-				selectUser();
-			});// 클릭 
 
-		});
+					$(this).val("수정완료")
+
+				}
+
+			});
+
+			/*$(document).on("click", function updateUserInfo() {
+
+				$("userPwd").val();
+				$("userPhone").val();
+				$("userAddr").val();
+				$("userEmail").val();
+
+				$("#userUpdate").val("수정하기")
+
+				$.ajax({
+					url : "ajax", //서버요청주소
+					type : "post", //요청방식(method방식 : get | post | put | delete )
+					dataType : "text", //서버가 보내온 데이터(응답)타입(text | html | xml | json )
+					data : {
+						key : "userAjax",
+						methodName : "updateUserInfo",
+					},
+					error : function(err) {
+						alert(err + "에러 발생");
+					}
+				})// 아작스 
+			});//  끝*/
+
+			selectUser();
+		});//끝
 	<%session.setAttribute("userId", "id");%>
 		
 	</script>

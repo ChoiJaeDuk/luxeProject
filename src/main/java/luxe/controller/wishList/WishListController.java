@@ -55,7 +55,7 @@ public class WishListController implements Controller{
 		String userId = request.getParameter("userId");
 		int goodsNo = Integer.parseInt(request.getParameter("goodsNo"));
 		
-		boolean wishState = wishListService.selectWishState(goodsNo, userId);
+		int wishState = wishListService.selectWishState(goodsNo, userId);
 		
 		request.setAttribute("wishState", wishState);
 		

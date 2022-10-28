@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import luxe.controller.AjaxController;
+import luxe.controller.ModelAndView;
 import luxe.dto.StyleBookDTO;
 import luxe.service.stylebook.StyleBookService;
 import luxe.service.stylebook.StyleBookServiceImpl;
@@ -63,6 +64,20 @@ public class StyleBookAjaxController implements AjaxController {
 		
 		PrintWriter out = response.getWriter();
 		out.print(obj);
+	}
+	
+	/**
+	 * 게시물 삭제
+	 * */
+	public void deleteStyleBook(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		String boardRegNoStr = request.getParameter("boardRegNo");
+		int boardRegNo = Integer.parseInt(boardRegNoStr);
+
+		String saveDir = request.getServletContext().getRealPath("/stylebook");
+		styleBookService.deleteStyleBook(boardRegNo, saveDir);
+		
+		PrintWriter out = response.getWriter();
+		out.print("성공");
 	}
 
 }

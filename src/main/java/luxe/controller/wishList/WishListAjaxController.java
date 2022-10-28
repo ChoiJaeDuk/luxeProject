@@ -72,8 +72,8 @@ public class WishListAjaxController implements AjaxController{
 		String userId = request.getParameter("userId");
 		int goodsNo = Integer.parseInt(request.getParameter("goodsNo"));
 		System.out.println("userId = " + userId + "  goodsNo = " + goodsNo);
-		boolean wishState = wishListService.selectWishState(goodsNo, userId);
-		
+		int wishState = wishListService.selectWishState(goodsNo, userId);
+		System.out.println(wishState);
 		PrintWriter out = response.getWriter();
 		out.print(wishState);
 	}
