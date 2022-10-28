@@ -30,7 +30,7 @@ font-family: 'Roboto', sans-serif;
 font-family: 'Lora', serif;
 
   -->
-
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
 
 <!-- 템플릿요소 css -->
 <link
@@ -493,12 +493,11 @@ font-family: 'Lora', serif;
    						<p>날짜</p>
    					</div> 
    					<div id='drop-btn'>
-   					 <div class="select-tap">
-					    <div class="text">선택</div>
+   					 <div class="select-tap"">
+					    <div class="text"><i class="bi bi-list" style="font-size: 25px;"></i></div>
 					    <ul class="option-list">
-					      <li class="option">선택</li>
 					      <li class="option">삭제</li>
-					      <li class="option">수정</li>
+					      <li class="option" onclick="showInsertform()">수정</li>
 					    </ul>
 					  </div>
    					</div>						
@@ -508,7 +507,7 @@ font-family: 'Lora', serif;
    				</div>
    				<div id='popup-like'>
    					<div id='popup-like-con'>
-   					<img src='../img/icon/favorite01.png' style="width: 20px; height: 20px;">
+   					<img id=like_img src='../img/icon/favorite02.png' style="width: 20px; height: 20px;">
    						<span>좋아요</span>
    						<span style="font-family: 'Roboto', sans-serif;">0</span>
    						<span>개</span>
@@ -567,7 +566,38 @@ font-family: 'Lora', serif;
 	</div>
 </div>
 
+<div id="update-pop" class="hide">
+	<div id='insert-contents'>
+		<form id='insert-form' name="writeForm" method="post" action="">
+			<div id='productImg'>
+				<img src="../img/product01.webp" alt="상품이미지" />
+			</div>
 
+			<div id='insert-con'>
+				<div id='insert-title-text'>
+					<span>이름</span><input type="text" class="form-control"
+						placeholder="이름" readonly="readonly"> <span>상품이름</span><input
+						type="text" class="form-control" placeholder="상품이름"
+						id='changeInput' readonly="readonly"> <span>상품코드</span><input
+						type="text" class="form-control" placeholder="상품코드"
+						readonly="readonly">
+				</div>
+
+
+				<div id='insert-text'>
+					<div class="form-group">
+						<span>내용</span>
+						<textarea class="form-control" id="exampleTextarea" rows="8"></textarea>
+					</div>
+				</div>
+				<div id='insert-submt'>
+					<input type="submit" value="수정" id='submitBtn'>
+					<button onclick="closeUpdateform()" id='closeBtn'>취소</button>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>
 	<script type="text/javascript">
 	function showPopup(hasFilter) {
 		const popup = document.querySelector('#popup');
@@ -603,7 +633,24 @@ font-family: 'Lora', serif;
 			const insert = document.querySelector('#insert-pop');
 			insert.classList.add('hide');
 		}
-	
+		
+		//수정
+		function showInsertform(hasFilter){
+			const insert = document.querySelector('#update-pop');
+			  
+			  if (hasFilter) {
+				  insert.classList.add('has-filter');
+			  } else {
+				  insert.classList.remove('has-filter');
+			  }
+			  
+			  insert.classList.remove('hide');
+			}
+			
+			function closeUpdateform() {
+				const insert = document.querySelector('#update-popㄴ');
+				insert.classList.add('hide');
+			}
 	
 	//좋아요
 	function likeEvent() {
@@ -652,5 +699,19 @@ font-family: 'Lora', serif;
 	}
 	document.getElementById("defaultOpen").click();
 	</script>
+	<script>
+
+        var i = 0;
+        $('#like_img').on('click',function(){
+            if(i==0){
+                $(this).attr('src','../img/icon/favorite01.png');
+                i++;
+            }else if(i==1){
+                $(this).attr('src','../img/icon/favorite02.png');
+                i--;
+            }
+
+        });
+    </script>
 </body>
 </html>
