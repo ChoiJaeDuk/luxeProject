@@ -40,9 +40,10 @@ public class UserDTO {
 		this.userEmail = userEmail;
 	}
 
-	public UserDTO(String userId, String userAddr, String userPhone, String userEmail) {
+	public UserDTO(String userId, String userPwd, String userAddr, String userPhone, String userEmail) {
 		super();
 		this.userId = userId;
+		this.userPwd = userPwd;
 		this.userAddr = userAddr;
 		this.userPhone = userPhone;
 		this.userEmail = userEmail;

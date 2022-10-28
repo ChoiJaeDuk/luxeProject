@@ -67,16 +67,15 @@ public class UserAjaxController implements AjaxController {
 
 		HttpSession session = request.getSession();
 		String userId = (String) session.getAttribute("userId");
-
+		String userPwd = request.getParameter("userPwd");
 		String userAddr = request.getParameter("userAddr");
 		String userPhone = request.getParameter("userPhone");
 		String userEmail = request.getParameter("userEmail");
 
-		UserDTO userDto = new UserDTO(userId, userAddr, userPhone, userEmail);
-		userService.updateUserInfo(userId, userAddr, userPhone, userEmail);
+		int result = userService.updateUserInfo(userId, userPwd, userAddr, userPhone, userEmail);
 
 		PrintWriter out = response.getWriter();
-		out.print(userDto);
+		out.print(result);
 
 	}
 
