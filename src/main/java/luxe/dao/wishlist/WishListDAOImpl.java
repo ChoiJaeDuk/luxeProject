@@ -100,11 +100,11 @@ public class WishListDAOImpl implements WishListDAO {
 	}
 
 	@Override
-	public boolean selectWishState(int goodsNo, String userId) throws SQLException {
+	public int selectWishState(int goodsNo, String userId) throws SQLException {
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		boolean result = false;
+		int result = 0;
 	
 		String sql = "SELECT * FROM WISH_LIST WHERE GOODS_NO = ? AND USER_ID = ?";
 				
@@ -116,7 +116,7 @@ public class WishListDAOImpl implements WishListDAO {
 			rs = ps.executeQuery();
 			
 			if (rs.next()) {
-				result = true;
+				result = 1;
 			}
 		} catch (Exception e) {
 			e.printStackTrace();

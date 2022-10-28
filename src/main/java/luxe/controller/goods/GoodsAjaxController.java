@@ -7,6 +7,7 @@ import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import luxe.controller.AjaxController;
 import luxe.controller.ModelAndView;
@@ -29,10 +30,22 @@ public class GoodsAjaxController implements AjaxController {
 		String brand = request.getParameter("brand");
 		String category = request.getParameter("category");
 		String sort = request.getParameter("sort");
+		String userId =request.getParameter("userId");
 		System.out.println("brand = " + brand);
 		System.out.println("category = " + category);
 		System.out.println("sort = " + sort);
-		List<GoodsDTO> list = goodsService.selectAllGoods(brand, category, sort);
+		
+		
+		//로그인 여부 판단
+		/*
+		 * HttpSession session=request.getSession();
+		 * 
+		 * String userId=null; if(session.getAttribute("userId")!=null) { userId =
+		 * (String)session.getAttribute("userId"); }
+		 */
+		List<GoodsDTO> list = goodsService.selectAllGoods(brand, category, sort, userId);
+		
+		
 		System.out.println(list.size());
 		JSONArray arr = JSONArray.fromObject(list);
 		PrintWriter out = response.getWriter();
