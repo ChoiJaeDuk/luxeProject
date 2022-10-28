@@ -1,11 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=EUC-KR"
-    pageEncoding="EUC-KR"%>
+    pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="EUC-KR">
+<meta charset="UTF-8">
 <title>Insert title here</title>
-<!-- ¿ÜºÎÀÇ cssÆÄÀÏ ¿¬°áÇÏ±â -->
+<!-- ì™¸ë¶€ì˜ cssíŒŒì¼ ì—°ê²°í•˜ê¸° -->
 <link rel="stylesheet" type="text/css" href="css/shop.css">
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
@@ -41,7 +42,7 @@ font-family: 'Lora', serif;
 
   -->
 
-<!--¾ÆÀÌÄÜ-->  
+<!--ì•„ì´ì½˜-->  
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="js/jquery-3.6.1.min.js"></script>
@@ -52,51 +53,134 @@ font-family: 'Lora', serif;
 	
 	$(function() {
 		selectAllGoods();
+		var category ="";
+		var brand ="";
+		var sort="";
+		var heartState = "img/heart.svg";
 		function selectAllGoods() {
 			 $.ajax({
-					url :"ajax" , //¼­¹ö¿äÃ»ÁÖ¼Ò
-					type:"post", //¿äÃ»¹æ½Ä(method¹æ½Ä : get | post | put | delete )
-					dataType:"json"  , //¼­¹ö°¡ º¸³»¿Â µ¥ÀÌÅÍ(ÀÀ´ä)Å¸ÀÔ(text | html | xml | json )
-					data: {key:"goodsAjax" , methodName : "selectAllGoods", brand:"" , category:"" , arrange : ""}, //¼­¹ö¿¡°Ô º¸³¾ µ¥ÀÌÅÍÁ¤º¸(parameterÁ¤º¸)
+					url :"ajax" , //ì„œë²„ìš”ì²­ì£¼ì†Œ
+					type:"post", //ìš”ì²­ë°©ì‹(methodë°©ì‹ : get | post | put | delete )
+					dataType:"json", //ì„œë²„ê°€ ë³´ë‚´ì˜¨ ë°ì´í„°(ì‘ë‹µ)íƒ€ì…(text | html | xml | json )
+					data: {key:"goodsAjax" , methodName : "selectAllGoods", brand:brand , category:category , sort:sort, userId:"id"}, //ì„œë²„ì—ê²Œ ë³´ë‚¼ ë°ì´í„°ì •ë³´(parameterì •ë³´)
 					success :function(result){
-					
-						let str="";
+						//wishìƒíƒœ ì²´í¬
 						
+						let str="";
+						let count=0;
 							$.each(result, function(index, item){
+								/* $.ajax({
+									url:"ajax",
+									type:"post",
+									dataType:"text",
+									data:{key:"wishListAjax" , methodName : "selectWishState", userId: "id", goodsNo: item.goodsNo},
+									success : function(result) {
 								
-								str += `<div class="bestItem item1" style = "float:left; width:23%">`;
+										if(result=="true"){
+											heartState = "img/heart-fill.svg";
+											console.log("b="+heartState);
+										}
+										
+									},
+									error : function(err) {
+										alert(err+"ì—ëŸ¬  ë°œìƒ");
+									}
+								}); */
+								
+								
+								if(item.goodsLikeByUser==1){
+									
+									heartState = "img/heart-fill.svg";
+								}else{
+									heartState = "img/heart.svg";
+								}
+											
+								
+								
+								if(count%4==0){
+									str += "<tr>";
+								}
+								str += "<td>"
+								str += `<div class="bestItem item1">`;
 								str += `<div class="item_img_block">`;
 								str += `<div class="item_img">`;
-								str += `<img alt="»óÇ°ÀÌ¹ÌÁöÀÔ´Ï´Ù." src=${path}/${"${item.mainImg}"}  id='product'>`;
+								str += `<img alt="ìƒí’ˆì´ë¯¸ì§€ì…ë‹ˆë‹¤." src=${path}/${"${item.mainImg}"}  id='product'>`;
 								str += `</div>`;
-								str += `<div id='like'><img src="img/heart.svg" id='like_img'></div>`;
+								str += `<div id='like'><img src= ${"${heartState}"} id='like_img'></div>`;
 								str += `</div>`;
 								str += `<div id='item_text'>`;
 								str += `<div class="item_brand">`;
 								str += `<a href= "#" id="brand_text">${"${item.brand}"}</a>`;
 								str += `</div>`;
-								str += `<p id="name"><a href=${path}/front?key=goods&methodName=selectGoodsLine&goodsNo=${"${item.goodsNo}"}>${"${item.goodsName}"}</a></p>`;
+								str += `<p id="name"><a href=${path}/front?key=goods&methodName=selectGoodsLine&goodsNo=${"${item.goodsNo}"}&addr=ProductDetails.jsp>${"${item.goodsName}"}</a></p>`;
 								str += `<div class="price">`;
 								str += `<p id="num">${"${item.sellPrice}"}</p>`;
-								str += `<p id="p">Áï½Ã±¸¸Å°¡</p>`;
+								str += `<p id="p">ì¦‰ì‹œêµ¬ë§¤ê°€</p>`;
 								str += `</div>`;
 								str += `</div>`;
 								str += `</div>`;
-								
-		
-					  });
-							$("#product:lt(0)").remove();
-							$("#product").prepend(str);
+								str += "</td>"
+								count++;
+								if(count%4==0){
+									str += "</tr>";
+								}
+							});
+							$("#product tr:gt(0)").remove();
+							$("#product tr:eq(0)").prepend(str);
 					 		
 							
-					} , //¼º°øÇßÀ»¶§ ½ÇÇàÇÒ ÇÔ¼ö 
+					} , //ì„±ê³µí–ˆì„ë•Œ ì‹¤í–‰í•  í•¨ìˆ˜ 
 					error : function(err){  
-						alert(err+"¿¡·¯ ¹ß»ıÇß¾î¿ä.");
-					}  //½ÇÆØÇßÀ»¶§ ½ÇÇàÇÒ ÇÔ¼ö 
-				});//ajax³¡
+						alert(err+"ì—ëŸ¬ ë°œìƒí–ˆì–´ìš”.");
+					}  //ì‹¤íŒ½í–ˆì„ë•Œ ì‹¤í–‰í•  í•¨ìˆ˜ 
+				});//ajaxë
 		}
 		
-		var i = 0;
+		
+		
+		
+		
+		
+		
+		
+        $("[name='brand']").on("click", function() {
+			let i = $("input[name='brand']:checked").length;
+			let count = 1;
+			brand ="";
+			$("input[name='brand']:checked").each(function() {
+				if(i>count){
+					brand += "'" + $(this).val() + "' OR BRAND LIKE ";
+				}else{
+					brand += "'" + $(this).val() + "' ";
+				}
+				count++;
+			})
+			selectAllGoods();
+		})
+		
+		
+		$("[name='category']").on("click", function() {
+			let i = $("input[name='category']:checked").length;
+			let count = 1;
+			category ="";
+			$("input[name='category']:checked").each(function() {
+				if(i>count){
+					category += "'" + $(this).val() + "' OR CATEGORY LIKE ";
+				}else{
+					category += "'" + $(this).val() + "' ";
+				}
+				count++;
+			})
+			selectAllGoods();
+		})
+		
+		$("#sort").on("change", function() {
+			sort = $(this).val();
+			selectAllGoods();
+		});
+        
+        
+/* 	ã„´	var  = 0;
         $(document).on('click','#like_img',function(){
             if(i==0){
                 $(this).attr('src','img/heart-fill.svg');
@@ -106,11 +190,9 @@ font-family: 'Lora', serif;
                 i--;
             }
 
-        });
-		
-		
-	})
-	
+        }); */
+        
+	});
 </script>
 </head>
 <body>
@@ -118,12 +200,12 @@ font-family: 'Lora', serif;
 
 		<header>
 		<div id='logo'>
-			<img alt="·Î°í" src="img/logo.PNG">
+			<img alt="ë¡œê³ " src="img/logo.PNG">
 		</div>
 		
 		<nav id='menus'>
 			<div id='top_menu'>
-				<a href="mypage.jsp">¸¶ÀÌÆäÀÌÁö</a> <a href="">°ü½É»óÇ°</a> <a href="login.jsp">·Î±×ÀÎ</a>
+				<a href="mypage.jsp">ë§ˆì´í˜ì´ì§€</a> <a href="">ê´€ì‹¬ìƒí’ˆ</a> <a href="login.jsp">ë¡œê·¸ì¸</a>
 			</div>
 			<ul id='main_menu'>
 				<li><a href="">SHOP</a></li>
@@ -147,15 +229,15 @@ font-family: 'Lora', serif;
 	
 	<section id='contents'>
 		<nav id='sub_menu'>
-		<h3>ÇÊÅÍ</h3>
+		<h3>í•„í„°</h3>
 			<div class="accordion" id="accordionPanelsStayOpenExample">
 			  <div class="accordion-item">
 			    <h2 class="accordion-header" id="panelsStayOpen-headingOne">
 			      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
 			        <div id="accordion-body-top">
 				        <div id="accordion-body-text">
-				       		<strong>ºê·£µå</strong>
-				        	<p>¼±ÅÃµÈÇ×¸ñ</p>
+				       		<strong>ë¸Œëœë“œ</strong>
+				        	<p>ì„ íƒëœí•­ëª©</p>
 				        </div>
 				        <div id="accordion-body-icon"></div>
 			        </div>
@@ -164,21 +246,21 @@ font-family: 'Lora', serif;
 			    <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
 			      <div class="accordion-body">
 			        	<ul>
-			        		<li><label><input type="checkbox" name="color" value="»ş³Ú">CHANEL</label></li>
-			        		<li><label><input type="checkbox" name="color" value="µğ¿Ã">DIOR</label></li>
-			        		<li><label><input type="checkbox" name="color" value="ÇÁ¶ó´Ù">PRADA</label></li>
+			        		<li><label><input type="checkbox" name="brand" value="ìƒ¤ë„¬">CHANEL</label></li>
+			        		<li><label><input type="checkbox" name="brand" value="ë””ì˜¬">DIOR</label></li>
+			        		<li><label><input type="checkbox" name="brand" value="í”„ë¼ë‹¤">PRADA</label></li>
 			        	</ul>
 			      </div>
 			    </div>
 			  </div>
-				<!--¾ÆÄÚµğ¾ğ ³»¿ë Ãß°¡  -->
+				<!--ì•„ì½”ë””ì–¸ ë‚´ìš© ì¶”ê°€  -->
 				<div class="accordion-item">
 			    <h2 class="accordion-header" id="panelsStayOpen-headingOne">
 			      <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
 			        <div id="accordion-body-top">
 				        <div id="accordion-body-text">
-				       		<strong>Ä«Å×°í¸®</strong>
-				        	<p>¼±ÅÃµÈÇ×¸ñ</p>
+				       		<strong>ì¹´í…Œê³ ë¦¬</strong>
+				        	<p>ì„ íƒëœí•­ëª©</p>
 				        </div>
 				        <div id="accordion-body-icon"></div>
 			        </div>
@@ -187,11 +269,11 @@ font-family: 'Lora', serif;
 			    <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
 			      <div class="accordion-body">
 			        	<ul>
-			        		<li><label><input type="checkbox" name="color" value="blue">¼ñ´õ¹é</label></li>
-			        		<li><label><input type="checkbox" name="color" value="blue">¹Ì´ÏÆÑ</label></li>
-			        		<li><label><input type="checkbox" name="color" value="blue">¼îÆÛ¹é</label></li>
-			        		<li><label><input type="checkbox" name="color" value="blue">Å¬·¯Ä¡</label></li>
-			        		<li><label><input type="checkbox" name="color" value="blue">¹éÆÑ</label></li>
+			        		<li><label><input type="checkbox" name="category" value="ìˆ„ë”ë°±">ìˆ„ë”ë°±</label></li>
+			        		<li><label><input type="checkbox" name="category" value="ë¯¸ë‹ˆë°±">ë¯¸ë‹ˆë°±</label></li>
+			        		<li><label><input type="checkbox" name="category" value="ì‡¼í¼ë°±">ì‡¼í¼ë°±</label></li>
+			        		<li><label><input type="checkbox" name="category" value="í´ëŸ¬ì¹˜">í´ëŸ¬ì¹˜</label></li>
+			        		<li><label><input type="checkbox" name="category" value="ë°±íŒ©">ë°±íŒ©</label></li>
 			        	</ul>
 			      </div>
 			    </div>
@@ -203,62 +285,64 @@ font-family: 'Lora', serif;
 		
 			<div id='contents_top'>
 				<div id='contents_text' >
-					<h3>ºê·£µåÀÌ¸§</h3>
+					<h3>ë¸Œëœë“œì´ë¦„</h3>
 				</div>
 				
 				<div id="dropdown">
 					<!-- Example single danger button -->
 					<div class="btn-group">
-					  <button type="button" data-bs-toggle="dropdown" aria-expanded="false">
-					    Action
-					  </button>
-					  <ul class="dropdown-menu">
-					    <li><a class="dropdown-item" href="#">Action</a></li>
-					    <li><a class="dropdown-item" href="#">Another action</a></li>
-					    <li><a class="dropdown-item" href="#">Something else here</a></li>
-					    <li><hr class="dropdown-divider"></li>
-					    <li><a class="dropdown-item" href="#">Separated link</a></li>
-					  </ul>
+					 <select name="sort" id="sort">
+					 <option value="">ì •ë ¬</option>
+					  	<option value="ORDER BY G.GOODS_DATE DESC">ìµœì‹ ìˆœ</option>
+					  	<option value="ORDER BY S.SELL_PRICE ASC NULLS LAST">ê°€ê²©ë‚®ì€ìˆœ</option>
+					  	<option value="ORDER BY S.SELL_PRICE DESC NULLS LAST">ê°€ê²©ë†’ì€ìˆœ</option>
+					 	<option value="ORDER BY COUNT(W.WISH_LIST_NO) DESC">ì¸ê¸°ìˆœ</option>
+					  </select>
 					</div>
 				</div>
 			</div>
 			
 			<section id='product'>
  				<div class="productBEST_container"> 
+ 				<table>
+ 					<tr>
+ 						<td></td>
+ 					</tr>
+ 				</table>
 				<!-- 
 					<div class="bestItem item1">
 						<div class="item_img_block">
 						<div class="item_img">
-							<img alt="»óÇ°ÀÌ¹ÌÁöÀÔ´Ï´Ù." src="" id='product' >
+							<img alt="ìƒí’ˆì´ë¯¸ì§€ì…ë‹ˆë‹¤." src="" id='product' >
 						</div>
 						<div id='like'><img src="img/heart.svg" id='like_img' ></div>
 						</div>
 						<div id='item_text'>
 							<div class="item_brand">
-								<a href="#" id="brand_text">ºê·£µå</a>
+								<a href="#" id="brand_text">ë¸Œëœë“œ</a>
 							</div>
-							<p id="name">»óÇ°ÀÌ¸§</p>
+							<p id="name">ìƒí’ˆì´ë¦„</p>
 							<div class="price">
-								<p id="num">000,000¿ø</p>
-								<p id="p">Áï½Ã±¸¸Å°¡</p>
+								<p id="num">000,000ì›</p>
+								<p id="p">ì¦‰ì‹œêµ¬ë§¤ê°€</p>
 							</div>
 						</div>
 					</div>
 					<div class="bestItem item1">
 						<div class="item_img_block">
 						<div class="item_img">
-							<img alt="»óÇ°ÀÌ¹ÌÁöÀÔ´Ï´Ù." src="" id='product' >
+							<img alt="ìƒí’ˆì´ë¯¸ì§€ì…ë‹ˆë‹¤." src="" id='product' >
 						</div>
 						<div id='like'><img src="img/heart.svg" id='like_img'></div>
 						</div>
 						<div id='item_text'>
 							<div class="item_brand">
-								<a href="#" id="brand_text">ºê·£µå</a>
+								<a href="#" id="brand_text">ë¸Œëœë“œ</a>
 							</div>
-							<p id="name">»óÇ°ÀÌ¸§</p>
+							<p id="name">ìƒí’ˆì´ë¦„</p>
 							<div class="price">
-								<p id="num">000,000¿ø</p>
-								<p id="p">Áï½Ã±¸¸Å°¡</p>
+								<p id="num">000,000ì›</p>
+								<p id="p">ì¦‰ì‹œêµ¬ë§¤ê°€</p>
 							</div>
 						</div>
 					</div>

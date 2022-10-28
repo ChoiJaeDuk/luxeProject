@@ -7,9 +7,11 @@ import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import luxe.controller.AjaxController;
 import luxe.dto.GoodsDTO;
+import luxe.dto.WishListDTO;
 import luxe.service.wishList.WishListService;
 import luxe.service.wishList.WishListServiceImpl;
 import net.sf.json.JSONArray;
@@ -24,12 +26,23 @@ public class WishListAjaxController implements AjaxController{
 	}
 	
 	
-	public void selectWishList(HttpServletRequest request, HttpServletResponse response) throws Exception{
+	public void insertWishList(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		response.setContentType("text/html;charset=UTF-8");
 //		HttpSession session = request.getSession();
 //		String userId = (String)session.getAttribute("id");
-		
 		String userId = request.getParameter("id");
+		int goodsNo = Integer.parseInt(request.getParameter("goodsNo"));
+		WishListDTO wishListDTO = new WishListDTO(userId, goodsNo);
+		
+		wishListService.insertWishList(wishListDTO);
+	}
+	
+	public void selectWishList(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		response.setContentType("text/html;charset=UTF-8");
+		HttpSession session = request.getSession();
+		String userId = (String)session.getAttribute("userId");
+		
+		//String userId = request.getParameter("id");
 		List<GoodsDTO> wishList = wishListService.selectWishList(userId);
 		System.out.println("wishList.size() = "+wishList.size());
 		JSONArray arr = JSONArray.fromObject(wishList);
@@ -51,4 +64,17 @@ public class WishListAjaxController implements AjaxController{
 //		out.print(arr);
 	}
 
+	
+	public void selectWishState(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		response.setContentType("text/html;charset=UTF-8");
+//		HttpSession session = request.getSession();
+//		String userId = (String)session.getAttribute("id");
+		String userId = request.getParameter("userId");
+		int goodsNo = Integer.parseInt(request.getParameter("goodsNo"));
+		System.out.println("userId = " + userId + "  goodsNo = " + goodsNo);
+		int wishState = wishListService.selectWishState(goodsNo, userId);
+		System.out.println(wishState);
+		PrintWriter out = response.getWriter();
+		out.print(wishState);
+	}
 }

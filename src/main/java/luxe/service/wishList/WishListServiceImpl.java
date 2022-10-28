@@ -31,4 +31,13 @@ public class WishListServiceImpl implements WishListService {
 		return wishList;
 	}
 
+	
+	 @Override 
+	 public int selectWishState(int goodsNo, String userId) throws SQLException { 
+		 int result = wishListDAO.selectWishState(goodsNo, userId);
+	
+		 return result; 
+	 }
+	 
+
 }

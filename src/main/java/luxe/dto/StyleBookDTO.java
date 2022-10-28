@@ -10,6 +10,11 @@ public class StyleBookDTO {
 	int readNo;
 	int likeNo;
 
+	String modelNo;
+	String brand;
+	String goodsName;
+	String goodsNameKor;
+
 	public StyleBookDTO() {
 
 	}
@@ -24,7 +29,17 @@ public class StyleBookDTO {
 		this.boardRegDate = boardRegDate;
 		this.readNo = readNo;
 		this.likeNo = likeNo;
-		
+
+	}
+
+	public StyleBookDTO(int boardRegNo, String userId, int goodsNo, String boardContent, String fName,
+			String boardRegDate, int readNo, int likeNo, String modelNo, String brand, String goodsName,
+			String goodsNameKor) {
+		this(boardRegNo, userId, goodsNo, boardContent, fName, boardRegDate, readNo, likeNo);
+		this.modelNo = modelNo;
+		this.brand = brand;
+		this.goodsName = goodsName;
+		this.goodsNameKor = goodsNameKor;
 	}
 
 	public int getBoardRegNo() {
@@ -75,20 +90,52 @@ public class StyleBookDTO {
 		this.boardRegDate = boardRegDate;
 	}
 
-	public int getreadNo() {
+	public int getReadNo() {
 		return readNo;
 	}
 
-	public void setreadNo(int readNo) {
+	public void setReadNo(int readNo) {
 		this.readNo = readNo;
 	}
 
-	public int getlikeNo() {
+	public int getLikeNo() {
 		return likeNo;
 	}
 
-	public void setlikeNo(int likeNo) {
+	public void setLikeNo(int likeNo) {
 		this.likeNo = likeNo;
+	}
+
+	public String getModelNo() {
+		return modelNo;
+	}
+
+	public void setModelNo(String modelNo) {
+		this.modelNo = modelNo;
+	}
+
+	public String getBrand() {
+		return brand;
+	}
+
+	public void setBrand(String brand) {
+		this.brand = brand;
+	}
+
+	public String getGoodsName() {
+		return goodsName;
+	}
+
+	public void setGoodsName(String goodsName) {
+		this.goodsName = goodsName;
+	}
+
+	public String getGoodsNameKor() {
+		return goodsNameKor;
+	}
+
+	public void setGoodsNameKor(String goodsNameKor) {
+		this.goodsNameKor = goodsNameKor;
 	}
 
 }

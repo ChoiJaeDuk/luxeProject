@@ -49,6 +49,85 @@ font-family: 'Lora', serif;
 <style type="text/css">
 </style>
 <script src="js/jquery-3.6.1.min.js"></script>
+<script type="text/javascript">
+	/* $(function() {
+		$(".btn-wish").on("click", function() {
+			if($(this).text()=="관심상품"){
+				alert(1);
+			$.ajax({
+				url :"ajax", //서버요청주소
+				type:"post", //요청방식(method방식 : get | post | put | delete )
+				dataType:"text",//서버가 보내온 데이터(응답)타입(text | html | xml | json )
+				data:{key:"wishListAjax" , methodName : "insertWishList", id: "id", goodsNo: ${goodsDTO.goodsNo}}, //서버에게 보낼 데이터정보(parameter정보)
+				success :function(result){
+					$(".btn-wish").text("관심취소");
+
+				} , //성공했을때 실행할 함수 
+				error : function(err){  
+					alert(err+"에러 발생했어요.");
+				}  //실팽했을때 실행할 함수 
+			});//ajax끝 
+				
+			}	
+		})
+	}) */
+	
+	$(function() {
+		
+		$(".btn-wish").on("click", function(){
+			if($(this).text()=="관심등록"){
+				$.ajax({
+					url:"ajax",
+					type:"post",
+					dataType:"text",
+					data:{key:"wishListAjax" , methodName : "insertWishList", id: "id", goodsNo: ${goodsDTO.goodsNo}},
+					success : function(result) {
+						$(".btn-wish").text("관심취소");
+					},
+					error : function(err) {
+						alert(err+"에러  발생");
+					}
+				})//ajax끝
+			}else{
+				$.ajax({
+					url:"ajax",
+					type:"post",
+					dataType:"text",
+					data:{key:"wishListAjax" , methodName : "deleteWishList", id: "id", goodsNo: ${goodsDTO.goodsNo}},
+					success : function(result) {
+						$(".btn-wish").text("관심등록");
+					},
+					error : function(err) {
+						alert(err+"에러  발생");
+					}
+				})
+			}
+		});
+		
+		function wishState(){
+			$.ajax({
+				url:"ajax",
+				type:"post",
+				dataType:"text",
+				data:{key:"wishListAjax" , methodName : "selectWishState", userId: "id", goodsNo: ${goodsDTO.goodsNo}},
+				success : function(result) {
+			
+					if(result==1){
+						$(".btn-wish").text("관심취소");
+					}else{
+						$(".btn-wish").text("관심등록");
+					}
+					
+				},
+				error : function(err) {
+					alert(err+"에러  발생");
+				}
+			})
+		}
+		wishState();
+	})
+	
+</script>
 </head>
 <body>
 <div id='wrap'>
@@ -143,9 +222,9 @@ font-family: 'Lora', serif;
 					<span id='title'>최근거래가</span>
 					<div id='amount'><span id='num'>000,000</span><span id='won'>원</span> </div>
 				</div>
-				<button class="btn-order sell"><span>즉시판매</span> <span id='num'>${goodsDTO.lowestPrice}</span><span id='won'>원</span></button>
+				<button class="btn-order sell" onclick = "location.href='${path}/front?key=goods&methodName=selectGoodsLine&goodsNo=${goodsDTO.goodsNo}&addr=OrderBysell.jsp'"><span>즉시판매</span> <span id='num'>${goodsDTO.lowestPrice}</span><span id='won'>원</span></button>
 				<button class="btn-order buy"><span>즉시구매</span> <span id='num'>${goodsDTO.highestPrice}</span><span id='won'>원</span></button>
-				<button class="btn-wish">관심상품</button>
+				<button class="btn-wish"></button>
 				
 				<div id='detail-info'>
 					<h3>상품정보</h3>

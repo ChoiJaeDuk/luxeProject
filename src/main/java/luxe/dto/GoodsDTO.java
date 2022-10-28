@@ -1,5 +1,7 @@
 package luxe.dto;
 
+import java.util.List;
+
 public class GoodsDTO {
 
 	private int goodsNo;
@@ -19,6 +21,10 @@ public class GoodsDTO {
 	private int sellPrice;
 	private int lowestPrice;
 	private int highestPrice;
+	
+	
+	//로그인된 사용자가 좋아요 클릭한 상태인 상품인지 여부를 판다!!!
+	private int goodsLikeByUser ;
 
 	public void setGoodsReleaseDate(String goodsReleaseDate) {
 		this.goodsReleaseDate = goodsReleaseDate;
@@ -51,7 +57,7 @@ public class GoodsDTO {
 	}
 
 	public GoodsDTO(String brand, String category, String goodsName, String goodsNameKor, String goodsModelNo,
-			String goodsReleaseDate, int goodsReleasePrice, int lowestPrice, int highestPrice, GoodsImagesDTO goodsImagesDTO) {
+			String goodsReleaseDate, int goodsReleasePrice, int goodsNo, int lowestPrice, int highestPrice, GoodsImagesDTO goodsImagesDTO) {
 		super();
 		this.brand = brand;
 		this.category = category;
@@ -61,8 +67,10 @@ public class GoodsDTO {
 		this.goodsReleaseDate = goodsReleaseDate;
 		this.goodsReleasePrice = goodsReleasePrice;
 		this.goodsImagesDTO = goodsImagesDTO;
+		this.goodsNo = goodsNo;
 		this.lowestPrice = lowestPrice;
 		this.highestPrice = highestPrice;
+	
 	}
 
 	public GoodsDTO(int goodsNo, String brand, String category, String goodsName, String goodsNameKor, String goodsDate,
@@ -225,5 +233,17 @@ public class GoodsDTO {
 	public void setHighestPrice(int highestPrice) {
 		this.highestPrice = highestPrice;
 	}
+
+	public int getGoodsLikeByUser() {
+		return goodsLikeByUser;
+	}
+
+	public void setGoodsLikeByUser(int goodsLikeByUser) {
+		this.goodsLikeByUser = goodsLikeByUser;
+	}
+
+	
+	
+	
 
 }

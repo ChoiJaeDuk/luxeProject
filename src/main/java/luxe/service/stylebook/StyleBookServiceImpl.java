@@ -23,9 +23,11 @@ public class StyleBookServiceImpl implements StyleBookService {
 		}
 		String sqlSort = "";
 
-		if (sortCondition != null) {
+		if (sortCondition != null && !sortCondition.equals("")) {
+			
 			sqlSort = " order by " + sortCondition + " desc";
 		}
+		
 
 		List<StyleBookDTO> list = styleBookDao.selectAllStyleBook(sqlFilter, sqlSort);
 

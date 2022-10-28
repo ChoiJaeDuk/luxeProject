@@ -5,6 +5,7 @@ import java.util.List;
 
 import luxe.dto.GoodsDTO;
 import luxe.dto.GoodsImagesDTO;
+import luxe.dto.OrderDTO;
 
 public interface GoodsDAO {
 
@@ -16,7 +17,7 @@ public interface GoodsDAO {
 	/**
 	 * 전체 상품목록 조회
 	 */
-	List<GoodsDTO> selectAllGoods(String brand, String category, String arrange) throws SQLException;
+	List<GoodsDTO> selectAllGoods(String brand, String category, String arrange, String userId) throws SQLException;
 
 	/**
 	 * 상품 상세 조회
@@ -34,7 +35,7 @@ public interface GoodsDAO {
 	 * 상품명으로 상품 검색
 	 */
 
-	GoodsDTO selectGoodsByGoodsName(String goodsName) throws SQLException;
+	List<GoodsDTO> selectGoodsByGoodsName(String goodsName) throws SQLException;
 
 	/**
 	 * 상품 수정

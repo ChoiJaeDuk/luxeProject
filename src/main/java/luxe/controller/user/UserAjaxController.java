@@ -12,9 +12,11 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import luxe.controller.AjaxController;
+import luxe.controller.ModelAndView;
 import luxe.dto.UserDTO;
 import luxe.service.user.UserService;
 import luxe.service.user.UserServiceImpl;
+import net.sf.json.JSON;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
@@ -92,6 +94,21 @@ public class UserAjaxController implements AjaxController {
 		PrintWriter out = response.getWriter();
 		out.print(arr);
 
+	}
+	
+	public void sellUserInfo(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException, SQLException {
+		response.setContentType("text/html;charset=UTF-8");
+		String userId = request.getParameter("userId");
+
+		UserDTO userDto = userService.selectUser(userId);
+		
+		request.setAttribute("userDto", userDto);
+		
+		JSONObject user = JSONObject.fromObject(userDto);
+
+		PrintWriter out = response.getWriter();
+		out.print(user);
 	}
 
 }

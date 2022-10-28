@@ -89,6 +89,7 @@ public class StyleBookController implements Controller {
 	 */
 	public ModelAndView insertStyleBook(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String saveDir = request.getServletContext().getRealPath("/stylebook"); //
+		
 		int maxSize = 1024 * 1024 * 100; // 100M
 		String encoding = "UTF-8";
 
