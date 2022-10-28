@@ -159,30 +159,35 @@ public class GoodsDAOImpl implements GoodsDAO {
 	 * 상품명으로 상품 검색 // --> 메인이미지, 상품명, 상품 한글 상품명, 가격 , 브랜드, 카테고리
 	 */
 	@Override
-	public GoodsDTO selectGoodsByGoodsName(String goodsName) throws SQLException {
+	public List<GoodsDTO> selectGoodsByGoodsName(String goodsName) throws SQLException {
 
-		GoodsDTO goods = null;
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
+		List<GoodsDTO> list = new ArrayList<GoodsDTO>();
 
-		String sql = "select * from goods where goods_name like ? or goods_name_kor like ?";
+		String sql = "select * from goods where goods_name like ? or goods_name_kor like ? or category like ?";
 
 		try {
 			con = DbUtil.getConnection();
+			System.out.println(goodsName);
 			ps = con.prepareStatement(sql);
-			ps.setString(1,  "%"+goodsName+"%");
-			ps.setString(2,  "%"+goodsName+"%");
+			
+			ps.setString(1, "%"+goodsName+"%");
+			ps.setString(2, "%"+goodsName+"%");
+			ps.setString(3, "%"+goodsName+"%");
 			rs = ps.executeQuery();
 
-			if (rs.next()) {
-				goods = new GoodsDTO(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5),
-						rs.getString(6), rs.getInt(7), rs.getString(8), rs.getString(9), rs.getInt(10));
+			while(rs.next()) {
+				list.add(new GoodsDTO(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5),
+						rs.getString(6), rs.getInt(7), rs.getString(8), rs.getString(9), rs.getInt(10)));
+		
 			}
+			
 		} finally {
 			DbUtil.dbClose(con, ps, rs);
 		}
-		return goods;
+		return list;
 	}
 
 	/**

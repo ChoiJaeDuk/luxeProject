@@ -2,6 +2,7 @@ package luxe.servlet;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,16 +26,36 @@ public class SuggestServeltLIB extends HttpServlet {
 	
 	private static final long serialVersionUID = 1L;
        
-	public List<GoodsDTO> search(String keyWord){
-		List<GoodsDTO> list = new ArrayList<GoodsDTO>();
-		list = service.selectGoodsByGoodsName(keyWord);
-		for()
+	public List<String> search(String keyWord){
+		List<String> list = new ArrayList<String>();
+		List<GoodsDTO> goodsDTO = new ArrayList<GoodsDTO>();
+		try {
+			goodsDTO = service.selectGoodsByGoodsName(keyWord);
+			
+			for(GoodsDTO goods :goodsDTO) {
+				
+				if(goods.getGoodsName().toUpperCase().startsWith(keyWord.toUpperCase())) {
+					list.add(goods.getGoodsName());
+					
+				}else if(goods.getGoodsNameKor().startsWith(keyWord)){
+					list.add(goods.getGoodsNameKor());
+				}
+			}
+		
+					
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}
+		
+		
+		return list;
 	}
 	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-response.setContentType("text/html;charset=UTF-8");
+		response.setContentType("text/html;charset=UTF-8");
 		
 		String keyWord = request.getParameter("keyWord");
-		List<GoodsDTO> list = this.search(keyWord);
+		List<String> list = this.search(keyWord);
 		
 		JSONArray arr = JSONArray.fromObject(list);
 		

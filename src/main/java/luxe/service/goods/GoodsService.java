@@ -28,7 +28,7 @@ public interface GoodsService {
 	 * 상품명으로 상품 검색
 	 */
 
-	GoodsDTO selectGoodsByGoodsName(String goodsName) throws SQLException;
+	List<GoodsDTO> selectGoodsByGoodsName(String goodsName) throws SQLException;
 
 	/**
 	 * 상품 수정
