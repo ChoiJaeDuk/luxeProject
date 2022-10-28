@@ -115,7 +115,9 @@ $(function(){
 					<a href="style/StyleBoard.jsp">STYLE</a> 
 					<a href="shop/shop.jsp">SHOP</a>
 					<div class="split">
-						<form name="search" id="search" action="shop.jsp">
+						<form name="search" id="search" action="${path}/front">
+					    <input type="hidden" name="key" value="goods" >
+					    <input type="hidden" name="methodName" value="selectGoodsByGoodsName" >
 					    <input type="text" placeholder="Search.." name="search" id="nav-search">
 						</form>
 						<div id="suggest" style="display:none"></div>

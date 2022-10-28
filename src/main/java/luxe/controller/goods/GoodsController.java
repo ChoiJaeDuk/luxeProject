@@ -177,5 +177,15 @@ public class GoodsController implements Controller {
 
 		return new ModelAndView("front", true);
 	}
+	
+	public ModelAndView selectGoodsByGoodsName(HttpServletRequest request, HttpServletResponse response) throws Exception {
+
+		String goodName = request.getParameter("goodsName");
+
+		List<GoodsDTO> list = goodsService.selectGoodsByGoodsName(goodName);
+		request.setAttribute("goodList", list);
+
+		return new ModelAndView("shop.jsp");
+	}
 
 }
