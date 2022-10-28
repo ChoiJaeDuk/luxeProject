@@ -31,11 +31,13 @@ public class WishListServiceImpl implements WishListService {
 		return wishList;
 	}
 
-	@Override
-	public boolean selectWishState(int goodsNo, String userId) throws SQLException {
-		boolean result = wishListDAO.selectWishState(goodsNo, userId);
-		
-		return result;
-	}
+	
+	 @Override 
+	 public int selectWishState(int goodsNo, String userId) throws SQLException { 
+		 int result = wishListDAO.selectWishState(goodsNo, userId);
+	
+		 return result; 
+	 }
+	 
 
 }

@@ -60,11 +60,13 @@ public class UserServiceImpl implements UserService {
 	 * 회원정보 수정
 	 */
 	@Override
-	public void updateUserInfo(String userId, String userAddr, String userPhone, String userEmail) throws SQLException {
-		int result = userDAO.updateUserInfo(userId, userAddr, userPhone, userEmail);
+	public int updateUserInfo(String userId, String userPwd, String userAddr, String userPhone, String userEmail)
+			throws SQLException {
+		int result = userDAO.updateUserInfo(userId, userPwd, userAddr, userPhone, userEmail);
 		if (result == 0) {
-			throw new SQLException("");
+			throw new SQLException("수정실패");
 		}
+		return result;
 	}
 
 	/**

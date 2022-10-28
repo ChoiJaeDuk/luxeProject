@@ -99,9 +99,9 @@ margin-right:20px;}
 }
 
 /* Change the color of links on hover */
-.topnav a:hover {
-  text-decoration: overline;
-}
+/* .topnav a:hover { */
+/*   text-decoration: overline; */
+/* } */
 
 /* Create a right-aligned (split) link inside the navigation bar */
 .split { 

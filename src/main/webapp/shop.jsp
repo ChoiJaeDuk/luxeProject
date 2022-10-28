@@ -56,17 +56,47 @@ font-family: 'Lora', serif;
 		var category ="";
 		var brand ="";
 		var sort="";
+		var heartState = "img/heart.svg";
 		function selectAllGoods() {
 			 $.ajax({
 					url :"ajax" , //서버요청주소
 					type:"post", //요청방식(method방식 : get | post | put | delete )
 					dataType:"json", //서버가 보내온 데이터(응답)타입(text | html | xml | json )
-					data: {key:"goodsAjax" , methodName : "selectAllGoods", brand:brand , category:category , sort:sort}, //서버에게 보낼 데이터정보(parameter정보)
+					data: {key:"goodsAjax" , methodName : "selectAllGoods", brand:brand , category:category , sort:sort, userId:"id"}, //서버에게 보낼 데이터정보(parameter정보)
 					success :function(result){
-					
+						//wish상태 체크
+						
 						let str="";
 						let count=0;
 							$.each(result, function(index, item){
+								/* $.ajax({
+									url:"ajax",
+									type:"post",
+									dataType:"text",
+									data:{key:"wishListAjax" , methodName : "selectWishState", userId: "id", goodsNo: item.goodsNo},
+									success : function(result) {
+								
+										if(result=="true"){
+											heartState = "img/heart-fill.svg";
+											console.log("b="+heartState);
+										}
+										
+									},
+									error : function(err) {
+										alert(err+"에러  발생");
+									}
+								}); */
+								
+								
+								if(item.goodsLikeByUser==1){
+									
+									heartState = "img/heart-fill.svg";
+								}else{
+									heartState = "img/heart.svg";
+								}
+											
+								
+								
 								if(count%4==0){
 									str += "<tr>";
 								}
@@ -76,13 +106,13 @@ font-family: 'Lora', serif;
 								str += `<div class="item_img">`;
 								str += `<img alt="상품이미지입니다." src=${path}/${"${item.mainImg}"}  id='product'>`;
 								str += `</div>`;
-								str += `<div id='like'><img src="img/heart.svg" id='like_img'></div>`;
+								str += `<div id='like'><img src= ${"${heartState}"} id='like_img'></div>`;
 								str += `</div>`;
 								str += `<div id='item_text'>`;
 								str += `<div class="item_brand">`;
 								str += `<a href= "#" id="brand_text">${"${item.brand}"}</a>`;
 								str += `</div>`;
-								str += `<p id="name"><a href=${path}/front?key=goods&methodName=selectGoodsLine&goodsNo=${"${item.goodsNo}"}>${"${item.goodsName}"}</a></p>`;
+								str += `<p id="name"><a href=${path}/front?key=goods&methodName=selectGoodsLine&goodsNo=${"${item.goodsNo}"}&addr=ProductDetails.jsp>${"${item.goodsName}"}</a></p>`;
 								str += `<div class="price">`;
 								str += `<p id="num">${"${item.sellPrice}"}</p>`;
 								str += `<p id="p">즉시구매가</p>`;
@@ -108,17 +138,9 @@ font-family: 'Lora', serif;
 		
 		
 		
-		var i = 0;
-        $(document).on('click','#like_img',function(){
-            if(i==0){
-                $(this).attr('src','img/heart-fill.svg');
-                i++;
-            }else if(i==1){
-                $(this).attr('src','img/heart.svg');
-                i--;
-            }
-
-        });
+		
+		
+		
 		
 		
         $("[name='brand']").on("click", function() {
@@ -135,6 +157,7 @@ font-family: 'Lora', serif;
 			})
 			selectAllGoods();
 		})
+		
 		
 		$("[name='category']").on("click", function() {
 			let i = $("input[name='category']:checked").length;
@@ -155,6 +178,19 @@ font-family: 'Lora', serif;
 			sort = $(this).val();
 			selectAllGoods();
 		});
+        
+        
+/* 	ㄴ	var  = 0;
+        $(document).on('click','#like_img',function(){
+            if(i==0){
+                $(this).attr('src','img/heart-fill.svg');
+                i++;
+            }else if(i==1){
+                $(this).attr('src','img/heart.svg');
+                i--;
+            }
+
+        }); */
         
 	});
 </script>

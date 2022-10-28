@@ -64,7 +64,7 @@ font-family: 'Lora', serif;
 					location.href= '${path}/front?key=goods&methodName=sellApplication&goodsNo=${goodsDTO.goodsNo}&inputPrice='+$("#input-amount").val();
 				}
 			}else{
-				location.href= '${path}/front?key=goods&methodName=sellApplication&goodsNo=${goodsDTO.goodsNo}&inputPrice=${goodsDTO.highestPrice}';
+				location.href= '${path}/front?key=goods&methodName=sellApplication&goodsNo=${goodsDTO.goodsNo}&inputPrice=${goodsDTO.highestPrice}&addr=sell.jsp';
 			}
 		})
 	})

@@ -326,8 +326,10 @@ width: 300px; height: 300px;
 				str2 += "<span>#"+styleBook.brand+"</span> ";
 				str2 += "<span>#"+styleBook.goodsName+"</span> ";
 				str2 += "<span>#"+styleBook.goodsNameKor+"</span>";
+				str2 += "<span id='boardRegNo' style='display:none'>"+styleBook.boardRegNo+"</span>";
 				
 				$("#popup-tag").html(str2);
+				
 			} , //성공했을때 실행할 함수 
 			error : function(err){  
 				alert(err+"에러 발생했어요.");
@@ -458,6 +460,7 @@ width: 300px; height: 300px;
 		}
 		
 		let brand="all";
+		let sortConditon = "";
 		$("button[class=tablinks]").click(function() {
 			 brand = $(this).attr("name");
 			openBrand(event, brand);
@@ -467,13 +470,62 @@ width: 300px; height: 300px;
 		
 		
 		$(".select").on("change", function() {
-			let sortConditon = $(this).val();
+			sortConditon = $(this).val();
 			if(sortConditon=="") {
 				return false;
 			}
 			console.log(sortConditon);
 			selectAllStyleBook(brand, 0, sortConditon);
 		});
+		
+		$(".option").on("click", function() {
+			let option = $(this).text();
+			if(option =='선택')
+				return;
+			else if (option=='삭제')
+				deleteStyleBook();
+			else if (option == '수정')
+				updateStyleBook();
+		})
+		
+		function deleteStyleBook() {
+			if(confirm("게시물을 삭제하시겠습니까?")){
+				closePopup();
+				let boardRegNo = $("#boardRegNo").text();
+				
+				$.ajax({
+					url :"../ajax" , //서버요청주소
+					type:"post", //요청방식(method방식 : get | post | put | delete )
+					dataType:"text"  , //서버가 보내온 데이터(응답)타입(text | html | xml | json )
+					data: {key:"styleBookAjax" , methodName : "deleteStyleBook", boardRegNo:boardRegNo}, //서버에게 보낼 데이터정보(parameter정보)
+					success :function(result){
+						alert("삭제에 성공했습니다.");
+						$("#drop-btn > div > div").text("선택");
+						selectAllStyleBook(brand, 0, sortConditon);
+					} , //성공했을때 실행할 함수 
+					error : function(err){  
+						alert(err+"에러 발생했어요.");
+					}  //실패했을때 실행할 함수 
+				});
+			}
+			else {
+				$("#drop-btn > div > div").text("선택");
+				return;
+			}
+			
+		};
+		
+		function updateStyleBook() {
+			if(confirm("게시물을 수정하시겠습니까?")){
+				let boardRegNo = $("#boardRegNo").text();
+			
+				$("#drop-btn > div > div").text("선택");
+			} else{
+				$("#drop-btn > div > div").text("선택");
+				return;
+			}
+				
+		}
 		
 		
 		
