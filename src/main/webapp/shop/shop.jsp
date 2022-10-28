@@ -45,8 +45,7 @@ font-family: 'Lora', serif;
 
 <!-- 외부의 css파일 연결하기 -->
 <link rel="stylesheet" type="text/css" href="../css/setting/Reset.css">
-
-<link rel="stylesheet" type="text/css" href="../css/shop.css">
+<link rel="stylesheet" type="text/css" href="../css/shop/shop.css">
 <link rel="stylesheet" type="text/css" href="../css/setting/Layout.css">
 <style type="text/css">
 </style>

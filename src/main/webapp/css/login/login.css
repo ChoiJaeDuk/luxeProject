@@ -1,0 +1,92 @@
+@charset "utf-8";
+
+#loginForm{
+	width: 400px;
+	height: 755.37px;
+	margin: 0px auto;
+	padding: 60px 0px 160px;
+}
+#login_title{
+	width: 400px;
+	height: 160px;
+	padding: 0px 0px 50px;
+	margin: 0 auto;
+}
+#input_logo{
+	width: 150px;
+	height: 50px;
+	position: relative;
+	top: 60px;
+	left: 130px;
+}
+#input_box{
+	widows: 400px;
+	height: 79.96px;
+	padding: 10px 0px 14px;
+}
+#input_title{
+	width: 400px;
+	height: 17.99px;
+	color: #222222;
+	font-family: 'Noto Sans KR', sans-serif;
+	font-weight: 400;
+	font-size: 13px;
+	
+}
+#input_item{
+	width: 400px;
+	height: 37.99px;
+	border-bottom: 0.1px #cccccc solid;
+}
+.input_txt{
+	padding: 8px 30px 8px 0px;
+	width: 400px;
+	border: 0.05px #cccccc solid; 
+}
+#login_btn_box{
+	width: 400px;
+	height: 71.99px;
+	padding: 20px 0px 0px;
+}
+#login_btn{
+	width: 400px;
+	height: 51.99px;
+	font-family: 'Noto Sans KR', sans-serif;
+	font-weight: 700;
+}
+.look_box {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-evenly;
+}
+.look_list{
+	display: inline-flex;
+    -webkit-box-align: start;
+    align-items: flex-start;
+    -webkit-box-flex: 1;
+    flex: 1;
+}
+.look_link{
+	text-decoration: none;
+	color: #222222;
+	font-size: 13px;
+	font-family: 'Noto Sans KR', sans-serif;
+	font-weight: 200;
+	float: left;
+}
+#kakao_login{
+	width: 397.500px;
+	height: 49.492px;
+	font-family: 'Noto Sans KR', sans-serif;
+	font-weight: 700;
+}
+button {
+	border: none;
+}
+#con{
+	width: 1280px;
+	height: 755.37px;
+	margin: 0 auto;
+	padding: 0 40px;
+	float: left;
+}
