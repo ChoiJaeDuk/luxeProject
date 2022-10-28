@@ -8,6 +8,7 @@ public class AlarmDTO {
 	private String issueDate;
 	private String goodsName;
 	
+	private int pageCnt;
 	
 	public AlarmDTO() {}
 	
@@ -89,6 +90,16 @@ public class AlarmDTO {
 
 	public void setGoodsName(String goodsName) {
 		this.goodsName = goodsName;
+	}
+
+
+
+	public int getPageCnt() {
+		return pageCnt;
+	}
+
+	public void setPageCnt(int pageCnt) {
+		this.pageCnt = pageCnt;
 	}
 	
 	
