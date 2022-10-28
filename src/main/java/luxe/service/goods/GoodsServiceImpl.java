@@ -48,9 +48,11 @@ public class GoodsServiceImpl implements GoodsService {
 	}
 
 	@Override
-	public GoodsDTO selectGoodsByGoodsName(String goodsName) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+	public List<GoodsDTO> selectGoodsByGoodsName(String goodsName) throws SQLException {
+		
+		List<GoodsDTO> list = goodsDAO.selectGoodsByGoodsName(goodsName);
+		
+		return list;
 	}
 
 	@Override

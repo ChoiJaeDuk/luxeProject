@@ -27,6 +27,7 @@ public class StyleBookDAOImpl implements StyleBookDAO {
 			ps = con.prepareStatement(sql);
 			rs = ps.executeQuery();
 
+			System.out.println(sql);
 			while (rs.next()) {
 				list.add(new StyleBookDTO(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getString(4), rs.getString(5),
 						rs.getString(6), rs.getInt(7), rs.getInt(8)));
@@ -43,7 +44,11 @@ public class StyleBookDAOImpl implements StyleBookDAO {
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		String sql = "select * from STYLEBOOK where BOARD_REG_NO=?";
+		String sql = "select board_reg_no, user_id, s.goods_no, board_content, fname, \r\n"
+				+ "board_reg_date, read_no, like_no, goods_model_no, g.brand, goods_name, goods_name_kor \r\n"
+				+ "from stylebook s join goods g on s.goods_no=g.goods_no and  board_reg_no=?\r\n"
+				+ "group by board_reg_no, user_id, s.goods_no, board_content, fname, board_reg_date, \r\n"
+				+ "read_no, like_no, goods_model_no, g.brand, goods_name, goods_name_kor";
 		StyleBookDTO stylebook = null;
 
 		try {
@@ -55,7 +60,8 @@ public class StyleBookDAOImpl implements StyleBookDAO {
 
 			if (rs.next()) {
 				stylebook = new StyleBookDTO(rs.getInt(1), rs.getString(2), rs.getInt(3), rs.getString(4),
-						rs.getString(5), rs.getString(6), rs.getInt(7), rs.getInt(8));
+						rs.getString(5), rs.getString(6), rs.getInt(7), rs.getInt(8), rs.getString(9), rs.getString(10),
+						rs.getString(11), rs.getString(12));
 			}
 
 		} finally {

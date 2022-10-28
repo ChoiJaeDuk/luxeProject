@@ -2,6 +2,8 @@ package luxe.controller.goods;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -51,6 +53,64 @@ public class GoodsAjaxController implements AjaxController {
 		PrintWriter out = response.getWriter();
 		out.print(arr);
 		
+	}
+	
+//	public void selectGoodsByGoodsName(HttpServletRequest request, HttpServletResponse response) throws Exception{
+//		response.setContentType("text/html;charset=UTF-8");
+//		String keyWord = request.getParameter("keyWord");
+//		
+//		List<GoodsDTO> list = goodsService.selectGoodsByGoodsName(keyWord);
+//		
+//		JSONArray arr = JSONArray.fromObject(list);
+//		
+//		PrintWriter out = response.getWriter();
+//		out.print(arr);
+//		
+//	}
+	
+	public void selectGoodsByGoodsName(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		response.setContentType("text/html;charset=UTF-8");
+		
+		String keyWord = request.getParameter("keyWord");
+		List<String> list = this.search(keyWord);
+		for(String name : list) {
+			System.out.println(name);
+		}
+		
+		JSONArray arr = JSONArray.fromObject(list);
+		
+		
+		//front단으로 응답(데이터전송))
+		PrintWriter out = response.getWriter();
+		out.println(arr);
+	}
+	
+	private List<String> search(String keyWord){
+		List<String> list = new ArrayList<String>();
+		List<GoodsDTO> goodsDTO = new ArrayList<GoodsDTO>();
+		try {
+			goodsDTO = goodsService.selectGoodsByGoodsName(keyWord);
+			
+			for(GoodsDTO goods :goodsDTO) {
+		
+				if(goods.getGoodsName().toUpperCase().startsWith(keyWord.toUpperCase())) {
+					list.add(goods.getGoodsName());
+					
+				}else if(goods.getGoodsNameKor().startsWith(keyWord)){
+					list.add(goods.getGoodsNameKor());
+				}else if(goods.getCategory().startsWith(keyWord)) {
+					list.add(goods.getGoodsNameKor());
+				}
+			}
+		
+					
+		} catch (SQLException e) {
+			
+			e.printStackTrace();
+		}
+		
+		
+		return list;
 	}
 	
 
