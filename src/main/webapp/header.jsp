@@ -88,6 +88,7 @@ $(function(){
 	
 	$(document).on("click", "a", function(){
  			$("#nav-search").val($(this).text());
+ 			$("#nav-search").focus();
  			$("#suggest").hide();
  		})
 	
@@ -114,6 +115,7 @@ $(function(){
 					<a href="style/StyleBoard.jsp">STYLE</a> 
 					<a href="shop/shop.jsp">SHOP</a>
 					<div class="split">
+					
 					    <input type="text" placeholder="Search.." name="search" id="nav-search">
 						<div id="suggest" style="display:none"></div>
 					</div>
