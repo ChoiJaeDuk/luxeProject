@@ -67,7 +67,7 @@ public class GoodsDAOImpl implements GoodsDAO {
 	 * 전체 상품목록 조회 brand = ex) "WHERE BRAND = '????'
 	 */
 	@Override
-	public List<GoodsDTO> selectAllGoods(String brand, String category, String arrange) throws SQLException {
+	public List<GoodsDTO> selectAllGoods(String brand, String category, String sort) throws SQLException {
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -78,8 +78,8 @@ public class GoodsDAOImpl implements GoodsDAO {
 				+ "ON G.GOODS_NO = W.GOODS_NO LEFT OUTER JOIN (SELECT MIN(SELL_PRICE) AS SELL_PRICE, GOODS_NO FROM SELL GROUP BY GOODS_NO) S\r\n"
 				+ "ON G.GOODS_NO = S.GOODS_NO\r\n"
 				+ "GROUP BY I.GOODS_MAIN_IMG, GOODS_NAME, GOODS_NAME_KOR, G.BRAND, G.CATEGORY, G.GOODS_DATE, S.SELL_PRICE, G.GOODS_NO HAVING BRAND LIKE "
-				+ brand + "AND category LIKE " + category + arrange;
-
+				+ brand + "AND category LIKE " + category + sort;
+		System.out.println(sql);
 		List<GoodsDTO> list = new ArrayList<GoodsDTO>();
 		try {
 			con = DbUtil.getConnection();

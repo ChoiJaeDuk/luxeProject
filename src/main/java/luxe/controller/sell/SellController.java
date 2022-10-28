@@ -35,7 +35,15 @@ public class SellController implements Controller {
 		String accountNo = request.getParameter("accountNo");
 		int sellPrice = Integer.parseInt(request.getParameter("sellPrice"));
 		String purDate = request.getParameter("purDate");
+		
 		String serialNumber = request.getParameter("serialNumber");
+	
+		System.out.println(goodsNo);
+		System.out.println(userId);
+		System.out.println(accountNo);
+		System.out.println(sellPrice);
+		System.out.println(purDate);
+		System.out.println(serialNumber);
 		
 		sellService.insertSell(new SellDTO(goodsNo, userId, accountNo, sellPrice, purDate, serialNumber));
 		

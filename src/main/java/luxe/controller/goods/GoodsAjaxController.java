@@ -28,11 +28,11 @@ public class GoodsAjaxController implements AjaxController {
 		response.setContentType("text/html;charset=UTF-8");
 		String brand = request.getParameter("brand");
 		String category = request.getParameter("category");
-		String arrange = request.getParameter("arrange");
+		String sort = request.getParameter("sort");
 		System.out.println("brand = " + brand);
 		System.out.println("category = " + category);
-		System.out.println("arrange = " + arrange);
-		List<GoodsDTO> list = goodsService.selectAllGoods(brand, category, arrange);
+		System.out.println("sort = " + sort);
+		List<GoodsDTO> list = goodsService.selectAllGoods(brand, category, sort);
 		System.out.println(list.size());
 		JSONArray arr = JSONArray.fromObject(list);
 		PrintWriter out = response.getWriter();

@@ -58,7 +58,9 @@ font-family: 'Lora', serif;
 <script src="js/jquery-3.6.1.min.js"></script>
 <script type="text/javascript">
 	$(function() {
+		//user정보 가져오기
 		function sellUserInfo() {
+			
 			$.ajax({
 				url :"ajax" , //서버요청주소
 				type:"post", //요청방식(method방식 : get | post | put | delete )
@@ -76,8 +78,13 @@ font-family: 'Lora', serif;
 		}
 		sellUserInfo();
 		
+		
+		//판매신청
 		$("#sell").on("click", function() {
-			
+			if(confirm("정말 판매하시겠습니까?")){
+				location.href ="${path}/front?key=sell&methodName=insertSell&goodsNo=${goodsDTO.goodsNo}&userId=id&accountNo="
+					+$("#accountNo").val()+"&sellPrice=${inputPrice}&purDate="+$("#purDate").val()+"&serialNumber="+$("#serialNumber").val();
+			}
 		})
 	})
 	
@@ -193,18 +200,18 @@ font-family: 'Lora', serif;
 						
 								<h6 id='method-title'>구입일 등록</h6>
 								<div id='payment-box'>
-									<input type="date" placeholder='구입일을 입력해주세요' />
+									<input type="date" placeholder='구입일을 입력해주세요' id="purDate" />
 								</div>
 								
 								<div id='payment'>
 								<h6 id='method-title'>계좌번호 등록</h6>
 								<div id='payment-box'>
-									<input type="text" placeholder='계좌번호를 입력해주세요' />
+									<input type="text" placeholder='계좌번호를 입력해주세요' id="accountNo" />
 								</div>
 								
 								<h6 id='method-title'>시리얼 넘버 등록</h6>
 								<div id='payment-box'>
-									<input type="text" placeholder='시리얼넘버를 입력해주세요' />
+									<input type="text" placeholder='시리얼넘버를 입력해주세요' id="serialNumber"/>
 								</div>
 								
 								</div><!-- payment-box -->
