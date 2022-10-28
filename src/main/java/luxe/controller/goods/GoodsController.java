@@ -100,7 +100,36 @@ public class GoodsController implements Controller {
 
 		return new ModelAndView("ProductDetails.jsp");
 	}
+	
+	
+	public ModelAndView selectOrderPrice(HttpServletRequest request, HttpServletResponse response) throws Exception {//재덕 판매창 넘어갈때 정보 전송용
+		//String goodsNoStr = request.getParameter("goodsReadNo");
+		
+		boolean state = true;//request.getParameter("flag") == null ? true : false;
 
+		int goodsNo = Integer.parseInt(request.getParameter("goodsNo"));
+
+			GoodsDTO goodsDTO = goodsService.selectGoodsLine(goodsNo, state);
+		
+			request.setAttribute("goodsDTO", goodsDTO);
+
+		return new ModelAndView("OrderBysell.jsp");
+	}
+
+	
+	public ModelAndView sellApplication(HttpServletRequest request, HttpServletResponse response) throws Exception {//재덕 판매신청 창 넘어갈때 정보 전송용
+		//String goodsNoStr = request.getParameter("goodsReadNo");
+		
+		boolean state = true;//request.getParameter("flag") == null ? true : false;
+		int inputPrice = Integer.parseInt(request.getParameter("inputPrice"));
+		int goodsNo = Integer.parseInt(request.getParameter("goodsNo"));
+
+			GoodsDTO goodsDTO = goodsService.selectGoodsLine(goodsNo, state);
+		
+			request.setAttribute("goodsDTO", goodsDTO);
+			request.setAttribute("inputPrice", inputPrice);
+		return new ModelAndView("sell.jsp");
+	}
 	/**
 	 * 상품 수정
 	 */

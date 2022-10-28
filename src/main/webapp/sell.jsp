@@ -45,32 +45,43 @@ font-family: 'Lora', serif;
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
 	crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
 <!-- 외부의 css파일 연결하기 -->
 <link rel="stylesheet" type="text/css" href="css/Reset.css">
 <link rel="stylesheet" type="text/css" href="css/Layout.css">
 <link rel="stylesheet" type="text/css" href="css/OrderByBuy.css">
+<link rel="stylesheet" type="text/css" href="css/Order2.css">
 
 <style type="text/css">
 </style>
 <script src="js/jquery-3.6.1.min.js"></script>
 <script type="text/javascript">
 	$(function() {
-		$(".price-total-btn").on("click", function() {
-			if($(this).text()=="판매신청 계속"){
-			 	if($("#input-amount").val()<=${goodsDTO.highestPrice}){
-					alert("즉시판매가보다 낮은 가격입니다. 다시 입력해주세요.");
-				}else{
-					location.href= '${path}/front?key=goods&methodName=sellApplication&goodsNo=${goodsDTO.goodsNo}&inputPrice='+$("#input-amount").val();
-				}
-			}else{
-				location.href= '${path}/front?key=goods&methodName=sellApplication&goodsNo=${goodsDTO.goodsNo}&inputPrice=${goodsDTO.highestPrice}';
-			}
+		function sellUserInfo() {
+			$.ajax({
+				url :"ajax" , //서버요청주소
+				type:"post", //요청방식(method방식 : get | post | put | delete )
+				dataType:"json"  , //서버가 보내온 데이터(응답)타입(text | html | xml | json )
+				data: {key:"userAjax" , methodName : "sellUserInfo", userId:"id"}, //서버에게 보낼 데이터정보(parameter정보)
+				success :function(result){
+					$("#seller-name").text(result.userName);
+					$("#seller-phone").text(result.userPhone);
+					$("#seller-email").text(result.userEmail);
+				} , //성공했을때 실행할 함수 
+				error : function(err){  
+					alert(err+"에러 발생했어요.");
+				}  //실팽했을때 실행할 함수 
+			});//ajax끝
+		}
+		sellUserInfo();
+		
+		$("#sell").on("click", function() {
+			
 		})
 	})
-		
-		
-
+	
+	
 </script>
 </head>
 <body>
@@ -130,61 +141,82 @@ font-family: 'Lora', serif;
 						<div id='product-img'><img src="img/heart-fill.svg"/></div>
 						<div id='product-detail'>
 							<p id='model-num'>모델번호</p>
-							<p id='model-title'>모델이름</p>
-							<p id='model-subtitle'>모델서브이름</p>
-						</div>
-						<div id='price-list'>
-							<div class='price01' id='pri01'>
-								<p id='title'>즉시 구매가</p>
-								<span id='price-now'>${goodsDTO.lowestPrice}</span><span id='won'>원</span>
-							</div>
-							<div class='price01'>
-								<p id='title'>즉시 판매가</p>
-								<span id='immediate-price-now'>${goodsDTO.highestPrice}</span><span id='won'>원</span>
-							</div>
+							<p id='model-title'>${goodsDTO.goodsName}</p>
+							<p id='model-subtitle'>${goodsDTO.goodsNameKor}</p>
 						</div>
 					</div><!-- product_info -->
 					
-					<div id='order-tap'>
-						<div class="btn-group">
-						  <button onclick="myFunction01()">판매신청</button>
-						  <button onclick="myFunction02()">즉시판매</button>
-						</div>
-						
-						<div id="buy-type01">
-						
-							<div id='price'>
+					<div id='delivery'><!-- 컨테이너 -->
+						<div id='delivery_detail'>
+							<h3>배송 주소</h3>
+							<div id='delivery-info-list'>
+							<span id='delivery-title'>판매자: </span>
+							<span id='seller-name'></span>
+							</div>
 							
-								<span id='price-now-title'>판매희망가</span>
-								<div id='price-con'>
-									<input type="text"  id='input-amount'  placeholder="희망가 입력" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');" />
-									<span id ='won02'></span><span id='price-now-title'>원</span>
-								</div>
+							<div id='delivery-info-list'>
+							<span id='delivery-title'>연락처: </span>
+							<span id='seller-phone'></span>
 							</div>
-							<div id='price-total'>
-								<button type="button" class="price-total-btn" >판매신청 계속</button>
+							
+							<div id='delivery-info-list'>
+							<span id='delivery-title'>이메일: </span>
+							<span id='seller-email'></span>
 							</div>
-						
-						
+							
 						</div>
-				
-						<div id="buy-type02">
-							<div id='price'>
-								<span id='price-now-title'>즉시판매가</span>
-								<div id='price-con'>
-									<span id='price02'></span>
-									<span id ='won02'>${goodsDTO.highestPrice}</span><span id='price-now-title'>원</span>
-								</div>
-							</div>
-							<div id='price-total'>
-								<button type="button" class="price-total-btn">즉시 판매 계속</button>
+					</div><!-- delivery -->
+					
+					<div id='instant_group'><!-- 컨테이너 -->
+						<h3>최종 판매 정보</h3>
+						<div id='instant'>
+							
+							<div id='bind'>
+								<dl id='price_addition'>
+									<dt><b>판매가</b></dt>
+									<dd><span><b>${inputPrice}</b></span><span><b>원</b></span></dd>
+								</dl>
+								<dl id='price_addition'>
+									<dt>검수비</dt>
+									<dd><span><b>000.000</b></span><span>원</span></dd>
+								</dl>
+								<dl id='price_addition'>
+									<dt>수수료</dt>
+									<dd><span>000.000</span><span>원</span></dd>
+								</dl>
+								
 							</div>
 						</div>
+					</div><!-- instant_group_con -->
+					
+					<div id='payment-con'><!-- 컨테이너 -->
 						
-					</div>
-				</div>
-			</div><!-- container -->
-		</div><!-- contents -->
+								<h6 id='method-title'>구입일 등록</h6>
+								<div id='payment-box'>
+									<input type="date" placeholder='구입일을 입력해주세요' />
+								</div>
+								
+								<div id='payment'>
+								<h6 id='method-title'>계좌번호 등록</h6>
+								<div id='payment-box'>
+									<input type="text" placeholder='계좌번호를 입력해주세요' />
+								</div>
+								
+								<h6 id='method-title'>시리얼 넘버 등록</h6>
+								<div id='payment-box'>
+									<input type="text" placeholder='시리얼넘버를 입력해주세요' />
+								</div>
+								
+								</div><!-- payment-box -->
+									<button type="button" id='sell'>판매하기</button>
+								</div><!-- payment -->
+								
+	
+						</div><!-- payment-con -->
+						
+					</div><!-- con -->
+				</div><!-- container -->
+			</div><!-- contents -->
 		
 		<div class="clear"></div>
 		
@@ -197,30 +229,25 @@ font-family: 'Lora', serif;
 	</div>
 	
 	<script>
-		function myFunction01() {
-		  var x = document.getElementById("buy-type01");
-		  var y = document.getElementById("buy-type02");
-		  
-		 
-			  if (x.style.display === "none") {
-				    x.style.display = "block";
-				    y.style.display = "none";
-				  } else {
-				    x.style.display = "none";
-				  }
-		  
+		var target = document.querySelectorAll('.btn_open');
+		var btnPopClose = document.querySelectorAll('.pop_wrap .btn_close');
+		var targetID;
+	
+		// 팝업 열기
+		for(var i = 0; i < target.length; i++){
+		  target[i].addEventListener('click', function(){
+		    targetID = this.getAttribute('href');
+		    document.querySelector(targetID).style.display = 'block';
+		  });
 		}
-		function myFunction02() {
-			var x = document.getElementById("buy-type02");
-			var y = document.getElementById("buy-type01");
-			
-			if (x.style.display === "none") {
-			  x.style.display = "block";
-			  y.style.display = "none";
-			} else {
-			  x.style.display = "none";
-		  }
+	
+		// 팝업 닫기
+		for(var j = 0; j < target.length; j++){
+		  btnPopClose[j].addEventListener('click', function(){
+		    this.parentNode.parentNode.style.display = 'none';
+		  });
 		}
 	</script>
+	
 </body>
 </html>

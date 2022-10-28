@@ -128,31 +128,6 @@ public class UserDAOImpl implements UserDAO {
 	}
 
 	/**
-	 * 회원정보 수정 - 비밀번호
-	 */
-	@Override
-	public int updateUserPwd(String userId, String userOldPwd, String userNewPwd) throws SQLException {
-		Connection con = null;
-		PreparedStatement ps = null;
-		int result = 0;
-		String sql = "update user set_user_pwd = ? where user_id=? and where user_pwd=? ";
-		try {
-			con = DbUtil.getConnection();
-			ps = con.prepareStatement(sql);
-			ps.setString(1, userNewPwd);
-			ps.setString(2, userId);
-			ps.setString(3, userOldPwd);
-
-			result = ps.executeUpdate();
-
-		} finally {
-			DbUtil.dbClose(con, ps);
-		}
-
-		return result;
-	}
-
-	/**
 	 * 회원정보 수정
 	 * 
 	 */
@@ -260,40 +235,36 @@ public class UserDAOImpl implements UserDAO {
 		}
 		return result;
 	}
-	
+
 	@Override
-	public List<String> selectEmailAddressByUserId(Connection con, String buyerId, String sellerId) throws Exception{ //지은
+	public List<String> selectEmailAddressByUserId(Connection con, String buyerId, String sellerId) throws Exception { // 지은
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		
-		//List<UserDTO> list = new ArrayList<UserDTO>();
+
+		// List<UserDTO> list = new ArrayList<UserDTO>();
 		List<String> address = new ArrayList<String>();
-		
+
 		String sql = "select user_e_mail from users where user_id in (?,?)";
-		
+
 		try {
-			
+
 			ps = con.prepareStatement(sql);
-			
+
 			ps.setString(1, buyerId);
 			ps.setString(2, sellerId);
-			
+
 			rs = ps.executeQuery();
-			while(rs.next()) {
+			while (rs.next()) {
 				address.add(rs.getString(1));
 			}
-			
-			
-			
-		}finally {
+
+		} finally {
 			DbUtil.dbClose(null, ps, rs);
 		}
-		
-		
-		
+
 		return address;
 	}
-	
+
 	@Override
 	public List<UserDTO> selectAllUsers() throws Exception {
 
@@ -318,6 +289,33 @@ public class UserDAOImpl implements UserDAO {
 			DbUtil.dbClose(con, ps, rs);
 		}
 		return selectAllUsers;
+	}
+
+	/**
+	 * 비밀번호 체크
+	 */
+	@Override
+	public String userPwdCheck(UserDTO userDto) throws Exception {
+
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		String sql = "select user_pwd from users where user_id=?";
+		String userPwd = null;
+
+		try {
+			con = DbUtil.getConnection();
+			ps = con.prepareStatement(sql);
+			rs = ps.executeQuery();
+
+			if (rs.next()) {
+				userPwd = rs.getString(1);
+			}
+		} finally {
+			DbUtil.dbClose(con, ps, rs);
+		}
+
+		return userPwd;
 	}
 
 }

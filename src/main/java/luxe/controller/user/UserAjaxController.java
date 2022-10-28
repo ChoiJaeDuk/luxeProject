@@ -12,9 +12,11 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import luxe.controller.AjaxController;
+import luxe.controller.ModelAndView;
 import luxe.dto.UserDTO;
 import luxe.service.user.UserService;
 import luxe.service.user.UserServiceImpl;
+import net.sf.json.JSON;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
@@ -26,6 +28,19 @@ public class UserAjaxController implements AjaxController {
 	public void handleRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
+
+	}
+
+	public void userIdCheck(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException, SQLException {
+
+		response.setContentType("text/html;charset=UTF-8");
+		String userId = request.getParameter("userId");
+
+		boolean result = userService.userIdCheck(userId);
+
+		PrintWriter out = response.getWriter();
+		out.print(result);
 
 	}
 
@@ -66,14 +81,13 @@ public class UserAjaxController implements AjaxController {
 		out.print(userDto);
 
 	}
-	
-	public void selectAllUsers(HttpServletRequest request, HttpServletResponse response)
-			throws Exception {
+
+	public void selectAllUsers(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
 		response.setContentType("text/html;charset=UTF-8");
 
 		HttpSession session = request.getSession();
-		//String userId = (String) session.getAttribute("userId");
+		// String userId = (String) session.getAttribute("userId");
 
 		List<UserDTO> list = userService.selectAllUsers();
 		JSONArray arr = JSONArray.fromObject(list);
@@ -82,6 +96,20 @@ public class UserAjaxController implements AjaxController {
 		out.print(arr);
 
 	}
+	
+	public void sellUserInfo(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException, SQLException {
+		response.setContentType("text/html;charset=UTF-8");
+		String userId = request.getParameter("userId");
 
+		UserDTO userDto = userService.selectUser(userId);
+		
+		request.setAttribute("userDto", userDto);
+		
+		JSONObject user = JSONObject.fromObject(userDto);
+
+		PrintWriter out = response.getWriter();
+		out.print(user);
+	}
 
 }

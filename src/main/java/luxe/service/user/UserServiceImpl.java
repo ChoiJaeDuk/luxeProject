@@ -15,11 +15,12 @@ public class UserServiceImpl implements UserService {
 	 * 아이디 중복체크
 	 */
 	@Override
-	public void userIdCheck(String userId) throws SQLException {
+	public boolean userIdCheck(String userId) throws SQLException {
 		boolean result = userDAO.userIdCheck(userId);
 		if (result == true) {
 			throw new SQLException("이미 존재하는 ID 입니다.");
 		}
+		return result;
 	}
 
 	/**
@@ -40,7 +41,7 @@ public class UserServiceImpl implements UserService {
 	public UserDTO login(UserDTO userDto) throws SQLException {
 		UserDTO dbDTO = userDAO.login(userDto);
 		if (dbDTO == null) {
-			throw new SQLException("입력정보를 다시 확인해보심이 어떤지");
+			throw new SQLException("입력정보를 다시 확인하세요");
 		}
 		return dbDTO;
 	}
@@ -53,17 +54,6 @@ public class UserServiceImpl implements UserService {
 		UserDTO userDto = userDAO.selectUser(userId);
 
 		return userDto;
-	}
-
-	/**
-	 * 회원정보 수정 비밀번호
-	 */
-	@Override
-	public void updateUserPwd(String userId, String userOldPwd, String userNewPwd) throws SQLException {
-		int result = userDAO.updateUserPwd(userId, userOldPwd, userNewPwd);
-		if (result == 0) {
-			throw new SQLException("");
-		}
 	}
 
 	/**
@@ -122,6 +112,21 @@ public class UserServiceImpl implements UserService {
 			throw new Exception("회원정보 조회 실패");
 		}
 		return list;
+	}
+
+	/**
+	 * 비밀번호 체크
+	 */
+	@Override
+	public void userPwdCheck(UserDTO userDto) throws Exception {
+
+		String userPwd = userDAO.userPwdCheck(userDto);
+		if (userPwd == null) {
+			throw new Exception("비밀번호가 존재하지 않습니다.");
+		} else if (!userPwd.equals(userDto.getUserPwd())) {
+			throw new Exception("비밀번호 불일치");
+		}
+
 	}
 
 }

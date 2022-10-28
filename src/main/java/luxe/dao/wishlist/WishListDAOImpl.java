@@ -99,4 +99,33 @@ public class WishListDAOImpl implements WishListDAO {
 		return wishList;
 	}
 
+	@Override
+	public boolean selectWishState(int goodsNo, String userId) throws SQLException {
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		boolean result = false;
+	
+		String sql = "SELECT * FROM WISH_LIST WHERE GOODS_NO = ? AND USER_ID = ?";
+				
+		try {
+			con = DbUtil.getConnection();
+			ps = con.prepareStatement(sql);
+			ps.setInt(1, goodsNo);
+			ps.setString(2, userId);
+			rs = ps.executeQuery();
+			
+			if (rs.next()) {
+				result = true;
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			DbUtil.dbClose(con, ps, rs);
+		}
+		return result;
+	}
+	
+	
+
 }

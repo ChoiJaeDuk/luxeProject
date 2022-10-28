@@ -1,6 +1,7 @@
 package luxe.controller.user;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.SQLException;
 
 import javax.servlet.ServletException;
@@ -51,10 +52,10 @@ public class UserController implements Controller {
 		String userName = request.getParameter("userName");
 		String userAddr = request.getParameter("userAddr");
 		String userPhone = request.getParameter("userPhone");
-	
+
 		String userEmail = request.getParameter("userEmail");
 
-		userService.insertUser(new UserDTO(userId, userPwd, userName, userAddr, userPhone,userEmail));
+		userService.insertUser(new UserDTO(userId, userPwd, userName, userAddr, userPhone, userEmail));
 
 		return new ModelAndView("/front", true);
 	}
@@ -93,23 +94,12 @@ public class UserController implements Controller {
 		return new ModelAndView("/front", true);
 	}
 
+	
+	
+	
+	
 	/**
-	 * 회원정보 수정 비밀번호
-	 */
-	public ModelAndView updateUserPwd(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException, SQLException {
-
-		String userId = request.getParameter("userId");
-		String userOldPwd = request.getParameter("userOldPwd");
-		String userNewPwd = request.getParameter("userNewPwd");
-
-		userService.updateUserPwd(userId, userOldPwd, userNewPwd);
-
-		return new ModelAndView("/front", true);
-	}
-
-	/**
-	 * 회원정보 수정 주소
+	 * 회원정보 수정 
 	 */
 	public ModelAndView updateUserInfo(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException, SQLException {
@@ -123,7 +113,6 @@ public class UserController implements Controller {
 
 		return new ModelAndView("/front", true);
 	}
-
 
 	/**
 	 * 아이디 찾기
@@ -181,6 +170,7 @@ public class UserController implements Controller {
 
 		return new ModelAndView("/front", true);
 	}
+
 	/**
 	 * 회원 전체검색
 	 * 
@@ -193,4 +183,20 @@ public class UserController implements Controller {
 
 		return new ModelAndView("/front", true);
 	}
+
+	/**
+	 * 비밀번호 체크
+	 */
+	public ModelAndView userPwdCheck(HttpServletRequest request, HttpServletResponse response) throws Exception {
+
+		String userPwd = request.getParameter("userPwd");
+
+		HttpSession session = request.getSession();
+		String userId = (String) session.getAttribute("userId");
+
+		userService.userPwdCheck(new UserDTO(userId, userPwd));
+
+		return new ModelAndView("/front", true);
+	}
+
 }
