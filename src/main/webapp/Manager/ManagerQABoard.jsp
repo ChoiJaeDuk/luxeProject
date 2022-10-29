@@ -101,8 +101,8 @@ font-family: 'Lora', serif;
 <body>
 	<div id="mySidebar" class="sidebar">
 		<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-		<a href="#">회원관리</a> <a href="#">상품관리</a> <a href="#">주문현황</a> <a
-			href="#">매출현황</a> <a href="#">문의관리</a><a href="ManagerApproval.jsp">상품승인관리</a>
+<a href="ManagerMember.jsp">회원관리</a> <a href="ManagerProduct.jsp">상품관리</a> <a href="ManagerOrder.jsp">주문현황</a> <a
+			href="ManagerSales.jsp">매출현황</a> <a href="ManagerQABoard.jsp">문의관리</a> <a href="ManagerApproval.jsp">상품승인관리</a>
 	</div>
 	<div id='wrap'>
 

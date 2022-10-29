@@ -47,7 +47,7 @@ font-family: 'Lora', serif;
 <!-- 외부의 css파일 연결하기 -->
 <link rel="stylesheet" type="text/css" href="../layout/css/Reset.css">
 <link rel="stylesheet" type="text/css" href="../layout/css/Layout.css">
-<link rel="stylesheet" type="text/css" href="../css/manager/ManagerApproval.css">
+<link rel="stylesheet" type="text/css" href="../css/manager/ManagerOrder.css">
 
 <style type="text/css">
 .sidebar {
@@ -94,49 +94,51 @@ font-family: 'Lora', serif;
 	}
 	.sidebar a {
 		font-size: 18px;
-	}
+	}	
 }
+
+
 </style>
+
 <script type="text/javascript" src="../js/jquery-3.6.1.min.js"></script>
 <script type="text/javascript">
 
-
 $(function(){
-
-	function approvalList(){
-		
+	
+	function orderList(){
 		$.ajax({
 			url :"../ajax" , //서버요청주소
 			type:"post", //요청방식(method방식 : get | post | put | delete )
 			dataType:"json"  , //서버가 보내온 데이터(응답)타입(text | html | xml | json )
-			data: {key:"sellAjax" , methodName : "selectSellAll"},	
+			data: {key:"orderAjax" , methodName : "selectOrder" },	
 			success :function(result){
 				let str="";
 				$.each(result, function(index, item){
-					str+=`<tr>`;
-					str+=`<td>${"${item.sellNo}"}</th>`;
-					str+=`<td>${"${item.userId}"}</th>`;
-					str+=`<td>${"${item.brand}"}</th>`;
-					str+=`<td>${"${item.goodsName}"}</th>`;
-					str+=`<td>${"${item.sellPrice}"}</th>`;
-					str+=`<td>${"${item.purdate}"}</th>`;
-					str+=`<td>${"${item.serialNumber}"}</th>`;
-					str+=`<td>${"${item.sellDate}"}</th>`;
-					str+=`<td>
-					 <select name="sellStatus">
-				    	<option value=${"${item.sellStatus}"} selected>${"${item.sellStatus}"}</option>
-				    	<option value="판매중">판매승인</option>
-						
-// 				    ${"${item.sellStatus}"}
+				    str+="<tr>";
+				    str+=`<td>${"${(item.orderNo)}"}</td>`;
+				    str+=`<td>${"${item.orderPrice.toLocaleString()}"}</td>`;
+				    str+=`<td>${"${item.orderDate}"}</a></td>`;
+				    str+=`<td>
+				    <select name="orderStatus">
+				    	<option value=${"${item.orderStatus}"} selected>${"${item.orderStatus}"}</option>
+				    	<option value="검수대기">검수대기</option>
+						<option value="검수중">검수중</option>
+						<option value="배송시작">배송시작</option>
+						<option value="배송완료">배송완료</option>
+						<option value="주문취소">주문취소</option>
+				    ${"${item.orderStatus}"}
 				    </select>
 				    </td>`;
-					
-					str+=`</tr>`;
-				})
+				   
+				    
+				    str+=`<td>${"${item.buyerId}"}</td>`;
+				    str+=`<td>${"${item.sellerId}"}</td>`;
+				    str+="</tr>";
+				   
+			  });
 				
-				$("#sellTable tr:gt(0)").remove();
-				$("#sellTable tr:eq(0)").after(str);
-				
+				$("#myTable tr:gt(0)").remove();
+				$("#myTable tr:eq(0)").after(str);
 				
 			} , //성공했을때 실행할 함수 
 			error : function(err){  
@@ -145,25 +147,27 @@ $(function(){
 		});//ajax끝
 		
 		
+		
+		
 	}
 	
-	$(document).on("change", "select[name=sellStatus]", function(){
+	$(document).on("change","select[name=orderStatus]" , function(){
 		let result1;
- 		result1 = confirm("판매신청을 승인하시겠습니까 ?");
+ 		result1 = confirm("배송상태를 변경하시겠습니까?");
  		if(result1 == true){
+ 			console.log(result1);
 			  $.ajax({
 				 
 		   			url :"../ajax" , //서버요청주소
 		   			type:"post", //요청방식(method방식 : get | post | put | delete )
 		   			dataType:"text"  , //서버가 보내온 데이터(응답)타입(text | html | xml | json )
-		   			data: {key:"sellAjax" , methodName : "updateSellStatus" ,sellNo : $(this).parent().prev().prev().prev().prev().prev().prev().prev().prev().text(), sellStatus : $(this).val() }, //서버에게 보낼 데이터정보(parameter정보)
+		   			data: {key:"orderAjax" , methodName : "updateOrderByUserID" ,orderNo : $(this).parent().prev().prev().prev().text(), orderStatus : $(this).val() }, //서버에게 보낼 데이터정보(parameter정보)
 		   			success :function(result){
-		   				
 		   				if(result==0){
 		   					alert("변경되지 않았습니다.");
 		   				}else{
 		   					alert("변경되었습니다.");
-		   					approvalList()
+		   					orderList();
 		   				}
 		   				
 		   			} , //성공했을때 실행할 함수 
@@ -172,33 +176,23 @@ $(function(){
 		   			}  //실팽했을때 실행할 함수 
 		   		});//ajax끝
  		}
-		
-		
-		
-	})
+ 		
+	   });
 	
 	
-	approvalList();
+	
+	orderList();
+	
+	
 })
-
-
-
-
-
-
 
 </script>
 </head>
 <body>
 	<div id="mySidebar" class="sidebar">
 		<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-<<<<<<< HEAD
-		<a href="../Manager02/Manager_Member.jsp">회원관리</a> <a href="#">상품관리</a> <a href="../Manager02/Manager_Order.jsp">주문현황</a> <a
-			href="../Manager02/Manager_Sales.jsp">매출현황</a> <a href="ManagerQABoard.jsp">문의관리</a> <a href="#">상품승인관리</a>
-=======
-		<a href="ManagerMember.jsp">회원관리</a> <a href="ManagerProduct.jsp">상품관리</a> <a href="ManagerOrder.jsp">주문현황</a> <a
+<a href="ManagerMember.jsp">회원관리</a> <a href="ManagerProduct.jsp">상품관리</a> <a href="ManagerOrder.jsp">주문현황</a> <a
 			href="ManagerSales.jsp">매출현황</a> <a href="ManagerQABoard.jsp">문의관리</a> <a href="ManagerApproval.jsp">상품승인관리</a>
->>>>>>> jihyeon
 	</div>
 	<div id='wrap'>
 
@@ -209,82 +203,33 @@ $(function(){
 
 		<div id='contents'>
 			<div class="container">
-				<div id='con'>
-				<div>
-					<h3>상품승인관리</h3>
-				</div>
-				<div id='sell'>
-					<table class="fixed_headers" id = "sellTable">
-						<thead>
-							<tr>
-								<th>신청번호</th>
-								<th>회원ID</th>
-								<th>브랜드</th>
-								<th>상품명</th>
-								<th>구매일자</th>
-								<th>시리얼넘버</th>
-								<th>판매일자</th>
-								<th>승인여부</th>
-							</tr>
-						</thead>
-						<tbody>
-<!-- 							<tr> -->
-<!-- 								<td>[상품판매신청]</td>고정 -->
-<!-- 								<td>회원ID1</td> -->
-<!-- 								<td>셀린느</td> -->
-<!-- 								<td>셀린느가방</td> -->
-<!-- 								<td>신청일자</td> -->
-<!-- 								<td>									 -->
-<!-- 								<select> -->
-<!-- 									<option value="0">선택</option> -->
-<!-- 									<option value="1">승인</option> -->
-<!-- 									<option value="2">대기</option> -->
-<!-- 									<option value="3">승인거부</option> -->
-<!-- 								</select>									 -->
-<!-- 								</td> -->
-<!-- 							</tr> -->
-<!-- 							<tr> -->
-<!-- 								<td>[상품판매신청]</td>고정 -->
-<!-- 								<td>회원ID2</td> -->
-<!-- 								<td>구찌</td> -->
-<!-- 								<td>구찌가방</td> -->
-<!-- 								<td>신청일자</td> -->
-<!-- 								<td> -->
-<!-- 								<select> -->
-<!-- 									<option value="0">선택</option> -->
-<!-- 									<option value="1">승인</option> -->
-<!-- 									<option value="2">대기</option> -->
-<!-- 									<option value="3">승인거부</option> -->
-<!-- 								</select>	 -->
-<!-- 								</td> -->
-<!-- 							</tr> -->
-<!-- 							<tr> -->
-<!-- 								<td>[상품판매신청]</td>고정 -->
-<!-- 								<td>회원ID3</td> -->
-<!-- 								<td>입생로랑</td> -->
-<!-- 								<td>입생로랑가방</td> -->
-<!-- 								<td>신청일자</td> -->
-<!-- 								<td> -->
-<!-- 								<select> -->
-<!-- 									<option value="0">선택</option> -->
-<!-- 									<option value="1">승인</option> -->
-<!-- 									<option value="2">대기</option> -->
-<!-- 									<option value="3">승인거부</option> -->
-<!-- 								</select>	 -->
-<!-- 								</td> -->
-<!-- 							</tr> -->
-							
-						</tbody>
-					</table>
+				<div id='info-container'>
+					<h4>주문관리페이지</h4>
+					<div>
+						<table id="myTable">
+						  <tr class="header">
+						    <th style="width:10%;">번호</th>
+						    <th style="width:20%;">주문가격</th>
+						    <th style="width:20%;">주문날짜</th>
+						    <th style="width:15%;">배송상태</th>
+						    <th style="width:15%;">구매자ID</th>
+						    <th style="width:15%;">판매자ID</th>
+						  </tr>
+						  
+				 		</table>
+						<div id ='page-btn'>
+						<a href="#" class="previous">&laquo; 이전</a>
+						<a href="#" class="next">다음 &raquo;</a>
+						</div>
 					</div>
+					
 				</div>
 			</div>
-			<!-- container -->
 		</div>
 		<!-- contents -->
 		<div class="clear"></div>
 
-		<jsp:include page="${pageContext.request.contextPath}/layout/footer.jsp" />
+		<jsp:include page="../layout/footer.jsp" />
 
 	</div>
 	<!-- 스크립트 -->
