@@ -137,15 +137,15 @@ public class UserDAOImpl implements UserDAO {
 		Connection con = null;
 		PreparedStatement ps = null;
 		int result = 0;
-		String sql = "update users set user_pwd=?, user_addr =?, user_phone=?, user_email =? where user_id=?";
+		String sql = "update users set user_pwd=?, user_addr =?, user_phone=?, user_e_mail =? where user_id=?";
 		try {
 			con = DbUtil.getConnection();
 			ps = con.prepareStatement(sql);
-			ps.setString(1, userPwd);
-			ps.setString(2, userAddr);
-			ps.setString(3, userPhone);
-			ps.setString(4, userEmail);
-
+			ps.setString(1, userId);
+			ps.setString(2, userPwd);
+			ps.setString(3, userAddr);
+			ps.setString(4, userPhone);
+			ps.setString(5, userEmail);
 			result = ps.executeUpdate();
 
 		} finally {

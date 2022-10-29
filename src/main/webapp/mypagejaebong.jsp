@@ -193,9 +193,9 @@ font-family: 'Lora', serif;
 							</div>
 							<div class="form-group">
 								<fieldset>
-									<label class="form-label mt-4" for="readOnlyInput">비밀번호</label>
-									<input class="form-control" id="userPwd" type="text"
-										placeholder="Readonly input here..." readonly="readonly">
+									<label class="form-label mt-4" for="readOnlyInput">이름</label> <input
+										class="form-control" id="userName" type="text"
+										placeholder="Readonly input here..." readonly="readonly" />
 								</fieldset>
 							</div>
 						</div>
@@ -205,9 +205,9 @@ font-family: 'Lora', serif;
 								<h4 id='grop_title'>개인정보</h4>
 								<div class="form-group">
 									<fieldset>
-										<label class="form-label mt-4" for="readOnlyInput">이름</label>
-										<input class="form-control" id="userName" type="text"
-											placeholder="Readonly input here..." readonly="readonly" />
+										<label class="form-label mt-4" for="readOnlyInput">비밀번호</label>
+										<input class="form-control" id="userPwd" type="text"
+											placeholder="Readonly input here..." readonly="readonly">
 									</fieldset>
 								</div>
 								<div class="form-group">
@@ -216,363 +216,360 @@ font-family: 'Lora', serif;
 										<input class="form-control" id="userPhone" type="text"
 											placeholder="Readonly input here..." readonly="readonly" />
 									</fieldset>
+								</div>
+								<fieldset>
 									<div class="form-group">
-										<fieldset>
-											<label class="form-label mt-4" for="readOnlyInput">주소</label>
-											<input class="form-control" id="userAddr" type="text"
-												placeholder="Readonly input here..." readonly="readonly" />
-										</fieldset>
+										<input class="form-control"
+											style="width: 40%; display: inline;" placeholder="우편번호" na
+											me="mem_oaddress" id="mem_oaddress" type="text"
+											readonly="readonly">
+										<button type="button" class="btn btn-default"
+											onclick="execPostCode();">
+											<i class="fa fa-search"></i> 우편번호 찾기
+										</button>
 									</div>
-									<fieldset>
-										<div class="form-group">
-											<input class="form-control"
-												style="width: 40%; display: inline;" placeholder="우편번호" na
-												me="mem_oaddress" id="mem_oaddress" type="text"
-												readonly="readonly">
-											<button type="button" class="btn btn-default"
-												onclick="execPostCode();">
-												<i class="fa fa-search"></i> 우편번호 찾기
-											</button>
-										</div>
-									</fieldset>
-									<fieldset>
-										<div class="form-group">
-											<input class="form-control" style="top: 5px;"
-												placeholder="도로명 주소" name="mem_address" id="mem_address"
-												type="text" readonly="readonly" />
-										</div>
-									</fieldset>
-								</div>
-								<div class="form-group">
-									<fieldset>
-										<label class="form-label mt-4" for="readOnlyInput">이메일</label>
-										<input class="form-control" id="userEmail" type="text"
-											placeholder="Readonly input here..." readonly="readonly" />
-									</fieldset>
-								</div>
-								<input type="hidden" name="key" value="customer"> <input
-									type="hidden" name="methodName" value="updateUserInfo">
-								<input type="button" value="수정하기" id="userUpdate">
-							</form>
+								</fieldset>
+								<fieldset>
+									<div class="form-group">
+										<input class="form-control" style="top: 5px;"
+											placeholder="도로명 주소" name="mem_address" id="mem_address"
+											type="text" readonly="readonly" />
+									</div>
+								</fieldset>
 						</div>
+						<div class="form-group">
+							<fieldset>
+								<label class="form-label mt-4" for="readOnlyInput">주소</label> <input
+									class="form-control" id="userAddr" type="text"
+									placeholder="Readonly input here..." readonly="readonly" />
+							</fieldset>
+						</div>
+						<div class="form-group">
+							<fieldset>
+								<label class="form-label mt-4" for="readOnlyInput">이메일</label> <input
+									class="form-control" id="userEmail" type="text"
+									placeholder="Readonly input here..." readonly="readonly" />
+							</fieldset>
+						</div>
+						<input type="hidden" name="methodName" value="updateUserInfo">
+						<input type="button" value="수정하기" id="userUpdate">
+						</form>
 					</div>
 				</div>
-
-				<div id="profile-alarm" class="tabcontent">
-					<h3>알람</h3>
-					<p>Paris is the capital of France.</p>
-				</div>
-
-				<div id="shopping-buy" class="tabcontent">
-					<h3>구매</h3>
-					<ul class="nav nav-tabs" role="tablist">
-						<li class="nav-item" role="presentation"><a class="nav-link"
-							data-bs-toggle="tab" href="#home" aria-selected="false"
-							role="tab" tabindex="-1">구매내역</a></li>
-						<li class="nav-item" role="presentation"><a
-							class="nav-link active" data-bs-toggle="tab" href="#profile"
-							aria-selected="true" role="tab">입찰중</a></li>
-
-
-					</ul>
-					<div id="myTabContent" class="tab-content">
-						<div class="tab-pane fade" id="home" role="tabpanel">
-							<h3>구매내역</h3>
-							<table>
-								<tr>
-									<th>상품명</th>
-									<th>브랜드명</th>
-									<th>진행상태</th>
-									<th>거래가</th>
-									<th>거래일자</th>
-								</tr>
-							</table>
-						</div>
-						<div class="tab-pane fade active show" id="profile"
-							role="tabpanel">
-							<h3>입찰중</h3>
-							<table>
-								<tr>
-									<th>상품명</th>
-									<th>브랜드명</th>
-									<th>입찰가</th>
-									<th>거래일자</th>
-								</tr>
-							</table>
-						</div>
-
-					</div>
-				</div>
-
-				<div id="shopping-sell" class="tabcontent">
-					<h3>판매</h3>
-					<ul class="nav nav-tabs" role="tablist">
-						<li class="nav-item" role="presentation"><a class="nav-link"
-							data-bs-toggle="tab" href="#home" aria-selected="false"
-							role="tab" tabindex="-1">Home</a></li>
-						<li class="nav-item" role="presentation"><a
-							class="nav-link active" data-bs-toggle="tab" href="#profile"
-							aria-selected="true" role="tab">Profile00</a></li>
-						<li class="nav-item" role="presentation"><a
-							class="nav-link active" data-bs-toggle="tab" href="#profile"
-							aria-selected="true" role="tab">Profile99</a></li>
-					</ul>
-					<div id="myTabContent" class="tab-content">
-						<div class="tab-pane fade active show" id="home" role="tabpanel">
-							<p>1Raw denim you probably haven't heard of them jean shorts
-								Austin. Nesciunt tofu stumptown aliqua, retro synth master
-								cleanse. Mustache cliche tempor, williamsburg carles vegan
-								helvetica. Reprehenderit butcher retro keffiyeh dreamcatcher
-								synth. Cosby sweater eu banh mi, qui irure terry richardson ex
-								squid. Aliquip placeat salvia cillum iphone. Seitan aliquip quis
-								cardigan american apparel, butcher voluptate nisi qui.</p>
-						</div>
-						<div class="tab-pane fade active show" id="profile"
-							role="tabpanel">
-							<p>2Food truck fixie locavore, accusamus mcsweeney's marfa
-								nulla single-origin coffee squid. Exercitation +1 labore velit,
-								blog sartorial PBR leggings next level wes anderson artisan four
-								loko farm-to-table craft beer twee. Qui photo booth letterpress,
-								commodo enim craft beer mlkshk aliquip jean shorts ullamco ad
-								vinyl cillum PBR. Homo nostrud organic, assumenda labore
-								aesthetic magna delectus mollit.</p>
-						</div>
-						<div class="tab-pane fade active show" id="profile"
-							role="tabpanel">
-							<p>3Food truck fixie locavore, accusamus mcsweeney's marfa
-								nulla single-origin coffee squid. Exercitation +1 labore velit,
-								blog sartorial PBR leggings next level wes anderson artisan four
-								loko farm-to-table craft beer twee. Qui photo booth letterpress,
-								commodo enim craft beer mlkshk aliquip jean shorts ullamco ad
-								vinyl cillum PBR. Homo nostrud organic, assumenda labore
-								aesthetic magna delectus mollit.</p>
-						</div>
-					</div>
-				</div>
-
-				<div id="shopping-wishList" class="tabcontent">
-					<h3>관심상품</h3>
-					<section id='product'>
-						<div class="productBEST_container">
-							<div class="bestItem item1">
-								<div class="item_img_block">
-									<div class="item_img">
-										<img alt="상품이미지입니다." src="" id='product'>
-									</div>
-									<div id='like'>
-										<img src="img/heart.svg" id='like_img'>
-									</div>
-								</div>
-								<div id='item_text'>
-									<div class="item_brand">
-										<a href="#" id="brand_text">브랜드</a>
-									</div>
-									<p id="name">상품이름</p>
-									<div class="price">
-										<p id="num">000,000원</p>
-										<p id="p">즉시구매가</p>
-									</div>
-								</div>
-							</div>
-							<div class="bestItem item1">
-								<div class="item_img_block">
-									<div class="item_img">
-										<img alt="상품이미지입니다." src="" id='product'>
-									</div>
-									<div id='like'>
-										<img src="img/heart.svg" id='like_img'>
-									</div>
-								</div>
-								<div id='item_text'>
-									<div class="item_brand">
-										<a href="#" id="brand_text">브랜드</a>
-									</div>
-									<p id="name">상품이름</p>
-									<div class="price">
-										<p id="num">000,000원</p>
-										<p id="p">즉시구매가</p>
-									</div>
-								</div>
-							</div>
-							<div class="bestItem item1">
-								<div class="item_img_block">
-									<div class="item_img">
-										<img alt="상품이미지입니다." src="" id='product'>
-									</div>
-									<div id='like'>
-										<img src="img/heart.svg" id='like_img'>
-									</div>
-								</div>
-								<div id='item_text'>
-									<div class="item_brand">
-										<a href="#" id="brand_text">브랜드</a>
-									</div>
-									<p id="name">상품이름</p>
-									<div class="price">
-										<p id="num">000,000원</p>
-										<p id="p">즉시구매가</p>
-									</div>
-								</div>
-							</div>
-						</div>
-
-						<div class="productBEST_container">
-							<div class="bestItem item1">
-								<div class="item_img_block">
-									<div class="item_img">
-										<img alt="상품이미지입니다." src="" id='product'>
-									</div>
-									<div id='like'>
-										<img src="img/heart.svg" id='like_img'>
-									</div>
-								</div>
-								<div id='item_text'>
-									<div class="item_brand">
-										<a href="#" id="brand_text">브랜드</a>
-									</div>
-									<p id="name">상품이름</p>
-									<div class="price">
-										<p id="num">000,000원</p>
-										<p id="p">즉시구매가</p>
-									</div>
-								</div>
-							</div>
-							<div class="bestItem item1">
-								<div class="item_img_block">
-									<div class="item_img">
-										<img alt="상품이미지입니다." src="" id='product'>
-									</div>
-									<div id='like'>
-										<img src="img/heart.svg" id='like_img'>
-									</div>
-								</div>
-								<div id='item_text'>
-									<div class="item_brand">
-										<a href="#" id="brand_text">브랜드</a>
-									</div>
-									<p id="name">상품이름</p>
-									<div class="price">
-										<p id="num">000,000원</p>
-										<p id="p">즉시구매가</p>
-									</div>
-								</div>
-							</div>
-							<div class="bestItem item1">
-								<div class="item_img_block">
-									<div class="item_img">
-										<img alt="상품이미지입니다." src="" id='product'>
-									</div>
-									<div id='like'>
-										<img src="img/heart.svg" id='like_img'>
-									</div>
-								</div>
-								<div id='item_text'>
-									<div class="item_brand">
-										<a href="#" id="brand_text">브랜드</a>
-									</div>
-									<p id="name">상품이름</p>
-									<div class="price">
-										<p id="num">000,000원</p>
-										<p id="p">즉시구매가</p>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div class="productBEST_container">
-							<div class="bestItem item1">
-								<div class="item_img_block">
-									<div class="item_img">
-										<img alt="상품이미지입니다." src="" id='product'>
-									</div>
-									<div id='like'>
-										<img src="img/heart.svg" id='like_img'>
-									</div>
-								</div>
-								<div id='item_text'>
-									<div class="item_brand">
-										<a href="#" id="brand_text">브랜드</a>
-									</div>
-									<p id="name">상품이름</p>
-									<div class="price">
-										<p id="num">000,000원</p>
-										<p id="p">즉시구매가</p>
-									</div>
-								</div>
-							</div>
-							<div class="bestItem item1">
-								<div class="item_img_block">
-									<div class="item_img">
-										<img alt="상품이미지입니다." src="" id='product'>
-									</div>
-									<div id='like'>
-										<img src="img/heart.svg" id='like_img'>
-									</div>
-								</div>
-								<div id='item_text'>
-									<div class="item_brand">
-										<a href="#" id="brand_text">브랜드</a>
-									</div>
-									<p id="name">상품이름</p>
-									<div class="price">
-										<p id="num">000,000원</p>
-										<p id="p">즉시구매가</p>
-									</div>
-								</div>
-							</div>
-							<div class="bestItem item1">
-								<div class="item_img_block">
-									<div class="item_img">
-										<img alt="상품이미지입니다." src="" id='product'>
-									</div>
-									<div id='like'>
-										<img src="img/heart.svg" id='like_img'>
-									</div>
-								</div>
-								<div id='item_text'>
-									<div class="item_brand">
-										<a href="#" id="brand_text">브랜드</a>
-									</div>
-									<p id="name">상품이름</p>
-									<div class="price">
-										<p id="num">000,000원</p>
-										<p id="p">즉시구매가</p>
-									</div>
-								</div>
-							</div>
-						</div>
-
-
-
-						<nav aria-label="Page navigation example" id="pagenav">
-							<ul class="pagination">
-								<li class="page-item"><a class="page-link" href="#"
-									aria-label="Previous" style="color: #222"> <span
-										aria-hidden="true">&laquo;</span>
-								</a></li>
-								<li class="page-item"><a class="page-link" href="#"
-									style="color: #222">1</a></li>
-								<li class="page-item"><a class="page-link" href="#"
-									style="color: #222">2</a></li>
-								<li class="page-item"><a class="page-link" href="#"
-									style="color: #222">3</a></li>
-								<li class="page-item"><a class="page-link" href="#"
-									aria-label="Next" style="color: #222"> <span
-										aria-hidden="true">&raquo;</span>
-								</a></li>
-							</ul>
-						</nav>
-					</section>
-				</div>
-
 			</div>
-			<!-- container -->
-		</div>
-		<!-- contents -->
+
+			<div id="profile-alarm" class="tabcontent">
+				<h3>알람</h3>
+				<p>Paris is the capital of France.</p>
+			</div>
+
+			<div id="shopping-buy" class="tabcontent">
+				<h3>구매</h3>
+				<ul class="nav nav-tabs" role="tablist">
+					<li class="nav-item" role="presentation"><a class="nav-link"
+						data-bs-toggle="tab" href="#home" aria-selected="false" role="tab"
+						tabindex="-1">구매내역</a></li>
+					<li class="nav-item" role="presentation"><a
+						class="nav-link active" data-bs-toggle="tab" href="#profile"
+						aria-selected="true" role="tab">입찰중</a></li>
 
 
-		<div id='footer'>
-			<div class="container"></div>
+				</ul>
+				<div id="myTabContent" class="tab-content">
+					<div class="tab-pane fade" id="home" role="tabpanel">
+						<h3>구매내역</h3>
+						<table>
+							<tr>
+								<th>상품명</th>
+								<th>브랜드명</th>
+								<th>진행상태</th>
+								<th>거래가</th>
+								<th>거래일자</th>
+							</tr>
+						</table>
+					</div>
+					<div class="tab-pane fade active show" id="profile" role="tabpanel">
+						<h3>입찰중</h3>
+						<table>
+							<tr>
+								<th>상품명</th>
+								<th>브랜드명</th>
+								<th>입찰가</th>
+								<th>거래일자</th>
+							</tr>
+						</table>
+					</div>
+
+				</div>
+			</div>
+
+			<div id="shopping-sell" class="tabcontent">
+				<h3>판매</h3>
+				<ul class="nav nav-tabs" role="tablist">
+					<li class="nav-item" role="presentation"><a class="nav-link"
+						data-bs-toggle="tab" href="#home" aria-selected="false" role="tab"
+						tabindex="-1">Home</a></li>
+					<li class="nav-item" role="presentation"><a
+						class="nav-link active" data-bs-toggle="tab" href="#profile"
+						aria-selected="true" role="tab">Profile00</a></li>
+					<li class="nav-item" role="presentation"><a
+						class="nav-link active" data-bs-toggle="tab" href="#profile"
+						aria-selected="true" role="tab">Profile99</a></li>
+				</ul>
+				<div id="myTabContent" class="tab-content">
+					<div class="tab-pane fade active show" id="home" role="tabpanel">
+						<p>1Raw denim you probably haven't heard of them jean shorts
+							Austin. Nesciunt tofu stumptown aliqua, retro synth master
+							cleanse. Mustache cliche tempor, williamsburg carles vegan
+							helvetica. Reprehenderit butcher retro keffiyeh dreamcatcher
+							synth. Cosby sweater eu banh mi, qui irure terry richardson ex
+							squid. Aliquip placeat salvia cillum iphone. Seitan aliquip quis
+							cardigan american apparel, butcher voluptate nisi qui.</p>
+					</div>
+					<div class="tab-pane fade active show" id="profile" role="tabpanel">
+						<p>2Food truck fixie locavore, accusamus mcsweeney's marfa
+							nulla single-origin coffee squid. Exercitation +1 labore velit,
+							blog sartorial PBR leggings next level wes anderson artisan four
+							loko farm-to-table craft beer twee. Qui photo booth letterpress,
+							commodo enim craft beer mlkshk aliquip jean shorts ullamco ad
+							vinyl cillum PBR. Homo nostrud organic, assumenda labore
+							aesthetic magna delectus mollit.</p>
+					</div>
+					<div class="tab-pane fade active show" id="profile" role="tabpanel">
+						<p>3Food truck fixie locavore, accusamus mcsweeney's marfa
+							nulla single-origin coffee squid. Exercitation +1 labore velit,
+							blog sartorial PBR leggings next level wes anderson artisan four
+							loko farm-to-table craft beer twee. Qui photo booth letterpress,
+							commodo enim craft beer mlkshk aliquip jean shorts ullamco ad
+							vinyl cillum PBR. Homo nostrud organic, assumenda labore
+							aesthetic magna delectus mollit.</p>
+					</div>
+				</div>
+			</div>
+
+			<div id="shopping-wishList" class="tabcontent">
+				<h3>관심상품</h3>
+				<section id='product'>
+					<div class="productBEST_container">
+						<div class="bestItem item1">
+							<div class="item_img_block">
+								<div class="item_img">
+									<img alt="상품이미지입니다." src="" id='product'>
+								</div>
+								<div id='like'>
+									<img src="img/heart.svg" id='like_img'>
+								</div>
+							</div>
+							<div id='item_text'>
+								<div class="item_brand">
+									<a href="#" id="brand_text">브랜드</a>
+								</div>
+								<p id="name">상품이름</p>
+								<div class="price">
+									<p id="num">000,000원</p>
+									<p id="p">즉시구매가</p>
+								</div>
+							</div>
+						</div>
+						<div class="bestItem item1">
+							<div class="item_img_block">
+								<div class="item_img">
+									<img alt="상품이미지입니다." src="" id='product'>
+								</div>
+								<div id='like'>
+									<img src="img/heart.svg" id='like_img'>
+								</div>
+							</div>
+							<div id='item_text'>
+								<div class="item_brand">
+									<a href="#" id="brand_text">브랜드</a>
+								</div>
+								<p id="name">상품이름</p>
+								<div class="price">
+									<p id="num">000,000원</p>
+									<p id="p">즉시구매가</p>
+								</div>
+							</div>
+						</div>
+						<div class="bestItem item1">
+							<div class="item_img_block">
+								<div class="item_img">
+									<img alt="상품이미지입니다." src="" id='product'>
+								</div>
+								<div id='like'>
+									<img src="img/heart.svg" id='like_img'>
+								</div>
+							</div>
+							<div id='item_text'>
+								<div class="item_brand">
+									<a href="#" id="brand_text">브랜드</a>
+								</div>
+								<p id="name">상품이름</p>
+								<div class="price">
+									<p id="num">000,000원</p>
+									<p id="p">즉시구매가</p>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="productBEST_container">
+						<div class="bestItem item1">
+							<div class="item_img_block">
+								<div class="item_img">
+									<img alt="상품이미지입니다." src="" id='product'>
+								</div>
+								<div id='like'>
+									<img src="img/heart.svg" id='like_img'>
+								</div>
+							</div>
+							<div id='item_text'>
+								<div class="item_brand">
+									<a href="#" id="brand_text">브랜드</a>
+								</div>
+								<p id="name">상품이름</p>
+								<div class="price">
+									<p id="num">000,000원</p>
+									<p id="p">즉시구매가</p>
+								</div>
+							</div>
+						</div>
+						<div class="bestItem item1">
+							<div class="item_img_block">
+								<div class="item_img">
+									<img alt="상품이미지입니다." src="" id='product'>
+								</div>
+								<div id='like'>
+									<img src="img/heart.svg" id='like_img'>
+								</div>
+							</div>
+							<div id='item_text'>
+								<div class="item_brand">
+									<a href="#" id="brand_text">브랜드</a>
+								</div>
+								<p id="name">상품이름</p>
+								<div class="price">
+									<p id="num">000,000원</p>
+									<p id="p">즉시구매가</p>
+								</div>
+							</div>
+						</div>
+						<div class="bestItem item1">
+							<div class="item_img_block">
+								<div class="item_img">
+									<img alt="상품이미지입니다." src="" id='product'>
+								</div>
+								<div id='like'>
+									<img src="img/heart.svg" id='like_img'>
+								</div>
+							</div>
+							<div id='item_text'>
+								<div class="item_brand">
+									<a href="#" id="brand_text">브랜드</a>
+								</div>
+								<p id="name">상품이름</p>
+								<div class="price">
+									<p id="num">000,000원</p>
+									<p id="p">즉시구매가</p>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="productBEST_container">
+						<div class="bestItem item1">
+							<div class="item_img_block">
+								<div class="item_img">
+									<img alt="상품이미지입니다." src="" id='product'>
+								</div>
+								<div id='like'>
+									<img src="img/heart.svg" id='like_img'>
+								</div>
+							</div>
+							<div id='item_text'>
+								<div class="item_brand">
+									<a href="#" id="brand_text">브랜드</a>
+								</div>
+								<p id="name">상품이름</p>
+								<div class="price">
+									<p id="num">000,000원</p>
+									<p id="p">즉시구매가</p>
+								</div>
+							</div>
+						</div>
+						<div class="bestItem item1">
+							<div class="item_img_block">
+								<div class="item_img">
+									<img alt="상품이미지입니다." src="" id='product'>
+								</div>
+								<div id='like'>
+									<img src="img/heart.svg" id='like_img'>
+								</div>
+							</div>
+							<div id='item_text'>
+								<div class="item_brand">
+									<a href="#" id="brand_text">브랜드</a>
+								</div>
+								<p id="name">상품이름</p>
+								<div class="price">
+									<p id="num">000,000원</p>
+									<p id="p">즉시구매가</p>
+								</div>
+							</div>
+						</div>
+						<div class="bestItem item1">
+							<div class="item_img_block">
+								<div class="item_img">
+									<img alt="상품이미지입니다." src="" id='product'>
+								</div>
+								<div id='like'>
+									<img src="img/heart.svg" id='like_img'>
+								</div>
+							</div>
+							<div id='item_text'>
+								<div class="item_brand">
+									<a href="#" id="brand_text">브랜드</a>
+								</div>
+								<p id="name">상품이름</p>
+								<div class="price">
+									<p id="num">000,000원</p>
+									<p id="p">즉시구매가</p>
+								</div>
+							</div>
+						</div>
+					</div>
+
+
+
+					<nav aria-label="Page navigation example" id="pagenav">
+						<ul class="pagination">
+							<li class="page-item"><a class="page-link" href="#"
+								aria-label="Previous" style="color: #222"> <span
+									aria-hidden="true">&laquo;</span>
+							</a></li>
+							<li class="page-item"><a class="page-link" href="#"
+								style="color: #222">1</a></li>
+							<li class="page-item"><a class="page-link" href="#"
+								style="color: #222">2</a></li>
+							<li class="page-item"><a class="page-link" href="#"
+								style="color: #222">3</a></li>
+							<li class="page-item"><a class="page-link" href="#"
+								aria-label="Next" style="color: #222"> <span
+									aria-hidden="true">&raquo;</span>
+							</a></li>
+						</ul>
+					</nav>
+				</section>
+			</div>
+
 		</div>
+		<!-- container -->
+	</div>
+	<!-- contents -->
+
+
+	<div id='footer'>
+		<div class="container"></div>
+	</div>
 
 	</div>
 	<script>
@@ -606,15 +603,15 @@ font-family: 'Lora', serif;
 					success : function(userDto) {
 
 						let id = userDto.userId;
-						let pwd = userDto.userPwd;
 						let name = userDto.userName;
+						let pwd = userDto.userPwd;
 						let phone = userDto.userPhone;
 						let addr = userDto.userAddr;
 						let email = userDto.userEmail;
 
 						$("#userId").val(id);
-						$("#userPwd").val(pwd);
 						$("#userName").val(name);
+						$("#userPwd").val(pwd);
 						$("#userPhone").val(phone);
 						$("#userAddr").val(addr);
 						$("#userEmail").val(email);
@@ -629,41 +626,32 @@ font-family: 'Lora', serif;
 			$("#userUpdate").click(function() {
 
 				if ($(this).val() == "수정하기") {
-					$("[name=methodName]").val("selectUser");
+					$("[name=methodName]").val("updateUserInfo");
+					//readonly 속성 제거
 					$("#userPwd").removeAttr("readonly");
 					$("#userPwd").focus();
 					$("#userPhone").removeAttr("readonly");
 					$("#userAddr").removeAttr("readonly");
 					$("#userEmail").removeAttr("readonly");
 
-					$(this).val("수정완료")
-
+					//버튼 글씨 가입하기 변경
+					$("#userUpdate").val("수정완료");
 				}
 
+			}); //click 
+
+			$(document).on("click", "[value= 수정하기]", function() {
+
+				let pwd = $("#userPwd").val(text());
+				let phone = $("#userPhone").val(text());
+				let addr = $("#userAddr").val(text());
+				let email = $("#userEmail").val(text());
+
+				//버튼 글씨 가입하기 변경
+
+				$("#userUpdate").val("수정완료");
+
 			});
-
-			/*$(document).on("click", function updateUserInfo() {
-
-				$("userPwd").val();
-				$("userPhone").val();
-				$("userAddr").val();
-				$("userEmail").val();
-
-				$("#userUpdate").val("수정하기")
-
-				$.ajax({
-					url : "ajax", //서버요청주소
-					type : "post", //요청방식(method방식 : get | post | put | delete )
-					dataType : "text", //서버가 보내온 데이터(응답)타입(text | html | xml | json )
-					data : {
-						key : "userAjax",
-						methodName : "updateUserInfo",
-					},
-					error : function(err) {
-						alert(err + "에러 발생");
-					}
-				})// 아작스 
-			});//  끝*/
 
 			selectUser();
 		});//끝
