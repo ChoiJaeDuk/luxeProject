@@ -648,7 +648,7 @@ font-family: 'Lora', serif;
 			}
 			
 			function closeUpdateform() {
-				const insert = document.querySelector('#update-popㄴ');
+				const insert = document.querySelector('#update-pop');
 				insert.classList.add('hide');
 			}
 	

@@ -18,6 +18,15 @@ public interface StyleBookService {
 	List<StyleBookDTO> selectAllStyleBook(String brand, int goodsNo, String sortCondition) throws SQLException;
 
 	/**
+	 * 상품 번호에 해당하는 게시물 조회 - 좋아요 기준으로 최대 3개까지 조회
+	 * 
+	 * @param goodsNo
+	 * @return
+	 * @throws SQLException
+	 */
+	List<StyleBookDTO> selectStyleBookByGoodsNo(int goodsNo) throws SQLException;
+
+	/**
 	 * 스타일북 등록 번호를 통해 스타일북 상세 페이지 조회
 	 * 
 	 * @param 스타일북 등록 번호

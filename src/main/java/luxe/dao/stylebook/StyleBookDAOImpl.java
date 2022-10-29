@@ -40,6 +40,33 @@ public class StyleBookDAOImpl implements StyleBookDAO {
 	}
 
 	@Override
+	public List<StyleBookDTO> selectStyleBookByGoodsNo(int goodsNo) throws SQLException {
+		Connection con = null;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		String sql = "select rownum, s.* from (select * from stylebook where goods_no=? order by like_no desc) s where rownum<=3";
+		List<StyleBookDTO> list = new ArrayList<StyleBookDTO>();
+
+		try {
+			con = DbUtil.getConnection();
+			ps = con.prepareStatement(sql);
+			ps.setInt(1, goodsNo);
+			rs = ps.executeQuery();
+
+			System.out.println(sql);
+			while (rs.next()) {
+				list.add(new StyleBookDTO(rs.getInt(2), rs.getString(3), rs.getInt(4), rs.getString(5), rs.getString(6),
+						rs.getString(7), rs.getInt(8), rs.getInt(9)));
+
+			}
+
+		} finally {
+			DbUtil.dbClose(con, ps, rs);
+		}
+		return list;
+	}
+
+	@Override
 	public StyleBookDTO selectStyleBookByBoardRegNo(int boardRegNo) throws SQLException {
 		Connection con = null;
 		PreparedStatement ps = null;
