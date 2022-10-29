@@ -201,7 +201,7 @@ public class StyleBookDAOImpl implements StyleBookDAO {
 			con = DbUtil.getConnection();
 			ps = con.prepareStatement(sql);
 			ps.setString(1, styleBook.getBoardContent());
-			ps.setInt(3, styleBook.getBoardRegNo());
+			ps.setInt(2, styleBook.getBoardRegNo());
 
 			result = ps.executeUpdate();
 

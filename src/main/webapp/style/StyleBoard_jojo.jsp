@@ -55,24 +55,48 @@ width: 300px; height: 300px;
 <script type="text/javascript" src="../js/jquery-3.6.1.min.js"></script>
 <script type="text/javascript">
 	//인수받기(test)
-	let chanel = ["징거버거", "타워버거", "불고기버거"];
-	let dior = ["라이스버거", "데리버거", "새우버거", "한우버거", "치즈버거"];
-	let prada = ["1997버거", "맥모닝", "빅맥", "베이컨버거", "치킨버거"];
 
 	function subMenu(th) {
 
-		let arr = new Function("return " + th.value)();
+		//let arr = new Function("return " + th.value)();
+		let arr = [];
 		let product = document.f.menu;
 
-		//옵션제거
-		while (product.length > 1) {
-			product.options[1] = null;
+		if(th.value == 0){
+			while (product.length > 1) {
+				product.options[1] = null;
+			}
+			return;
 		}
+			
+		
+		$.ajax({
+			url :"../ajax" , //서버요청주소
+			type:"post", //요청방식(method방식 : get | post | put | delete )
+			dataType:"json"  , //서버가 보내온 데이터(응답)타입(text | html | xml | json )
+			data: {key:"goodsAjax" , methodName : "selectAllGoods", brand:th.value}, //서버에게 보낼 데이터정보(parameter정보)
+			success :function(goodsList){
+				$.each(goodsList, function(i, goods) {
+					arr[i] = goods.goodsName;
+				});
+				console.log(arr);
+				
+				//옵션제거
+				while (product.length > 1) {
+					product.options[1] = null;
+				}
 
-		//옵션추가
-		for (let i = 0; i < arr.length; i++) {
-			product.options[product.length] = new Option(arr[i], arr[i])
-		}
+				//옵션추가
+				for (let i = 0; i < arr.length; i++) {
+					product.options[product.length] = new Option(arr[i], arr[i])
+				}
+				
+			} , //성공했을때 실행할 함수 
+			error : function(err){  
+				alert(err+"에러 발생했어요.");
+			}  //실팽했을때 실행할 함수 
+		});
+
 	}
 </script>
 <script type="text/javascript">
@@ -141,9 +165,9 @@ width: 300px; height: 300px;
 						<form name="f" id='getProductCode'>
 							<select name="brandSelect" id='brandSelect' onchange="subMenu(this)">
 								<option value="0">BRAND</option>
-								<option value="chanel">CHANEL</option>
-								<option value="dior">DIOR</option>
-								<option value="prada">PRADA</option>
+								<option value="'샤넬'">CHANEL</option>
+								<option value="'디올'">DIOR</option>
+								<option value="'프라다'">PRADA</option>
 							</select> <select name="menu" id='changeProduct'>
 								<option value="0">PRODUCT-SELECT</option>
 							</select>
@@ -285,7 +309,7 @@ width: 300px; height: 300px;
 	
 <div id="update-pop" class="hide">
 	<div id='insert-contents'>
-		<form id='insert-form' name="updateForm" method="post" action="">
+		<form id='insert-form' name="updateForm" method="post" action="../front?key=styleBook&methodName=updateStyleBook">
 			<div id='productImg'>
 				<img src="../img/product01.webp" alt="상품이미지" />
 			</div>
@@ -297,14 +321,16 @@ width: 300px; height: 300px;
 						type="text" class="form-control" placeholder="상품이름"
 						id='changeInput' readonly="readonly" name="goodsName"> <span>상품코드</span><input
 						type="text" class="form-control" placeholder="상품코드"
-						readonly="readonly" name="productCode">
+						readonly="readonly" name="goodsNo">
+						<input type='hidden' value='' id='boardRegNoStr' name='boardRegNo'>
+						
 				</div>
 
 
 				<div id='insert-text'>
 					<div class="form-group">
 						<span>내용</span>
-						<textarea class="form-control" id="exampleTextarea" rows="8"></textarea>
+						<textarea class="form-control" id="exampleTextarea" rows="8" name="boardContent"></textarea>
 					</div>
 				</div>
 				<div id='insert-submt'>
@@ -358,6 +384,8 @@ width: 300px; height: 300px;
 				str2 += "<span>#"+styleBook.goodsName+"</span> ";
 				str2 += "<span>#"+styleBook.goodsNameKor+"</span>";
 				str2 += "<span id='boardRegNo' style='display:none'>"+styleBook.boardRegNo+"</span>";
+				str2 += "<span id='goodsNo' style='display:none'>"+styleBook.goodsNo+"</span>";
+				
 				
 				$("#popup-tag").html(str2);
 				
@@ -407,8 +435,18 @@ width: 300px; height: 300px;
 		  insert.classList.remove('hide');
 		} else 
 			return;
+		$("#update-pop img").attr("src", $("#popup-img > img").attr("src"));
+		let id = $("#popup-title-text > h4").text();
+		$("#update-pop input[name=userId]").val(id);
+		let goodsName = $("#popup-tag > span:nth-child(3)").text();
+		$("#update-pop input[name=goodsName]").val(goodsName);
+		let goodsNo = $("#goodsNo").text();
+		$("#update-pop input[name=goodsNo]").val(goodsNo);
+		let boardRegNo = $("#boardRegNo").text();
+		console.log(boardRegNo);
+		$("#boardRegNoStr").val(boardRegNo);
 		
-		}
+	}
 		
 		function closeUpdateform() {
 			const insert = document.querySelector('#update-pop');
