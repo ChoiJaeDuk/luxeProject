@@ -12,12 +12,17 @@ public class SellDTO {
 	private String serialNumber;
 	
 	
+	
 	private String goodsName;
 	private GoodsDTO goodsDTO;
+	private String brand;
 	
 	public SellDTO() {}
 
-	
+	public SellDTO(int sellNo, String sellStatus) {
+		this.sellNo = sellNo;
+		this.sellStatus = sellStatus;
+	}
 	
 	
 	public SellDTO(String userId, String serialNumber) {
@@ -75,10 +80,11 @@ public class SellDTO {
 	
 	
 
-	public SellDTO(int sellNo, String userId, String goodsName, int sellPrice, String purdate,String serialNumber, String sellDate ,String sellStatus) {
+	public SellDTO(int sellNo, String userId, String brand, String goodsName, int sellPrice, String purdate,String serialNumber, String sellDate ,String sellStatus) {
 		super();
 		this.sellNo = sellNo;
 		this.userId = userId;
+		this.brand = brand;
 		this.sellStatus = sellStatus;
 		this.sellPrice = sellPrice;
 		this.sellDate = sellDate;
@@ -192,6 +198,20 @@ public class SellDTO {
 
 	public void setSerialNumber(String serialNumber) {
 		this.serialNumber = serialNumber;
+	}
+
+
+
+
+	public String getBrand() {
+		return brand;
+	}
+
+
+
+
+	public void setBrand(String brand) {
+		this.brand = brand;
 	}
 	
 	
