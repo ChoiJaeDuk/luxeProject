@@ -47,7 +47,7 @@ font-family: 'Lora', serif;
 <!-- 외부의 css파일 연결하기 -->
 <link rel="stylesheet" type="text/css" href="../layout/css/Reset.css">
 <link rel="stylesheet" type="text/css" href="../layout/css/Layout.css">
-<link rel="stylesheet" type="text/css" href="../css/index.css">
+<link rel="stylesheet" type="text/css" href="../css/manager/ManagerQABoard.css">
 
 <style type="text/css">
 .sidebar {
@@ -102,7 +102,7 @@ font-family: 'Lora', serif;
 	<div id="mySidebar" class="sidebar">
 		<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
 		<a href="#">회원관리</a> <a href="#">상품관리</a> <a href="#">주문현황</a> <a
-			href="#">매출현황</a> <a href="#">문의관리</a>
+			href="#">매출현황</a> <a href="#">문의관리</a><a href="ManagerApproval.jsp">상품승인관리</a>
 	</div>
 	<div id='wrap'>
 
@@ -110,18 +110,258 @@ font-family: 'Lora', serif;
 
 		<div class="clear"></div>
 
-		<div id="banner">
-			<div class="banner_img">
-				<img alt="배너이미지입니다." src="">
-			</div>
-		</div>
-		<div class="clear"></div>
 
 
 		<div id='contents'>
 			<div class="container">
 				<div id='con'>
-					
+				<div>
+					<h3>상품문의게시판</h3>
+				</div>
+				<div id='sell'>
+					<table class="fixed_headers">
+						<thead>
+							<tr>
+								<th>  </th>
+								<th>회원ID</th>
+								<th>브랜드</th>
+								<th>상품명</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr>
+								<td>[상품등록문의]</td><!-- 고정 -->
+								<td>회원ID1</td>
+								<td>셀린느</td>
+								<td>셀린느가방</td>
+							</tr>
+							<tr>
+								<td>[상품등록문의]</td><!-- 고정 -->
+								<td>회원ID2</td>
+								<td>구찌</td>
+								<td>구찌가방</td>
+							</tr>
+							<tr>
+								<td>[상품등록문의]</td><!-- 고정 -->
+								<td>회원ID3</td>
+								<td>입생로랑</td>
+								<td>입생로랑가방</td>
+							</tr>
+							<tr>
+								<td>[상품등록문의]</td><!-- 고정 -->
+								<td>회원ID4</td>
+								<td>샤넬</td>
+								<td>샤넬가방</td>
+							</tr>
+							<tr>
+								<td>[상품등록문의]</td><!-- 고정 -->
+								<td>회원ID4</td>
+								<td>샤넬</td>
+								<td>샤넬가방</td>
+							</tr>
+							<tr>
+								<td>[상품등록문의]</td><!-- 고정 -->
+								<td>회원ID4</td>
+								<td>샤넬</td>
+								<td>샤넬가방</td>
+							</tr>
+							<tr>
+								<td>[상품등록문의]</td><!-- 고정 -->
+								<td>회원ID4</td>
+								<td>샤넬</td>
+								<td>샤넬가방</td>
+							</tr>
+							<tr>
+								<td>[상품등록문의]</td><!-- 고정 -->
+								<td>회원ID4</td>
+								<td>샤넬</td>
+								<td>샤넬가방</td>
+							</tr>
+							<tr>
+								<td>[상품등록문의]</td><!-- 고정 -->
+								<td>회원ID4</td>
+								<td>샤넬</td>
+								<td>샤넬가방</td>
+							</tr>
+							<tr>
+								<td>[상품등록문의]</td><!-- 고정 -->
+								<td>회원ID4</td>
+								<td>샤넬</td>
+								<td>샤넬가방</td>
+							</tr>
+							<tr>
+								<td>[상품등록문의]</td><!-- 고정 -->
+								<td>회원ID4</td>
+								<td>샤넬</td>
+								<td>샤넬가방</td>
+							</tr>
+							<tr>
+								<td>[상품등록문의]</td><!-- 고정 -->
+								<td>회원ID4</td>
+								<td>샤넬</td>
+								<td>샤넬가방</td>
+							</tr>
+							<tr>
+								<td>[상품등록문의]</td><!-- 고정 -->
+								<td>회원ID4</td>
+								<td>샤넬</td>
+								<td>샤넬가방</td>
+							</tr>
+							<tr>
+								<td>[상품등록문의]</td><!-- 고정 -->
+								<td>회원ID4</td>
+								<td>샤넬</td>
+								<td>샤넬가방</td>
+							</tr>
+							<tr>
+								<td>[상품등록문의]</td><!-- 고정 -->
+								<td>회원ID4</td>
+								<td>샤넬</td>
+								<td>샤넬가방</td>
+							</tr>
+							<tr>
+								<td>[상품등록문의]</td><!-- 고정 -->
+								<td>회원ID4</td>
+								<td>샤넬</td>
+								<td>샤넬가방</td>
+							</tr>
+							<tr>
+								<td>[상품등록문의]</td><!-- 고정 -->
+								<td>회원ID4</td>
+								<td>샤넬</td>
+								<td>샤넬가방</td>
+							</tr>
+							<tr>
+								<td>[상품등록문의]</td><!-- 고정 -->
+								<td>회원ID4</td>
+								<td>샤넬</td>
+								<td>샤넬가방</td>
+							</tr>
+							<tr>
+								<td>[상품등록문의]</td><!-- 고정 -->
+								<td>회원ID4</td>
+								<td>샤넬</td>
+								<td>샤넬가방</td>
+							</tr>
+							<tr>
+								<td>[상품등록문의]</td><!-- 고정 -->
+								<td>회원ID4</td>
+								<td>샤넬</td>
+								<td>샤넬가방</td>
+							</tr>
+							<tr>
+								<td>[상품등록문의]</td><!-- 고정 -->
+								<td>회원ID4</td>
+								<td>샤넬</td>
+								<td>샤넬가방</td>
+							</tr>
+							<tr>
+								<td>[상품등록문의]</td><!-- 고정 -->
+								<td>회원ID4</td>
+								<td>샤넬</td>
+								<td>샤넬가방</td>
+							</tr>
+							<tr>
+								<td>[상품등록문의]</td><!-- 고정 -->
+								<td>회원ID4</td>
+								<td>샤넬</td>
+								<td>샤넬가방</td>
+							</tr>
+							<tr>
+								<td>[상품등록문의]</td><!-- 고정 -->
+								<td>회원ID4</td>
+								<td>샤넬</td>
+								<td>샤넬가방</td>
+							</tr>
+							<tr>
+								<td>[상품등록문의]</td><!-- 고정 -->
+								<td>회원ID4</td>
+								<td>샤넬</td>
+								<td>샤넬가방</td>
+							</tr>
+							<tr>
+								<td>[상품등록문의]</td><!-- 고정 -->
+								<td>회원ID4</td>
+								<td>샤넬</td>
+								<td>샤넬가방</td>
+							</tr>
+							
+							<tr>
+								<td>[상품등록문의]</td><!-- 고정 -->
+								<td>회원ID4</td>
+								<td>샤넬</td>
+								<td>샤넬가방</td>
+							</tr>
+							<tr>
+								<td>[상품등록문의]</td><!-- 고정 -->
+								<td>회원ID4</td>
+								<td>샤넬</td>
+								<td>샤넬가방</td>
+							</tr>
+							<tr>
+								<td>[상품등록문의]</td><!-- 고정 -->
+								<td>회원ID4</td>
+								<td>샤넬</td>
+								<td>샤넬가방</td>
+							</tr>
+							<tr>
+								<td>[상품등록문의]</td><!-- 고정 -->
+								<td>회원ID4</td>
+								<td>샤넬</td>
+								<td>샤넬가방</td>
+							</tr>
+							<tr>
+								<td>[상품등록문의]</td><!-- 고정 -->
+								<td>회원ID4</td>
+								<td>샤넬</td>
+								<td>샤넬가방</td>
+							</tr>
+							<tr>
+								<td>[상품등록문의]</td><!-- 고정 -->
+								<td>회원ID4</td>
+								<td>샤넬</td>
+								<td>샤넬가방</td>
+							</tr>
+							<tr>
+								<td>[상품등록문의]</td><!-- 고정 -->
+								<td>회원ID4</td>
+								<td>샤넬</td>
+								<td>샤넬가방</td>
+							</tr>
+							<tr>
+								<td>[상품등록문의]</td><!-- 고정 -->
+								<td>회원ID4</td>
+								<td>샤넬</td>
+								<td>샤넬가방</td>
+							</tr>
+							<tr>
+								<td>[상품등록문의]</td><!-- 고정 -->
+								<td>회원ID4</td>
+								<td>샤넬</td>
+								<td>샤넬가방</td>
+							</tr>
+							<tr>
+								<td>[상품등록문의]</td><!-- 고정 -->
+								<td>회원ID4</td>
+								<td>샤넬</td>
+								<td>샤넬가방</td>
+							</tr>
+							<tr>
+								<td>[상품등록문의]</td><!-- 고정 -->
+								<td>회원ID4</td>
+								<td>샤넬</td>
+								<td>샤넬가방</td>
+							</tr>
+							<tr>
+								<td>[상품등록문의]</td><!-- 고정 -->
+								<td>회원ID4</td>
+								<td>샤넬</td>
+								<td>샤넬가방</td>
+							</tr>
+						
+						</tbody>
+					</table>
+					</div>
 				</div>
 			</div>
 			<!-- container -->
@@ -134,16 +374,16 @@ font-family: 'Lora', serif;
 	</div>
 	<!-- 스크립트 -->
 	<script>
-	function openNav() {
-	  document.getElementById("mySidebar").style.width = "250px";
-	  document.getElementById("wrap").style.marginLeft = "250px";
-	  document.getElementById("mySidebar").style.display = "block";
-	}
-	
-	function closeNav() {
-	  document.getElementById("mySidebar").style.width = "0px";
-	  document.getElementById("wrap").style.marginLeft= "0px";
-	  document.getElementById("mySidebar").style.display = "none";
-	}
+		function openNav() {
+			document.getElementById("mySidebar").style.width = "250px";
+			document.getElementById("wrap").style.marginLeft = "250px";
+			document.getElementById("mySidebar").style.display = "block";
+		}
+
+		function closeNav() {
+			document.getElementById("mySidebar").style.width = "0px";
+			document.getElementById("wrap").style.marginLeft = "0px";
+			document.getElementById("mySidebar").style.display = "none";
+		}
 	</script>
 </body>
