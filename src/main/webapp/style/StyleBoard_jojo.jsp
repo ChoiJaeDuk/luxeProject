@@ -211,10 +211,10 @@ width: 300px; height: 300px;
    					<div id='drop-btn'>
    					 <div class="select-tap">
 					    <div class="text">선택</div>
-					    <ul class="option-list">
+					    <ul class="option-list" style="visibility: hidden;">
 					      <li class="option">선택</li>
 					      <li class="option">삭제</li>
-					      <li class="option">수정</li>
+					      <li class="option" onclick="showUpdateform()">수정</li>
 					    </ul>
 					  </div>
    					</div>					
@@ -283,7 +283,38 @@ width: 300px; height: 300px;
 	</div>
 </div>
 	
-	
+<div id="update-pop" class="hide">
+	<div id='insert-contents'>
+		<form id='insert-form' name="writeForm" method="post" action="">
+			<div id='productImg'>
+				<img src="../img/product01.webp" alt="상품이미지" />
+			</div>
+
+			<div id='insert-con'>
+				<div id='insert-title-text'>
+					<span>이름</span><input type="text" class="form-control"
+						placeholder="이름" readonly="readonly"> <span>상품이름</span><input
+						type="text" class="form-control" placeholder="상품이름"
+						id='changeInput' readonly="readonly"> <span>상품코드</span><input
+						type="text" class="form-control" placeholder="상품코드"
+						readonly="readonly">
+				</div>
+
+
+				<div id='insert-text'>
+					<div class="form-group">
+						<span>내용</span>
+						<textarea class="form-control" id="exampleTextarea" rows="8"></textarea>
+					</div>
+				</div>
+				<div id='insert-submt'>
+					<input type="submit" value="수정" id='submitBtn'>
+					<button onclick="closeUpdateform()" id='closeBtn'>취소</button>
+				</div>
+			</div>
+		</form>
+	</div>
+</div>	
 	
 	<script type="text/javascript">
 	function showPopup(hasFilter, th) {
@@ -340,6 +371,7 @@ width: 300px; height: 300px;
 		function closePopup() {
 			const popup = document.querySelector('#popup');
 		  popup.classList.add('hide');
+		  $(".option-list").css("visibility", "hidden");
 		}
 	
 	//등록
@@ -358,6 +390,31 @@ width: 300px; height: 300px;
 		function closeInsertform() {
 			const insert = document.querySelector('#insert-pop');
 			insert.classList.add('hide');
+		}
+		
+		
+	//수정
+	function showUpdateform(hasFilter){
+		if(confirm("게시물을 수정하시겠습니까?")){
+		const insert = document.querySelector('#update-pop');
+		  
+		  if (hasFilter) {
+			  insert.classList.add('has-filter');
+		  } else {
+			  insert.classList.remove('has-filter');
+		  }
+		  
+		  insert.classList.remove('hide');
+		} else 
+			return;
+		
+		}
+		
+		function closeUpdateform() {
+			const insert = document.querySelector('#update-pop');
+			insert.classList.add('hide');
+			
+			
 		}
 		
 	//좋아요
@@ -406,7 +463,7 @@ width: 300px; height: 300px;
 		  evt.currentTarget.className += " active";
 				
 	}
-	document.getElementById("defaultOpen").click();
+	//document.getElementById("defaultOpen").click();
 	
 
 
@@ -462,7 +519,7 @@ width: 300px; height: 300px;
 		let brand="all";
 		let sortConditon = "";
 		$("button[class=tablinks]").click(function() {
-			 brand = $(this).attr("name");
+			brand = $(this).attr("name");
 			openBrand(event, brand);
 			selectAllStyleBook(brand, 0, "");	
 			
@@ -478,14 +535,32 @@ width: 300px; height: 300px;
 			selectAllStyleBook(brand, 0, sortConditon);
 		});
 		
+		$(window).ready(function() {
+			$("#defaultOpen").click();
+		});
+		
+		<%session.setAttribute("userId", "ID");%>
+		$("#drop-btn > div").on("click", function() {
+			let id = $("#popup-title-text > h4").text();
+			console.log(id);
+			if(id=="${sessionScope.userId}"){
+				$(".option-list").css("visibility", "visible");
+			} else {
+				$(".option-list").css("visibility", "hidden");
+				return;
+			}
+			
+		});
+		
+		
 		$(".option").on("click", function() {
 			let option = $(this).text();
 			if(option =='선택')
 				return;
 			else if (option=='삭제')
 				deleteStyleBook();
-			else if (option == '수정')
-				updateStyleBook();
+			//else if (option == '수정')
+				//updateStyleBook();
 		})
 		
 		function deleteStyleBook() {
@@ -500,7 +575,7 @@ width: 300px; height: 300px;
 					data: {key:"styleBookAjax" , methodName : "deleteStyleBook", boardRegNo:boardRegNo}, //서버에게 보낼 데이터정보(parameter정보)
 					success :function(result){
 						alert("삭제에 성공했습니다.");
-						$("#drop-btn > div > div").text("선택");
+						//$("#drop-btn > div > div").text("선택");
 						selectAllStyleBook(brand, 0, sortConditon);
 					} , //성공했을때 실행할 함수 
 					error : function(err){  
@@ -515,17 +590,17 @@ width: 300px; height: 300px;
 			
 		};
 		
-		function updateStyleBook() {
+	/* 	function updateStyleBook() {
 			if(confirm("게시물을 수정하시겠습니까?")){
 				let boardRegNo = $("#boardRegNo").text();
 			
-				$("#drop-btn > div > div").text("선택");
+				//$("#drop-btn > div > div").text("선택");
 			} else{
-				$("#drop-btn > div > div").text("선택");
+				//$("#drop-btn > div > div").text("선택");
 				return;
 			}
 				
-		}
+		} */
 		
 		
 		
