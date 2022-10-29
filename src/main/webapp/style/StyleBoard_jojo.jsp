@@ -284,14 +284,14 @@ width: 300px; height: 300px;
 </div>
 	
 <div id="update-pop" class="hide">
-	<div id='insert-contents'>
-		<form id='insert-form' name="writeForm" method="post" action="">
-			<div id='productImg'>
+	<div id='update-contents'>
+		<form id='update-form' name="writeForm" method="post" action="">
+			<div id='update-productImg'>
 				<img src="../img/product01.webp" alt="상품이미지" />
 			</div>
 
-			<div id='insert-con'>
-				<div id='insert-title-text'>
+			<div id='update-con'>
+				<div id='update-title-text'>
 					<span>이름</span><input type="text" class="form-control"
 						placeholder="이름" readonly="readonly"> <span>상품이름</span><input
 						type="text" class="form-control" placeholder="상품이름"
@@ -301,15 +301,15 @@ width: 300px; height: 300px;
 				</div>
 
 
-				<div id='insert-text'>
+				<div id='update-text'>
 					<div class="form-group">
 						<span>내용</span>
-						<textarea class="form-control" id="exampleTextarea" rows="8"></textarea>
+						<textarea class="form-control" id="update-exampleTextarea" rows="8"></textarea>
 					</div>
 				</div>
-				<div id='insert-submt'>
-					<input type="submit" value="수정" id='submitBtn'>
-					<button onclick="closeUpdateform()" id='closeBtn'>취소</button>
+				<div id='update-submt'>
+					<input type="submit" value="수정" id='update-submitBtn'>
+					<button onclick="closeUpdateform()" id='update-closeBtn'>취소</button>
 				</div>
 			</div>
 		</form>
@@ -418,10 +418,10 @@ width: 300px; height: 300px;
 		}
 		
 	//좋아요
-	function likeEvent() {
+	/* function likeEvent() {
 		let like = document.querySelector("#like");
 		like.classList.toggle("active");
-	}
+	} */
 	
 	//드롭다운
 	function onClickSelect(e) {
@@ -463,7 +463,7 @@ width: 300px; height: 300px;
 		  evt.currentTarget.className += " active";
 				
 	}
-	//document.getElementById("defaultOpen").click();
+	document.getElementById("defaultOpen").click();
 	
 
 
@@ -535,9 +535,9 @@ width: 300px; height: 300px;
 			selectAllStyleBook(brand, 0, sortConditon);
 		});
 		
-		$(window).ready(function() {
+		/* $(window).ready(function() {
 			$("#defaultOpen").click();
-		});
+		}); */
 		
 		<%session.setAttribute("userId", "ID");%>
 		$("#drop-btn > div").on("click", function() {
@@ -551,7 +551,9 @@ width: 300px; height: 300px;
 			}
 			
 		});
-		
+		$(window).ready(function() {
+			$("#defaultOpen").click();
+		});
 		
 		$(".option").on("click", function() {
 			let option = $(this).text();
