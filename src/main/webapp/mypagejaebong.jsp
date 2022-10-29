@@ -191,18 +191,6 @@ font-family: 'Lora', serif;
 										readonly="readonly">
 								</fieldset>
 							</div>
-							<div class="form-group">
-								<fieldset>
-									<label class="form-label mt-4" for="readOnlyInput">비밀번호</label>
-									<input class="form-control" id="userPwd" type="text"
-										placeholder="Readonly input here..." readonly="readonly">
-								</fieldset>
-							</div>
-						</div>
-
-						<div id='profile_group'>
-							<form name="userDto" method="post" id="userDto">
-								<h4 id='grop_title'>개인정보</h4>
 								<div class="form-group">
 									<fieldset>
 										<label class="form-label mt-4" for="readOnlyInput">이름</label>
@@ -210,6 +198,18 @@ font-family: 'Lora', serif;
 											placeholder="Readonly input here..." readonly="readonly" />
 									</fieldset>
 								</div>
+						</div>
+
+						<div id='profile_group'>
+							<form name="userDto" method="post" id="userDto">
+								<h4 id='grop_title'>개인정보</h4>
+							<div class="form-group">
+								<fieldset>
+									<label class="form-label mt-4" for="readOnlyInput">비밀번호</label>
+									<input class="form-control" id="userPwd" type="text"
+										placeholder="Readonly input here..." readonly="readonly">
+								</fieldset>
+							</div>
 								<div class="form-group">
 									<fieldset>
 										<label class="form-label mt-4" for="readOnlyInput">전화번호</label>
@@ -639,6 +639,7 @@ font-family: 'Lora', serif;
 					$(this).val("수정완료")
 
 				}
+				
 
 			});
 
