@@ -114,12 +114,7 @@ font-family: 'Lora', serif;
 				});//ajax끝
 		}
 		
-		
-		
-		
-		
-		
-		
+
 		
         $("[name='brand']").on("click", function() {
 			let i = $("input[name='brand']:checked").length;

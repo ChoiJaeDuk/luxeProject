@@ -58,7 +58,7 @@ public class SellAjaxController implements AjaxController {
 	
 	
 	public void updateSellPrice(HttpServletRequest request, HttpServletResponse response) throws Exception{
-		
+		response.setContentType("text/html;charset=UTF-8");
 		int sellNo = Integer.parseInt(request.getParameter("sellNo"));
 		int updateSellPrice = Integer.parseInt(request.getParameter("sellPrice"));
 		//String sellUserId = request.getParameter("userId");	
@@ -69,9 +69,25 @@ public class SellAjaxController implements AjaxController {
 	}
 	
 	public void deleteSell(HttpServletRequest request, HttpServletResponse response) throws Exception{
-		
+		response.setContentType("text/html;charset=UTF-8");
 		int sellNo = Integer.parseInt(request.getParameter("sellNo"));
 		System.out.println("sellNo = " +  sellNo);
 		sellService.deleteSell(sellNo);
+	}
+	
+	
+	public void sellDuplicateCheck(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		/*
+		 * HttpSession session = request.getSession(); String userId =
+		 * (String)session.getAttribute("userId");
+		 */
+		String userId = request.getParameter("userId");
+		String serialNumber = request.getParameter("serialNumber");
+		SellDTO sellDTO = new SellDTO(userId, serialNumber);
+		
+		boolean result = sellService.sellDuplicateCheck(sellDTO);
+		
+		PrintWriter out = response.getWriter();
+		out.print(result);
 	}
 }
