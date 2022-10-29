@@ -377,9 +377,11 @@ public class SellDAOImpl implements SellDAO {
 			ps.setString(1, sellDTO.getSerialNumber());
 			ps.setString(2, sellDTO.getUserId());
 			rs = ps.executeQuery();
-		 
+			
 			result = rs.next();
-	
+			System.out.println(sellDTO.getSerialNumber());
+			System.out.println(sellDTO.getUserId());
+			System.out.println(result);
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {

@@ -100,7 +100,7 @@ public class GoodsController implements Controller {
 		return new ModelAndView(addr);
 	}
 	
-	
+	/*
 	public ModelAndView selectOrderPrice(HttpServletRequest request, HttpServletResponse response) throws Exception {//재덕 판매창 넘어갈때 정보 전송용
 		//String goodsNoStr = request.getParameter("goodsReadNo");
 		
@@ -114,6 +114,7 @@ public class GoodsController implements Controller {
 
 		return new ModelAndView("OrderBysell.jsp");
 	}
+	*/
 
 	
 	public ModelAndView sellApplication(HttpServletRequest request, HttpServletResponse response) throws Exception {//재덕 판매신청 창 넘어갈때 정보 전송용
