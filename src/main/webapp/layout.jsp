@@ -54,7 +54,7 @@ font-family: 'Lora', serif;
 <body>
 	<div id='wrap'>
 	
-		<div id='header'>
+<!-- 		<div id='header'>
 				<div id='header-top'>
 					<div id='header-top-menu'>
 						<a href="">마이페이지</a>
@@ -62,7 +62,7 @@ font-family: 'Lora', serif;
 						<a href="">로그인</a>
 						<a href="" class='managermode'>관리자모드</a>
 					</div>		
-				</div><!--header-top -->
+				</div>header-top
 				
 				<div id='header-bottom'>
 				    <div class="topnav">
@@ -77,7 +77,7 @@ font-family: 'Lora', serif;
 					  </div>
 					</div>
 				</div>									
-		</div><!-- header -->
+		</div>header -->
 		<div class="clear"></div>
 		
 		<div id="banner">
