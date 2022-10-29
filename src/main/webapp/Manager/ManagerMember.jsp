@@ -47,7 +47,7 @@ font-family: 'Lora', serif;
 <!-- 외부의 css파일 연결하기 -->
 <link rel="stylesheet" type="text/css" href="../layout/css/Reset.css">
 <link rel="stylesheet" type="text/css" href="../layout/css/Layout.css">
-<link rel="stylesheet" type="text/css" href="../css/manager/ManagerApproval.css">
+<link rel="stylesheet" type="text/css" href="../css/manager/ManagerMember.css">
 
 <style type="text/css">
 .sidebar {
@@ -97,11 +97,117 @@ font-family: 'Lora', serif;
 	}
 }
 </style>
+
+<script type="text/javascript" src="../js/jquery-3.6.1.min.js"></script>
+<script type="text/javascript">
+$(function(){
+
+
+	function userList(){
+	
+		
+		
+		$.ajax({
+			url :"../ajax" , //서버요청주소
+			type:"post", //요청방식(method방식 : get | post | put | delete )
+			dataType:"json"  , //서버가 보내온 데이터(응답)타입(text | html | xml | json )
+			data: {key:"userAjax" , methodName : "selectAllUsers"},	
+			success :function(result){
+				let str="";
+				$.each(result, function(index, item){
+					str+=`<tr>`;
+					str+=`<td>${"${index+1}"}`;
+					str+=`<td>${"${item.userName}"}</th>`;
+					str+=`<td>${"${item.userAddr}"}</th>`;
+					str+=`<td>${"${item.userPhone}"}</th>`;
+					str+=`<td>${"${item.userEmail}"}</th>`;
+					str+=`</tr>`;
+				})
+				
+				$("#myTable tr:gt(0)").remove();
+				$("#myTable tr:eq(0)").after(str);
+				
+				
+			} , //성공했을때 실행할 함수 
+			error : function(err){  
+				alert(err+"에러 발생했어요.");
+			}  //실팽했을때 실행할 함수 
+		});//ajax끝
+
+
+	}
+	
+	$("#pwdCheck").on("click", function(){
+		
+		$.ajax({
+			url :"../ajax" , //서버요청주소
+			type:"post", //요청방식(method방식 : get | post | put | delete )
+			dataType:"json"  , //서버가 보내온 데이터(응답)타입(text | html | xml | json )
+			data: {key:"userAjax" , methodName : "selectUser"},	
+			success :function(result){
+				console.log(result);
+				let pwd = $("[name=userPwd]").val();
+				//console.log(pwd);
+				if(result.userPwd == pwd){
+					//window.close(); 
+					closePopup();
+				}else{
+					alert("비밀번호를 다시 입력해주세요.");
+				}
+							
+				
+			} , //성공했을때 실행할 함수 
+			error : function(err){  
+				alert(err+"에러 발생했어요.");
+			}  //실팽했을때 실행할 함수 
+		});//ajax끝
+	})
+		
+	userList();
+	
+	})
+	
+
+
+function closePopup() {
+		const popup = document.querySelector('#popup');
+	  	popup.classList.add('hide');
+}
+
+
+</script>
 </head>
 <body>
+
+<div id="popup" class="has-filter">
+  <div class="content">
+    <p>
+
+<form name="pwdCheck" method="post" style="text-align: center">
+	
+	<div style="text-align: center">
+		비밀번호: <input type="password" name="userPwd" size="30"><p>
+		
+		
+	
+	 <input type="button" value="확인" id="pwdCheck" style="text-align: center">
+	 <input type="button" value="닫기" onclick="history.back();">
+
+ 		<p>
+<!--  		<button id="checkbtn">확인</button> -->
+  		
+  	</div>
+  	
+
+</form>
+   
+  </div>
+</div>
+
+
 	<div id="mySidebar" class="sidebar">
 		<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-		<a href="ManagerMember.jsp">회원관리</a> <a href="ManagerProduct.jsp">상품관리</a> <a href="ManagerOrder.jsp">주문현황</a> <a
+<a href="ManagerMember.jsp">회원관리</a> <a href="ManagerProduct.jsp">상품관리</a> <a href="ManagerOrder.jsp">주문현황</a> <a
 			href="ManagerSales.jsp">매출현황</a> <a href="ManagerQABoard.jsp">문의관리</a> <a href="ManagerApproval.jsp">상품승인관리</a>
 	</div>
 	<div id='wrap'>
@@ -112,83 +218,37 @@ font-family: 'Lora', serif;
 
 
 		<div id='contents'>
-			<div class="container">
-				<div id='con'>
-				<div>
-					<h3>상품승인관리</h3>
-				</div>
-				<div id='sell'>
-					<table class="fixed_headers">
-						<thead>
-							<tr>
-								<th>  </th>
-								<th>회원ID</th>
-								<th>브랜드</th>
-								<th>상품명</th>
-								<th>신청일자</th>
-								<th>승인여부</th>
-							</tr>
-						</thead>
-						<tbody>
-							<tr>
-								<td>[상품판매신청]</td><!-- 고정 -->
-								<td>회원ID1</td>
-								<td>셀린느</td>
-								<td>셀린느가방</td>
-								<td>신청일자</td>
-								<td>									
-								<select>
-									<option value="0">선택</option>
-									<option value="1">승인</option>
-									<option value="2">대기</option>
-									<option value="3">승인거부</option>
-								</select>									
-								</td>
-							</tr>
-							<tr>
-								<td>[상품판매신청]</td><!-- 고정 -->
-								<td>회원ID2</td>
-								<td>구찌</td>
-								<td>구찌가방</td>
-								<td>신청일자</td>
-								<td>
-								<select>
-									<option value="0">선택</option>
-									<option value="1">승인</option>
-									<option value="2">대기</option>
-									<option value="3">승인거부</option>
-								</select>	
-								</td>
-							</tr>
-							<tr>
-								<td>[상품판매신청]</td><!-- 고정 -->
-								<td>회원ID3</td>
-								<td>입생로랑</td>
-								<td>입생로랑가방</td>
-								<td>신청일자</td>
-								<td>
-								<select>
-									<option value="0">선택</option>
-									<option value="1">승인</option>
-									<option value="2">대기</option>
-									<option value="3">승인거부</option>
-								</select>	
-								</td>
-							</tr>
-							
-						</tbody>
-					</table>
-					</div>
-				</div>
-			</div>
-			<!-- container -->
-		</div>
+         <div class="container">
+         <div id='con'>
+            <div id='info-container'>
+               <h4>회원관리페이지</h4>
+               <div>
+                  <table id="myTable">
+                    <tr class="header">
+                      <td >No</td>
+                      <td >Name</td>
+                      <td >Addr</td>
+                      <td >Phone</td>
+                      <td >Email</td>
+                    </tr>
+                    
+                  </table>
+               </div>
+            </div>
+            </div>
+         </div>
+      </div>
 		<!-- contents -->
 		<div class="clear"></div>
 
-		<jsp:include page="${pageContext.request.contextPath}/layout/footer.jsp" />
+		<jsp:include page="../layout/footer.jsp" />
 
 	</div>
+	
+	 <%
+			session.setAttribute("userId", "admin");
+		
+		%>
 	<!-- 스크립트 -->
 	<script>
 	function openNav() {
