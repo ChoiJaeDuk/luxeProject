@@ -51,6 +51,27 @@ font-family: 'Lora', serif;
 
 <style type="text/css">
 </style>
+<script type="text/javascript" src="../js/jquery-3.6.1.min.js"></script>
+<script type="text/javascript">
+function selectProductImg() {
+    $.ajax({
+       url:"ajax",
+       type:"post",
+       dataType:"json",
+       data:{key:"styleBookAjax" , methodName : "selectStyleBookByGoodsNo", goodsNo: ${goodsDTO.goodsNo}},
+       success : function(result) {
+          $.each(result, function(index, styleBook) {
+             String selector = ".styleBoard item"+(index+1)+" > img";
+             $(selector).attr("src", "${path}/stylebook/${"${styleBook.fName}"}");
+          });
+          
+       },
+       error : function(err) {
+          alert(err+"에러 발생");
+       }
+    });
+ }
+</script>
 </head>
 <body>
 	<div id='wrap'>
@@ -187,43 +208,9 @@ font-family: 'Lora', serif;
 								<div class="styleBoard item1">
 									<img alt="스타일이미지입니다." src="">
 								</div>
-								<div class="styleBoard item2">
-									<img alt="스타일이미지입니다." src="">
-								</div>
-								<div class="styleBoard item3">
-									<img alt="스타일이미지입니다." src="">
-								</div>
-								<div class="styleBoard item4">
-									<img alt="스타일이미지입니다." src="">
-								</div>
-								<div class="styleBoard item5">
-									<img alt="스타일이미지입니다." src="">
-								</div>
-								<div class="styleBoard item6">
-									<img alt="스타일이미지입니다." src="">
-								</div>
+								
 							</div>
-							<div class="styleBoard_container">
-
-								<div class="styleBoard item1">
-									<img alt="스타일이미지입니다." src="">
-								</div>
-								<div class="styleBoard item2">
-									<img alt="스타일이미지입니다." src="">
-								</div>
-								<div class="styleBoard item3">
-									<img alt="스타일이미지입니다." src="">
-								</div>
-								<div class="styleBoard item4">
-									<img alt="스타일이미지입니다." src="">
-								</div>
-								<div class="styleBoard item5">
-									<img alt="스타일이미지입니다." src="">
-								</div>
-								<div class="styleBoard item6">
-									<img alt="스타일이미지입니다." src="">
-								</div>
-							</div>
+							
 							<button class="btn-style">스타일보러가기</button>
 						</div>
 					</div>

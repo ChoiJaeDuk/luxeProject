@@ -21,7 +21,7 @@ public class GoodsServiceImpl implements GoodsService {
 	}
 
 	@Override
-	public List<GoodsDTO> selectAllGoods(String brand, String category, String sort, String userId) throws SQLException {
+	public List<GoodsDTO> selectAllGoods(String brand, String category, String sort, String userId, String search) throws SQLException {
 
 		if (brand==null || brand.equals("")) {
 			brand = "'%'";
@@ -32,7 +32,10 @@ public class GoodsServiceImpl implements GoodsService {
 		if (sort==null || category.equals("")) {
 			sort = "";
 		}
-		List<GoodsDTO> list = goodsDAO.selectAllGoods(brand, category, sort,userId);
+		if (search==null || search.equals("")){
+			search="'%'";
+		}
+		List<GoodsDTO> list = goodsDAO.selectAllGoods(brand, category, sort,userId,search);
 
 		return list;
 	}

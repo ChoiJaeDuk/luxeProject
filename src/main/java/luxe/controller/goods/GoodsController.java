@@ -70,17 +70,20 @@ public class GoodsController implements Controller {
 	/**
 	 * 상품 전체 조회
 	 */
-	/*
+	
 	public ModelAndView selectAllGoods(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String brand = request.getParameter("brand");
 		String category = request.getParameter("category");
-		String arrange = request.getParameter("arrange");
+		String sort = request.getParameter("sort");
+		String userId =request.getParameter("userId");
+		String search = request.getParameter("search");
 
-		List<GoodsDTO> list = goodsService.selectAllGoods(brand, category, arrange);
-		request.setAttribute("list", list);
-
-		return new ModelAndView("front", true);
-	}*/
+		//List<GoodsDTO> list = goodsService.selectAllGoods(brand, category, sort,userId,search);
+		//request.setAttribute("list", list);
+		request.setAttribute("state", "1");
+		request.setAttribute("search", search);
+		return new ModelAndView("shop/shop.jsp");
+	}
 
 	/**
 	 * 상품 상세 조회
