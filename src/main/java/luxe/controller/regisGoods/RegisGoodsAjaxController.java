@@ -38,6 +38,7 @@ public class RegisGoodsAjaxController implements AjaxController {
 		HttpSession session =  request.getSession();
 	
 		List<RegisGoodsDTO> list = serivce.selectAllRegisGoods();
+		
 		JSONArray arr = JSONArray.fromObject(list);
 		
 		PrintWriter out = response.getWriter();
