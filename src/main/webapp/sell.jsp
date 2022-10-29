@@ -81,10 +81,31 @@ font-family: 'Lora', serif;
 		
 		//판매신청
 		$("#sell").on("click", function() {
-			if(confirm("정말 판매하시겠습니까?")){
-				location.href ="${path}/front?key=sell&methodName=insertSell&goodsNo=${goodsDTO.goodsNo}&userId=id&accountNo="
-					+$("#accountNo").val()+"&sellPrice=${inputPrice}&purDate="+$("#purDate").val()+"&serialNumber="+$("#serialNumber").val();
-			}
+			$.ajax({
+				url :"ajax" , //서버요청주소
+				type:"post", //요청방식(method방식 : get | post | put | delete )
+				dataType:"text"  , //서버가 보내온 데이터(응답)타입(text | html | xml | json )
+				data: {key:"sellAjax" , methodName : "sellDuplicateCheck", /*테스트용 id*/userId:"id", serialNumber:$("#serialNumber").val()}, //서버에게 보낼 데이터정보(parameter정보)
+				success :function(result){
+				
+						if(result=="true"){
+							
+							if(confirm("판매중인 상품입니다. 가격 수정은 마이페이지에서 가능합니다. 이동하시겠습니까?")){
+								location.href ="${path}/mypagePractice4444.jsp";
+							}
+						}else{
+							if(confirm("정말 판매하시겠습니까?")){
+									
+								location.href ="${path}/front?key=sell&methodName=insertSell&goodsNo=${goodsDTO.goodsNo}&userId=id&accountNo="
+									+$("#accountNo").val()+"&sellPrice=${inputPrice}&purDate="+$("#purDate").val()+"&serialNumber="+$("#serialNumber").val();
+							}
+						}
+				} , //성공했을때 실행할 함수 
+				error : function(err){  
+					alert(err+"에러 발생했어요.");
+				}  //실팽했을때 실행할 함수 
+			});//ajax끝
+			
 		})
 	})
 	

@@ -1,0 +1,74 @@
+@charset "utf-8";
+/*등록*/
+
+#con{
+	width:80%;
+	margin:0 auto;
+	padding: 100px;
+}
+
+#insert-form{
+	width: 100%;
+	overflow: hidden;
+	background-color: #ffffff;
+	border-radius: 12px;
+	box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.1);
+	padding: 40px;
+}
+
+/*  */
+
+#insert-text{
+	width: 100%;
+	height: 30%;
+}
+
+#insertImg{
+	width: 40%;
+	height: 10%;
+}
+
+#insert-submt{
+	width: 100%;
+	height: 10%;
+}
+
+#insert-con span{
+	font-family: 'Noto Sans KR', sans-serif;
+	font-size: 18px;
+	font-weight: 500;
+}
+#insert-con input {
+	margin-bottom: 12px;
+	margin-top: 3px;
+}
+#insert-con textarea{
+	margin-bottom: 15px;
+	margin-top: 3px;
+}
+
+#closeBtn, #submitBtn{
+	background-color:#22222210;
+	color: #222222;
+	border: none;
+	outline: none;
+	padding: 10px 0px;
+	width: 49%;
+	border: 0.1px solid #22222220;
+    outline: none;
+    cursor: pointer;
+    transition: 0.3s;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-weight: 600;   
+} 
+
+#closeBtn:hover, #submitBtn:hover {
+  background-color: #22222298;
+  color: #ffffff;
+}
+
+/* Create an active/current tablink class */
+#closeBtn:active, #submitBtn:active {
+  background-color: #222222;
+  color: #ffffff;
+}

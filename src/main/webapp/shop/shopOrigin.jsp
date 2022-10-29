@@ -47,9 +47,10 @@ font-family: 'Lora', serif;
 
 <!-- 외부의 css파일 연결하기 -->
 <link rel="stylesheet" type="text/css" href="../css/setting/Reset.css">
-<link rel="stylesheet" type="text/css" href="../css/shop/shop.css">
+
+<link rel="stylesheet" type="text/css" href="../css/shop.css">
 <link rel="stylesheet" type="text/css" href="../css/setting/Layout.css">
-<script type="text/javascript" src="../js/jquery-3.6.1.min.js"></script>
+<script src="../js/jquery-3.6.1.min.js"></script>
 <style type="text/css">
 </style>
 <script type="text/javascript">
@@ -60,7 +61,7 @@ font-family: 'Lora', serif;
 			var category ="";
 			var brand ="";
 			var sort="";
-			var heartState = "../img/heart.svg";
+			var heartState = "img/heart.svg";
 			function selectAllGoods() {
 				 $.ajax({
 						url :"../ajax" , //서버요청주소
@@ -74,9 +75,9 @@ font-family: 'Lora', serif;
 							let count=0;
 								$.each(result, function(index, item){		
 									if(item.goodsLikeByUser==1){	
-										heartState = "../img/heart-fill.svg";
+										heartState = "img/heart-fill.svg";
 									}else{
-										heartState = "../img/heart.svg";
+										heartState = "img/heart.svg";
 									}
 													
 									if(count%4==0){
@@ -188,12 +189,11 @@ font-family: 'Lora', serif;
 				})
             }
             
-//             if(${state} == "1"){
-//             	alert(1)
-            	
-//             }else{
-//             	selectAllGoods();
-//             }
+            if({state} == "1"){
+            	selectAllGoods();
+            }else{
+            	alert(1)
+            }
 
         }); 
         
@@ -314,13 +314,16 @@ font-family: 'Lora', serif;
 							<div id="dropdown">
 								<!-- Example single danger button -->
 								<div class="btn-group">
-									<select name="sort" id="sort">
-									 <option value="">정렬</option>
-									  	<option value="ORDER BY G.GOODS_DATE DESC">최신순</option>
-									  	<option value="ORDER BY S.SELL_PRICE ASC NULLS LAST">가격낮은순</option>
-									  	<option value="ORDER BY S.SELL_PRICE DESC NULLS LAST">가격높은순</option>
-									 	<option value="ORDER BY COUNT(W.WISH_LIST_NO) DESC">인기순</option>
-									  </select>
+									<button type="button" data-bs-toggle="dropdown"
+										aria-expanded="false">Action</button>
+									<ul class="dropdown-menu">
+										<li><a class="dropdown-item" href="#">Action</a></li>
+										<li><a class="dropdown-item" href="#">Another action</a></li>
+										<li><a class="dropdown-item" href="#">Something else
+												here</a></li>
+										<li><hr class="dropdown-divider"></li>
+										<li><a class="dropdown-item" href="#">Separated link</a></li>
+									</ul>
 								</div>
 							</div>
 						</div>
