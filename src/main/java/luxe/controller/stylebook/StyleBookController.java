@@ -51,6 +51,21 @@ public class StyleBookController implements Controller {
 	}
 
 	/**
+	 * 상품 번호에 해당하는 게시물 조회 - 좋아요 기준으로 최대 3개까지 조회
+	 */
+	public ModelAndView selectStyleBookByGoodsNo(HttpServletRequest request, HttpServletResponse response)
+			throws Exception {
+		String goodsNo = request.getParameter("goodsNo");
+
+		List<StyleBookDTO> list = styleBookService.selectStyleBookByGoodsNo(Integer.parseInt(goodsNo));
+
+		request.setAttribute("styleBookList", list);
+
+		// 조회 페이지
+		return new ModelAndView("front");
+	}
+
+	/**
 	 * 스타일북 상세조회
 	 */
 	public ModelAndView selectStyleBook(HttpServletRequest request, HttpServletResponse response) throws Exception {
@@ -89,7 +104,7 @@ public class StyleBookController implements Controller {
 	 */
 	public ModelAndView insertStyleBook(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		String saveDir = request.getServletContext().getRealPath("/stylebook"); //
-		
+
 		int maxSize = 1024 * 1024 * 100; // 100M
 		String encoding = "UTF-8";
 

@@ -83,7 +83,7 @@ width: 300px; height: 300px;
 	});
 </script>
 </head>
-<body>
+<body onload="defaultOpen()">
 	<div id='wrap'>
 	
 		<div id='header'>
@@ -285,7 +285,7 @@ width: 300px; height: 300px;
 	
 <div id="update-pop" class="hide">
 	<div id='insert-contents'>
-		<form id='insert-form' name="writeForm" method="post" action="">
+		<form id='insert-form' name="updateForm" method="post" action="">
 			<div id='productImg'>
 				<img src="../img/product01.webp" alt="상품이미지" />
 			</div>
@@ -293,11 +293,11 @@ width: 300px; height: 300px;
 			<div id='insert-con'>
 				<div id='insert-title-text'>
 					<span>이름</span><input type="text" class="form-control"
-						placeholder="이름" readonly="readonly"> <span>상품이름</span><input
+						placeholder="이름" readonly="readonly" id="userId" name="userId"> <span>상품이름</span><input
 						type="text" class="form-control" placeholder="상품이름"
-						id='changeInput' readonly="readonly"> <span>상품코드</span><input
+						id='changeInput' readonly="readonly" name="goodsName"> <span>상품코드</span><input
 						type="text" class="form-control" placeholder="상품코드"
-						readonly="readonly">
+						readonly="readonly" name="productCode">
 				</div>
 
 
@@ -464,7 +464,9 @@ width: 300px; height: 300px;
 				
 	}
 	//document.getElementById("defaultOpen").click();
-	
+	function defaultOpen() {
+		$("#defaultOpen").click();
+	}	
 
 
 	$(function() {
@@ -535,9 +537,6 @@ width: 300px; height: 300px;
 			selectAllStyleBook(brand, 0, sortConditon);
 		});
 		
-		$(window).ready(function() {
-			$("#defaultOpen").click();
-		});
 		
 		<%session.setAttribute("userId", "ID");%>
 		$("#drop-btn > div").on("click", function() {
@@ -602,7 +601,28 @@ width: 300px; height: 300px;
 				
 		} */
 		
+		//좋아요 기능
+		$("#popup-like-con > img").click(function() {
+			let boardRegNo = $("#boardRegNo").text();
+			
+			$.ajax({
+				url :"../ajax" , //서버요청주소
+				type:"post", //요청방식(method방식 : get | post | put | delete )
+				dataType:"text"  , //서버가 보내온 데이터(응답)타입(text | html | xml | json )
+				data: {key:"styleBookAjax" , methodName : "increaseStyleBookLikeNo", boardRegNo:boardRegNo}, //서버에게 보낼 데이터정보(parameter정보)
+				success :function(result){
+					let likeNo = parseInt($("#popup-like-con span:nth-child(3)").text());
+					$("#popup-like-con span:nth-child(3)").text(likeNo+1);
+				} , //성공했을때 실행할 함수 
+				error : function(err){  
+					alert(err+"에러 발생했어요.");
+				}  //실패했을때 실행할 함수 
+			});
+		});
 		
+		// 글 수정 기능
+		
+		// 글 업로드 기능
 		
 		
 	});
