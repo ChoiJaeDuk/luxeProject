@@ -157,6 +157,6 @@ public class StyleBookController implements Controller {
 		StyleBookDTO styleBook = new StyleBookDTO(boardRegNo, null, 0, boardContent, null, null, 0, 0);
 		styleBookService.updateStyleBook(styleBook);
 
-		return new ModelAndView("front", true);
+		return new ModelAndView("style/StyleBoard_jojo.jsp", true);
 	}
 }
