@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -192,13 +191,9 @@ $(function(){
 <body>
 	<div id="mySidebar" class="sidebar">
 		<a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
-<<<<<<< HEAD
-		<a href="../Manager02/Manager_Member.jsp">회원관리</a> <a href="#">상품관리</a> <a href="../Manager02/Manager_Order.jsp">주문현황</a> <a
-			href="../Manager02/Manager_Sales.jsp">매출현황</a> <a href="ManagerQABoard.jsp">문의관리</a> <a href="#">상품승인관리</a>
-=======
 		<a href="ManagerMember.jsp">회원관리</a> <a href="ManagerProduct.jsp">상품관리</a> <a href="ManagerOrder.jsp">주문현황</a> <a
 			href="ManagerSales.jsp">매출현황</a> <a href="ManagerQABoard.jsp">문의관리</a> <a href="ManagerApproval.jsp">상품승인관리</a>
->>>>>>> jihyeon
+
 	</div>
 	<div id='wrap'>
 
@@ -284,7 +279,7 @@ $(function(){
 		<!-- contents -->
 		<div class="clear"></div>
 
-		<jsp:include page="${pageContext.request.contextPath}/layout/footer.jsp" />
+		<jsp:include page="../layout/footer.jsp" />
 
 	</div>
 	<!-- 스크립트 -->
