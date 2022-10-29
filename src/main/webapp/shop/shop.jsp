@@ -56,7 +56,7 @@ font-family: 'Lora', serif;
 <script type="text/javascript">
 	
 	$(function(){
-		alert($("#test").attr("name"))
+		//alert($("#test").attr("name"))
 			selectAllGoods();
 			var category ="";
 			var brand ="";
