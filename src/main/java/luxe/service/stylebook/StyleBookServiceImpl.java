@@ -36,6 +36,16 @@ public class StyleBookServiceImpl implements StyleBookService {
 
 		return list;
 	}
+	
+	@Override
+	public List<StyleBookDTO> selectStyleBookByGoodsNo(int goodsNo) throws SQLException {
+		List<StyleBookDTO> list = styleBookDao.selectStyleBookByGoodsNo(goodsNo);
+		
+		if(list == null)
+			throw new SQLException("선택하신 검색 조건의 스타일북이 존재하지 않습니다.");
+
+		return list;
+	}
 
 	@Override
 	public StyleBookDTO selectStyleBookByBoardRegNo(int boardRegNo, boolean flag) throws SQLException {

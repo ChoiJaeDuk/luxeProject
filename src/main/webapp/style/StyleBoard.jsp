@@ -493,7 +493,7 @@ font-family: 'Lora', serif;
    						<p>날짜</p>
    					</div> 
    					<div id='drop-btn'>
-   					 <div class="select-tap"">
+   					 <div class="select-tap">
 					    <div class="text"><i class="bi bi-list" style="font-size: 25px;"></i></div>
 					    <ul class="option-list">
 					      <li class="option">삭제</li>
@@ -648,7 +648,7 @@ font-family: 'Lora', serif;
 			}
 			
 			function closeUpdateform() {
-				const insert = document.querySelector('#update-popㄴ');
+				const insert = document.querySelector('#update-pop');
 				insert.classList.add('hide');
 			}
 	
