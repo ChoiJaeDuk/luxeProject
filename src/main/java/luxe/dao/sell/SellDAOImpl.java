@@ -181,7 +181,7 @@ public class SellDAOImpl implements SellDAO {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		List<SellDTO> sellList = new ArrayList<SellDTO>();
-		String sql = "SELECT S.SELL_NO, S.USER_ID, G.BRAND, G.GOODS_NAME, S.SELL_PRICE, S.PUR_DATE, S.SERIAL_NUMBER, S.SELL_DATE, S.SELL_STATUS \r\n"
+		String sql = "SELECT S.SELL_NO, S.USER_ID, G.BRAND, G.GOODS_NAME, S.SELL_PRICE, TO_CHAR(S.PUR_DATE, 'YY-MM-DD'), S.SERIAL_NUMBER, TO_CHAR(S.SELL_DATE, 'YY-MM-DD'), S.SELL_STATUS\r\n"
 				+ "FROM SELL S, GOODS G \r\n"
 				+ "WHERE S.GOODS_NO = G.GOODS_NO AND SELL_STATUS = '신청대기' ORDER BY S.SELL_STATUS ASC";
 		try {

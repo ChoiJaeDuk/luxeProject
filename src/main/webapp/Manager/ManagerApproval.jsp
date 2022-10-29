@@ -216,6 +216,7 @@ $(function(){
 								<th>회원ID</th>
 								<th>브랜드</th>
 								<th>상품명</th>
+								<th>상품가격</th>
 								<th>구매일자</th>
 								<th>시리얼넘버</th>
 								<th>판매일자</th>
