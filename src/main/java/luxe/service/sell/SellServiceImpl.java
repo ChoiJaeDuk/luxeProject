@@ -24,10 +24,14 @@ public class SellServiceImpl implements SellService {
 
 	
 	@Override
-	public void updateSellStatus(SellDTO sellDTO) throws Exception {
+	public int updateSellStatus(SellDTO sellDTO) throws Exception {
+		System.out.println(sellDTO.getSellNo());
+		System.out.println(sellDTO.getSellStatus());
 		int result = sellDAO.updateSellStatus(sellDTO);
+		
 		if (result==0) throw new SQLException("판매상태 업데이트 실패");
 		
+		return result;
 		
 	}
 

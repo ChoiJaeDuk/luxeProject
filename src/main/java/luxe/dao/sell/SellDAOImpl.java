@@ -114,6 +114,8 @@ public class SellDAOImpl implements SellDAO {
 	
 	@Override
 	public int updateSellStatus(SellDTO sellDTO) throws Exception {
+		System.out.println(sellDTO.getSellStatus());
+		System.out.println(sellDTO.getSellNo());
 		Connection con = null;
 		PreparedStatement ps = null;
 		int result = 0;
@@ -179,15 +181,15 @@ public class SellDAOImpl implements SellDAO {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		List<SellDTO> sellList = new ArrayList<SellDTO>();
-		String sql = "SELECT S.SELL_NO, S.USER_ID, G.GOODS_NAME, S.SELL_PRICE, S.PUR_DATE, S.SERIAL_NUMBER, S.SELL_DATE, S.SELL_STATUS \r\n"
+		String sql = "SELECT S.SELL_NO, S.USER_ID, G.BRAND, G.GOODS_NAME, S.SELL_PRICE, S.PUR_DATE, S.SERIAL_NUMBER, S.SELL_DATE, S.SELL_STATUS \r\n"
 				+ "FROM SELL S, GOODS G \r\n"
-				+ "WHERE S.GOODS_NO = G.GOODS_NO ORDER BY S.SELL_STATUS ASC";
+				+ "WHERE S.GOODS_NO = G.GOODS_NO AND SELL_STATUS = '신청대기' ORDER BY S.SELL_STATUS ASC";
 		try {
 			con = DbUtil.getConnection();
 			ps = con.prepareStatement(sql);
 			rs = ps.executeQuery();
 			while (rs.next()) {
-				SellDTO sellDTO = new SellDTO(rs.getInt(1),rs.getString(2),rs.getString(3),rs.getInt(4),rs.getString(5),rs.getString(6),rs.getString(7),rs.getString(8));
+				SellDTO sellDTO = new SellDTO(rs.getInt(1),rs.getString(2), rs.getString(3), rs.getString(4),rs.getInt(5),rs.getString(6),rs.getString(7),rs.getString(8),rs.getString(9));
 				
 				sellList.add(sellDTO);
 			}

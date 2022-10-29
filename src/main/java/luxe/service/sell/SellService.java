@@ -29,7 +29,7 @@ public interface SellService {
 	 * @return
 	 * @throws SQLException
 	 */
-	void updateSellStatus(SellDTO sellDTO) throws Exception;
+	int updateSellStatus(SellDTO sellDTO) throws Exception;
 	
 	
 	/**
