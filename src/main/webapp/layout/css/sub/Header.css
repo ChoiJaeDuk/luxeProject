@@ -1,0 +1,93 @@
+@charset "utf-8";
+html,bady,div,ul,ui,dl,di,ol,h1,h2,h3,h4,h5,h6,input,
+fieldset,legend,p,seect,table,th,td,tr,textarea,button{
+	margin: 0; padding: 0;
+}
+#header{
+	height: 80px; 
+	min-width: 800px;
+	background-color:#ffffff;	
+}
+/* 레이아웃 */
+#header-top{
+	height: 20px;
+	min-width: 800px;
+}
+#header-bottom{
+    height: 68px;
+	min-width: 800px;
+}
+/*헤더*/
+#header #header-top-menu { text-align: right;
+margin-right:20px;}
+#header #header-top-menu a{
+	text-decoration: none; color: #222222; padding: 10px;
+	font-weight: 200;	
+	font-size: 15px;
+	
+}
+#header #header-top-menu a:hover {
+ font-weight: 400;	
+ 
+}
+
+#nav-search{
+  width: 200px;
+  height:33px;
+  box-sizing: border-box;
+  border-radius: 4px;
+  font-size: 14px;
+  background-color: #cccccc10;
+  background-image: url('../../img/icon/search02.png');
+  background-size: 15px;
+  background-position: 10px 7px; 
+  background-repeat: no-repeat;
+  padding: 12px 20px 12px 40px;
+  margin-right:20px;
+    border: 0.5px solid #cccccc;
+  
+}
+
+/* Create a top navigation bar with a black background color  */
+.topnav {
+  background-color: #ffffff;
+  overflow: hidden;
+}
+
+/* Style the links inside the navigation bar */
+.topnav a {
+  float: left;
+  color: #222222;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+  font-size: 17px;
+}
+
+/* Change the color of links on hover */
+/* .topnav a:hover { */
+/*   text-decoration: overline; */
+/* } */
+
+/* Create a right-aligned (split) link inside the navigation bar */
+.split { 
+  float: right;
+  position: relative;
+  top:12px;
+  margin-right: 10px;
+} 
+
+.managermode{
+	display: none;
+}
+
+#logo{
+	width:70px;
+	height: 23px;
+	float: left;
+	position: relative;
+	top: 4px;
+	margin: 0px 20px 0px 40px;
+	font-size: 30px;
+	font-weight: 900;
+}
