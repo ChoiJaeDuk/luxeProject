@@ -19,6 +19,15 @@ public class SellDTO {
 
 	
 	
+	
+	public SellDTO(String userId, String serialNumber) {
+		this.userId = userId;
+		this.serialNumber = serialNumber;
+	}
+
+
+
+
 	public SellDTO(int sellNo, int sellPrice, String userId) {
 		super();
 		this.sellNo = sellNo;
