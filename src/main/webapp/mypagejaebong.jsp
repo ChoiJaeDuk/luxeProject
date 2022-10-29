@@ -51,6 +51,37 @@ font-family: 'Lora', serif;
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 
 <style type="text/css">
+
+
+#popup {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, .7);
+  z-index: 1;
+}
+
+#popup.hide {
+  display: none;
+}
+
+#popup.has-filter {
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+#popup .content {
+  padding: 20px;
+  background: #fff;
+  border-radius: 5px;
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, .3);
+}
+
 </style>
 <script type="text/javascript">
 	//모든 공백 체크 정규식
@@ -104,10 +135,10 @@ font-family: 'Lora', serif;
 				   }   */
 
 				$("[name=mem_oaddress]").val(data.zonecode);
-				$("[name=mem_address]").val(fullRoadAddr);
+				$("[name=userAddr]").val(fullRoadAddr);
 
 				document.getElementById('mem_oaddress').value = data.zonecode; //5자리 새우편번호 사용
-				document.getElementById('mem_address').value = fullRoadAddr;
+				document.getElementById('userAddr').value = fullRoadAddr;
 
 				//document.getElementById('userAddr').value = data.jibunAddress; 
 			}
@@ -163,6 +194,31 @@ font-family: 'Lora', serif;
 			<!-- header-nav -->
 		</div>
 		<!-- header -->
+		<div id="popup" class="has-filter">
+ 		 <div class="content"> <p>
+
+		<form name="pwdCheck" method="post" style="text-align: center">
+	
+		<div style="text-align: center">
+		비밀번호: <input type="password" name="userPwd" size="30"><p>
+		
+		
+	
+	 	<input type="button" value="확인" id="pwdCheck" style="text-align: center">
+		 <input type="button" value="닫기" onclick="history.back();">
+
+ 		<p>
+
+  		
+  		</div>
+  	
+
+		</form>
+   
+ 		 </div>
+		</div>
+
+</div>
 		<div class="clear"></div>
 
 		<div id='contents'>
@@ -179,6 +235,9 @@ font-family: 'Lora', serif;
 				</div>
 
 				<div id="profile-info" class="tabcontent">
+				<form name="userDto" method="post" id="userDto">
+				<input type="hidden" name="key" value="userAjax">
+			   	<input type="hidden" name="methodName" value="updateUserInfo">
 					<h3>프로필정보</h3>
 					<div id='profile_info'>
 						<div id='profile_group'>
@@ -201,30 +260,36 @@ font-family: 'Lora', serif;
 						</div>
 
 						<div id='profile_group'>
-							<form name="userDto" method="post" id="userDto">
+							
+							
 								<h4 id='grop_title'>개인정보</h4>
 							<div class="form-group">
 								<fieldset>
 									<label class="form-label mt-4" for="readOnlyInput">비밀번호</label>
-									<input class="form-control" id="userPwd" type="text"
-										placeholder="Readonly input here..." readonly="readonly">
+												<input class="form-control" style="top: 5px;"
+												placeholder="Readonly input here..." name="userPwd" id="userPwd"
+												type="text" readonly="readonly" />
 								</fieldset>
 							</div>
 								<div class="form-group">
 									<fieldset>
 										<label class="form-label mt-4" for="readOnlyInput">전화번호</label>
-										<input class="form-control" id="userPhone" type="text"
-											placeholder="Readonly input here..." readonly="readonly" />
+
+											<input class="form-control" style="top: 5px;"
+												placeholder="Readonly input here..." name="userPhone" id="userPhone"
+												type="text" readonly="readonly" />
 									</fieldset>
-									<div class="form-group">
-										<fieldset>
-											<label class="form-label mt-4" for="readOnlyInput">주소</label>
-											<input class="form-control" id="userAddr" type="text"
-												placeholder="Readonly input here..." readonly="readonly" />
-										</fieldset>
-									</div>
+<!-- 									<div class="form-group"> -->
+<!-- 										<fieldset> -->
+<!-- 											<label class="form-label mt-4" for="readOnlyInput">주소</label> -->
+<!-- 												<input class="form-control" style="top: 5px;" -->
+<!-- 												placeholder="Readonly input here..." name="userAddr" id="userAddr" -->
+<!-- 												type="text" readonly="readonly" /> -->
+<!-- 										</fieldset> -->
+<!-- 									</div> -->
 									<fieldset>
 										<div class="form-group">
+										<label class="form-label mt-4" for="readOnlyInput">주소</label><p>
 											<input class="form-control"
 												style="width: 40%; display: inline;" placeholder="우편번호" na
 												me="mem_oaddress" id="mem_oaddress" type="text"
@@ -238,7 +303,7 @@ font-family: 'Lora', serif;
 									<fieldset>
 										<div class="form-group">
 											<input class="form-control" style="top: 5px;"
-												placeholder="도로명 주소" name="mem_address" id="mem_address"
+												placeholder="도로명 주소" name="userAddr" id="userAddr"
 												type="text" readonly="readonly" />
 										</div>
 									</fieldset>
@@ -246,16 +311,19 @@ font-family: 'Lora', serif;
 								<div class="form-group">
 									<fieldset>
 										<label class="form-label mt-4" for="readOnlyInput">이메일</label>
-										<input class="form-control" id="userEmail" type="text"
-											placeholder="Readonly input here..." readonly="readonly" />
+											<input class="form-control" style="top: 5px;"
+												placeholder="Readonly input here..." name="userEmail" id="userEmail"
+												type="text" readonly="readonly" />
 									</fieldset>
 								</div>
-								<input type="hidden" name="key" value="customer"> <input
-									type="hidden" name="methodName" value="updateUserInfo">
+						
+
+								
 								<input type="button" value="수정하기" id="userUpdate">
-							</form>
+							
 						</div>
 					</div>
+					</form>
 				</div>
 
 				<div id="profile-alarm" class="tabcontent">
@@ -603,14 +671,14 @@ font-family: 'Lora', serif;
 						key : "userAjax",
 						methodName : "selectUser",
 					},
-					success : function(userDto) {
+					success : function(result) {
 
-						let id = userDto.userId;
-						let pwd = userDto.userPwd;
-						let name = userDto.userName;
-						let phone = userDto.userPhone;
-						let addr = userDto.userAddr;
-						let email = userDto.userEmail;
+						let id = result.userId;
+						let pwd = result.userPwd;
+						let name = result.userName;
+						let phone = result.userPhone;
+						let addr = result.userAddr;
+						let email = result.userEmail;
 
 						$("#userId").val(id);
 						$("#userPwd").val(pwd);
@@ -627,47 +695,86 @@ font-family: 'Lora', serif;
 			}// 유저  끝
 
 			$("#userUpdate").click(function() {
+				
+		
 
 				if ($(this).val() == "수정하기") {
-					$("[name=methodName]").val("selectUser");
+
 					$("#userPwd").removeAttr("readonly");
 					$("#userPwd").focus();
 					$("#userPhone").removeAttr("readonly");
 					$("#userAddr").removeAttr("readonly");
 					$("#userEmail").removeAttr("readonly");
 
-					$(this).val("수정완료")
+					$("#userUpdate").val("수정완료")
 
+				}
+				
+				else if($(this).val()== "수정완료"){
+
+					var form = $("#userDto").serialize();
+					alert(form);
+					$.ajax({
+						url : "ajax", //서버요청주소
+						type : "post", //요청방식(method방식 : get | post | put | delete )
+						dataType : "text", //서버가 보내온 데이터(응답)타입(text | html | xml | json )
+						data : form,
+						success : function(result) {
+							if(result==1){
+								alert("수정이 완료 되었습니다.")
+								selectUser();
+								$("#userUpdate").val("수정하기");
+								
+							}else{
+								alert("내용을 다시 확인해주세요.")
+							}
+							
+
+						}, //성공했을때 실행할 함수 
+						error : function(err) {
+							alert(err + "에러 발생");
+						} //실패했을때 실행할 함수 
+					})// 아작스 
 				}
 				
 
 			});
-
-			/*$(document).on("click", function updateUserInfo() {
-
-				$("userPwd").val();
-				$("userPhone").val();
-				$("userAddr").val();
-				$("userEmail").val();
-
-				$("#userUpdate").val("수정하기")
-
+			
+			
+			$("#pwdCheck").on("click", function(){
+				
 				$.ajax({
-					url : "ajax", //서버요청주소
-					type : "post", //요청방식(method방식 : get | post | put | delete )
-					dataType : "text", //서버가 보내온 데이터(응답)타입(text | html | xml | json )
-					data : {
-						key : "userAjax",
-						methodName : "updateUserInfo",
-					},
-					error : function(err) {
-						alert(err + "에러 발생");
-					}
-				})// 아작스 
-			});//  끝*/
+					url :"ajax" , //서버요청주소
+					type:"post", //요청방식(method방식 : get | post | put | delete )
+					dataType:"json"  , //서버가 보내온 데이터(응답)타입(text | html | xml | json )
+					data: {key:"userAjax" , methodName : "selectUser"},	
+					success :function(result){
+						console.log(result);
+						let pwd = $("[name=userPwd]").val();
+					
+						if(result.userPwd == pwd){
+					
+							closePopup();
+						}else{
+							alert("비밀번호를 다시 입력해주세요.");
+						}
+									
+						
+					} , //성공했을때 실행할 함수 
+					error : function(err){  
+						alert(err+"에러 발생했어요.");
+					}  //실팽했을때 실행할 함수 
+				});//ajax끝
+			})
+			
 
 			selectUser();
 		});//끝
+		
+		function closePopup() {
+			const popup = document.querySelector('#popup');
+		  	popup.classList.add('hide');
+	}
 	<%session.setAttribute("userId", "id");%>
 		
 	</script>
