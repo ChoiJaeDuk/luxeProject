@@ -90,7 +90,7 @@ $(function(){
  			$("#nav-search").val($(this).text());
  			$("#nav-search").focus();
  			$("#suggest").hide();
- 		})
+ 	})
 	
 	
 });

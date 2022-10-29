@@ -16,7 +16,7 @@ public interface GoodsService {
 	/**
 	 * 전체 상품목록 조회
 	 */
-	List<GoodsDTO> selectAllGoods(String brand, String category, String arrange, String userId) throws SQLException;
+	List<GoodsDTO> selectAllGoods(String brand, String category, String arrange, String userId, String search) throws SQLException;
 
 	/**
 	 * 상품 상세 조회

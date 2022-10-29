@@ -124,6 +124,26 @@ font-family: 'Lora', serif;
 				}
 			})
 		}
+		
+	    function selectProductImg() {
+	          $.ajax({
+	             url:"ajax",
+	             type:"post",
+	             dataType:"json",
+	             data:{key:"styleBookAjax" , methodName : "selectStyleBookByGoodsNo", goodsNo: ${goodsDTO.goodsNo}},
+	             success : function(result) {
+	                $.each(result, function(index, styleBook) {
+	                   let selector = ".styleBoard item"+(index+1)+" > img";
+	                   $(selector).attr("src", "${path}/stylebook/${"${styleBook.fName}"}");
+	                });
+	                
+	             },
+	             error : function(err) {
+	                alert(err+"에러 발생");
+	             }
+	          });
+	       }
+	    selectProductImg();
 		wishState();
 	})
 	
