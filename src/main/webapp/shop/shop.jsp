@@ -2,7 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-	<%@ include file="../headerTest.jsp" %>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -52,6 +52,17 @@ font-family: 'Lora', serif;
 <link rel="stylesheet" type="text/css" href="../css/setting/Layout.css">
 <script type="text/javascript" src="../js/jquery-3.6.1.min.js"></script>
 <style type="text/css">
+	.productImg {
+
+		overflow: hidden;
+	}
+	
+	.item_img_block {
+    width: 230px;
+    /* height: 230px; */
+    margin: 0;
+    padding: 0;
+}
 </style>
 <script type="text/javascript">
 	
@@ -85,9 +96,9 @@ font-family: 'Lora', serif;
 										str += "<tr>";
 									}
 									str += "<td>"
-									str += `<div class="bestItem item1">`;
+									str += `<div class="bestItem item1" style="overflow:hidden">`;
 									str += `<div class="item_img_block">`;
-									str += `<div class="item_img">`;
+									str += `<div class="item_img" style="overflow:hidden; border-bottom:1px solid lightgray">`;
 									str += `<img alt="상품이미지입니다." src=${path}/${"${item.mainImg}"}  id='product'>`;
 									str += `</div>`;
 									str += `<div id='like'><img src= ${"${heartState}"} id='like_img' name=${"${item.goodsNo}"}></div>`;
@@ -111,7 +122,7 @@ font-family: 'Lora', serif;
 								});
 								$("#product tr:gt(0)").remove();
 								$("#product tr:eq(0)").prepend(str);
-						 		
+						 		$("").css("overflow","hidden");
 								
 						} , //성공했을때 실행할 함수 
 						error : function(err){  

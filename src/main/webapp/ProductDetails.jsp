@@ -57,7 +57,7 @@ font-family: 'Lora', serif;
 		gap: 0 30px;
 	}
 	.styleBoard {
-		display: flex;]
+		display: flex;
 		align-items:center;
 		width: 33%;
 		height: 450px;
@@ -168,7 +168,7 @@ font-family: 'Lora', serif;
 	                $.each(result, function(index, styleBook) {
 	               
 	                   //let selector = ".styleBoard item"+(index+1)+" > img";
-	                   $("#img"+(index+1)).attr("src", "${path}/images/main.jpg");
+	                   $("#img"+(index+1)).attr("src", "${path}/stylebook/"+ ${styleBook.fName});
 	                         
 	                });
 	                if(index==2){
