@@ -2,7 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
+	<jsp:include page= "../layout/header.jsp"/>
 <!DOCTYPE html>
 <html>
 <head>
@@ -73,12 +73,21 @@ font-family: 'Lora', serif;
 <script type="text/javascript">
 	
 	$(function(){
-		//alert($("#test").attr("name"))
+		
+		var state = "<%=request.getParameter("state")%>";
+		var search = "<%=request.getParameter("search")%>";
+		if(state == 1){
+			var search= "'%" + search + "%'";
+			alert(search)
+		}else{
+			var search="";
+		}
 			selectAllGoods();
+			
 			var category ="";
 			var brand ="";
 			var sort="";
-			var search="";
+			
 			var heartState = "../img/heart.svg";
 			function selectAllGoods() {
 				 $.ajax({
@@ -269,6 +278,7 @@ font-family: 'Lora', serif;
 </script>
 </head>
 <body>
+
 <%-- <input type="text" id="test" name=<%=request.getParameter("state") %>> --%>
 
 <!-- <!-- 	<div id='wrap'> -->
