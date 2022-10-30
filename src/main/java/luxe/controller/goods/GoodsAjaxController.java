@@ -138,4 +138,14 @@ public class GoodsAjaxController implements AjaxController {
 		PrintWriter out = response.getWriter();
 		out.print(arr);
 	}
+	
+	public void deleteGoodsDTO(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		response.setContentType("text/html;charset=UTF-8");
+		String goodsNo = request.getParameter("goodsNo");
+		
+		int result = goodsService.deleteGoodsDTO(Integer.parseInt(goodsNo));
+		
+		PrintWriter out = response.getWriter();
+		out.print(result);
+	}
 }
