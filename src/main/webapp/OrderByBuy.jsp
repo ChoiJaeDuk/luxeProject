@@ -146,7 +146,6 @@ $(function() {
 					<div id='product_info'> <!-- 컨테이너 -->
 						<div id='product-img'><img src="img/heart-fill.svg"/></div>
 						<div id='product-detail'>
-							<p id='model-num'>모델번호</p>
 							<p id='model-title'>${goodsDTO.goodsName}</p>
 							<p id='model-subtitle'>${goodsDTO.goodsNameKor}</p>
 						</div>

@@ -98,8 +98,9 @@ public class UserAjaxController implements AjaxController {
 	public void sellUserInfo(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException, SQLException {
 		response.setContentType("text/html;charset=UTF-8");
-		String userId = request.getParameter("userId");
-
+		HttpSession session = request.getSession();
+		String userId = (String) session.getAttribute("userId");
+		
 		UserDTO userDto = userService.selectUser(userId);
 
 		request.setAttribute("userDto", userDto);

@@ -63,7 +63,7 @@ $(function() {
 			url :"ajax" , //서버요청주소
 			type:"post", //요청방식(method방식 : get | post | put | delete )
 			dataType:"json"  , //서버가 보내온 데이터(응답)타입(text | html | xml | json )
-			data: {key:"userAjax" , methodName : "sellUserInfo", userId:"ID"}, //서버에게 보낼 데이터정보(parameter정보)
+			data: {key:"userAjax" , methodName : "sellUserInfo"}, //서버에게 보낼 데이터정보(parameter정보)
 			success :function(result){
 				$("#buyer-name").text(result.userName);
 				$("#buyer-phone").text(result.userPhone);
@@ -79,7 +79,7 @@ $(function() {
 	
 	$("#payment-submit").click(function() {
 		if(confirm("정말 주문하시겠습니까?")){
-			location.href= '${path}/front?key=bid&methodName=insertBid&goodsNo=${goodsDTO.goodsNo}&bidPrice=${goodsDTO.lowestPrice}';            
+			location.href= "${path}/front?key=bid&methodName=insertBid&goodsNo=${goodsDTO.goodsNo}&bidPrice=${goodsDTO.lowestPrice}";            
 		}
 	});
 });
@@ -141,7 +141,6 @@ $(function() {
 					<div id='product_info'> <!-- 컨테이너 -->
 						<div id='product-img'><img src="img/heart-fill.svg"/></div>
 						<div id='product-detail'>
-							<p id='model-num'>모델번호</p>
 							<p id='model-title'>${goodsDTO.goodsName}</p>
 							<p id='model-subtitle'>${goodsDTO.goodsNameKor}</p>
 						</div>
@@ -199,7 +198,7 @@ $(function() {
 					</div><!-- instant_group_con -->
 					
 					<div id='payment-con'><!-- 컨테이너 -->
-						<form action="">
+						<form action="${path}/front?key=bid&methodName=insertBid&goodsNo=${goodsDTO.goodsNo}&bidPrice=${goodsDTO.lowestPrice}">
 								<div id='payment'>
 								<h3 id='payment-title'>결제방법</h3>
 								<h4 id='method-title'>계좌 간편결제</h4>
@@ -217,7 +216,7 @@ $(function() {
 										</div>
 									</div>
 								</div><!-- payment -->
-								<button type="submit" id='payment-submit'>결제하기</button>
+								<button type="button" id='payment-submit'>결제하기</button>
 							</form><!--결제방식 form으로 전송  -->
 						</div><!-- payment-con -->
 					</div><!-- con -->

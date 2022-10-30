@@ -80,7 +80,7 @@ public class BidController implements Controller {
 
 		bidService.insertBid(new BidDTO(0, Integer.parseInt(goodsNostr), userId, Integer.parseInt(bidPrice), null, null));
 
-		return new ModelAndView("mypage.jsp", true);
+		return new ModelAndView("mypage/mypage.jsp", true);
 	}
 
 	/**

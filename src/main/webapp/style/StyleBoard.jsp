@@ -577,8 +577,6 @@ width: 300px; height: 300px;
 			selectAllStyleBook(brand, 0, sortConditon);
 		});
 		
-		
-		<%session.setAttribute("userId", "ID");%>
 		$("#drop-btn > div").on("click", function() {
 			let id = $("#popup-title-text > h4").text();
 			console.log(id);

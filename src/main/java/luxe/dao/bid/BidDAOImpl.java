@@ -181,11 +181,11 @@ public class BidDAOImpl implements BidDAO {
 		BidDTO highest = this.getHighestBidPrice(goodsNo);
 		if (highest != null) {
 			if (highest.getBidPrice() < bidPrice) {
-				alarmDao.insertAlarm(new AlarmDTO(0, goodsNo, "제목", "내용", null));
+				alarmDao.insertAlarm(new AlarmDTO(0, goodsNo, "입찰 최고가 변경", "입찰 최고가가 변경되었습니다.", null));
 				// 화면에 입찰 최고가 바꾸기
 			}
 		} else {
-			alarmDao.insertAlarm(new AlarmDTO(0, goodsNo, "제목", "내용", null));
+			alarmDao.insertAlarm(new AlarmDTO(0, goodsNo, "입찰 최고가 변경", "입찰 최고가가 변경되었습니다.", null));
 			// 화면에 입찰 최고가 바꾸기
 		}
 	}
