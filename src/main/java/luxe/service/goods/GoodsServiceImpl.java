@@ -66,11 +66,13 @@ public class GoodsServiceImpl implements GoodsService {
 	}
 
 	@Override
-	public void deleteGoodsDTO(int goodsNo) throws SQLException {
+	public int deleteGoodsDTO(int goodsNo) throws SQLException {
 		int result = goodsDAO.deleteGoodsDTO(goodsNo);
 		if (result == 0) {
 			throw new SQLException("상품 삭제 오류");
 		}
+		
+		return result;
 	}
 
 	@Override
