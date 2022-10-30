@@ -78,10 +78,9 @@ public class BidController implements Controller {
 		String userId = (String) session.getAttribute("userId");
 		String bidPrice = request.getParameter("bidPrice");
 
-		bidService
-				.insertBid(new BidDTO(0, Integer.parseInt(goodsNostr), userId, Integer.parseInt(bidPrice), null, null));
+		bidService.insertBid(new BidDTO(0, Integer.parseInt(goodsNostr), userId, Integer.parseInt(bidPrice), null, null));
 
-		return new ModelAndView("조회페이지", true);
+		return new ModelAndView("mypage_jojo.jsp", true);
 	}
 
 	/**

@@ -54,6 +54,36 @@ font-family: 'Lora', serif;
 
 <style type="text/css">
 </style>
+<script src="js/jquery-3.6.1.min.js"></script>
+<script type="text/javascript">
+$(function() {
+	function sellUserInfo() {
+		
+		$.ajax({
+			url :"ajax" , //서버요청주소
+			type:"post", //요청방식(method방식 : get | post | put | delete )
+			dataType:"json"  , //서버가 보내온 데이터(응답)타입(text | html | xml | json )
+			data: {key:"userAjax" , methodName : "sellUserInfo", userId:"ID"}, //서버에게 보낼 데이터정보(parameter정보)
+			success :function(result){
+				$("#buyer-name").text(result.userName);
+				$("#buyer-phone").text(result.userPhone);
+				$("#buyer-addr").text(result.userAddr);
+			} , //성공했을때 실행할 함수 
+			error : function(err){  
+				alert(err+"에러 발생했어요.");
+			}  //실팽했을때 실행할 함수 
+		});//ajax끝
+	}
+	sellUserInfo();
+	
+	
+	$("#payment-submit").click(function() {
+		if(confirm("정말 주문하시겠습니까?")){
+			location.href= '${path}/front?key=bid&methodName=insertBid&goodsNo=${goodsDTO.goodsNo}&bidPrice=${goodsDTO.lowestPrice}';            
+		}
+	});
+});
+</script>
 </head>
 <body>
 	<div id='wrap'>
@@ -112,8 +142,8 @@ font-family: 'Lora', serif;
 						<div id='product-img'><img src="img/heart-fill.svg"/></div>
 						<div id='product-detail'>
 							<p id='model-num'>모델번호</p>
-							<p id='model-title'>모델이름</p>
-							<p id='model-subtitle'>모델서브이름</p>
+							<p id='model-title'>${goodsDTO.goodsName}</p>
+							<p id='model-subtitle'>${goodsDTO.goodsNameKor}</p>
 						</div>
 					</div><!-- product_info -->
 					
@@ -122,17 +152,17 @@ font-family: 'Lora', serif;
 							<h3>배송 주소</h3>
 							<div id='delivery-info-list'>
 							<span id='delivery-title'>주문자</span>
-							<span id='delivery-dese'>홍길동</span>
+							<span id='buyer-name'>홍길동</span>
 							</div>
 							
 							<div id='delivery-info-list'>
 							<span id='delivery-title'>연락처</span>
-							<span id='delivery-dese'>010-0000-0000</span>
+							<span id='buyer-phone'>010-0000-0000</span>
 							</div>
 							
 							<div id='delivery-info-list'>
 							<span id='delivery-title'>배송 주소</span>
-							<span id='delivery-dese'>경기도 오리역</span>
+							<span id='buyer-addr'>경기도 오리역</span>
 							</div>
 							
 						</div>
@@ -150,7 +180,7 @@ font-family: 'Lora', serif;
 							<div id='bind'>
 								<dl id='price_addition'>
 									<dt><b>구매가</b></dt>
-									<dd><span><b>000.000</b></span><span><b>원</b></span></dd>
+									<dd><span><b>${goodsDTO.lowestPrice}</b></span><span><b>원</b></span></dd>
 								</dl>
 								<dl id='price_addition'>
 									<dt>검수비</dt>

@@ -168,7 +168,7 @@ font-family: 'Lora', serif;
 	                $.each(result, function(index, styleBook) {
 	               
 	                   //let selector = ".styleBoard item"+(index+1)+" > img";
-	                   $("#img"+(index+1)).attr("src", "${path}/stylebook/"+ ${styleBook.fName});
+	                   $("#img"+(index+1)).attr("src", "${path}/stylebook/"+ styleBook.fName);
 	                         
 	                });
 	                if(index==2){
@@ -278,7 +278,7 @@ font-family: 'Lora', serif;
 				<div id='amount'><span id='num'>000,000</span><span id='won'>원</span> </div>
 			</div>
 			<button class="btn-order sell" onclick = "location.href='${path}/front?key=goods&methodName=selectGoodsLine&goodsNo=${goodsDTO.goodsNo}&addr=OrderBysell.jsp'"><span>즉시판매</span> <span id='num'>${goodsDTO.lowestPrice}</span><span id='won'>원</span></button>
-			<button class="btn-order buy"><span>즉시구매</span> <span id='num'>${goodsDTO.highestPrice}</span><span id='won'>원</span></button>
+			<button class="btn-order buy" onclick = "location.href='${path}/front?key=goods&methodName=selectGoodsLine&goodsNo=${goodsDTO.goodsNo}&addr=OrderByBuy.jsp'"><span>즉시구매</span> <span id='num'>${goodsDTO.highestPrice}</span><span id='won'>원</span></button>
 			<button class="btn-wish"></button>
 			
 			<div id='detail-info'>

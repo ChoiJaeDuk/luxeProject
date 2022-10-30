@@ -70,11 +70,10 @@ public class BidAjaxController implements AjaxController {
 		String userId = (String) session.getAttribute("userId");
 		String bidPrice = request.getParameter("bidPrice");
 		System.out.println(bidPrice);
-		
 
-		int result= bidService.updateBidPrice(new BidDTO(Integer.parseInt(bidNoStr), Integer.parseInt(goodsNostr), userId,
-				Integer.parseInt(bidPrice), null, null));
-		
+		int result = bidService.updateBidPrice(new BidDTO(Integer.parseInt(bidNoStr), Integer.parseInt(goodsNostr),
+				userId, Integer.parseInt(bidPrice), null, null));
+
 		PrintWriter out = response.getWriter();
 		out.print(result);
 	}
@@ -93,6 +92,28 @@ public class BidAjaxController implements AjaxController {
 
 		PrintWriter out = response.getWriter();
 		out.print("삭제성공");
+	}
+
+	/**
+	 * 입찰 내역 중복 확인
+	 */
+	public void checkDuplicatedBid(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		response.setContentType("text/html;charset=UTF-8");
+
+		HttpSession session = request.getSession();
+		String userId = (String) session.getAttribute("userId");
+		String goodsNostr = request.getParameter("goodsNo");
+		BidDTO bid = bidService.checkDuplicatedBid(new BidDTO(0, Integer.parseInt(goodsNostr), userId, 0, null, null));
+		String result = "";
+
+		if (bid == null)
+			result = "false";
+		else if (bid != null)
+			result = "true";
+
+		PrintWriter out = response.getWriter();
+		out.print(result);
+
 	}
 
 }

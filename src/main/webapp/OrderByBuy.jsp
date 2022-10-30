@@ -53,8 +53,45 @@ font-family: 'Lora', serif;
 
 <style type="text/css">
 </style>
+<script src="js/jquery-3.6.1.min.js"></script>
+<script type="text/javascript">
+$(function() {
+	$(".price-total-btn").on("click", function() {
+		if($(this).text()=="구매 입찰 계속"){
+			if($("#input-amount").val()>=${goodsDTO.lowestPrice}){
+				alert("즉시구매가보다 높은 가격입니다. 다시 입력해주세요.");
+			} else{
+				$.ajax({
+					 url:"ajax",
+		             type:"post",
+		             dataType:"json",
+		             data:{key:"bidAjax" , methodName : "checkDuplicatedBid", goodsNo: ${goodsDTO.goodsNo}},
+		             success : function(result) {
+		            	console.log(result);
+		               if(result==true){
+		            	  if(confirm("기존 입찰 내역이 존재합니다. 마이페이지에서 수정하시겠습니까?")){
+		            		  location.href = "${path}/mypage_jojo.jsp";
+		            	  } else return false;
+		               } else if(result==false){
+		            	   location.href= '${path}/front?key=bid&methodName=insertBid&goodsNo=${goodsDTO.goodsNo}&bidPrice='+$("#input-amount").val();
+		               }
+		             },
+		             error : function(err) {
+		                alert(err+"에러 발생");
+		             }
+				});
+				
+			}
+		} else if($(this).text()=="즉시 구매 계속"){
+			location.href='${path}/front?key=goods&methodName=selectGoodsLine&goodsNo=${goodsDTO.goodsNo}&addr=Order.jsp';
+	    }
+	});
+});
+
+</script>
 </head>
 <body>
+<%session.setAttribute("userId", "ID"); %>
 	<div id='wrap'>
 	
 		<div id='header'>
@@ -111,17 +148,17 @@ font-family: 'Lora', serif;
 						<div id='product-img'><img src="img/heart-fill.svg"/></div>
 						<div id='product-detail'>
 							<p id='model-num'>모델번호</p>
-							<p id='model-title'>모델이름</p>
-							<p id='model-subtitle'>모델서브이름</p>
+							<p id='model-title'>${goodsDTO.goodsName}</p>
+							<p id='model-subtitle'>${goodsDTO.goodsNameKor}</p>
 						</div>
 						<div id='price-list'>
 							<div class='price01' id='pri01'>
 								<p id='title'>즉시 구매가</p>
-								<span id='price-now'>000,000</span><span id='won'>원</span>
+								<span id='price-now'>${goodsDTO.lowestPrice}</span><span id='won'>원</span>
 							</div>
 							<div class='price01'>
-								<p id='title'>즉시 구매가</p>
-								<span id='price-now'>000,000</span><span id='won'>원</span>
+								<p id='title'>즉시 판매가</p>
+								<span id='price-now'>${goodsDTO.highestPrice}</span><span id='won'>원</span>
 							</div>
 						</div>
 					</div><!-- product_info -->
@@ -149,7 +186,7 @@ font-family: 'Lora', serif;
 							<div id='price'>
 								<span id='price-now-title'>즉시구매가</span>
 								<div id='price-con'>
-									<span id='price02'>000,0000</span>
+									<span id='price02'>${goodsDTO.lowestPrice}</span>
 									<span id ='won02'>원</span>
 								</div>
 							</div>
