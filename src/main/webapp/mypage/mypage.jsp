@@ -47,6 +47,7 @@ font-family: 'Lora', serif;
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
 	crossorigin="anonymous"></script>
+	
 
 <!-- 외부의 css파일 연결하기 -->
 <link rel="stylesheet" type="text/css" href="../layout/css/Reset.css">
