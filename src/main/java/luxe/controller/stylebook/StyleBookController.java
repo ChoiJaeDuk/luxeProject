@@ -116,8 +116,7 @@ public class StyleBookController implements Controller {
 
 		String goodsNo = m.getParameter("goodsNo");
 		String boardContent = m.getParameter("boardContent");
-		String description = m.getParameter("description");
-
+		
 		StyleBookDTO styleBook = new StyleBookDTO(0, userId, Integer.parseInt(goodsNo), boardContent, null, null, 0, 0);
 
 		// 만약, 파일첨부가 되었다면....
@@ -128,7 +127,7 @@ public class StyleBookController implements Controller {
 
 		styleBookService.insertStyleBook(styleBook);
 
-		return new ModelAndView("front", true);
+		return new ModelAndView("style/StyleBoard_jojo.jsp", true);
 	}
 
 	/**
