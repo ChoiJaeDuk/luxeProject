@@ -26,11 +26,13 @@
 	rel="stylesheet">
 
 <!--
-font-family: 'Noto Sans KR', sans-serif;
-font-family: 'Roboto', sans-serif;
-font-family: 'Lora', serif;
+font-family: "Noto Sans KR", sans-serif;
+font-family: "Roboto", sans-serif;
+font-family: "Lora", serif;
 
   -->
+  <script type="text/javascript" src="../js/jquery-3.6.0.min.js"></script>
+  
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
@@ -69,131 +71,108 @@ font-family: 'Lora', serif;
 	let phoneJ = /^01([0|1|6|7|8|9]?)?([0-9]{3,4})?([0-9]{4})$/;
 
 	/^[가-힣]{2,4}|[a-zA-Z]{2,10}\s[a-zA-Z]{2,10}$/
+	
+	
 
-	let address = $('#userAddr');
-
-	$(document)
-			.ready(
-					function() {
-						let address = $('#userAddr');
-
+	$(document).ready(function() {
 						//아이디 중복확인
-						$("#userId")
-								.blur(
-										function() {
-											if ($('#userId').val() == '') {
-												$('#id_check').text(
-														'아이디를 입력하세요.');
-												$('#id_check').css('color',
-														'red');
+						$("#idcheckbtn").click(function() {
+											if ($("#userId").val() == "") {
+												$("#useridCheck").text(
+														"아이디를 입력하세요.");
+												$("#useridCheck").css("color","red");
 
-											} else if (idJ.test($('#userId')
-													.val()) != true) {
-												$('#id_check')
-														.text(
-																'4~12자의 영문, 숫자만 사용 가능합니다.');
-												$('#id_check').css('color',
-														'red');
-											} else if ($('#userId').val() != '') {
-
-												let userId = $('#userId').val();
-												$
-														.ajax({
-															url : 'ajax', //어디로 보낼지 주소
+											} else if (idJ.test($("#userId").val()) != true) {
+												$("#useridCheck").text("4~12자의 영문, 숫자만 사용 가능합니다.");
+												$("#useridCheck").css("color","red");
+											} else if ($("#userId").val() != "") {
+												let userId = $("#userId").val();
+												$.ajax({
+															url : "../ajax", //어디로 보낼지 주소
+															type : "post",
+															dataType : "text", //중복체크 결과값 text로 받아오기
 															data : {
 																key : "userAjax",
-																methodName : "selectUser",
+																methodName : "userIdCheck" , userId : $("#userId").val()
 															},
-															dataType : "text", //중복체크 결과값 text로 받아오기
-															success : function(
-																	result) {
-																alert('성공'
-																		+ result);
-																// result가 text형태로 와서 false가 text형태로 비교해줘됨
-																if (result == 'false') {
-																	$(
-																			'#idcheck')
-																			.html(
-																					'중복되는 아이디가 없습니다.');
-																	//중복이 없다는 뜻
-																} else {
-																	//중복이 있다.
-																	$(
-																			'#idcheck')
-																			.html(
-																					'아이디가 중복됩니다.');
-
+															success : function(result) {
+																if(result=="true"){
+																	alert("중복된 아이디 입니다. 다른 아이디를 입력해주세요")
+																	$("#userId").focus();
+																}else{
+																	alert("사용가능한 아이디입니다.")
+																	$("#userPwd").focus();
 																}
-															},
-															error : function() {
-																alert('실패');
-															}
 
+															},
+															error : function(err) {
+																alert(err)
+															}
 														});//
 											}//else if
 
-										});//blur
+										});//click
 
-						$('form')
+						$("form")
 								.on(
-										'submit',
+										"submit",
 										function() {
 											let inval_Arr = new Array(8)
 													.fill(false);
-											if (idJ.test($('#userId').val())) {
+											if (idJ.test($("#userId").val())) {
 												inval_Arr[0] = true;
 											} else {
 												inval_Arr[0] = false;
-												alert('아이디를  확인하세요.');
+												alert("아이디를  확인하세요.");
 												return false;
 											}
 											// 비밀번호가 같은 경우 && 비밀번호 정규식
-											if (($('#userPwd').val() == ($('#userPwd2')
+											if (($("#userPwd").val() == ($("#userPwd2")
 													.val()))
-													&& pwJ.test($('#userPwd')
+													&& pwJ.test($("#userPwd")
 															.val())) {
 												inval_Arr[1] = true;
 											} else {
 												inval_Arr[1] = false;
-												alert('비밀번호를 확인하세요.');
+												alert("비밀번호를 확인하세요.");
 												return false;
 											}
 											// 이름 정규식
 											if (nameJ
-													.test($('#userName').val())) {
+													.test($("#userName").val())) {
 												inval_Arr[2] = true;
 											} else {
 												inval_Arr[2] = false;
-												alert('이름을 확인하세요.');
+												alert("이름을 확인하세요.");
 												return false;
 											}
 											// 이메일 정규식
-											if (mailJ.test($('#userEmail')
+											if (mailJ.test($("#userEmail")
 													.val())) {
 												console.log(phoneJ.test($(
-														'#userEmail').val()));
+														"#userEmail").val()));
 												inval_Arr[4] = true;
 											} else {
 												inval_Arr[4] = false;
-												alert('이메일을 확인하세요.');
+												alert("이메일을 확인하세요.");
 												return false;
 											}
 											// 휴대폰번호 정규식
-											if (phoneJ.test($('#userPhone')
+											if (phoneJ.test($("#userPhone")
 													.val())) {
 												console.log(phoneJ.test($(
-														'#userPhone').val()));
+														"#userPhone").val()));
 												inval_Arr[5] = true;
 											} else {
 												inval_Arr[5] = false;
-												alert('휴대폰 번호를 확인하세요.');
+												alert("휴대폰 번호를 확인하세요.");
 												return false;
 											}
 
 											//주소확인
-											if (address.val() == '') {
+											if (address.val() == "") {
 												inval_Arr[7] = false;
-												alert('주소를 확인하세요.');
+												alert("주소를 확인하세요.");
 												return false;
 											} else
 												inval_Arr[7] = true;
@@ -206,47 +185,47 @@ font-family: 'Lora', serif;
 												}
 											}
 											if (validAll == true) { // 유효성 모두 통과
-												alert('어머 저건 꼭 사야해. luxe에 오신걸 환영합니다!~~.');
+												alert("어머 저건 꼭 사야해. luxe에 오신걸 환영합니다!~~.");
 											} else {
-												alert('정보를 다시 확인하세요.')
+												alert("정보를 다시 확인하세요.")
 											}
 										});
 
-						$('#userId')
+						$("#userId")
 								.blur(
 										function() {
-											if (idJ.test($('#userId').val())) {
-												console.log('true');
-												$('#id_check').text('');
+											if (idJ.test($("#userId").val())) {
+												console.log("true");
+												$("#useridCheck").text("");
 											} else {
-												console.log('false');
-												$('#id_check')
+												console.log("false");
+												$("#useridCheck")
 														.text(
-																'5~20자의 영문 소문자, 숫자와 특수기호(_),(-)만 사용 가능합니다.');
-												$('#id_check').css('color',
-														'red');
+																"5~20자의 영문 소문자, 숫자와 특수기호(_),(-)만 사용 가능합니다.");
+												$("#useridCheck").css("color",
+														"red");
 											}
 										});
-						$('#userPwd').blur(
+						$("#userPwd").blur(
 								function() {
-									if (pwJ.test($('#userPwd').val())) {
-										console.log('true');
-										$('#pw_check').text('');
+									if (pwJ.test($("#userPwd").val())) {
+										console.log("true");
+										$("#pw_check").text("");
 									} else {
-										console.log('false');
-										$('#pw_check').text(
-												'4~12자의 숫자 , 문자로만 사용 가능합니다.');
-										$('#pw_check').css('color', 'red');
+										console.log("false");
+										$("#pw_check").text(
+												"4~12자의 숫자 , 문자로만 사용 가능합니다.");
+										$("#pw_check").css("color", "red");
 									}
 								});
 
 						//1~2 패스워드 일치 확인
-						$('#userPwd2').blur(function() {
-							if ($('#userPwd').val() != $(this).val()) {
-								$('#pw2_check').text('비밀번호가 일치하지 않습니다.');
-								$('#pw2_check').css('color', 'red');
+						$("#userPwd2").blur(function() {
+							if ($("#userPwd").val() != $(this).val()) {
+								$("#pw2_check").text("비밀번호가 일치하지 않습니다.");
+								$("#pw2_check").css("color", "red");
 							} else {
-								$('#pw2_check').text('');
+								$("#pw2_check").text("");
 							}
 						});
 
@@ -257,32 +236,32 @@ font-family: 'Lora', serif;
 											if (nameJ.test($(this).val())) {
 												console.log(nameJ.test($(this)
 														.val()));
-												$("#name_check").text('');
+												$("#name_check").text("");
 											} else {
-												$('#name_check')
+												$("#name_check")
 														.text(
-																'한글 2~4자 이내로 입력하세요. (특수기호, 공백 사용 불가)');
-												$('#name_check').css('color',
-														'red');
+																"한글 2~4자 이내로 입력하세요. (특수기호, 공백 사용 불가)");
+												$("#name_check").css("color",
+														"red");
 											}
 										});
 						$("#userEmail").blur(function() {
 							if (mailJ.test($(this).val())) {
-								$("#email_check").text('');
+								$("#email_check").text("");
 							} else {
-								$('#email_check').text('이메일 양식을 확인해주세요.');
-								$('#email_check').css('color', 'red');
+								$("#email_check").text("이메일 양식을 확인해주세요.");
+								$("#email_check").css("color", "red");
 							}
 						});
 
 						// 휴대전화
-						$('#userPhone').blur(function() {
+						$("#userPhone").blur(function() {
 							if (phoneJ.test($(this).val())) {
 								console.log(nameJ.test($(this).val()));
-								$("#phone_check").text('');
+								$("#phone_check").text("");
 							} else {
-								$('#phone_check').text('휴대폰번호를 확인해주세요 ');
-								$('#phone_check').css('color', 'red');
+								$("#phone_check").text("휴대폰번호를 확인해주세요 ");
+								$("#phone_check").css("color", "red");
 							}
 						});
 					});
@@ -294,26 +273,26 @@ font-family: 'Lora', serif;
 				// 팝업에서 검색결과 항목을 클릭했을때 실행할 코드를 작성하는 부분.
 
 				// 도로명 주소의 노출 규칙에 따라 주소를 조합한다.
-				// 내려오는 변수가 값이 없는 경우엔 공백('')값을 가지므로, 이를 참고하여 분기 한다.
+				// 내려오는 변수가 값이 없는 경우엔 공백("")값을 가지므로, 이를 참고하여 분기 한다.
 				let fullRoadAddr = data.roadAddress; // 도로명 주소 변수
-				let extraRoadAddr = ''; // 도로명 조합형 주소 변수
+				let extraRoadAddr = ""; // 도로명 조합형 주소 변수
 
 				// 법정동명이 있을 경우 추가한다. (법정리는 제외)
 				// 법정동의 경우 마지막 문자가 "동/로/가"로 끝난다.
-				if (data.bname !== '' && /[동|로|가]$/g.test(data.bname)) {
+				if (data.bname !== "" && /[동|로|가]$/g.test(data.bname)) {
 					extraRoadAddr += data.bname;
 				}
 				// 건물명이 있고, 공동주택일 경우 추가한다.
-				if (data.buildingName !== '' && data.apartment === 'Y') {
-					extraRoadAddr += (extraRoadAddr !== '' ? ', '
+				if (data.buildingName !== "" && data.apartment === "Y") {
+					extraRoadAddr += (extraRoadAddr !== "" ? ", "
 							+ data.buildingName : data.buildingName);
 				}
 				// 도로명, 지번 조합형 주소가 있을 경우, 괄호까지 추가한 최종 문자열을 만든다.
-				if (extraRoadAddr !== '') {
-					extraRoadAddr = ' (' + extraRoadAddr + ')';
+				if (extraRoadAddr !== "") {
+					extraRoadAddr = " (" + extraRoadAddr + ")";
 				}
 				// 도로명, 지번 주소의 유무에 따라 해당 조합형 주소를 추가한다.
-				if (fullRoadAddr !== '') {
+				if (fullRoadAddr !== "") {
 					fullRoadAddr += extraRoadAddr;
 				}
 
@@ -328,37 +307,37 @@ font-family: 'Lora', serif;
 				      return false;
 				   }   */
 
-				$("[name=mem_oaddress]").val(data.zonecode);
-				$("[name=mem_address]").val(fullRoadAddr);
+				$("[name=useroaddress]").val(data.zonecode);
+				$("[name=userDeAddress]").val(fullRoadAddr);
 
-				document.getElementById('mem_oaddress').value = data.zonecode; //5자리 새우편번호 사용
-				document.getElementById('mem_address').value = fullRoadAddr;
+				document.getElementById("useroaddress").value = data.zonecode; //5자리 새우편번호 사용
+				document.getElementById("userDeAddress").value = fullRoadAddr;
 
-				//document.getElementById('userAddr').value = data.jibunAddress; 
+				//document.getElementById("userDeAddr").value = data.jibunAddress; 
 			}
 		}).open();
 	}
 </script>
 </head>
 <body>
-	<div id='wrap'>
+	<div id="wrap">
 
 		<div class="clear"></div>
 
 
-		<div id='contents'>
+		<div id="contents">
 			<div class="container">
-				<div id='con'>
+				<div id="con">
 
-					<form id='insert-form' name="writeForm" method="post" action="">
+					<form id="insert-form" name="writeForm" method="post" action="${pageContext.request.contextPath}/front?key=user&methodName=insertUser">
 
-						<div id='insert-title-text'>
+						<div id="insert-title-text">
 							<h3>회원가입</h3>
 							<div class="form-group mb-3">
 								<label for="id">아이디</label> <input type="text"
-									class="form-control" id="userId" name="userId" placeholder="ID" aria-label="Recipient's username" aria-describedby="button-addon2">
-								<button type="button" id="btn" class="btn btn-primary">아이디 중복확인</button>
-								<div class="eheck_font" id="id_check"></div>
+									class="form-control" id="userId" name="userId" placeholder="ID" aria-label="Recipient"s username" aria-describedby="button-addon2">
+								<button type="button" id="idcheckbtn" class="btn btn-primary">아이디 중복확인</button>
+								<div class="eheck_font" id="useridCheck"></div>
 							</div>
 
 
@@ -391,7 +370,7 @@ font-family: 'Lora', serif;
 
 
 							<div class="form-group">
-								<label for="userPhone">휴대폰 번호('-'없이 번호만 입력해주세요)</label> <input
+								<label for="userPhone">휴대폰 번호("-"없이 번호만 입력해주세요)</label> <input
 									type="tel" class="form-control" id="userPhone" name="userPhone"
 									placeholder="Phone Number">
 								<div class="eheck_font" id="phone_check"></div>
@@ -401,7 +380,7 @@ font-family: 'Lora', serif;
 
 							<div class="form-group">
 								<input class="form-control" style="width: 40%; display: inline;"
-									placeholder="우편번호" name="mem_oaddress" id="mem_oaddress"
+									placeholder="우편번호" name="useroaddress" id="useroaddress"
 									type="text" readonly="readonly">
 								<button type="button" class="btn btn-default"
 									onclick="execPostCode();">
@@ -411,7 +390,7 @@ font-family: 'Lora', serif;
 
 							<div class="form-group">
 								<input class="form-control" style="top: 5px;"
-									placeholder="도로명 주소" name="mem_address" id="mem_address"
+									placeholder="도로명 주소" name="userDeAddress" id="userDeAddress"
 									type="text" readonly="readonly" />
 							</div>
 
