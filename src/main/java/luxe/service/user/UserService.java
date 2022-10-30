@@ -50,7 +50,7 @@ public interface UserService {
 	 * @return
 	 * @throws SQLException
 	 */
-	String selectUserId(String userName, String userPhone) throws SQLException;
+	String selectUserId(String userName) throws SQLException;
 
 	/**
 	 * 비밀번호 찾기
@@ -60,7 +60,7 @@ public interface UserService {
 	 * @return
 	 * @throws SQLException
 	 */
-	String selectUserPwd(String userId, String userPhone) throws SQLException;
+	String selectUserPwd(String userId) throws SQLException;
 
 	/**
 	 * 회원정보 수정
