@@ -1,0 +1,103 @@
+@charset "utf-8";
+
+
+#update-text{
+	width: 100%;
+	height: 30%;
+}
+
+#update-submt{
+	width: 100%;
+	height: 10%;
+}
+
+#update-con span{
+	font-family: 'Noto Sans KR', sans-serif;
+	font-size: 18px;
+	font-weight: 500;
+}
+#update-con input {
+	margin-bottom: 12px;
+	margin-top: 3px;
+}
+#update-con textarea{
+	margin-bottom: 15px;
+	margin-top: 3px;
+}
+
+#update-closeBtn, #update-submitBtn{
+	background-color:#22222210;
+	color: #222222;
+	border: none;
+	outline: none;
+	padding: 10px 0px;
+	width: 49%;
+	border: 0.1px solid #22222220;
+    outline: none;
+    cursor: pointer;
+    transition: 0.3s;
+    font-family: 'Noto Sans KR', sans-serif;
+    font-weight: 600;   
+} 
+
+#update-closeBtn:hover, #update-submitBtn:hover {
+  background-color: #22222298;
+  color: #ffffff;
+}
+
+/* Create an active/current tablink class */
+#update-closeBtn:active, #update-submitBtn:active {
+  background-color: #222222;
+  color: #ffffff;
+}
+
+
+#update-contents{
+	width: 1280px;
+	height: 900px;
+	margin: auto;
+	background-color: #ffffff;
+	border-radius: 12px;
+	box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.1);
+}
+
+#update-form{
+	width: 1150px;
+	height:840px;
+	margin: 50px auto;
+}
+
+#update-con-top{
+	width: 1150px;
+	height: 300px;
+	float: left;
+	display: flex;
+	position: relative;
+	top: 60px;
+}
+/* 상품이미지 */
+#update-productImg{
+	width: 240px;
+	height:300px;
+	float: left;
+	margin-right:30px;
+	display:block;
+	
+}
+img{
+	width: 100%;
+	height: 100%;
+}
+
+#update-con{
+	position: relative;
+	clear: both;
+	height:450px;
+	width: 1150px;
+	float: left;
+	margin-top: 30px;
+}
+#contents{
+	padding: 50px;
+	padding-bottom: 100px; 
+}
