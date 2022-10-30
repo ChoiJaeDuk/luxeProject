@@ -113,14 +113,14 @@ $(function(){
 				let str="";
 				$.each(result, function(index, item){
 					str+=`<tr>`;
-					str+=`<td>${"${item.sellNo}"}</th>`;
-					str+=`<td>${"${item.userId}"}</th>`;
-					str+=`<td>${"${item.brand}"}</th>`;
-					str+=`<td>${"${item.goodsName}"}</th>`;
-					str+=`<td>${"${item.sellPrice}"}</th>`;
-					str+=`<td>${"${item.purdate}"}</th>`;
-					str+=`<td>${"${item.serialNumber}"}</th>`;
-					str+=`<td>${"${item.sellDate}"}</th>`;
+					str+=`<td>${"${item.sellNo}"}</td>`;
+					str+=`<td>${"${item.userId}"}</td>`;
+					str+=`<td>${"${item.brand}"}</td>`;
+					str+=`<td>${"${item.goodsName}"}</td>`;
+					str+=`<td>${"${item.sellPrice}"}</td>`;
+					str+=`<td>${"${item.purdate}"}</td>`;
+					str+=`<td>${"${item.serialNumber}"}</td>`;
+					str+=`<td>${"${item.sellDate}"}</td>`;
 					str+=`<td>
 					 <select name="sellStatus">
 				    	<option value=${"${item.sellStatus}"} selected>${"${item.sellStatus}"}</option>
