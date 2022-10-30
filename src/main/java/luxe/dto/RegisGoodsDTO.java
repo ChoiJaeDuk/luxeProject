@@ -11,7 +11,7 @@ public class RegisGoodsDTO {
 	public RegisGoodsDTO() {
 	}
 
-	public RegisGoodsDTO(int regisGoodsNo, String userId, String regisBrand, String regisName, String regisDate) {
+	public RegisGoodsDTO(int regisGoodsNo, String userId, String regisGoodsBrand, String regisGoodsName, String regisDate) {
 		super();
 		this.regisGoodsNo = regisGoodsNo;
 		this.userId = userId;
