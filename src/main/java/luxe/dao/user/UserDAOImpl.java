@@ -23,11 +23,13 @@ public class UserDAOImpl implements UserDAO {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		boolean result = false;
+		
 		try {
 			con = DbUtil.getConnection();
 			ps = con.prepareStatement("select user_id from users where user_id=?");
 			ps.setString(1, userId);
 			rs = ps.executeQuery();
+			System.out.println(userId);
 			if (rs.next()) {
 				result = true;
 			}
@@ -56,8 +58,7 @@ public class UserDAOImpl implements UserDAO {
 			ps.setString(3, userDto.getUserName());
 			ps.setString(4, userDto.getUserAddr());
 			ps.setString(5, userDto.getUserPhone());
-			ps.setString(6, userDto.getJob());
-			ps.setString(7, userDto.getUserEmail());
+			ps.setString(6, userDto.getUserEmail());
 			result = ps.executeUpdate();
 
 		} finally {
@@ -159,21 +160,19 @@ public class UserDAOImpl implements UserDAO {
 	 * 아이디 찾기
 	 */
 	@Override
-	public String selectUserId(String userName, String userPhone) throws SQLException {
+	public String selectUserId(String userName) throws SQLException {
 
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		String userId = null;
 
-		String sql = "select user_id from user where user_name = ? and user_phone =?";
+		String sql = "select user_id from users where user_name = ?";
 
 		try {
 			con = DbUtil.getConnection();
 			ps = con.prepareStatement(sql);
 			ps.setString(1, userName);
-			ps.setString(2, userPhone);
-
 			rs = ps.executeQuery();
 			if (rs.next())
 				userId = rs.getString(1);
@@ -188,20 +187,19 @@ public class UserDAOImpl implements UserDAO {
 	 * 비밀번호 찾기
 	 */
 	@Override
-	public String selectUserPwd(String userId, String userPhone) throws SQLException {
+	public String selectUserPwd(String userId) throws SQLException {
 
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		String userPwd = null;
 
-		String sql = "select user_pwd from user where user_name = ? and user_phone =?";
+		String sql = "select user_pwd from users where user_id = ?";
 
 		try {
 			con = DbUtil.getConnection();
 			ps = con.prepareStatement(sql);
 			ps.setString(1, userId);
-			ps.setString(2, userPhone);
 
 			rs = ps.executeQuery();
 			if (rs.next())
@@ -223,7 +221,7 @@ public class UserDAOImpl implements UserDAO {
 		Connection con = null;
 		PreparedStatement ps = null;
 		int result = 0;
-		String sql = "delete user where user_id = ? and user_password = ?";
+		String sql = "delete users where user_id = ? and user_pwd = ?";
 
 		try {
 			con = DbUtil.getConnection();

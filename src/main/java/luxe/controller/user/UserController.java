@@ -50,14 +50,13 @@ public class UserController implements Controller {
 		String userId = request.getParameter("userId");
 		String userPwd = request.getParameter("userPwd");
 		String userName = request.getParameter("userName");
-		String userAddr = request.getParameter("userAddr");
+		String userAddr = request.getParameter("userAddr")+request.getParameter("useroaddress")+request.getParameter("userDeAddress");
 		String userPhone = request.getParameter("userPhone");
-
 		String userEmail = request.getParameter("userEmail");
 
-		userService.insertUser(new UserDTO(userId, userPwd, userName, userAddr, userPhone, userEmail));
+		userService.insertUser(new UserDTO(userId, userPwd, userName, userAddr, userPhone,userEmail));
 
-		return new ModelAndView("/front", true);
+		return new ModelAndView("login.jsp", true);
 	}
 
 	/**
@@ -72,10 +71,10 @@ public class UserController implements Controller {
 		UserDTO dbDTO = userService.login(new UserDTO(userId, userPwd));
 
 		HttpSession session = request.getSession();
-		session.setAttribute("loginUser", dbDTO);
-		session.setAttribute("loginUser", dbDTO.getUserName());
+		session.setAttribute("userId", dbDTO);
+		session.setAttribute("userId", dbDTO.getUserName());
 
-		return new ModelAndView("index.html", true);
+		return new ModelAndView("index.jsp",true);
 
 	}
 
@@ -91,7 +90,7 @@ public class UserController implements Controller {
 
 		request.setAttribute("userDto", userDto);
 
-		return new ModelAndView("/front", true);
+		return new ModelAndView("mypage.jsp", true);
 	}
 
 	
@@ -112,7 +111,7 @@ public class UserController implements Controller {
 
 		userService.updateUserInfo(userId, userPwd, userAddr, userPhone, userEmail);
 
-		return new ModelAndView("/front", true);
+		return new ModelAndView("mypage.jsp", true);
 	}
 
 	/**
@@ -122,13 +121,12 @@ public class UserController implements Controller {
 			throws ServletException, IOException, SQLException {
 
 		String userName = request.getParameter("userName");
-		String userPhone = request.getParameter("userPhone");
-
-		String userId = userService.selectUserId(userName, userPhone);
-
+		
+		String userId = userService.selectUserId(userName);
+		
 		request.setAttribute("userId", userId);
 
-		return new ModelAndView("/front", true);
+		return new ModelAndView("/findid.jsp");
 	}
 
 	/**
@@ -138,13 +136,12 @@ public class UserController implements Controller {
 			throws ServletException, IOException, SQLException {
 
 		String userId = request.getParameter("userId");
-		String userPhone = request.getParameter("userPhone");
 
-		String userPwd = userService.selectUserPwd(userId, userPhone);
+		String userPwd = userService.selectUserPwd(userId);
 
 		request.setAttribute("userPwd", userPwd);
 
-		return new ModelAndView("/front", true);
+		return new ModelAndView("/findpwd.jsp");
 	}
 
 	/**
@@ -155,7 +152,7 @@ public class UserController implements Controller {
 
 		request.getSession().invalidate();
 
-		return new ModelAndView("/front", true);
+		return new ModelAndView("index.jsp", true);
 
 	}
 
@@ -164,12 +161,13 @@ public class UserController implements Controller {
 	 */
 	public ModelAndView deleteUser(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-		String userId = request.getParameter("userId");
+		HttpSession session = request.getSession();
+		String userId = (String)session.getAttribute("userId"); 
 		String userPwd = request.getParameter("userPwd");
 
 		userService.deleteUser(userId, userPwd);
 
-		return new ModelAndView("/front", true);
+		return new ModelAndView("index.jsp", true);
 	}
 
 	/**
