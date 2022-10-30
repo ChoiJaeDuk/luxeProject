@@ -782,6 +782,8 @@ th, td {
 		wishList();
 		selectSellingInfoByUserId();
 		selectSellWaitInfoByUserId();
+		
+		
 		function selectUser() {
 			$.ajax({
 				url : "ajax", //서버요청주소
@@ -792,8 +794,12 @@ th, td {
 					methodName : "selectUser",
 				},
 				success : function(result) {
-
+					if(result == null){
+						location.replace("error/error.jsp");
+					}
+					
 					let id = result.userId;
+					console.log(id)
 					let pwd = result.userPwd;
 					let name = result.userName;
 					let phone = result.userPhone;
@@ -809,7 +815,9 @@ th, td {
 
 				}, //성공했을때 실행할 함수 
 				error : function(err) {
-					alert(err + "에러 발생");
+					alert(err + "에러 발생했어요.");
+					
+// 					
 				} //실패했을때 실행할 함수 
 			})// 아작스 
 		}// 유저  끝

@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c"  uri="http://java.sun.com/jsp/jstl/core"%>
-	<jsp:include page="layout/header.jsp"/>
+	
 <!DOCTYPE html>
 <html>
 <head>
@@ -62,6 +62,7 @@ font-family: 'Lora', serif;
 		var search="";
 		selectAllGoods();
 		function selectAllGoods() {
+
 			 $.ajax({
 					url :"ajax" , //서버요청주소
 					type:"post", //요청방식(method방식 : get | post | put | delete )
@@ -120,6 +121,7 @@ font-family: 'Lora', serif;
 </script>
 </head>
 <body>
+<jsp:include page="layout/header.jsp"/>
 	<div id='wrap'>
 
 		<!-- header -->

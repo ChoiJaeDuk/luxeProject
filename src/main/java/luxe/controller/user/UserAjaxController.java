@@ -39,7 +39,7 @@ public class UserAjaxController implements AjaxController {
 		String userId = request.getParameter("userId");
 	
 		boolean result = userService.userIdCheck(userId);
-		System.out.println(result);
+
 		PrintWriter out = response.getWriter();
 		out.print(result);
 	}
@@ -51,9 +51,8 @@ public class UserAjaxController implements AjaxController {
 
 		HttpSession session = request.getSession();
 		String userId = (String) session.getAttribute("userId");
-		System.out.println(userId);
+
 		UserDTO userDto = userService.selectUser(userId);
-		System.out.println(userDto);
 
 		JSONObject user = JSONObject.fromObject(userDto);
 

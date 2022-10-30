@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -141,7 +142,7 @@ margin-right:20px;}
 	float: left;
 	position: relative;
 	top: 4px;
-	margin: 0px 20px 0px 40px;
+	margin: 0px 20px 0px 40px;   
 	font-size: 30px;
 	font-weight: 900;
 }
@@ -152,8 +153,11 @@ margin-right:20px;}
 	<div id='header'>
 		<div id='header-top'>
 			<div id='header-top-menu'>
-				<a href="${path}/mypage.jsp">마이페이지</a> <a href="">관심상품</a> <a href="${path}/login/login.jsp">로그인</a> 
+				<a href="${path}/mypage.jsp">마이페이지</a> <a href="">관심상품</a> 
+				<c:if test="${not empty userId }"><a href="${path}/front?key=user&methodName=logout">로그아웃</a> </c:if>
+				<c:if test="${empty userId }"><a href="${path}/login/login.jsp">로그인</a> </c:if>
 				<a class="openbtn" onclick="openNav()">관리자모드</a>
+				
 			</div>
 		</div>
 
