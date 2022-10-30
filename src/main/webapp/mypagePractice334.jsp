@@ -363,6 +363,7 @@ th, td {
 
 							$("#alarmList tr:gt(0)").remove();
 							$("#alarmList tr:eq(0)").after(str);
+							newAlarm()
 
 						}, //성공했을때 실행할 함수 
 						error : function(err) {
@@ -885,6 +886,41 @@ th, td {
 		})
 
 		selectUser();
+		
+		function newAlarm(){
+			$.ajax({
+				url : "ajax", //서버요청주소
+				type : "post", //요청방식(method방식 : get | post | put | delete )
+				dataType : "json", //서버가 보내온 데이터(응답)타입(text | html | xml | json )
+				data : {
+					key : "alarmAjax",
+					methodName : "countNewAlarm"
+				},
+				success : function(result) {
+					console.log(result);
+					
+
+					if(result>0){
+						$(".alarm-counter").text("new");	
+					}else{
+						
+						$(".alarm-counter").text("0");
+						$(".alarm-counter").hide();
+					}
+
+				}, //성공했을때 실행할 함수 
+				error : function(err) {
+					alert(err + "에러 발생했어요.");
+				} //실팽했을때 실행할 함수 
+			});//ajax끝
+			
+			
+			
+			
+			
+		}
+		
+		newAlarm();
 
 	});// ready
 
@@ -930,7 +966,7 @@ th, td {
 					<button class="tablinks" onclick="openCity(event, 'profile-info')"
 						id="defaultOpen">프로필정보</button>
 					<button class="tablinks" onclick="openCity(event, 'profile-alarm')"
-						id="alarmOpen">알람 <i class="bi bi-hearts" style="color: red;"></i><span class="alarm-counter">1</span></button><!--지현알람영역 [bi-hearts :아이콘만] --><!--지현알람영역 [alarm-counter:숫자] -->
+						id="alarmOpen">알람 <i class="bi bi-hearts" style="color: red;"></i><span class="alarm-counter"></span></button><!--지현알람영역 [bi-hearts :아이콘만] --><!--지현알람영역 [alarm-counter:숫자] -->
 					<button class="tablinks" onclick="openCity(event, 'shopping-buy')">구매내역</button>
 					<button class="tablinks" onclick="openCity(event, 'shopping-sell')">판매내역</button>
 					<button class="tablinks"
