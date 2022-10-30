@@ -30,7 +30,8 @@ public class SellAjaxController implements AjaxController {
 	
 	public void selectSellAll(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		response.setContentType("text/html;charset=UTF-8");
-		HttpSession session = request.getSession();
+		
+		
 		List<SellDTO> list = sellService.selectSellAll();
 		JSONArray arr = JSONArray.fromObject(list);
 		
@@ -88,11 +89,9 @@ public class SellAjaxController implements AjaxController {
 	
 	
 	public void sellDuplicateCheck(HttpServletRequest request, HttpServletResponse response) throws Exception{
-		/*
-		 * HttpSession session = request.getSession(); String userId =
-		 * (String)session.getAttribute("userId");
-		 */
-		String userId = request.getParameter("userId");
+		
+		HttpSession session = request.getSession();
+		String userId = (String)session.getAttribute("userId");
 		String serialNumber = request.getParameter("serialNumber");
 		SellDTO sellDTO = new SellDTO(userId, serialNumber);
 		

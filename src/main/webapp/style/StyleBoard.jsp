@@ -30,7 +30,7 @@ font-family: 'Roboto', sans-serif;
 font-family: 'Lora', serif;
 
   -->
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
+
 
 <!-- 템플릿요소 css -->
 <link
@@ -48,28 +48,55 @@ font-family: 'Lora', serif;
 <link rel="stylesheet" type="text/css" href="../css/setting/Layout.css">
 <link rel="stylesheet" type="text/css" href="../css/style/StyleBoard.css">
 <style type="text/css">
+.gallery-card img{
+width: 300px; height: 300px;
+}
 </style>
 <script type="text/javascript" src="../js/jquery-3.6.1.min.js"></script>
 <script type="text/javascript">
 	//인수받기(test)
-	let chanel = [ "징거버거", "타워버거", "불고기버거" ]
-	let dior = [ "라이스버거", "데리버거", "새우버거", "한우버거", "치즈버거" ]
-	let prada = [ "1997버거", "맥모닝", "빅맥", "베이컨버거", "치킨버거" ]
 
 	function subMenu(th) {
 
-		let arr = new Function("return " + th.value)();
+		//let arr = new Function("return " + th.value)();
+		let arr = [];
 		let product = document.f.menu;
 
-		//옵션제거
-		while (product.length > 1) {
-			product.options[1] = null;
+		if(th.value == 0){
+			while (product.length > 1) {
+				product.options[1] = null;
+			}
+			return;
 		}
+			
+		
+		$.ajax({
+			url :"../ajax" , //서버요청주소
+			type:"post", //요청방식(method방식 : get | post | put | delete )
+			dataType:"json"  , //서버가 보내온 데이터(응답)타입(text | html | xml | json )
+			data: {key:"goodsAjax" , methodName : "selectAllGoods", brand:th.value}, //서버에게 보낼 데이터정보(parameter정보)
+			success :function(goodsList){
+				$.each(goodsList, function(i, goods) {
+					arr[i] = goods.goodsName;
+				});
+				console.log(arr);
+				
+				//옵션제거
+				while (product.length > 1) {
+					product.options[1] = null;
+				}
 
-		//옵션추가
-		for (let i = 0; i < arr.length; i++) {
-			product.options[product.length] = new Option(arr[i], arr[i])
-		}
+				//옵션추가
+				for (let i = 0; i < arr.length; i++) {
+					product.options[product.length] = new Option(arr[i], arr[i])
+				}
+				
+			} , //성공했을때 실행할 함수 
+			error : function(err){  
+				alert(err+"에러 발생했어요.");
+			}  //실팽했을때 실행할 함수 
+		});
+
 	}
 </script>
 <script type="text/javascript">
@@ -80,33 +107,10 @@ font-family: 'Lora', serif;
 	});
 </script>
 </head>
-<body>
+<body onload="defaultOpen()">
 	<div id='wrap'>
+		<jsp:include page="../layout/header.jsp"/>
 	
-		<div id='header'>
-				<div id='header-top'>
-					<div id='header-top-menu'>
-						<a href="">마이페이지</a>
-						<a href="">관심상품</a>
-						<a href="">로그인</a>
-						<a href="" class='managermode'>관리자모드</a>
-					</div>		
-				</div><!--header-top -->
-				
-				<div id='header-bottom'>
-				    <div class="topnav">
-				    <div id='logo'>
-				    	LUXE
-					</div>
-					  <a href="../index.jsp">HOME</a>
-					  <a href="#">STYLE</a>
-					  <a href="../shop/shop.jsp">SHOP</a>
-					  <div class="split">
-					  	<input class="nav-search" type="text" name="search">
-					  </div>
-					</div>
-				</div>									
-		</div><!-- header -->
 		<div class="clear"></div>
 		
 		<div id="banner">
@@ -126,10 +130,10 @@ font-family: 'Lora', serif;
 				
 				<div class='tap-box'>
 					<div class="tab">
-					  <button class="tablinks"  id="defaultOpen" onclick="openBrand(event, 'all')">ALL</button>
-					  <button class="tablinks" onclick="openBrand(event, 'chanel')">CHANEL</button>
-					  <button class="tablinks" onclick="openBrand(event, 'dior')">DIOR</button>
-					  <button class="tablinks" onclick="openBrand(event, 'prada')">PRADA</button>
+					  <button class="tablinks"  id="defaultOpen"  name='all'>ALL</button>
+					  <button class="tablinks"  name="샤넬">샤넬</button>
+					  <button class="tablinks"  name="디올">디올</button>
+					  <button class="tablinks"  name="프라다">프라다</button>
 					</div>
 					
 					<!-- 글쓰기 -->
@@ -138,9 +142,9 @@ font-family: 'Lora', serif;
 						<form name="f" id='getProductCode'>
 							<select name="brandSelect" id='brandSelect' onchange="subMenu(this)">
 								<option value="0">BRAND</option>
-								<option value="chanel">CHANEL</option>
-								<option value="dior">DIOR</option>
-								<option value="prada">PRADA</option>
+								<option value="'샤넬'">CHANEL</option>
+								<option value="'디올'">DIOR</option>
+								<option value="'프라다'">PRADA</option>
 							</select> <select name="menu" id='changeProduct'>
 								<option value="0">PRODUCT-SELECT</option>
 							</select>
@@ -150,317 +154,31 @@ font-family: 'Lora', serif;
 					
 					<!-- 정렬 -->
 					<select class="select">
-						<option value="none" selected="selected">정렬</option> 
-						<option value="like">LIKE</option>
-						<option class="view">VIEW</option>
-						<option class="update">UPDATE</option>							  
+						<option value="" selected="selected">정렬</option> 
+						<option value="like_no">LIKE</option>
+						<option value="read_no">VIEW</option>
+						<option value="board_reg_date">UPDATE</option>							  
 					</select>
 					
 				</div>
 				
 				<div id='all' class="gallery">
-					<div class="gallery-row">
-						<div class='gallery-fram'>
-							<div class='gallery-card'>
-								<div id=gallery-con onclick='showPopup(false)'>
-									<img id="card-img" src="../img/product01.webp" alt="스타일이미지" />
-								</div>
-							</div>
-						</div>
-						<div class='gallery-fram'>
-							<div class='gallery-card'>
-								<div id=gallery-con onclick='showPopup(false)'>
-									<img id="card-img" src="../img/product01.webp" alt="스타일이미지" />
-								</div>
-							</div>
-						</div>
-						<div class='gallery-fram'>
-							<div class='gallery-card'>
-								<div id=gallery-con onclick='showPopup(false)'>
-									<img id="card-img" src="../img/product01.webp" alt="스타일이미지" />
-								</div>
-							</div>
-						</div>
-
-						<div class='gallery-fram'>
-							<div class='gallery-card'>
-								<div id=gallery-con onclick='showPopup(false)'>
-									<img id="card-img" src="../img/product01.webp" alt="스타일이미지" />
-								</div>
-							</div>
-						</div>
-					</div><!-- gallery-row -->
-
-					<div class="gallery-row">
-						<div class='gallery-fram'>
-							<div class='gallery-card'>
-								<div id=gallery-con onclick='showPopup(false)'>
-									<img id="card-img" src="" alt="디올이미지" />
-								</div>
-							</div>
-						</div>
-						<div class='gallery-fram'>
-							<div class='gallery-card'>
-								<div id=gallery-con onclick='showPopup(false)'>
-									<img id="card-img" src="" alt="디올이미지" />
-								</div>
-							</div>
-						</div>
-						<div class='gallery-fram'>
-							<div class='gallery-card'>
-								<div id=gallery-con onclick='showPopup(false)'>
-									<img id="card-img" src="" alt="디올이미지" />
-								</div>
-							</div>
-						</div>
-
-						<div class='gallery-fram'>
-							<div class='gallery-card'>
-								<div id=gallery-con onclick='showPopup(false)'>
-									<img id="card-img" src="" alt="디올이미지" />
-								</div>
-							</div>
-						</div>
-					</div><!-- gallery-row -->
-					<div class="gallery-row">
-						<div class='gallery-fram'>
-							<div class='gallery-card'>
-								<div id=gallery-con onclick='showPopup(false)'>
-									<img id="card-img" src="" alt="프라다이미지" />
-								</div>
-							</div>
-						</div>
-						<div class='gallery-fram'>
-							<div class='gallery-card'>
-								<div id=gallery-con onclick='showPopup(false)'>
-									<img id="card-img" src="" alt="프라다이미지" />
-								</div>
-							</div>
-						</div>
-						<div class='gallery-fram'>
-							<div class='gallery-card'>
-								<div id=gallery-con onclick='showPopup(false)'>
-									<img id="card-img" src="" alt="프라다이미지" />
-								</div>
-							</div>
-						</div>
-
-						<div class='gallery-fram'>
-							<div class='gallery-card'>
-								<div id=gallery-con onclick='showPopup(false)'>
-									<img id="card-img" src="" alt="프라다이미지" />
-								</div>
-							</div>
-						</div>
-					</div><!-- gallery-row -->
-
-
+					
 				</div><!-- all -->
 				
-				<div id='chanel' class="gallery">
-					<div class="gallery-row">
-						<div class='gallery-fram'>
-							<div class='gallery-card'>
-								<div id=gallery-con onclick='showPopup(false)'>
-									<img id="card-img" src="../img/product01.webp" alt="스타일이미지" />
-								</div>
-							</div>
-						</div>
-						<div class='gallery-fram'>
-							<div class='gallery-card'>
-								<div id=gallery-con onclick='showPopup(false)'>
-									<img id="card-img" src="../img/product01.webp" alt="스타일이미지" />
-								</div>
-							</div>
-						</div>
-						<div class='gallery-fram'>
-							<div class='gallery-card'>
-								<div id=gallery-con onclick='showPopup(false)'>
-									<img id="card-img" src="../img/product01.webp" alt="스타일이미지" />
-								</div>
-							</div>
-						</div>
-
-						<div class='gallery-fram'>
-							<div class='gallery-card'>
-								<div id=gallery-con onclick='showPopup(false)'>
-									<img id="card-img" src="../img/product01.webp" alt="스타일이미지" />
-								</div>
-							</div>
-						</div>
-					</div><!-- gallery-row -->
-
-					
-					<div class="gallery-row">
-						<div class='gallery-fram'>
-							<div class='gallery-card'>
-								<div id=gallery-con onclick='showPopup(false)'>
-									<img id="card-img" src="../img/product01.webp" alt="스타일이미지" />
-								</div>
-							</div>
-						</div>
-						<div class='gallery-fram'>
-							<div class='gallery-card'>
-								<div id=gallery-con onclick='showPopup(false)'>
-									<img id="card-img" src="../img/product01.webp" alt="스타일이미지" />
-								</div>
-							</div>
-						</div>
-						<div class='gallery-fram'>
-							<div class='gallery-card'>
-								<div id=gallery-con onclick='showPopup(false)'>
-									<img id="card-img" src="../img/product01.webp" alt="스타일이미지" />
-								</div>
-							</div>
-						</div>
-
-						<div class='gallery-fram'>
-							<div class='gallery-card'>
-								<div id=gallery-con onclick='showPopup(false)'>
-									<img id="card-img" src="../img/product01.webp" alt="스타일이미지" />
-								</div>
-							</div>
-						</div>
-					</div><!-- gallery-row -->
-
+				<div id='샤넬' class="gallery">
+	
 				</div><!-- 샤넬 -->
 				
-				<div id='dior' class="gallery">
-					<div class="gallery-row">
-						<div class='gallery-fram'>
-							<div class='gallery-card'>
-								<div id=gallery-con onclick='showPopup(false)'>
-									<img id="card-img" src="" alt="스타일이미지" />
-								</div>
-							</div>
-						</div>
-						<div class='gallery-fram'>
-							<div class='gallery-card'>
-								<div id=gallery-con onclick='showPopup(false)'>
-									<img id="card-img" src="" alt="스타일이미지" />
-								</div>
-							</div>
-						</div>
-						<div class='gallery-fram'>
-							<div class='gallery-card'>
-								<div id=gallery-con onclick='showPopup(false)'>
-									<img id="card-img" src="" alt="스타일이미지" />
-								</div>
-							</div>
-						</div>
-
-						<div class='gallery-fram'>
-							<div class='gallery-card'>
-								<div id=gallery-con onclick='showPopup(false)'>
-									<img id="card-img" src="" alt="스타일이미지" />
-								</div>
-							</div>
-						</div>
-					</div><!-- gallery-row -->
-
+				<div id='디올' class="gallery">
 					
-					<div class="gallery-row">
-						<div class='gallery-fram'>
-							<div class='gallery-card'>
-								<div id=gallery-con onclick='showPopup(false)'>
-									<img id="card-img" src="" alt="스타일이미지" />
-								</div>
-							</div>
-						</div>
-						<div class='gallery-fram'>
-							<div class='gallery-card'>
-								<div id=gallery-con onclick='showPopup(false)'>
-									<img id="card-img" src="" alt="스타일이미지" />
-								</div>
-							</div>
-						</div>
-						<div class='gallery-fram'>
-							<div class='gallery-card'>
-								<div id=gallery-con onclick='showPopup(false)'>
-									<img id="card-img" src="" alt="스타일이미지" />
-								</div>
-							</div>
-						</div>
-
-						<div class='gallery-fram'>
-							<div class='gallery-card'>
-								<div id=gallery-con onclick='showPopup(false)'>
-									<img id="card-img" src="" alt="스타일이미지" />
-								</div>
-							</div>
-						</div>
-					</div><!-- gallery-row -->
 				</div>
 				
 				
 				<!-- 디올 -->
 				
-				<div id='prada' class="gallery">
-					<div class="gallery-row">
-						<div class='gallery-fram'>
-							<div class='gallery-card'>
-								<div id=gallery-con onclick='showPopup(false)'>
-									<img id="card-img" src="" alt="프라다이미지" />
-								</div>
-							</div>
-						</div>
-						<div class='gallery-fram'>
-							<div class='gallery-card'>
-								<div id=gallery-con onclick='showPopup(false)'>
-									<img id="card-img" src="" alt="프라다이미지" />
-								</div>
-							</div>
-						</div>
-						<div class='gallery-fram'>
-							<div class='gallery-card'>
-								<div id=gallery-con onclick='showPopup(false)'>
-									<img id="card-img" src="" alt="프라다이미지" />
-								</div>
-							</div>
-						</div>
-
-						<div class='gallery-fram'>
-							<div class='gallery-card'>
-								<div id=gallery-con onclick='showPopup(false)'>
-									<img id="card-img" src="" alt="프라다이미지" />
-								</div>
-							</div>
-						</div>
-					</div><!-- gallery-row -->
-
-					
-					<div class="gallery-row">
-						<div class='gallery-fram'>
-							<div class='gallery-card'>
-								<div id=gallery-con onclick='showPopup(false)'>
-									<img id="card-img" src="" alt="프라다이미지" />
-								</div>
-							</div>
-						</div>
-						<div class='gallery-fram'>
-							<div class='gallery-card'>
-								<div id=gallery-con onclick='showPopup(false)'>
-									<img id="card-img" src="" alt="프라다이미지" />
-								</div>
-							</div>
-						</div>
-						<div class='gallery-fram'>
-							<div class='gallery-card'>
-								<div id=gallery-con onclick='showPopup(false)'>
-									<img id="card-img" src="" alt="프라다이미지" />
-								</div>
-							</div>
-						</div>
-
-						<div class='gallery-fram'>
-							<div class='gallery-card'>
-								<div id=gallery-con onclick='showPopup(false)'>
-									<img id="card-img" src="" alt="프라다이미지" />
-								</div>
-							</div>
-						</div>
-					</div><!-- gallery-row -->
-
+				<div id='프라다' class="gallery">
+				
 				</div>
 				<!-- 프라다 -->
 				</div><!-- con -->
@@ -482,7 +200,6 @@ font-family: 'Lora', serif;
 		</div>
 		
 	</div>
-	
 	<div id="popup" class="hide">
   		<div class="popup-form">
    			<div id='popup-contents'>
@@ -494,20 +211,21 @@ font-family: 'Lora', serif;
    					</div> 
    					<div id='drop-btn'>
    					 <div class="select-tap">
-					    <div class="text"><i class="bi bi-list" style="font-size: 25px;"></i></div>
-					    <ul class="option-list">
+					    <div class="text">선택</div>
+					    <ul class="option-list" style="visibility: hidden;">
+					      <li class="option">선택</li>
 					      <li class="option">삭제</li>
-					      <li class="option" onclick="showInsertform()">수정</li>
+					      <li class="option" onclick="showUpdateform()">수정</li>
 					    </ul>
 					  </div>
-   					</div>						
+   					</div>					
    				</div>
    				<div id='popup-img'>
    					<img src="../img/product01.webp" alt="스타일이미지"/>
    				</div>
    				<div id='popup-like'>
    					<div id='popup-like-con'>
-   					<img id=like_img src='../img/icon/favorite02.png' style="width: 20px; height: 20px;">
+   					<img src='../img/icon/favorite01.png' style="width: 20px; height: 20px;">
    						<span>좋아요</span>
    						<span style="font-family: 'Roboto', sans-serif;">0</span>
    						<span>개</span>
@@ -525,10 +243,10 @@ font-family: 'Lora', serif;
    			</div>
  		</div>
 	</div>
-
-<div id="insert-pop" class="hide">
+	
+	<div id="insert-pop" class="hide">
 	<div id='insert-contents'>
-		<form id='insert-form' name="writeForm" method="post" action="">
+		<form id='insert-form' name="writeForm" method="post" action="../front?key=styleBook&methodName=insertStyleBook" enctype="multipart/form-data">
 			<div id='productImg'>
 				<img src="../img/product01.webp" alt="상품이미지" />
 			</div>
@@ -536,24 +254,24 @@ font-family: 'Lora', serif;
 			<div id='insert-con'>
 				<div id='insert-title-text'>
 					<span>이름</span><input type="text" class="form-control"
-						placeholder="이름" readonly="readonly"> <span>상품이름</span><input
+						placeholder="이름" readonly="readonly" name="userId"> <span>상품이름</span><input
 						type="text" class="form-control" placeholder="상품이름"
 						id='changeInput' readonly="readonly"> <span>상품코드</span><input
 						type="text" class="form-control" placeholder="상품코드"
-						readonly="readonly">
+						readonly="readonly" name="goodsNo">
 				</div>
 
 
 				<div id='insert-text'>
 					<div class="form-group">
 						<span>내용</span>
-						<textarea class="form-control" id="exampleTextarea" rows="3"></textarea>
+						<textarea class="form-control" id="exampleTextarea" rows="3" name="boardContent"></textarea>
 					</div>
 				</div>
 
 				<div id='insertImg'>
 					<span>스타일업로드</span> <input class="form-control" type="file"
-						id="formFile">
+						id="formFile" name="styleBookImage">
 				</div>
 
 
@@ -565,10 +283,10 @@ font-family: 'Lora', serif;
 		</form>
 	</div>
 </div>
-
+	
 <div id="update-pop" class="hide">
 	<div id='insert-contents'>
-		<form id='insert-form' name="writeForm" method="post" action="">
+		<form id='insert-form' name="updateForm" method="post" action="../front?key=styleBook&methodName=updateStyleBook">
 			<div id='productImg'>
 				<img src="../img/product01.webp" alt="상품이미지" />
 			</div>
@@ -576,18 +294,20 @@ font-family: 'Lora', serif;
 			<div id='insert-con'>
 				<div id='insert-title-text'>
 					<span>이름</span><input type="text" class="form-control"
-						placeholder="이름" readonly="readonly"> <span>상품이름</span><input
+						placeholder="이름" readonly="readonly" id="userId" name="userId"> <span>상품이름</span><input
 						type="text" class="form-control" placeholder="상품이름"
-						id='changeInput' readonly="readonly"> <span>상품코드</span><input
+						id='changeInput' readonly="readonly" name="goodsName"> <span>상품코드</span><input
 						type="text" class="form-control" placeholder="상품코드"
-						readonly="readonly">
+						readonly="readonly" name="goodsNo">
+						<input type='hidden' value='' id='boardRegNoStr' name='boardRegNo'>
+						
 				</div>
 
 
 				<div id='insert-text'>
 					<div class="form-group">
 						<span>내용</span>
-						<textarea class="form-control" id="exampleTextarea" rows="8"></textarea>
+						<textarea class="form-control" id="exampleTextarea" rows="8" name="boardContent"></textarea>
 					</div>
 				</div>
 				<div id='insert-submt'>
@@ -597,9 +317,11 @@ font-family: 'Lora', serif;
 			</div>
 		</form>
 	</div>
-</div>
+</div>	
+	
 	<script type="text/javascript">
-	function showPopup(hasFilter) {
+	function showPopup(hasFilter, th) {
+		
 		const popup = document.querySelector('#popup');
 		  
 		  if (hasFilter) {
@@ -609,15 +331,60 @@ font-family: 'Lora', serif;
 		  }
 		  
 		  popup.classList.remove('hide');
-		}
+		  
+		let img = th.firstChild;
+		let boardNo = img.getAttribute("name");
+		
+		$.ajax({
+			url :"../ajax" , //서버요청주소
+			type:"post", //요청방식(method방식 : get | post | put | delete )
+			dataType:"json"  , //서버가 보내온 데이터(응답)타입(text | html | xml | json )
+			data: {key:"styleBookAjax" , methodName : "selectStyleBook", boardRegNo:boardNo}, //서버에게 보낼 데이터정보(parameter정보)
+			success :function(styleBook){
+				$("#popup-img > img").attr("src", "${path}/stylebook/"+styleBook.fName);
+				$("#popup-title-text").html('');
+				let str = '';
+				
+				str += "<h4>"+styleBook.userId+"</h4>";
+				str += "<p>"+styleBook.boardRegDate+"</p>";
+				
+				$("#popup-title-text").html(str);
+				
+				$("#popup-like-con span:nth-child(3)").text(styleBook.likeNo);
+				
+				$("#popup-text > p").text(styleBook.boardContent);
+				
+				$("#popup-tag").html('');
+				let str2 = '';
+				str2 += "<span>#"+styleBook.modelNo+"</span> ";
+				str2 += "<span>#"+styleBook.brand+"</span> ";
+				str2 += "<span>#"+styleBook.goodsName+"</span> ";
+				str2 += "<span>#"+styleBook.goodsNameKor+"</span>";
+				str2 += "<span id='boardRegNo' style='display:none'>"+styleBook.boardRegNo+"</span>";
+				str2 += "<span id='goodsNo' style='display:none'>"+styleBook.goodsNo+"</span>";
+				
+				
+				$("#popup-tag").html(str2);
+				
+			} , //성공했을때 실행할 함수 
+			error : function(err){  
+				alert(err+"에러 발생했어요.");
+			}  //실팽했을때 실행할 함수 
+		});
+	}
 		
 		function closePopup() {
 			const popup = document.querySelector('#popup');
 		  popup.classList.add('hide');
+		  $(".option-list").css("visibility", "hidden");
 		}
-		
+	
 	//등록
 	function showInsertform(hasFilter){
+		
+		let goodsName = $("#changeProduct").val();
+		  if(goodsName== 0)
+			  return;
 		const insert = document.querySelector('#insert-pop');
 		  
 		  if (hasFilter) {
@@ -627,6 +394,27 @@ font-family: 'Lora', serif;
 		  }
 		  
 		  insert.classList.remove('hide');
+		  
+		  
+		  $.ajax({
+			  url :"../ajax" , //서버요청주소
+				type:"post", //요청방식(method방식 : get | post | put | delete )
+				dataType:"json"  , //서버가 보내온 데이터(응답)타입(text | html | xml | json )
+				data: {key:"goodsAjax" , methodName : "searchGoodsName", goodsName:goodsName}, //서버에게 보낼 데이터정보(parameter정보)
+				success :function(goodsList){
+					$.each(goodsList, function(i, goods) {
+						if(goodsName==goods.goodsName){
+							$("#insert-pop img").attr("src", goods.goodsMainImg);
+							$("#insert-pop input[name=userId]").val("${sessionScope.userId}");
+							$("#insert-pop input[name=goodsNo]").val(goods.goodsNo);
+							
+						}
+					})
+				} , //성공했을때 실행할 함수 
+				error : function(err){  
+					alert(err+"에러 발생했어요.");
+				}  //실팽했을때 실행할 함수 
+		  });
 		}
 		
 		function closeInsertform() {
@@ -634,24 +422,41 @@ font-family: 'Lora', serif;
 			insert.classList.add('hide');
 		}
 		
-		//수정
-		function showInsertform(hasFilter){
+		
+	//수정
+	function showUpdateform(hasFilter){
+		if(confirm("게시물을 수정하시겠습니까?")){
+		const insert = document.querySelector('#update-pop');
+		  
+		  if (hasFilter) {
+			  insert.classList.add('has-filter');
+		  } else {
+			  insert.classList.remove('has-filter');
+		  }
+		  
+		  insert.classList.remove('hide');
+		} else 
+			return;
+		$("#update-pop img").attr("src", $("#popup-img > img").attr("src"));
+		let id = $("#popup-title-text > h4").text();
+		$("#update-pop input[name=userId]").val(id);
+		let goodsName = $("#popup-tag > span:nth-child(3)").text();
+		$("#update-pop input[name=goodsName]").val(goodsName);
+		let goodsNo = $("#goodsNo").text();
+		$("#update-pop input[name=goodsNo]").val(goodsNo);
+		let boardRegNo = $("#boardRegNo").text();
+		console.log(boardRegNo);
+		$("#boardRegNoStr").val(boardRegNo);
+		
+	}
+		
+		function closeUpdateform() {
 			const insert = document.querySelector('#update-pop');
-			  
-			  if (hasFilter) {
-				  insert.classList.add('has-filter');
-			  } else {
-				  insert.classList.remove('has-filter');
-			  }
-			  
-			  insert.classList.remove('hide');
-			}
+			insert.classList.add('hide');
 			
-			function closeUpdateform() {
-				const insert = document.querySelector('#update-pop');
-				insert.classList.add('hide');
-			}
-	
+			
+		}
+		
 	//좋아요
 	function likeEvent() {
 		let like = document.querySelector("#like");
@@ -684,6 +489,7 @@ font-family: 'Lora', serif;
 	
 	/* 브랜드탭 */
 	function openBrand(evt, brandName) {
+		var brand = brandName;
 		  var i, gallery, tablinks;
 		  gallery = document.getElementsByClassName("gallery");
 		  for (i = 0; i < gallery.length; i++) {
@@ -695,23 +501,173 @@ font-family: 'Lora', serif;
 		  }
 		  document.getElementById(brandName).style.display = "block";
 		  evt.currentTarget.className += " active";
-		  
+				
 	}
-	document.getElementById("defaultOpen").click();
+	//document.getElementById("defaultOpen").click();
+	function defaultOpen() {
+		$("#defaultOpen").click();
+	}	
+
+
+	$(function() {
+		
+		//let sortCondtion=
+
+		function selectAllStyleBook (brand, goodsNo, sortCondition) {
+			
+			if(brand=='all'){
+				brand="";
+			}
+			
+			if(goodsNo==null || goodsNo =="") {goodsNo=0;}
+			if(sortCondition==null) {sortCondition=""};
+			$.ajax({
+				url :"../ajax" , //서버요청주소
+				type:"post", //요청방식(method방식 : get | post | put | delete )
+				dataType:"json"  , //서버가 보내온 데이터(응답)타입(text | html | xml | json )
+				data: {key:"styleBookAjax" , methodName : "selectAllStyleBook", brand:brand, goodsNo, sortCondition:sortCondition}, //서버에게 보낼 데이터정보(parameter정보)
+				success :function(styleBookList){
+					
+					$(".gallery").html('');
+					
+					let str="";
+					$.each(styleBookList, function(index, styleBook) {							
+						if((index%4)==0)	{
+							str += `<div class="gallery-row">`;
+						}
+						str += `<div class='gallery-fram'>`;
+						str+=`<div class='gallery-card'>`;
+						str+=`<div id=gallery-con onclick='showPopup(false, this)' name='gallery-con'>`;
+						str+=`<img id=${"${styleBook.boardRegNo}"} src="${path}/stylebook/${"${styleBook.fName}"}" name=${"${styleBook.boardRegNo}"} alt="스타일이미지" class="styleBookImg"/>`;
+						str+=`</div></div></div>`;
+						
+						if(index!=0 && ((index+1)%4)==0 || (index+1)==styleBookList.length){
+							str +=`</div>`;
+						}
+
+					});
+					let b="";
+					if(brand==null || brand=="") b="#all";
+					else b="#"+brand
+					$(b).html(str);
+					
+				} , //성공했을때 실행할 함수 
+				error : function(err){  
+					alert(err+"에러 발생했어요.");
+				}  //실팽했을때 실행할 함수 
+			});
+		}
+		
+		let brand="all";
+		let sortConditon = "";
+		$("button[class=tablinks]").click(function() {
+			brand = $(this).attr("name");
+			openBrand(event, brand);
+			selectAllStyleBook(brand, 0, "");	
+			
+		});
+		
+		
+		$(".select").on("change", function() {
+			sortConditon = $(this).val();
+			if(sortConditon=="") {
+				return false;
+			}
+			console.log(sortConditon);
+			selectAllStyleBook(brand, 0, sortConditon);
+		});
+		
+		
+		<%session.setAttribute("userId", "ID");%>
+		$("#drop-btn > div").on("click", function() {
+			let id = $("#popup-title-text > h4").text();
+			console.log(id);
+			if(id=="${sessionScope.userId}"){
+				$(".option-list").css("visibility", "visible");
+			} else {
+				$(".option-list").css("visibility", "hidden");
+				return;
+			}
+			
+		});
+		
+		
+		$(".option").on("click", function() {
+			let option = $(this).text();
+			if(option =='선택')
+				return;
+			else if (option=='삭제')
+				deleteStyleBook();
+			//else if (option == '수정')
+				//updateStyleBook();
+		})
+		
+		function deleteStyleBook() {
+			if(confirm("게시물을 삭제하시겠습니까?")){
+				closePopup();
+				let boardRegNo = $("#boardRegNo").text();
+				
+				$.ajax({
+					url :"../ajax" , //서버요청주소
+					type:"post", //요청방식(method방식 : get | post | put | delete )
+					dataType:"text"  , //서버가 보내온 데이터(응답)타입(text | html | xml | json )
+					data: {key:"styleBookAjax" , methodName : "deleteStyleBook", boardRegNo:boardRegNo}, //서버에게 보낼 데이터정보(parameter정보)
+					success :function(result){
+						alert("삭제에 성공했습니다.");
+						//$("#drop-btn > div > div").text("선택");
+						selectAllStyleBook(brand, 0, sortConditon);
+					} , //성공했을때 실행할 함수 
+					error : function(err){  
+						alert(err+"에러 발생했어요.");
+					}  //실패했을때 실행할 함수 
+				});
+			}
+			else {
+				$("#drop-btn > div > div").text("선택");
+				return;
+			}
+			
+		};
+		
+	/* 	function updateStyleBook() {
+			if(confirm("게시물을 수정하시겠습니까?")){
+				let boardRegNo = $("#boardRegNo").text();
+			
+				//$("#drop-btn > div > div").text("선택");
+			} else{
+				//$("#drop-btn > div > div").text("선택");
+				return;
+			}
+				
+		} */
+		
+		//좋아요 기능
+		$("#popup-like-con > img").click(function() {
+			let boardRegNo = $("#boardRegNo").text();
+			
+			$.ajax({
+				url :"../ajax" , //서버요청주소
+				type:"post", //요청방식(method방식 : get | post | put | delete )
+				dataType:"text"  , //서버가 보내온 데이터(응답)타입(text | html | xml | json )
+				data: {key:"styleBookAjax" , methodName : "increaseStyleBookLikeNo", boardRegNo:boardRegNo}, //서버에게 보낼 데이터정보(parameter정보)
+				success :function(result){
+					let likeNo = parseInt($("#popup-like-con span:nth-child(3)").text());
+					$("#popup-like-con span:nth-child(3)").text(likeNo+1);
+				} , //성공했을때 실행할 함수 
+				error : function(err){  
+					alert(err+"에러 발생했어요.");
+				}  //실패했을때 실행할 함수 
+			});
+		});
+		
+		// 글 수정 기능
+		
+		// 글 업로드 기능
+		
+		
+	});
+	
+	
 	</script>
-	<script>
-
-        var i = 0;
-        $('#like_img').on('click',function(){
-            if(i==0){
-                $(this).attr('src','../img/icon/favorite01.png');
-                i++;
-            }else if(i==1){
-                $(this).attr('src','../img/icon/favorite02.png');
-                i--;
-            }
-
-        });
-    </script>
 </body>
 </html>

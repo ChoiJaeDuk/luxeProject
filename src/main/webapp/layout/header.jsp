@@ -152,17 +152,17 @@ margin-right:20px;}
 	<div id='header'>
 		<div id='header-top'>
 			<div id='header-top-menu'>
-				<a href="">마이페이지</a> <a href="">관심상품</a> <a href="">로그인</a> 
+				<a href="${path}/mypage.jsp">마이페이지</a> <a href="">관심상품</a> <a href="${path}/login/login.jsp">로그인</a> 
 				<a class="openbtn" onclick="openNav()">관리자모드</a>
 			</div>
 		</div>
 
 		<div id='header-bottom'>
 			<div class="topnav">
-				<div id='logo'>LUXE</div>
+				<div id='logo'><a href="${path}/index.jsp" style="font-size: 24px; font-weight: 800;">LUXE</a></div>
 				<a href="${pageContext.request.contextPath}/index.jsp">HOME</a> <a href="${pageContext.request.contextPath}/style/StyleBoard.jsp">STYLE</a> <a href="${pageContext.request.contextPath}/shop/shop.jsp">SHOP</a>
 				<div class="split">
-						<form name="search" id="search" action="shop.jsp">
+						<form name="search" id="search" action="${path}/shop/shop.jsp">
 					    <input type="hidden" name="state" value="1" >
 					    <input type="hidden" name="methodName" value="selectGoodsByGoodsName" >
 					    <input type="text" placeholder="Search.." name="search" id="nav-search">

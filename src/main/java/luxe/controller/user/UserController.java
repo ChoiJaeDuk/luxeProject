@@ -64,7 +64,7 @@ public class UserController implements Controller {
 	 */
 	public ModelAndView login(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException, SQLException {
-		String page = "index.html";
+		String page = "index.jsp";
 		String userId = request.getParameter("userId");
 		String userPwd = request.getParameter("userPwd");
 
@@ -77,9 +77,9 @@ public class UserController implements Controller {
 		}
 		
 		session.setAttribute("userId", dbDTO);
-		session.setAttribute("userId", dbDTO.getUserName());
+		session.setAttribute("userId", dbDTO.getUserId());
 
-		return new ModelAndView("index.jsp",true);
+		return new ModelAndView(page, true);
 
 	}
 

@@ -65,7 +65,7 @@ font-family: 'Lora', serif;
 				url :"ajax" , //서버요청주소
 				type:"post", //요청방식(method방식 : get | post | put | delete )
 				dataType:"json"  , //서버가 보내온 데이터(응답)타입(text | html | xml | json )
-				data: {key:"userAjax" , methodName : "sellUserInfo", userId:"id"}, //서버에게 보낼 데이터정보(parameter정보)
+				data: {key:"userAjax" , methodName : "sellUserInfo"}, //서버에게 보낼 데이터정보(parameter정보)
 				success :function(result){
 					$("#seller-name").text(result.userName);
 					$("#seller-phone").text(result.userPhone);
@@ -85,7 +85,7 @@ font-family: 'Lora', serif;
 				url :"ajax" , //서버요청주소
 				type:"post", //요청방식(method방식 : get | post | put | delete )
 				dataType:"text"  , //서버가 보내온 데이터(응답)타입(text | html | xml | json )
-				data: {key:"sellAjax" , methodName : "sellDuplicateCheck", /*테스트용 id*/userId:"id", serialNumber:$("#serialNumber").val()}, //서버에게 보낼 데이터정보(parameter정보)
+				data: {key:"sellAjax" , methodName : "sellDuplicateCheck", serialNumber:$("#serialNumber").val()}, //서버에게 보낼 데이터정보(parameter정보)
 				success :function(result){
 				
 						if(result=="true"){

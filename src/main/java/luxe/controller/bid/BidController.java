@@ -49,7 +49,7 @@ public class BidController implements Controller {
 		request.setAttribute("bidUserList", list);
 		System.out.println(list.size());
 
-		return new ModelAndView("mypage_jojo.jsp");
+		return new ModelAndView("mypage.jsp");
 	}
 
 	/**
@@ -80,7 +80,7 @@ public class BidController implements Controller {
 
 		bidService.insertBid(new BidDTO(0, Integer.parseInt(goodsNostr), userId, Integer.parseInt(bidPrice), null, null));
 
-		return new ModelAndView("mypage_jojo.jsp", true);
+		return new ModelAndView("mypage.jsp", true);
 	}
 
 	/**

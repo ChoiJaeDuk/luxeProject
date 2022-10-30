@@ -30,8 +30,10 @@ public class SellController implements Controller {
 	
 	public ModelAndView insertSell(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		
+		HttpSession session = request.getSession();
+		String userId = (String)session.getAttribute("userId");
 		int goodsNo = Integer.parseInt(request.getParameter("goodsNo"));
-		String userId = request.getParameter("userId");
+		
 		String accountNo = request.getParameter("accountNo");
 		int sellPrice = Integer.parseInt(request.getParameter("sellPrice"));
 		String purDate = request.getParameter("purDate");
@@ -54,8 +56,9 @@ public class SellController implements Controller {
 	public ModelAndView updateSellPrice(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		int sellNo = Integer.parseInt(request.getParameter("sellNo"));
 		int updateSellPrice = Integer.parseInt(request.getParameter("sellPrice"));
-		String sellUserId = request.getParameter("userId");	
-		SellDTO sellDTO = new SellDTO(sellNo, updateSellPrice, sellUserId);
+		HttpSession session = request.getSession();
+		String userId = (String)session.getAttribute("userId");	
+		SellDTO sellDTO = new SellDTO(sellNo, updateSellPrice, userId);
 		sellService.updateSellPrice(sellDTO);//sellUserId, sellNo, updateSellPrice
 		
 		return new ModelAndView("/front",true);
@@ -65,12 +68,13 @@ public class SellController implements Controller {
 	
 	
 	public ModelAndView updateSellStatus(HttpServletRequest request, HttpServletResponse response) throws Exception{
-		
+		HttpSession session = request.getSession();
+		String userId = (String)session.getAttribute("userId");
 		int sellNo = Integer.parseInt(request.getParameter("sellNo"));
 		String sellStatus = request.getParameter("sellStatus");
-		String sellUserId = request.getParameter("sellUserId");	
+		
 		int sellPrice = Integer.parseInt(request.getParameter("sellPrice"));
-		SellDTO sellDTO = new SellDTO(sellNo, sellUserId, sellStatus, sellPrice);
+		SellDTO sellDTO = new SellDTO(sellNo, userId, sellStatus, sellPrice);
 		sellService.updateSellStatus(sellDTO);
 		
 		return new ModelAndView("/front",true);

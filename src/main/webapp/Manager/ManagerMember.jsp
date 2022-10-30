@@ -245,10 +245,7 @@ function closePopup() {
 
 	</div>
 	
-	 <%
-			session.setAttribute("userId", "admin");
-		
-		%>
+	
 	<!-- 스크립트 -->
 	<script>
 	function openNav() {

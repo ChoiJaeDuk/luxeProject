@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<jsp:include page="../header.jsp" />
+<jsp:include page="../layout/header.jsp" />
 <!DOCTYPE html>
 <html>
 <head>
@@ -416,7 +416,7 @@ font-family: "Lora", serif;
 		<!-- contents -->
 		<div class="clear"></div>
 
-		<jsp:include page="../footer.jsp" />
+		<jsp:include page="../layout/footer.jsp" />
 
 	</div>
 	<!-- 스크립트 -->

@@ -70,7 +70,7 @@ $(function() {
 		            	console.log(result);
 		               if(result==true){
 		            	  if(confirm("기존 입찰 내역이 존재합니다. 마이페이지에서 수정하시겠습니까?")){
-		            		  location.href = "${path}/mypage_jojo.jsp";
+		            		  location.href = "${path}/mypage.jsp";
 		            	  } else return false;
 		               } else if(result==false){
 		            	   location.href= '${path}/front?key=bid&methodName=insertBid&goodsNo=${goodsDTO.goodsNo}&bidPrice='+$("#input-amount").val();
@@ -91,7 +91,6 @@ $(function() {
 </script>
 </head>
 <body>
-<%session.setAttribute("userId", "ID"); %>
 	<div id='wrap'>
 	
 		<div id='header'>
