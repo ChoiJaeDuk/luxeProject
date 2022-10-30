@@ -107,9 +107,9 @@ font-family: 'Lora', serif;
 				</form>
 				<ul class="look_box">
 					<li class="look_list"><a href="#" class="look_link">회원가입 </a></li>
-					<li class="look_list"><a href="#" class="look_link">아이디 찾기
+					<li class="look_list"><a href="" class="look_link">아이디 찾기
 					</a></li>
-					<li class="look_list"><a href="#" class="look_link">비밀번호
+					<li class="look_list"><a href="selectuserPwd.jsp" class="look_link">비밀번호
 							찾기</a></li>
 				</ul>
 				<div class="social_login">

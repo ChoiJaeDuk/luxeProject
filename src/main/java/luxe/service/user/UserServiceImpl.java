@@ -16,10 +16,9 @@ public class UserServiceImpl implements UserService {
 	 */
 	@Override
 	public boolean userIdCheck(String userId) throws SQLException {
+		
 		boolean result = userDAO.userIdCheck(userId);
-		if (result == true) {
-			throw new SQLException("이미 존재하는 ID 입니다.");
-		}
+		
 		return result;
 	}
 
@@ -73,20 +72,23 @@ public class UserServiceImpl implements UserService {
 	 * 아이디 찾기
 	 */
 	@Override
-	public String selectUserId(String userName, String userPhone) throws SQLException {
-		String userId = userDAO.selectUserId(userName, userPhone);
+	public String selectUserId(String userName) throws SQLException {
+
+		String userId = userDAO.selectUserId(userName);
+		
 		if (userId == null) {
 			throw new SQLException("ID 찾기 오류");
+		} else {
+			return userId;
 		}
-		return userId;
 	}
 
 	/**
 	 * 비밀번호 찾기
 	 */
 	@Override
-	public String selectUserPwd(String userId, String userPhone) throws SQLException {
-		String userPwd = userDAO.selectUserId(userId, userPhone);
+	public String selectUserPwd(String userId) throws SQLException {
+		String userPwd = userDAO.selectUserPwd(userId);
 		if (userPwd == null) {
 			throw new SQLException("PWD 찾기 오류");
 		}
