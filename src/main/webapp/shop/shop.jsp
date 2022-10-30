@@ -58,11 +58,17 @@ font-family: 'Lora', serif;
 	}
 	
 	.item_img_block {
-    width: 230px;
-    /* height: 230px; */
-    margin: 0;
-    padding: 0;
-}
+	    width: 230px;
+	    /* height: 230px; */
+	    margin: 0;
+	    padding: 0;
+	}
+	.btn-group, .btn-group-vertical {
+	    float: right;
+	}
+	#banner{
+	    overflow: hidden
+	}
 </style>
 <script type="text/javascript">
 	
@@ -99,15 +105,15 @@ font-family: 'Lora', serif;
 									str += `<div class="bestItem item1" style="overflow:hidden">`;
 									str += `<div class="item_img_block">`;
 									str += `<div class="item_img" style="overflow:hidden; border-bottom:1px solid lightgray">`;
-									str += `<img alt="상품이미지입니다." src=${path}/${"${item.mainImg}"}  id='product'>`;
+									str += `<a href=${path}/front?key=goods&methodName=selectGoodsLine&goodsNo=${"${item.goodsNo}"}&addr=ProductDetails.jsp style="color:black"><img alt="상품이미지입니다." src=${path}/${"${item.mainImg}"}  id='product'></a>`;
 									str += `</div>`;
-									str += `<div id='like'><img src= ${"${heartState}"} id='like_img' name=${"${item.goodsNo}"}></div>`;
+									str += `<div id='like'><img src= ${"${heartState}"} id='like_img' name=${"${item.goodsNo}"} ></div>`;
 									str += `</div>`;
 									str += `<div id='item_text'>`;
 									str += `<div class="item_brand">`;
 									str += `<a href= "#" id="brand_text">${"${item.brand}"}</a>`;
 									str += `</div>`;
-									str += `<p id="name"><a href=${path}/front?key=goods&methodName=selectGoodsLine&goodsNo=${"${item.goodsNo}"}&addr=ProductDetails.jsp>${"${item.goodsName}"}</a></p>`;
+									str += `<p id="name"><a href=${path}/front?key=goods&methodName=selectGoodsLine&goodsNo=${"${item.goodsNo}"}&addr=ProductDetails.jsp style="color:black">${"${item.goodsName}"}</a></p>`;
 									str += `<div class="price">`;
 									str += `<p id="num">${"${item.sellPrice}"}</p>`;
 									str += `<p id="p">즉시구매가</p>`;
@@ -263,7 +269,7 @@ font-family: 'Lora', serif;
 </script>
 </head>
 <body>
-<input type="text" id="test" name=<%=request.getParameter("state") %>>
+<%-- <input type="text" id="test" name=<%=request.getParameter("state") %>> --%>
 
 <!-- <!-- 	<div id='wrap'> -->
 
@@ -368,9 +374,7 @@ font-family: 'Lora', serif;
 					<section id='main_contents'>
 
 						<div id='contents_top'>
-							<div id='contents_text'>
-								<h3>브랜드이름</h3>
-							</div>
+							
 
 							<div id="dropdown">
 								<!-- Example single danger button -->
