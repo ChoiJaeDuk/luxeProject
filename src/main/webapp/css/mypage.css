@@ -41,13 +41,13 @@ a{
 }
 /* 컨테이너 */
 .container{
-	width: 1280px; height: inherit; background-color: #999999; border: 1px black solid; 
+	width: 1280px; height: inherit; background-color: #999999; 
 }
 .cont-nav-container{
-	margin:0; padding:0; width: 200px; height: inherit; background-color: #999999; border: 1px black solid; 	
+	margin:0; padding:0; width: 200px; height: inherit; background-color: #999999;	
 }
 .cont-cont-container{
-	margin:0; padding:0; width: 800px; height: inherit; background-color: #999999; border: 1px black solid; 	
+	margin:0; padding:0; width: 800px; height: inherit; background-color: #999999; 	
 }
 /*헤더*/
 #header #header-top-menu { text-align: right;}
@@ -69,9 +69,8 @@ a{
 /* Style the tab */
 .tab {
   float: left;
-  border: 1px solid #ccc;
   background-color: #f1f1f1;
-  width: 20%;
+  width:10%;
   height: 100%;
 }
 
@@ -102,12 +101,15 @@ a{
 /* Style the tab content */
 .tabcontent {
   float: left;
-  padding: 0px 12px;
+  padding: 12px 12px;
   background-color: white;
+  border-bottom:0.5px solid #cccccc;
+  border-top:0.5px solid #cccccc;
   width: 80%;
   border-left: none;
   overflow: hidden;
   min-height: 500px;
+  margin-bottom: 50px;
 }
 
 /*관심상품*/

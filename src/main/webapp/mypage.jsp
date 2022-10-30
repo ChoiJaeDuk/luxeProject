@@ -974,7 +974,7 @@ th, td {
 					<button class="tablinks" onclick="openCity(event, 'profile-info')"
 						id="defaultOpen">프로필정보</button>
 					<button class="tablinks" onclick="openCity(event, 'profile-alarm')"
-						id="alarmOpen">알람 <i class="bi bi-hearts" style="color: red;"></i><span class="alarm-counter"></span></button><!--지현알람영역 [bi-hearts :아이콘만] --><!--지현알람영역 [alarm-counter:숫자] -->
+						id="alarmOpen">알람<span class="alarm-counter"></span></button><!--지현알람영역 [bi-hearts :아이콘만] --><!--지현알람영역 [alarm-counter:숫자] -->
 					<button class="tablinks" onclick="openCity(event, 'shopping-buy')">구매내역</button>
 					<button class="tablinks" onclick="openCity(event, 'shopping-sell')">판매내역</button>
 					<button class="tablinks"
@@ -986,10 +986,10 @@ th, td {
 					<form name="userDto" method="post" id="userDto">
 						<input type="hidden" name="key" value="userAjax"> <input
 							type="hidden" name="methodName" value="updateUserInfo">
-						<h3>프로필정보</h3>
+						<h3>프로필정보</h3><br>
 						<div id='profile_info'>
 							<div id='profile_group'>
-								<h4 id='grop_title'>로그인정보</h4>
+								
 								<div class="form-group">
 									<fieldset disabled="">
 										<label class="form-label" for="disabledInput">아이디</label> <input
@@ -1010,7 +1010,7 @@ th, td {
 							<div id='profile_group'>
 
 
-								<h4 id='grop_title'>개인정보</h4>
+								
 								<div class="form-group">
 									<fieldset>
 										<label class="form-label mt-4" for="readOnlyInput">비밀번호</label>
@@ -1076,6 +1076,7 @@ th, td {
 				</div>
 
 				<div id="profile-alarm" class="tabcontent">
+				<h3>알람</h3><br>
 					<table id="alarmList">
 
 						<tr>
@@ -1201,8 +1202,7 @@ th, td {
 				</div>
 				<div id="shopping-wishList" class="tabcontent">
 					<h3>관심상품</h3>
-					<section id='product'>
-						<div class="productBEST_container">
+				
 							<table id="wishTable">
 								<tr>
 									<td></td>
@@ -1210,7 +1210,6 @@ th, td {
 
 							</table>
 
-						</div>
 
 						<nav aria-label="Page navigation example" id="pagenav">
 							<ul class="pagination">
@@ -1230,9 +1229,7 @@ th, td {
 								</a></li>
 							</ul>
 						</nav>
-					</section>
-				</div>
-
+				
 			</div>
 			<!-- container -->
 		</div>

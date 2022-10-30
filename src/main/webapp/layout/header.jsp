@@ -153,7 +153,7 @@ margin-right:20px;}
 	<div id='header'>
 		<div id='header-top'>
 			<div id='header-top-menu'>
-				<a href="${path}/mypage.jsp">마이페이지</a> <a href="">관심상품</a> 
+				<a href="${path}/mypage.jsp">마이페이지</a> <a href="${path}/QAInsert.jsp">상품등록문의</a> 
 				<c:if test="${not empty userId }"><a href="${path}/front?key=user&methodName=logout">로그아웃</a> </c:if>
 				<c:if test="${empty userId }"><a href="${path}/login/login.jsp">로그인</a> </c:if>
 				<a class="openbtn" onclick="openNav()">관리자모드</a>

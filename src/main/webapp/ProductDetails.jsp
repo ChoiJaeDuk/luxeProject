@@ -44,13 +44,11 @@ font-family: 'Lora', serif;
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.9.1/font/bootstrap-icons.css">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <!-- 외부의 css파일 연결하기 -->
-<link rel="stylesheet" type="text/css" href="css/layout.css">
+<link rel="stylesheet" type="text/css" href="layout/css/Reset.css">
+<link rel="stylesheet" type="text/css" href="layout/css/Layout.css">
 <link rel="stylesheet" type="text/css" href="css/ProductDetails.css">
 <style type="text/css">
-	#wrap {
-		width: 1290px;
-		margin: 0 auto;
-	}
+	
 	.styleBoard_container_custom {
 		display: flex;
 		justify-content: space-between;
@@ -62,13 +60,17 @@ font-family: 'Lora', serif;
 		width: 33%;
 		height: 450px;
 		overflow: hidden;
+		
 	}
 	.container_custom {
-		
+		width: 1290px;
+		margin: 0 auto;
 	}
 	.contents-wrap {
 		display: flex;
 		align-items: center;
+		width: 1290px;
+		margin: 0 auto;
 		
 	}
 	.product-cont {
@@ -189,47 +191,7 @@ font-family: 'Lora', serif;
 </head>
 <body>
 <div id='wrap'>
-	<!-- <div id='header'>
-		<div id='header-top'>
-			<div class="container">
-				<div id='header-top-menu'>
-					<a href="">마이페이지</a>
-					<a href="">관심상품</a>
-					<a href="">로그인</a>
-				</div>
-			</div>container
-		</div>header-top
-		
-		<div id='header-nav'>
-			<div class="container">
-				<nav class="navbar navbar-expand-lg navbar-light bg-light">
-				  <div class="container-fluid">
-				    <a class="navbar-brand" href="#">Navbar</a>
-				    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
-				      <span class="navbar-toggler-icon"></span>
-				    </button>
-				    <div class="collapse navbar-collapse" id="navbarColor03">
-				      <ul class="navbar-nav me-auto">
-				        <li class="nav-item">
-				          <a class="nav-link active" href="#">Home
-				          </a>
-				        </li>
-				        <li class="nav-item">
-				          <a class="nav-link" href="#">Shop</a>
-				        </li>
-				        <li class="nav-item">
-				          <a class="nav-link" href="#">Style</a>
-				        </li>
-				      </ul>
-				      <form action="">
-				     	 <input type="text" name="search" placeholder="Search.." id='search_bar'>
-				      </form>
-				    </div>
-				  </div>
-				</nav>
-			</div>container
-		</div>header-nav		
-	</div>header -->
+	<jsp:include page= "layout/header.jsp"/>
 	<div class="clear"></div>
 	
 	<div id='contents' class="contents-wrap">
@@ -324,10 +286,9 @@ font-family: 'Lora', serif;
 			</div>
 			<button class="btn-style">스타일보러가기</button>
 		</div>
-		<div id='footer'>
-			<div class="container"></div>
-		</div>
+		
 	</div>
+	<jsp:include page="layout/footer.jsp" />
 </div>
 
 <script>

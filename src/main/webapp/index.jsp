@@ -121,9 +121,9 @@ font-family: 'Lora', serif;
 </script>
 </head>
 <body>
-<jsp:include page="layout/header.jsp"/>
-	<div id='wrap'>
 
+	<div id='wrap'>
+<jsp:include page="layout/header.jsp"/>
 		<!-- header -->
 		<div class="clear"></div>
 

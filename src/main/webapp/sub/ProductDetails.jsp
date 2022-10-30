@@ -77,26 +77,7 @@ function selectProductImg() {
 <body>
 	<div id='wrap'>
 
-		<div id='header'>
-			<div id='header-top'>
-				<div id='header-top-menu'>
-					<a href="">마이페이지</a> <a href="">관심상품</a> <a href="">로그인</a> <a
-						href="" class='managermode'>관리자모드</a>
-				</div>
-			</div>
-			<!--header-top -->
-
-			<div id='header-bottom'>
-				<div class="topnav">
-					<div id='logo'>LUXE</div>
-					<a href="#">HOME</a> <a href="#news">STYLE</a> <a href="#contact">SHOP</a>
-					<div class="split">
-						<input class="nav-search" type="text" name="search">
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- header -->
+		<jsp:include page= "../layout/header.jsp"/>
 		<div class="clear"></div>
 
 		<div id="banner">

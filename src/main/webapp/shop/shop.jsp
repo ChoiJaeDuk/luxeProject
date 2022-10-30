@@ -2,7 +2,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-	<jsp:include page= "../layout/header.jsp"/>
+	
 <!DOCTYPE html>
 <html>
 <head>
@@ -280,27 +280,9 @@ font-family: 'Lora', serif;
 
 <%-- <input type="text" id="test" name=<%=request.getParameter("state") %>> --%>
 
-<!-- <!-- 	<div id='wrap'> -->
+<div id='wrap'>
 
-	<!-- /	<div id='header'>
-			<div id='header-top'>
-				<div id='header-top-menu'>
-					<a href="">마이페이지</a> <a href="">관심상품</a> <a href="">로그인</a> <a
-						href="" class='managermode'>관리자모드</a>
-				</div>
-			</div>
-
-			<div id='header-bottom'>
-				<div class="topnav">
-					<div id='logo'>LUXE</div>
-					<a href="../index.jsp">HOME</a> <a href="../style/StyleBoard.jsp">STYLE</a> <a href="#">SHOP</a>
-					<div class="split">
-						<input class="nav-search" type="text" name="search">
-					</div>
-				</div>
-			</div>
-		</div> -->
-	<!--header -->
+	<jsp:include page= "../layout/header.jsp"/>
 		<div class="clear"></div>
 
 		<div id="banner">
@@ -406,251 +388,6 @@ font-family: 'Lora', serif;
  									<td></td>
  								</tr>
  							</table>
-<!-- 								<div class="bestItem item1"> -->
-<!-- 									<div class="item_img_block"> -->
-<!-- 										<div class="item_img"> -->
-<!-- 											<img alt="상품이미지입니다." src="" id='product'> -->
-<!-- 										</div> -->
-<!-- 										<div id='like'> -->
-<!-- 											<img src="img/heart.svg" id='like_img'> -->
-<!-- 										</div> -->
-<!-- 									</div> -->
-<!-- 									<div id='item_text'> -->
-<!-- 										<div class="item_brand"> -->
-<!-- 											<a href="#" id="brand_text">브랜드</a> -->
-<!-- 										</div> -->
-<!-- 										<p id="name">상품이름</p> -->
-<!-- 										<div class="price"> -->
-<!-- 											<p id="num">000,000원</p> -->
-<!-- 											<p id="p">즉시구매가</p> -->
-<!-- 										</div> -->
-<!-- 									</div> -->
-<!-- 								</div> -->
-<!-- 								<div class="bestItem item1"> -->
-<!-- 									<div class="item_img_block"> -->
-<!-- 										<div class="item_img"> -->
-<!-- 											<img alt="상품이미지입니다." src="" id='product'> -->
-<!-- 										</div> -->
-<!-- 										<div id='like'> -->
-<!-- 											<img src="img/heart.svg" id='like_img'> -->
-<!-- 										</div> -->
-<!-- 									</div> -->
-<!-- 									<div id='item_text'> -->
-<!-- 										<div class="item_brand"> -->
-<!-- 											<a href="#" id="brand_text">브랜드</a> -->
-<!-- 										</div> -->
-<!-- 										<p id="name">상품이름</p> -->
-<!-- 										<div class="price"> -->
-<!-- 											<p id="num">000,000원</p> -->
-<!-- 											<p id="p">즉시구매가</p> -->
-<!-- 										</div> -->
-<!-- 									</div> -->
-<!-- 								</div> -->
-<!-- 								<div class="bestItem item1"> -->
-<!-- 									<div class="item_img_block"> -->
-<!-- 										<div class="item_img"> -->
-<!-- 											<img alt="상품이미지입니다." src="" id='product'> -->
-<!-- 										</div> -->
-<!-- 										<div id='like'> -->
-<!-- 											<img src="img/heart.svg" id='like_img'> -->
-<!-- 										</div> -->
-<!-- 									</div> -->
-<!-- 									<div id='item_text'> -->
-<!-- 										<div class="item_brand"> -->
-<!-- 											<a href="#" id="brand_text">브랜드</a> -->
-<!-- 										</div> -->
-<!-- 										<p id="name">상품이름</p> -->
-<!-- 										<div class="price"> -->
-<!-- 											<p id="num">000,000원</p> -->
-<!-- 											<p id="p">즉시구매가</p> -->
-<!-- 										</div> -->
-<!-- 									</div> -->
-<!-- 								</div> -->
-<!-- 								<div class="bestItem item1"> -->
-<!-- 									<div class="item_img_block"> -->
-<!-- 										<div class="item_img"> -->
-<!-- 											<img alt="상품이미지입니다." src="" id='product'> -->
-<!-- 										</div> -->
-<!-- 										<div id='like'> -->
-<!-- 											<img src="img/heart.svg" id='like_img'> -->
-<!-- 										</div> -->
-<!-- 									</div> -->
-<!-- 									<div id='item_text'> -->
-<!-- 										<div class="item_brand"> -->
-<!-- 											<a href="#" id="brand_text">브랜드</a> -->
-<!-- 										</div> -->
-<!-- 										<p id="name">상품이름</p> -->
-<!-- 										<div class="price"> -->
-<!-- 											<p id="num">000,000원</p> -->
-<!-- 											<p id="p">즉시구매가</p> -->
-<!-- 										</div> -->
-<!-- 									</div> -->
-<!-- 								</div> -->
-<!-- 							</div> -->
-
-<!-- 							<div class="productBEST_container"> -->
-<!-- 								<div class="bestItem item1"> -->
-<!-- 									<div class="item_img_block"> -->
-<!-- 										<div class="item_img"> -->
-<!-- 											<img alt="상품이미지입니다." src="" id='product'> -->
-<!-- 										</div> -->
-<!-- 										<div id='like'> -->
-<!-- 											<img src="img/heart.svg" id='like_img'> -->
-<!-- 										</div> -->
-<!-- 									</div> -->
-<!-- 									<div id='item_text'> -->
-<!-- 										<div class="item_brand"> -->
-<!-- 											<a href="#" id="brand_text">브랜드</a> -->
-<!-- 										</div> -->
-<!-- 										<p id="name">상품이름</p> -->
-<!-- 										<div class="price"> -->
-<!-- 											<p id="num">000,000원</p> -->
-<!-- 											<p id="p">즉시구매가</p> -->
-<!-- 										</div> -->
-<!-- 									</div> -->
-<!-- 								</div> -->
-<!-- 								<div class="bestItem item1"> -->
-<!-- 									<div class="item_img_block"> -->
-<!-- 										<div class="item_img"> -->
-<!-- 											<img alt="상품이미지입니다." src="" id='product'> -->
-<!-- 										</div> -->
-<!-- 										<div id='like'> -->
-<!-- 											<img src="img/heart.svg" id='like_img'> -->
-<!-- 										</div> -->
-<!-- 									</div> -->
-<!-- 									<div id='item_text'> -->
-<!-- 										<div class="item_brand"> -->
-<!-- 											<a href="#" id="brand_text">브랜드</a> -->
-<!-- 										</div> -->
-<!-- 										<p id="name">상품이름</p> -->
-<!-- 										<div class="price"> -->
-<!-- 											<p id="num">000,000원</p> -->
-<!-- 											<p id="p">즉시구매가</p> -->
-<!-- 										</div> -->
-<!-- 									</div> -->
-<!-- 								</div> -->
-<!-- 								<div class="bestItem item1"> -->
-<!-- 									<div class="item_img_block"> -->
-<!-- 										<div class="item_img"> -->
-<!-- 											<img alt="상품이미지입니다." src="" id='product'> -->
-<!-- 										</div> -->
-<!-- 										<div id='like'> -->
-<!-- 											<img src="img/heart.svg" id='like_img'> -->
-<!-- 										</div> -->
-<!-- 									</div> -->
-<!-- 									<div id='item_text'> -->
-<!-- 										<div class="item_brand"> -->
-<!-- 											<a href="#" id="brand_text">브랜드</a> -->
-<!-- 										</div> -->
-<!-- 										<p id="name">상품이름</p> -->
-<!-- 										<div class="price"> -->
-<!-- 											<p id="num">000,000원</p> -->
-<!-- 											<p id="p">즉시구매가</p> -->
-<!-- 										</div> -->
-<!-- 									</div> -->
-<!-- 								</div> -->
-<!-- 								<div class="bestItem item1"> -->
-<!-- 									<div class="item_img_block"> -->
-<!-- 										<div class="item_img"> -->
-<!-- 											<img alt="상품이미지입니다." src="" id='product'> -->
-<!-- 										</div> -->
-<!-- 										<div id='like'> -->
-<!-- 											<img src="img/heart.svg" id='like_img'> -->
-<!-- 										</div> -->
-<!-- 									</div> -->
-<!-- 									<div id='item_text'> -->
-<!-- 										<div class="item_brand"> -->
-<!-- 											<a href="#" id="brand_text">브랜드</a> -->
-<!-- 										</div> -->
-<!-- 										<p id="name">상품이름</p> -->
-<!-- 										<div class="price"> -->
-<!-- 											<p id="num">000,000원</p> -->
-<!-- 											<p id="p">즉시구매가</p> -->
-<!-- 										</div> -->
-<!-- 									</div> -->
-<!-- 								</div> -->
-<!-- 							</div> -->
-<!-- 							<div class="productBEST_container"> -->
-<!-- 								<div class="bestItem item1"> -->
-<!-- 									<div class="item_img_block"> -->
-<!-- 										<div class="item_img"> -->
-<!-- 											<img alt="상품이미지입니다." src="" id='product'> -->
-<!-- 										</div> -->
-<!-- 										<div id='like'> -->
-<!-- 											<img src="img/heart.svg" id='like_img'> -->
-<!-- 										</div> -->
-<!-- 									</div> -->
-<!-- 									<div id='item_text'> -->
-<!-- 										<div class="item_brand"> -->
-<!-- 											<a href="#" id="brand_text">브랜드</a> -->
-<!-- 										</div> -->
-<!-- 										<p id="name">상품이름</p> -->
-<!-- 										<div class="price"> -->
-<!-- 											<p id="num">000,000원</p> -->
-<!-- 											<p id="p">즉시구매가</p> -->
-<!-- 										</div> -->
-<!-- 									</div> -->
-<!-- 								</div> -->
-<!-- 								<div class="bestItem item1"> -->
-<!-- 									<div class="item_img_block"> -->
-<!-- 										<div class="item_img"> -->
-<!-- 											<img alt="상품이미지입니다." src="" id='product'> -->
-<!-- 										</div> -->
-<!-- 										<div id='like'> -->
-<!-- 											<img src="img/heart.svg" id='like_img'> -->
-<!-- 										</div> -->
-<!-- 									</div> -->
-<!-- 									<div id='item_text'> -->
-<!-- 										<div class="item_brand"> -->
-<!-- 											<a href="#" id="brand_text">브랜드</a> -->
-<!-- 										</div> -->
-<!-- 										<p id="name">상품이름</p> -->
-<!-- 										<div class="price"> -->
-<!-- 											<p id="num">000,000원</p> -->
-<!-- 											<p id="p">즉시구매가</p> -->
-<!-- 										</div> -->
-<!-- 									</div> -->
-<!-- 								</div> -->
-<!-- 								<div class="bestItem item1"> -->
-<!-- 									<div class="item_img_block"> -->
-<!-- 										<div class="item_img"> -->
-<!-- 											<img alt="상품이미지입니다." src="" id='product'> -->
-<!-- 										</div> -->
-<!-- 										<div id='like'> -->
-<!-- 											<img src="img/heart.svg" id='like_img'> -->
-<!-- 										</div> -->
-<!-- 									</div> -->
-<!-- 									<div id='item_text'> -->
-<!-- 										<div class="item_brand"> -->
-<!-- 											<a href="#" id="brand_text">브랜드</a> -->
-<!-- 										</div> -->
-<!-- 										<p id="name">상품이름</p> -->
-<!-- 										<div class="price"> -->
-<!-- 											<p id="num">000,000원</p> -->
-<!-- 											<p id="p">즉시구매가</p> -->
-<!-- 										</div> -->
-<!-- 									</div> -->
-<!-- 								</div> -->
-<!-- 								<div class="bestItem item1"> -->
-<!-- 									<div class="item_img_block"> -->
-<!-- 										<div class="item_img"> -->
-<!-- 											<img alt="상품이미지입니다." src="" id='product'> -->
-<!-- 										</div> -->
-<!-- 										<div id='like'> -->
-<!-- 											<img src="img/heart.svg" id='like_img'> -->
-<!-- 										</div> -->
-<!-- 									</div> -->
-<!-- 									<div id='item_text'> -->
-<!-- 										<div class="item_brand"> -->
-<!-- 											<a href="#" id="brand_text">브랜드</a> -->
-<!-- 										</div> -->
-<!-- 										<p id="name">상품이름</p> -->
-<!-- 										<div class="price"> -->
-<!-- 											<p id="num">000,000원</p> -->
-<!-- 											<p id="p">즉시구매가</p> -->
-<!-- 										</div> -->
-<!-- 									</div> -->
-<!-- 								</div> -->
 							</div>
 
 
@@ -682,23 +419,10 @@ font-family: 'Lora', serif;
 		<!-- contents -->
 		<div class="clear"></div>
 
-		<div id='footer'>
-			<div id='footer-textbox'>
-				<h5>고객센터 1588-1588</h5>
-				<p>
-					운영시간 평일 11:00-18:00(토,일,공휴일휴무)<br> 점심시간 평일 13:00-14:00
-				</p>
-				<h6>주소 : 경기도 성남시 분당구 오리역 16번출구</h6>
-				<p>
-					LUXE(주)는 통신판매 중개자로서 통신판매의 당사자가 아니므로 개별 판매자가 등록한 상품정보에 대해서 책임을 지지
-					않습니다. <br>단, 거래과정에서 검수하고 보증하는 내용에 대한 책임은 당사에 있습니다
-				</p>
-			</div>
-
-
-		</div>
+		<jsp:include page="../layout/footer.jsp" />
 
 	</div>
+	
 	<!-- 스크립트 -->
 	<script type="text/javascript" src="StyleBoard.js"></script>
 </body>

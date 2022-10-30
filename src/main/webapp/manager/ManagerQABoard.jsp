@@ -110,6 +110,8 @@ $(function(){
 			data: {key:"regisGoodsAjax" , methodName : "selectAllRegisGoods"},	
 			success :function(result){
 				let str="";
+				
+				str+=`<tbody>`;
 				$.each(result, function(index, item){
 					str+=`<tr>`;
 					str+=`<td>${"${item.regisGoodsNo}"}</th>`;
@@ -119,7 +121,7 @@ $(function(){
 					str+=`<td>${"${item.regisDate.toLocaleString()}"}</th>`;
 					str+=`</tr>`;
 				})
-				
+				str+=`</tbody>`;
 				$("#regisTable tr:gt(0)").remove();
 				$("#regisTable tr:eq(0)").after(str);
 				
@@ -172,7 +174,7 @@ $(function(){
 				<div id='sell'>
 					<table class="fixed_headers" id = "regisTable">
 						<thead>
-							<tr>
+							<tr id='thead'>
 								<th>번호</th>
 								<th>회원ID</th>
 								<th>브랜드</th>
@@ -411,7 +413,7 @@ $(function(){
 <!-- 								<td>샤넬가방</td> -->
 <!-- 							</tr> -->
 						
-<!-- 						</tbody> -->
+<!-- 						</tbody> --> 
 					</table>
 					</div>
 				</div>
