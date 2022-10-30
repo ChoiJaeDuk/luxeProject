@@ -30,8 +30,8 @@
 
 <form action="shop.jsp" method="get" >
 	<input type="text" name="state" value="1"> 
-	<p>
-	<input type="submit" value="전송">
+<p>
+
 </form>
 </body>
 </html>

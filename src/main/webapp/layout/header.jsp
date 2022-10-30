@@ -15,7 +15,7 @@ $(function(){
 				return;
 		}
 		$.ajax({
-			url :"ajax" , //서버요청주소
+			url :"../ajax" , //서버요청주소
 			type:"post", //요청방식(method방식 : get | post | put | delete )
 			dataType:"json"  , //서버가 보내온 데이터(응답)타입(text | html | xml | json )
 			data: {key:"goodsAjax" , methodName : "selectGoodsByGoodsName" , keyWord:$(this).val()}, //서버에게 보낼 데이터정보(parameter정보)
@@ -46,7 +46,7 @@ $(function(){
  			$("#nav-search").val($(this).text());
  			$("#nav-search").focus();
  			$("#suggest").hide();
- 		})
+ 	})
 	
 	
 });
@@ -92,7 +92,7 @@ margin-right:20px;}
   border-radius: 4px;
   font-size: 14px;
   background-color: #cccccc10;
-  background-image: url('../../img/icon/search02.png');
+  background-image: url('../img/icon/search02.png');
   background-size: 15px;
   background-position: 10px 7px; 
   background-repeat: no-repeat;
@@ -162,8 +162,8 @@ margin-right:20px;}
 				<div id='logo'>LUXE</div>
 				<a href="${pageContext.request.contextPath}/index.jsp">HOME</a> <a href="${pageContext.request.contextPath}/style/StyleBoard.jsp">STYLE</a> <a href="${pageContext.request.contextPath}/shop/shop.jsp">SHOP</a>
 				<div class="split">
-						<form name="search" id="search" action="${path}/front">
-					    <input type="hidden" name="key" value="goods" >
+						<form name="search" id="search" action="shop.jsp">
+					    <input type="hidden" name="state" value="1" >
 					    <input type="hidden" name="methodName" value="selectGoodsByGoodsName" >
 					    <input type="text" placeholder="Search.." name="search" id="nav-search">
 						</form>
