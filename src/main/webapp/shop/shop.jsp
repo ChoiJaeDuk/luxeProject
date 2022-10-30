@@ -1,7 +1,8 @@
+<%@page import="javax.security.auth.message.callback.PrivateKeyCallback.Request"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-	<jsp:include page="header.jsp"/>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -51,22 +52,34 @@ font-family: 'Lora', serif;
 <link rel="stylesheet" type="text/css" href="../css/setting/Layout.css">
 <script type="text/javascript" src="../js/jquery-3.6.1.min.js"></script>
 <style type="text/css">
+	.productImg {
+
+		overflow: hidden;
+	}
+	
+	.item_img_block {
+    width: 230px;
+    /* height: 230px; */
+    margin: 0;
+    padding: 0;
+}
 </style>
 <script type="text/javascript">
 	
 	$(function(){
-		
+		//alert($("#test").attr("name"))
 			selectAllGoods();
 			var category ="";
 			var brand ="";
 			var sort="";
+			var search="";
 			var heartState = "../img/heart.svg";
 			function selectAllGoods() {
 				 $.ajax({
 						url :"../ajax" , //서버요청주소
 						type:"post", //요청방식(method방식 : get | post | put | delete )
 						dataType:"json", //서버가 보내온 데이터(응답)타입(text | html | xml | json )
-						data: {key:"goodsAjax" , methodName : "selectAllGoods", brand:brand , category:category , sort:sort, userId:"id"}, //서버에게 보낼 데이터정보(parameter정보)
+						data: {key:"goodsAjax" , methodName : "selectAllGoods", brand:brand , category:category , sort:sort, userId:"id", search: search}, //서버에게 보낼 데이터정보(parameter정보)
 						success :function(result){
 							//wish상태 체크
 							
@@ -83,9 +96,9 @@ font-family: 'Lora', serif;
 										str += "<tr>";
 									}
 									str += "<td>"
-									str += `<div class="bestItem item1">`;
+									str += `<div class="bestItem item1" style="overflow:hidden">`;
 									str += `<div class="item_img_block">`;
-									str += `<div class="item_img">`;
+									str += `<div class="item_img" style="overflow:hidden; border-bottom:1px solid lightgray">`;
 									str += `<img alt="상품이미지입니다." src=${path}/${"${item.mainImg}"}  id='product'>`;
 									str += `</div>`;
 									str += `<div id='like'><img src= ${"${heartState}"} id='like_img' name=${"${item.goodsNo}"}></div>`;
@@ -109,7 +122,7 @@ font-family: 'Lora', serif;
 								});
 								$("#product tr:gt(0)").remove();
 								$("#product tr:eq(0)").prepend(str);
-						 		
+						 		$("").css("overflow","hidden");
 								
 						} , //성공했을때 실행할 함수 
 						error : function(err){  
@@ -117,7 +130,7 @@ font-family: 'Lora', serif;
 						}  //실팽했을때 실행할 함수 
 					});//ajax끝
 			}
-				
+		
 		
 		
 		
@@ -160,7 +173,8 @@ font-family: 'Lora', serif;
         
  
         $(document).on('click','#like_img',function(){
-            if($(this).attr("src")=="img/heart.svg"){
+        	
+            if($(this).attr("src")=="../img/heart.svg"){
                 $.ajax({
 					url:"../ajax",
 					type:"post",
@@ -172,8 +186,9 @@ font-family: 'Lora', serif;
 					error : function(err) {
 						alert(err+"에러  발생");
 					}
+				
 				})//ajax끝
-            }else if($(this).attr("src")=="img/heart-fill.svg"){
+            }else if($(this).attr("src")=="../img/heart-fill.svg"){
             	$.ajax({
 					url:"../ajax",
 					type:"post",
@@ -187,42 +202,90 @@ font-family: 'Lora', serif;
 					}
 				})
             }
-            
-//             if(${state} == "1"){
-//             	alert(1)
-            	
-//             }else{
-//             	selectAllGoods();
-//             }
+     
+            selectAllGoods();
+             
 
         }); 
         
+        $("#nav-search").on("keyup",function(){
+    		if($(this).val() == ""){
+    			$("#suggest").hide();
+    				return;
+    		}
+    		$.ajax({
+    			url :"../ajax" , //서버요청주소
+    			type:"post", //요청방식(method방식 : get | post | put | delete )
+    			dataType:"json"  , //서버가 보내온 데이터(응답)타입(text | html | xml | json )
+    			data: {key:"goodsAjax" , methodName : "selectGoodsByGoodsName" , keyWord:$(this).val()}, //서버에게 보낼 데이터정보(parameter정보)
+    			success :function(result){
+    				let str="";
+    				if(result.length>0){
+    					$.each(result, function(index, item){
+    						str += "<a href ='#'>"+item+"</a><br>";		
+    						
+    					})
+    					
+    					$("#suggest").html(str);
+    	 				$("#suggest").show();
+    	 					
+    				}else{
+    					$("#suggest").hide();
+    				}
+    			
+    				
+    			} , //성공했을때 실행할 함수 
+    			error : function(err){  
+    				alert(err+"에러 발생했어요.");
+    			}  //실팽했을때 실행할 함수 
+    		});//ajax끝
+    	})
+    	
+    	$(document).on("click", "a", function(){
+     			$("#nav-search").val($(this).text());
+     			$("#nav-search").focus();
+     			$("#suggest").hide();
+     	})
+    	
+     	$("[name='search']").on("keypress", function (key) {
+            if(key.keyCode == 13){//키가 13이면 실행 (엔터는 13)
+            	
+            	search = "'%"+$("[name='search']").val()+"%'";
+            	category ="";
+    			brand ="";
+    			sort="";
+            	selectAllGoods();
+            }
+     
+        });
 	});
+	
 </script>
 </head>
 <body>
-<!-- 	<div id='wrap'> -->
+<input type="text" id="test" name=<%=request.getParameter("state") %>>
 
-<!-- 		<div id='header'> -->
-<!-- 			<div id='header-top'> -->
-<!-- 				<div id='header-top-menu'> -->
-<!-- 					<a href="">마이페이지</a> <a href="">관심상품</a> <a href="">로그인</a> <a -->
-<!-- 						href="" class='managermode'>관리자모드</a> -->
-<!-- 				</div> -->
-<!-- 			</div> -->
-<!-- 			header-top -->
+<!-- <!-- 	<div id='wrap'> -->
 
-<!-- 			<div id='header-bottom'> -->
-<!-- 				<div class="topnav"> -->
-<!-- 					<div id='logo'>LUXE</div> -->
-<!-- 					<a href="../index.jsp">HOME</a> <a href="../style/StyleBoard.jsp">STYLE</a> <a href="#">SHOP</a> -->
-<!-- 					<div class="split"> -->
-<!-- 						<input class="nav-search" type="text" name="search"> -->
-<!-- 					</div> -->
-<!-- 				</div> -->
-<!-- 			</div> -->
-<!-- 		</div> -->
-		<!-- header -->
+	<!-- /	<div id='header'>
+			<div id='header-top'>
+				<div id='header-top-menu'>
+					<a href="">마이페이지</a> <a href="">관심상품</a> <a href="">로그인</a> <a
+						href="" class='managermode'>관리자모드</a>
+				</div>
+			</div>
+
+			<div id='header-bottom'>
+				<div class="topnav">
+					<div id='logo'>LUXE</div>
+					<a href="../index.jsp">HOME</a> <a href="../style/StyleBoard.jsp">STYLE</a> <a href="#">SHOP</a>
+					<div class="split">
+						<input class="nav-search" type="text" name="search">
+					</div>
+				</div>
+			</div>
+		</div> -->
+	<!--header -->
 		<div class="clear"></div>
 
 		<div id="banner">
@@ -250,6 +313,7 @@ font-family: 'Lora', serif;
 											<div id="accordion-body-text">
 												<strong>브랜드</strong>
 												<p>선택된항목</p>
+											
 											</div>
 											<div id="accordion-body-icon"></div>
 										</div>
@@ -260,12 +324,9 @@ font-family: 'Lora', serif;
 									aria-labelledby="panelsStayOpen-headingOne">
 									<div class="accordion-body">
 										<ul>
-											<li><label><input type="checkbox" name="color"
-													value="샤넬">CHANEL</label></li>
-											<li><label><input type="checkbox" name="color"
-													value="디올">DIOR</label></li>
-											<li><label><input type="checkbox" name="color"
-													value="프라다">PRADA</label></li>
+											<li><label><input type="checkbox" name="brand" value="샤넬">CHANEL</label></li>
+				        					<li><label><input type="checkbox" name="brand" value="디올">DIOR</label></li>
+				        					<li><label><input type="checkbox" name="brand" value="프라다">PRADA</label></li>
 										</ul>
 									</div>
 								</div>

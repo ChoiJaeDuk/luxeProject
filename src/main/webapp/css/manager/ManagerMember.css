@@ -1,0 +1,91 @@
+@charset "UTF-8";
+button {
+   height: 2.5em; 
+   cursor: pointer; 
+ } 
+
+#popup {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, .7);
+  z-index: 1;
+}
+
+#popup.hide {
+  display: none;
+}
+
+#popup.has-filter {
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+
+#popup .content {
+  padding: 20px;
+  background: #fff;
+  border-radius: 5px;
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, .3);
+}
+
+
+/**/
+#con{
+	width: 1280px;
+	height: 480px;
+	margin: 100px auto;
+	padding: 50px; 
+	background-color: #ffffff;
+	border-radius: 12px;
+	box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.1);
+}
+
+#myTable {
+  width: 1200px;
+  table-layout: fixed;
+  border-collapse: collapse;
+  margin-top: 20px;
+}
+
+  th, td {
+    padding: 5px;
+    text-align: center;
+    border-bottom: 1px solid #22222230;
+  }
+  tr:hover{
+  	background-color: #22222230;
+  }
+  
+/*       <th style="width:10%;">No</th>
+                      <th style="width:20%;">Name</th>
+                      <th style="width:30%;">Addr</th>
+                      <th style="width:20%;">Phone</th>
+                      <th style="width:20%;">Email</th> */
+  td:nth-child(1), th:nth-child(1) { width: 30px; }
+  td:nth-child(2), th:nth-child(2) { width: 100px; }
+  td:nth-child(3), th:nth-child(3) { width: 600px;}
+  td:nth-child(4), th:nth-child(4) { width: 200px; }
+  td:nth-child(4), th:nth-child(4) { width: 200px; }
+  
+  .header {
+    background-color: #222222;
+    color:#ffffff;
+    
+  }
+  tr {
+      display: block;
+      position: relative;
+    }
+  tbody {
+    display: block;
+    overflow: auto;
+    width: 100%;
+    height: 300px;
+    overflow-y:scroll;
+   
+  }

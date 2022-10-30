@@ -28,6 +28,7 @@ public class RegisGoodsServiceImpl implements RegisGoodsService {
 	@Override
 	public List<RegisGoodsDTO> selectAllRegisGoods() throws SQLException {
 		List<RegisGoodsDTO> list = regisGoodsDao.selectAllRegisGoods();
+	
 		return list;
 	}
 

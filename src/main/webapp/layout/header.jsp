@@ -160,7 +160,7 @@ margin-right:20px;}
 		<div id='header-bottom'>
 			<div class="topnav">
 				<div id='logo'>LUXE</div>
-				<a href="#">HOME</a> <a href="#news">STYLE</a> <a href="#contact">SHOP</a>
+				<a href="${pageContext.request.contextPath}/index.jsp">HOME</a> <a href="${pageContext.request.contextPath}/style/StyleBoard.jsp">STYLE</a> <a href="${pageContext.request.contextPath}/shop/shop.jsp">SHOP</a>
 				<div class="split">
 						<form name="search" id="search" action="${path}/front">
 					    <input type="hidden" name="key" value="goods" >

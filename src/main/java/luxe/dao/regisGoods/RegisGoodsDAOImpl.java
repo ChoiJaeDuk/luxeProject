@@ -43,7 +43,10 @@ public class RegisGoodsDAOImpl implements RegisGoodsDAO {
 		ResultSet rs = null;
 		List<RegisGoodsDTO> list = new ArrayList<RegisGoodsDTO>();
 
-		String sql = "select * from regis_goods oder by regis_goods_date desc";
+		String sql = "select regis_goods_no, user_id, regis_goods_brand, regis_goods_name, to_char(regis_goods_date,'yy-mm-dd')\r\n"
+				+ "from regis_goods\r\n"
+				+ "group by regis_goods_no, user_id, regis_goods_brand, regis_goods_name, regis_goods_date\r\n"
+				+ "order by count(regis_goods_no) desc";
 		try {
 			con = DbUtil.getConnection();
 			ps = con.prepareStatement(sql);
@@ -53,6 +56,7 @@ public class RegisGoodsDAOImpl implements RegisGoodsDAO {
 						rs.getString(4), rs.getString(5));
 
 				list.add(regisGoodDto);
+				
 			}
 		} finally {
 			DbUtil.dbClose(con, ps, rs);

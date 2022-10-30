@@ -33,7 +33,10 @@ public class GoodsAjaxController implements AjaxController {
 		String brand = request.getParameter("brand");
 		String category = request.getParameter("category");
 		String sort = request.getParameter("sort");
-		String userId = request.getParameter("userId");
+
+		String userId =request.getParameter("userId");
+		String search = request.getParameter("search");
+		
 		System.out.println("brand = " + brand);
 		System.out.println("category = " + category);
 		System.out.println("sort = " + sort);
@@ -45,7 +48,9 @@ public class GoodsAjaxController implements AjaxController {
 		 * String userId=null; if(session.getAttribute("userId")!=null) { userId =
 		 * (String)session.getAttribute("userId"); }
 		 */
-		List<GoodsDTO> list = goodsService.selectAllGoods(brand, category, sort, userId);
+
+		List<GoodsDTO> list = goodsService.selectAllGoods(brand, category, sort, userId, search);
+		
 
 		System.out.println(list.size());
 		JSONArray arr = JSONArray.fromObject(list);
