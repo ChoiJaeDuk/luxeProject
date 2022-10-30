@@ -39,5 +39,7 @@ public interface GoodsService {
 	 * 상품 삭제
 	 */
 	void deleteGoodsDTO(int goodsNo) throws SQLException;
-
+	
+	
+	List<GoodsDTO> selectAllGoodsInfo() throws SQLException;
 }

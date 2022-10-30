@@ -1,6 +1,7 @@
 package luxe.controller.goods;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -17,6 +18,7 @@ import luxe.dto.GoodsDTO;
 import luxe.dto.GoodsImagesDTO;
 import luxe.service.goods.GoodsService;
 import luxe.service.goods.GoodsServiceImpl;
+import net.sf.json.JSONArray;
 
 public class GoodsController implements Controller {
 
@@ -193,4 +195,13 @@ public class GoodsController implements Controller {
 		return new ModelAndView("shop/shop.jsp");
 	}
 
+	
+	public ModelAndView selectAllGoodsInfo(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		response.setContentType("text/html;charset=UTF-8");
+		
+		List<GoodsDTO> list = goodsService.selectAllGoodsInfo();
+		
+
+		return new ModelAndView("Manager/ManagerProduct.jsp");
+	}
 }

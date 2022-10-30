@@ -46,5 +46,13 @@ public interface GoodsDAO {
 	 * 상품 삭제
 	 */
 	int deleteGoodsDTO(int goodsNo) throws SQLException;
+	
+	
+	/**
+	 * 관리자페이지 상품조회
+	 * @return
+	 * @throws SQLException
+	 */
+	public List<GoodsDTO> selectAllGoodsInfo() throws SQLException;
 
 }

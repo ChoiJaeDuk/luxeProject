@@ -73,4 +73,12 @@ public class GoodsServiceImpl implements GoodsService {
 		}
 	}
 
+	@Override
+	public List<GoodsDTO> selectAllGoodsInfo() throws SQLException {
+		
+		List<GoodsDTO> list = goodsDAO.selectAllGoodsInfo();
+		
+		return list;
+	}
+
 }

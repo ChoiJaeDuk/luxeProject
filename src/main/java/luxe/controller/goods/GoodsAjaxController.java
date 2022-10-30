@@ -127,5 +127,15 @@ public class GoodsAjaxController implements AjaxController {
 		out.println(arr);
 
 	}
+	
+	public void selectAllGoodsInfo(HttpServletRequest request, HttpServletResponse response) throws Exception{
+		response.setContentType("text/html;charset=UTF-8");
+		
+		List<GoodsDTO> list = goodsService.selectAllGoodsInfo();
+		
 
+		JSONArray arr = JSONArray.fromObject(list);
+		PrintWriter out = response.getWriter();
+		out.print(arr);
+	}
 }

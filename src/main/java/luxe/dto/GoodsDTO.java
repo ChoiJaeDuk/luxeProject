@@ -33,6 +33,10 @@ public class GoodsDTO {
 	public GoodsDTO() {
 		super();
 	}
+	
+	
+	
+	
 
 	public GoodsDTO(String mainImg, String goodsName, String goodsNameKor, String brand, String category,
 			int sellPrice, int goodsNo) {

@@ -52,6 +52,60 @@ font-family: 'Lora', serif;
 
 
 <script type="text/javascript" src="../js/jquery-3.6.1.min.js"></script>
+<script type="text/javascript">
+	$(function() {
+	
+		selectGoodsInfo();
+		function selectGoodsInfo() {
+			$.ajax({	
+				url :"../ajax" , //서버요청주소
+				type:"post", //요청방식(method방식 : get | post | put | delete )
+				dataType:"json", //서버가 보내온 데이터(응답)타입(text | html | xml | json )
+				data: {key:"goodsAjax" , methodName : "selectAllGoodsInfo"}, //서버에게 보낼 데이터정보(parameter정보)
+				success :function(result){
+					let str="";
+						$.each(result, function(index, item){	
+							str += `<div class="tbody">`; 
+							str += `<div class='tr'>`;
+							str += `<form action="">`;
+							str += `<div class='td brand'>${"${item.brand}"}</div>`;
+							str += `<div class='td category'>${"${item.category}"}</div>`;
+							str += `<div class='td productName'>${"${item.goodsName}"}</div>`;
+							str += `<div class='td productName2'>${"${item.goodsNameKor}"}</div>`;
+							str += `<div class='td modelNo'>${"${item.goodsModelNo}"}</div>`;
+							str += `<div class='td modelDate'>${"${item.goodsReleaseDate}"}</div>`;
+							str += `<div class='td modelReleasePrice'>${"${item.goodsReleasePrice}"}</div>`;
+							str += `<div class='td updateBtn'>`;
+							str += `<button type="button" id=${"${item.goodsNo}"} name="update">수정</button>`;
+							str += `</div>`;
+							str += `<div class='td deleteBtn'>`;
+							str += `<button type="button" id=${"${item.goodsNo}"}>삭제</button>`;
+							str += `</div>`;
+							str += `</form>`;
+							str += `</div>`;
+							str += `</div>`;
+						});
+					$(".table:eq(0)").append(str);
+					$(".table:gt(0)").remove();
+				} , //성공했을때 실행할 함수 
+				error : function(err){  
+					alert(err+"에러 발생했어요.");
+				}  //실팽했을때 실행할 함수 
+			});//ajax끝
+		}
+		
+		$(document).on("click","[name=update]" ,function() {
+			showInsertform(false);
+			alert($(this).parent().prev().text())
+			
+			
+		})
+		
+		$("#update-submitBtn").on("click", function() {
+			
+		})
+	})
+</script>
 <style type="text/css">
 .sidebar {
 	height: 100%;
@@ -149,27 +203,11 @@ font-family: 'Lora', serif;
 							</div>
 						<div class='table'>
 							
-							<div class="tbody">
+							<!-- <div class="tbody">
 							<div class='tr'>
 								<form action="">
-									<div class='td brand'>
-										<select id='BrandSelect'>
-											<option value="0">Brand</option>
-											<option value="Chanel">Chanel</option>
-											<option value="Dior">Dior</option>
-											<option value="Prada">Prada</option>
-										</select>
-									</div>
-									<div class='td category'>
-										<select id='CategorySelect'>
-											<option value="0">Category</option>
-											<option value="Shoulder">Shoulder</option>
-											<option value="Mini">Mini</option>
-											<option value="Shopper">Shopper</option>
-											<option value="Clutch">Clutch</option>
-											<option value="Backpack">Backpack</option>
-										</select>
-									</div>
+									<div class='td brand'>브랜드명</div>
+									<div class='td category'>카테고리명</div>
 									<div class='td productName'>상품명[원어]</div>
 									<div class='td productName2'>상품명[한글]</div>
 									<div class='td modelNo'>모델번호</div>
@@ -183,10 +221,10 @@ font-family: 'Lora', serif;
 									</div>
 								</form>
 							</div>
-							<!-- tr반복 -->
+							tr반복
 						
-							<!-- tr끝 -->
-							</div><!-- tbody -->
+							tr끝
+							</div>tbody -->
 
 						</div>
 						<!-- table -->
