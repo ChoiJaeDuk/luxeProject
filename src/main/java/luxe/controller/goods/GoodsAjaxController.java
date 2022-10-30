@@ -20,25 +20,25 @@ import net.sf.json.JSONArray;
 
 public class GoodsAjaxController implements AjaxController {
 	private GoodsService goodsService = new GoodsServiceImpl();
+
 	@Override
 	public void handleRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 
 	}
-	
-	public void selectAllGoods(HttpServletRequest request, HttpServletResponse response) throws Exception{
+
+	public void selectAllGoods(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		response.setContentType("text/html;charset=UTF-8");
 		String brand = request.getParameter("brand");
 		String category = request.getParameter("category");
 		String sort = request.getParameter("sort");
-		String userId =request.getParameter("userId");
+		String userId = request.getParameter("userId");
 		System.out.println("brand = " + brand);
 		System.out.println("category = " + category);
 		System.out.println("sort = " + sort);
-		
-		
-		//로그인 여부 판단
+
+		// 로그인 여부 판단
 		/*
 		 * HttpSession session=request.getSession();
 		 * 
@@ -46,15 +46,14 @@ public class GoodsAjaxController implements AjaxController {
 		 * (String)session.getAttribute("userId"); }
 		 */
 		List<GoodsDTO> list = goodsService.selectAllGoods(brand, category, sort, userId);
-		
-		
+
 		System.out.println(list.size());
 		JSONArray arr = JSONArray.fromObject(list);
 		PrintWriter out = response.getWriter();
 		out.print(arr);
-		
+
 	}
-	
+
 //	public void selectGoodsByGoodsName(HttpServletRequest request, HttpServletResponse response) throws Exception{
 //		response.setContentType("text/html;charset=UTF-8");
 //		String keyWord = request.getParameter("keyWord");
@@ -67,51 +66,61 @@ public class GoodsAjaxController implements AjaxController {
 //		out.print(arr);
 //		
 //	}
-	
-	public void selectGoodsByGoodsName(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+	public void selectGoodsByGoodsName(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		response.setContentType("text/html;charset=UTF-8");
-		
+
 		String keyWord = request.getParameter("keyWord");
 		List<String> list = this.search(keyWord);
 
 		JSONArray arr = JSONArray.fromObject(list);
-		
-		
-		//front단으로 응답(데이터전송))
+
+		// front단으로 응답(데이터전송))
 		PrintWriter out = response.getWriter();
 		out.println(arr);
 	}
-	
-	private List<String> search(String keyWord){
+
+	private List<String> search(String keyWord) {
 		List<String> list = new ArrayList<String>();
 		List<GoodsDTO> goodsDTO = new ArrayList<GoodsDTO>();
 		try {
 			goodsDTO = goodsService.selectGoodsByGoodsName(keyWord);
-			
-			for(GoodsDTO goods :goodsDTO) {
+
+			for (GoodsDTO goods : goodsDTO) {
 				System.out.println(goods);
-		
-				if(goods.getGoodsNameKor().startsWith(keyWord)) {
+
+				if (goods.getGoodsNameKor().startsWith(keyWord)) {
 					list.add(goods.getGoodsNameKor());
-					
-					
-				}else if(goods.getGoodsName().toUpperCase().startsWith(keyWord.toUpperCase())){
+
+				} else if (goods.getGoodsName().toUpperCase().startsWith(keyWord.toUpperCase())) {
 					list.add(goods.getGoodsName());
-					
-				}else if(goods.getCategory().startsWith(keyWord)) {
+
+				} else if (goods.getCategory().startsWith(keyWord)) {
 					list.add(goods.getGoodsNameKor());
 				}
 			}
-		
-					
+
 		} catch (SQLException e) {
-			
+
 			e.printStackTrace();
 		}
-		
-		
+
 		return list;
 	}
+
+	public void searchGoodsName(HttpServletRequest request, HttpServletResponse response) throws Exception {
+
+		response.setContentType("text/html;charset=UTF-8");
+
+		String goodsName = request.getParameter("goodsName");
+		List<GoodsDTO> goodsDTO = goodsService.selectGoodsByGoodsName(goodsName);
 	
+		JSONArray arr = JSONArray.fromObject(goodsDTO);
+
+		PrintWriter out = response.getWriter();
+		out.println(arr);
+
+	}
 
 }

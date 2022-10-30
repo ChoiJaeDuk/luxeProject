@@ -269,7 +269,7 @@ width: 300px; height: 300px;
 	
 	<div id="insert-pop" class="hide">
 	<div id='insert-contents'>
-		<form id='insert-form' name="writeForm" method="post" action="">
+		<form id='insert-form' name="writeForm" method="post" action="../front?key=styleBook&methodName=insertStyleBook" enctype="multipart/form-data">
 			<div id='productImg'>
 				<img src="../img/product01.webp" alt="상품이미지" />
 			</div>
@@ -277,24 +277,24 @@ width: 300px; height: 300px;
 			<div id='insert-con'>
 				<div id='insert-title-text'>
 					<span>이름</span><input type="text" class="form-control"
-						placeholder="이름" readonly="readonly"> <span>상품이름</span><input
+						placeholder="이름" readonly="readonly" name="userId"> <span>상품이름</span><input
 						type="text" class="form-control" placeholder="상품이름"
 						id='changeInput' readonly="readonly"> <span>상품코드</span><input
 						type="text" class="form-control" placeholder="상품코드"
-						readonly="readonly">
+						readonly="readonly" name="goodsNo">
 				</div>
 
 
 				<div id='insert-text'>
 					<div class="form-group">
 						<span>내용</span>
-						<textarea class="form-control" id="exampleTextarea" rows="3"></textarea>
+						<textarea class="form-control" id="exampleTextarea" rows="3" name="boardContent"></textarea>
 					</div>
 				</div>
 
 				<div id='insertImg'>
 					<span>스타일업로드</span> <input class="form-control" type="file"
-						id="formFile">
+						id="formFile" name="styleBookImage">
 				</div>
 
 
@@ -404,6 +404,10 @@ width: 300px; height: 300px;
 	
 	//등록
 	function showInsertform(hasFilter){
+		
+		let goodsName = $("#changeProduct").val();
+		  if(goodsName== 0)
+			  return;
 		const insert = document.querySelector('#insert-pop');
 		  
 		  if (hasFilter) {
@@ -413,6 +417,27 @@ width: 300px; height: 300px;
 		  }
 		  
 		  insert.classList.remove('hide');
+		  
+		  
+		  $.ajax({
+			  url :"../ajax" , //서버요청주소
+				type:"post", //요청방식(method방식 : get | post | put | delete )
+				dataType:"json"  , //서버가 보내온 데이터(응답)타입(text | html | xml | json )
+				data: {key:"goodsAjax" , methodName : "searchGoodsName", goodsName:goodsName}, //서버에게 보낼 데이터정보(parameter정보)
+				success :function(goodsList){
+					$.each(goodsList, function(i, goods) {
+						if(goodsName==goods.goodsName){
+							$("#insert-pop img").attr("src", goods.goodsMainImg);
+							$("#insert-pop input[name=userId]").val("${sessionScope.userId}");
+							$("#insert-pop input[name=goodsNo]").val(goods.goodsNo);
+							
+						}
+					})
+				} , //성공했을때 실행할 함수 
+				error : function(err){  
+					alert(err+"에러 발생했어요.");
+				}  //실팽했을때 실행할 함수 
+		  });
 		}
 		
 		function closeInsertform() {
