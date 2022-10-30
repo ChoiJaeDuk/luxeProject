@@ -10,17 +10,20 @@
 
   th, td {
     padding: 5px;
-    text-align: left;
-    border-bottom: 1px solid #22222230;
+    text-align: left;  
+  }
+  tr{
+   border-bottom: 1px solid #22222230;
   }
   tr:hover{
   	background-color: #22222230;
   }
-  td:nth-child(1), th:nth-child(1) { min-width: 120px; }
-  td:nth-child(2), th:nth-child(2) { min-width: 120px; }
+  td:nth-child(1), th:nth-child(1) { min-width: 80px; }
+  td:nth-child(2), th:nth-child(2) { min-width: 100px; }
   td:nth-child(3), th:nth-child(3) { width: 200px;}
-  td:nth-child(4), th:nth-child(4) { width: 500px; }
-  thead {
+  td:nth-child(4), th:nth-child(4) { width: 300px; }
+  td:nth-child(5), th:nth-child(5) { width: 200px; }
+  #thead {
     background-color: #222222;
     color:#ffffff;
     

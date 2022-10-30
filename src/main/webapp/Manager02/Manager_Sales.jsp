@@ -585,6 +585,12 @@ font-family: 'Lora', serif;
 	  });
 	})
 	
+	$(function (){
+		$("#sellRate-dtn").click(function (){
+	  	$("#sellRate").toggle();
+	  });
+	})
+	
 	function openCity(evt, cityName) {
 	  // Declare all variables
 	  var i, tabcontent, tablinks;

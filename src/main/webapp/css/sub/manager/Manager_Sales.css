@@ -1,6 +1,7 @@
 @charset "utf-8";
 .container{
   overflow: hidden;
+  padding: 50px;
 }
 .myTable {
   border-collapse: collapse; /* Collapse borders */
@@ -98,7 +99,7 @@
 .sales-card{
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   padding: 16px;
-  background-color: #f1f1f1;
+  background-color: #ffffff;
 }
 .chart-card{
 	padding: 16px;
@@ -114,24 +115,28 @@
 /* Style the tab */
 .tab {
   overflow: hidden;
-  border: 1px solid #ccc;
-  background-color: #f1f1f1;
 }
 
 /* Style the buttons that are used to open the tab content */
 .tab button {
-  background-color: inherit;
+  background-color: #ffffff;
+  color: #222222;
   float: left;
-  border: none;
+  border: 0.25px solid #cccccc;
   outline: none;
   cursor: pointer;
-  padding: 14px 16px;
+  padding: 5px 10px;
   transition: 0.3s;
+  font-size: 12px;
+  margin-left: 4px;
+  margin-top: 15px;
+  border-radius: 20px;
 }
 
 /* Change background color of buttons on hover */
 .tab button:hover {
-  background-color: #ddd;
+  background-color: #222222;
+  color:#ffffff;
 }
 
 /* Create an active/current tablink class */
@@ -145,4 +150,55 @@
   padding: 0px;
   border: 1px solid #ccc;
   border-top: none;
+}
+#monthlySearch-dtn,#lookSellRate{
+  background-color: #ffffff;
+  color: #222222;
+  border: 0.25px solid #cccccc;
+  outline: none;
+  cursor: pointer;
+  padding: 10px 10px;
+  transition: 0.3s;
+}
+#monthlySearch-dtn:hover ,#lookSellRate:hover{
+   background-color: #222222;
+  color:#ffffff;
+}
+#monthlySearch-dtn:active ,#lookSellRate:active{
+  background-color: #ccc;
+}
+.sales-brand-detail .sales-card{
+	min-height: 188.8px;
+}
+.sales-all-box{
+	float: left;
+	padding: 10px;
+	color: white;
+	margin: 10px;
+	border-radius: 10px;
+	font-size: 24px;
+}
+.sales-all-box h3{
+	position:relative;
+	top:4px;
+	font-size: 24px;
+	border-right: 1px solid #ffffff50;
+}
+.sales-all-box-title{
+	float: left;
+}
+.sales-all-box-text{
+	position:relative;
+	top:-2px;
+	float: left;
+	padding-left: 5px;
+}
+.sales-price{
+	font-family: 'Roboto', sans-serif;
+	font-weight: 500;
+	padding-left: 3px;
+}
+.sales-won{
+	font-family: 'Noto Sans KR', sans-serif;
+	font-weight: 500;
 }

@@ -111,6 +111,7 @@ $(function(){
 			data: {key:"sellAjax" , methodName : "selectSellAll"},	
 			success :function(result){
 				let str="";
+				str+=`<tbody>`;
 				$.each(result, function(index, item){
 					str+=`<tr>`;
 					str+=`<td>${"${item.sellNo}"}</td>`;
@@ -132,7 +133,7 @@ $(function(){
 					
 					str+=`</tr>`;
 				})
-				
+				str+=`</tbody>`;
 				$("#sellTable tr:gt(0)").remove();
 				$("#sellTable tr:eq(0)").after(str);
 				
@@ -211,8 +212,8 @@ $(function(){
 				<div id='sell'>
 					<table class="fixed_headers" id = "sellTable">
 						<thead>
-							<tr>
-								<th>신청번호</th>
+							<tr id='thead'>
+								<th>번호</th>
 								<th>회원ID</th>
 								<th>브랜드</th>
 								<th>상품명</th>
@@ -223,7 +224,7 @@ $(function(){
 								<th>승인여부</th>
 							</tr>
 						</thead>
-						<tbody>
+<!-- 						<tbody> -->
 <!-- 							<tr> -->
 <!-- 								<td>[상품판매신청]</td>고정 -->
 <!-- 								<td>회원ID1</td> -->
@@ -270,7 +271,7 @@ $(function(){
 <!-- 								</td> -->
 <!-- 							</tr> -->
 							
-						</tbody>
+<!-- 						</tbody> -->
 					</table>
 					</div>
 				</div>
