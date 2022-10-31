@@ -129,8 +129,9 @@ font-family: 'Lora', serif;
 				dataType:"text", //서버가 보내온 데이터(응답)타입(text | html | xml | json )
 				//data: {key:"goodsAjax" , methodName : "updateGoodsDTO"}, //서버에게 보낼 데이터정보(parameter정보)
 				success :function(goods){
+					alert("수정이 완료되었습니다.");
 					closeUpdateform();
-					selectGoodsInfo()
+					selectGoodsInfo();
 				} , //성공했을때 실행할 함수 
 				error : function(err){  
 					alert(err+"에러 발생했어요.");
