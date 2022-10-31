@@ -63,7 +63,7 @@ class MyAuthentication extends Authenticator {
 	public MyAuthentication() {
 
 		String id = "aj5452@naver.com";
-		String pw = "wldms!3604";
+		String pw = "wldms!4869";
 
 		pa = new PasswordAuthentication(id, pw);
 	}
