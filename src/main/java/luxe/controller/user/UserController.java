@@ -75,7 +75,7 @@ public class UserController implements Controller {
 		HttpSession session = request.getSession();
 		
 		if(userId.equals("admin")) {
-			page = "Manager/ManagerIndex.jsp";
+			page = "manager/ManagerIndex.jsp";
 		}
 		
 		session.setAttribute("userId", dbDTO);
