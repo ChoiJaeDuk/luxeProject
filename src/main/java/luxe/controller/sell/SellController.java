@@ -72,7 +72,7 @@ public class SellController implements Controller {
 		String userId = (String)session.getAttribute("userId");
 		int sellNo = Integer.parseInt(request.getParameter("sellNo"));
 		String sellStatus = request.getParameter("sellStatus");
-		
+
 		int sellPrice = Integer.parseInt(request.getParameter("sellPrice"));
 		SellDTO sellDTO = new SellDTO(sellNo, userId, sellStatus, sellPrice);
 		sellService.updateSellStatus(sellDTO);

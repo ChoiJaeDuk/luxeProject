@@ -102,12 +102,13 @@ public class SellAjaxController implements AjaxController {
 	}
 	
 	public void updateSellStatus(HttpServletRequest request, HttpServletResponse response) throws Exception{
-		
-		String sellNo = request.getParameter("sellNo");
-		
+		HttpSession session = request.getSession();
+		String userId = (String)session.getAttribute("userId");
+		int sellNo = Integer.parseInt(request.getParameter("sellNo"));
 		String sellStatus = request.getParameter("sellStatus");
-		SellDTO sell = new SellDTO(Integer.parseInt(sellNo), sellStatus);
-		int result = sellService.updateSellStatus(sell);
+		int sellPrice = Integer.parseInt(request.getParameter("sellPrice"));
+		SellDTO sellDTO = new SellDTO(sellNo, userId, sellStatus, sellPrice);
+		int result = sellService.updateSellStatus(sellDTO);
 		
 		PrintWriter out = response.getWriter();
 		out.print(result);
