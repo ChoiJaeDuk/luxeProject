@@ -522,14 +522,16 @@ font-family: 'Lora', serif;
 	<!-- 스크립트 -->
 		<script>
 	function openNav() {
-	  document.getElementById("mySidebar").style.width = "250px";
-	  document.getElementById("main").style.marginLeft = "250px";
-	}
-	
-	function closeNav() {
-	  document.getElementById("mySidebar").style.width = "0";
-	  document.getElementById("main").style.marginLeft= "0";
-	}
+		  document.getElementById("mySidebar").style.width = "250px";
+		  document.getElementById("wrap").style.marginLeft = "250px";
+		  document.getElementById("mySidebar").style.display = "block";
+		}
+		
+		function closeNav() {
+		  document.getElementById("mySidebar").style.width = "0px";
+		  document.getElementById("wrap").style.marginLeft= "0px";
+		  document.getElementById("mySidebar").style.display = "none";
+		}
 	
 	$(function (){
 		$("#monthlySearch-dtn").click(function (){

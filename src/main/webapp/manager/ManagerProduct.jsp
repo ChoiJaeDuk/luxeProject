@@ -422,5 +422,17 @@ font-family: 'Lora', serif;
 	</div>
 
 	<!-- 스크립트 -->
-
+	<script>
+	function openNav() {
+	  document.getElementById("mySidebar").style.width = "250px";
+	  document.getElementById("wrap").style.marginLeft = "250px";
+	  document.getElementById("mySidebar").style.display = "block";
+	}
+	
+	function closeNav() {
+	  document.getElementById("mySidebar").style.width = "0px";
+	  document.getElementById("wrap").style.marginLeft= "0px";
+	  document.getElementById("mySidebar").style.display = "none";
+	}
+	</script>
 </body>
