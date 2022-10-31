@@ -169,11 +169,12 @@ font-family: 'Lora', serif;
 	               
 	                   //let selector = ".styleBoard item"+(index+1)+" > img";
 	                   $("#img"+(index+1)).attr("src", "${path}/stylebook/"+ styleBook.fName);
+	                   if(index==2){
+		                	return false;
+		                }
 	                         
 	                });
-	                if(index==2){
-	                	return false;
-	                }
+	                
 	                
 	             },
 	             error : function(err) {
@@ -322,7 +323,7 @@ font-family: 'Lora', serif;
 					<img alt="스타일이미지입니다." src="" id="img3" width="100%">
 				</div>		
 			</div>
-			<button class="btn-style">스타일보러가기</button>
+			<button class="btn-style" onclick="location.href='style/StyleBoard.jsp'">스타일보러가기</button>
 		</div>
 		<div id='footer'>
 			<div class="container"></div>
