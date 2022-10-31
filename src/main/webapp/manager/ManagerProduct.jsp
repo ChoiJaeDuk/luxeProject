@@ -52,6 +52,7 @@ font-family: 'Lora', serif;
 
 
 <script type="text/javascript" src="../js/jquery-3.6.1.min.js"></script>
+<script type="text/javascript" src="../js/jquery.form.min.js"></script>
 <script type="text/javascript">
 	$(function() {
 	
@@ -122,21 +123,21 @@ font-family: 'Lora', serif;
 		
 		$("#update-submitBtn").on("click", function() {
 			
-				$("update-form").ajaxForm({	
-				url :"../ajax" , //서버요청주소
+				$("#update-form").ajaxForm({	
+				url :"../ajax?key=goodsAjax&methodName=updateGoodsDTO" , //서버요청주소
 				type:"post", //요청방식(method방식 : get | post | put | delete )
-				enctype: 'multipart/form-data',
-				processData:false,
-				contentType:false,
 				dataType:"text", //서버가 보내온 데이터(응답)타입(text | html | xml | json )
-				data: {key:"goodsAjax" , methodName : "updateGoodsDTO" , form :formData}, //서버에게 보낼 데이터정보(parameter정보)
+				//data: {key:"goodsAjax" , methodName : "updateGoodsDTO"}, //서버에게 보낼 데이터정보(parameter정보)
 				success :function(goods){
-					alert(1)
+					closeUpdateform();
+					selectGoodsInfo()
 				} , //성공했을때 실행할 함수 
 				error : function(err){  
 					alert(err+"에러 발생했어요.");
 				}  //실팽했을때 실행할 함수 
 			});//ajax끝
+			
+			$("#update-form").submit();
 		})
 		
 		
@@ -352,6 +353,9 @@ font-family: 'Lora', serif;
 	<div id="update-pop" class="hide">
 		<div id='update-contents'>
 			<form id='update-form' name="writeForm" method="post" enctype="multipart/form-data">
+			<input type="hidden" name="key" value="goodsAjax">
+			<input type="hidden" name="methodName" value="updateGoodsDTO">
+			
 			<div id='update-con-top'>
 				<!-- <div id='update-productImg'>
 					<img src="../img/product01.webp" alt="상품이미지" /> 					
@@ -407,7 +411,7 @@ font-family: 'Lora', serif;
 					</div>
 					
 					<div id='update-submt'>
-					<input type="button" value="수정" id='update-submitBtn' onclick="closeUpdateform()">
+					<input type="button" value="수정" id='update-submitBtn' >
 					<button onclick="closeUpdateform()" id='update-closeBtn'>취소</button>
 				</div>
 				</div>
