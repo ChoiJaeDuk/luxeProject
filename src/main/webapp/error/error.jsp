@@ -101,7 +101,19 @@ button {
 .con{
 font-family: 'Noto Sans KR', sans-serif;
 }
+#contents{
+	overflow: hidden;
+	min-height:600px;
+	min-width: 800px;
 
+}
+.container{
+	min-width: 800px;
+	width: 1280px; 
+	height:inherit; 
+	margin: 0px auto; 
+	padding:0;
+}
 </style>
 <script src="../js/jquery.form.min.js"></script>
 </head>

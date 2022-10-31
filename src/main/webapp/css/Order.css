@@ -1,6 +1,7 @@
 @charset "utf-8";
 #con{
 	margin-top: 45px;
+	margin-bottom: 45px;
 	height: inherit;
 }
 #content{
@@ -45,16 +46,20 @@
 }
 /* 배송정보 이너 */
 #delivery_detail h3{
-	
+	width: 100%;
 }
 #delivery-info-list{
-	
+	width: 100%;
 }
 #delivery-title{
-	
+	width: 100%;
 }
 #delivery-dese{
-	
+	width: 100%;
+}
+#buyer-addr{
+	display:block;
+	width: 500px;
 }
 /*  결제정보[결제확인] 컨테이너*/
 #payment-con{
@@ -66,4 +71,9 @@
 	margin: 0 auto;
 }
 
-/*  결제정보[결제확인] 이너*/
+#infoForm{
+	width: 600px;
+	margin: 0 auto;
+	box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.1);
+	
+}

@@ -94,6 +94,7 @@ $(function() {
 		<div id='contents'>
 			<div class="container">
 				<div id='con'>
+				<div id = 'infoForm'>
 					<div id='product_info'> <!-- 컨테이너 -->
 						<div id='product-img'><img src="img/heart-fill.svg"/></div>
 						<div id='product-detail'>
@@ -134,13 +135,10 @@ $(function() {
 							</div>
 							<div id='bind'>
 								<dl id='price_addition'>
-									<dt><b>구매가</b></dt>
+									<dt>구매가</dt>
 									<dd><span><b>${goodsDTO.lowestPrice}</b></span><span><b>원</b></span></dd>
 								</dl>
-								<dl id='price_addition'>
-									<dt>검수비</dt>
-									<dd><span><b>000.000</b></span><span>원</span></dd>
-								</dl>
+							
 								<dl id='price_addition'>
 									<dt>수수료</dt>
 									<dd><span>000.000</span><span>원</span></dd>
@@ -161,10 +159,6 @@ $(function() {
 								<div id='payment-box'>
 									<input type="text" placeholder='계좌번호를 입력해주세요' />
 								</div>
-								<h4 id='method-title'>카드 간편결제</h4>
-								<div id='payment-box'>
-									<button>카드를 등록해주세요</button>
-								</div>
 									<div id='payment-total'>
 										<span>총 결제금액</span>
 										<div id='payment-total-price'>
@@ -175,6 +169,8 @@ $(function() {
 								<button type="button" id='payment-submit'>결제하기</button>
 							</form><!--결제방식 form으로 전송  -->
 						</div><!-- payment-con -->
+						
+						</div>
 					</div><!-- con -->
 				</div><!-- container -->
 			</div><!-- contents -->
