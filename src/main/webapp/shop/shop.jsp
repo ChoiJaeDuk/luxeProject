@@ -285,10 +285,10 @@ font-family: 'Lora', serif;
 	<jsp:include page= "../layout/header.jsp"/>
 		<div class="clear"></div>
 
-		<div id="banner">
-			<div id='brand1'><img alt="배너이미지입니다." src="../img/banner/banner01.jpg" style="filter: grayscale(100%);"></div>
-			<div id='brand2'><img alt="배너이미지입니다." src="../img/banner/banner02.jpg" style="filter: grayscale(100%);"></div>
-			<div id='brand3'><img alt="배너이미지입니다." src="../img/banner/banner03.jpg" style="filter: grayscale(100%);"></div>
+		<div id="banner" style="background-color: #222222;">
+			<div class="banner_img" style="margin: 0 auto; border: none;">
+				<img alt="배너이미지입니다." src="${path}/img/banner/banner02.png">	
+			</div>
 		</div>
 		<div class="clear"></div>
 
@@ -297,7 +297,6 @@ font-family: 'Lora', serif;
 			<div class="container">
 				<div id='con'>
 					<nav id='sub_menu'>
-						<h3>필터</h3>
 						<div class="accordion" id="accordionPanelsStayOpenExample">
 							<div class="accordion-item">
 								<h2 class="accordion-header" id="panelsStayOpen-headingOne">
@@ -305,7 +304,8 @@ font-family: 'Lora', serif;
 										data-bs-toggle="collapse"
 										data-bs-target="#panelsStayOpen-collapseOne"
 										aria-expanded="true"
-										aria-controls="panelsStayOpen-collapseOne">
+										aria-controls="panelsStayOpen-collapseOne" style="background-color: #222222;
+	color: #ffffff;">
 										<div id="accordion-body-top">
 											<div id="accordion-body-text">
 												<strong>브랜드</strong>
@@ -335,13 +335,14 @@ font-family: 'Lora', serif;
 										data-bs-toggle="collapse"
 										data-bs-target="#panelsStayOpen-collapseOne"
 										aria-expanded="true"
-										aria-controls="panelsStayOpen-collapseOne">
+										aria-controls="panelsStayOpen-collapseOne" style="background-color: #222222;
+	color: #ffffff;">
 										<div id="accordion-body-top">
 											<div id="accordion-body-text">
 												<strong>카테고리</strong>
 												<p>선택된항목</p>
 											</div>
-											<div id="accordion-body-icon"></div>
+											<div id="accordion-body-icon" ></div>
 										</div>
 									</button>
 								</h2>

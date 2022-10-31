@@ -110,9 +110,9 @@ font-family: 'Lora', serif;
 
 		<div class="clear"></div>
 
-		<div id="banner">
-			<div class="banner_img">
-				<img alt="배너이미지입니다." src="">
+		<div id="banner" style="background-color: #222222;">
+			<div class="banner_img" style="margin: 0 auto; border: none;">
+				<img alt="배너이미지입니다." src="${path}/img/banner/banner01.png">	
 			</div>
 		</div>
 		<div class="clear"></div>
@@ -313,60 +313,7 @@ font-family: 'Lora', serif;
 					</section>
 					<div class="clear"></div>
 
-					<section id="banner">
-						<div class="banner_img01">
-							<img alt="광고이미지입니다." src="img/banner02.png">
-						</div>
-					</section>
-					<div class="clear"></div>
-
-					<section>
-						<div class="title">
-							<div id="main_title">STYLE</div>
-							<div id="sub_title">오늘의코디</div>
-						</div>
-					</section>
-					<section>
-						<div class="styleBoard_container">
-
-							<div class="styleBoard item1">
-								<img alt="스타일이미지입니다." src="">
-							</div>
-							<div class="styleBoard item2">
-								<img alt="스타일이미지입니다." src="">
-							</div>
-							<div class="styleBoard item3">
-								<img alt="스타일이미지입니다." src="">
-							</div>
-							<div class="styleBoard item4">
-								<img alt="스타일이미지입니다." src="">
-							</div>
-							<div class="styleBoard item5">
-								<img alt="스타일이미지입니다." src="">
-							</div>
-							<div class="styleBoard item6">
-								<img alt="스타일이미지입니다." src="">
-							</div>
-						</div>
-						<nav aria-label="Page navigation example" id="pagenav">
-							<ul class="pagination">
-								<li class="page-item"><a class="page-link" href="#"
-									aria-label="Previous" style="color: #222"> <span
-										aria-hidden="true">&laquo;</span>
-								</a></li>
-								<li class="page-item"><a class="page-link" href="#"
-									style="color: #222">1</a></li>
-								<li class="page-item"><a class="page-link" href="#"
-									style="color: #222">2</a></li>
-								<li class="page-item"><a class="page-link" href="#"
-									style="color: #222">3</a></li>
-								<li class="page-item"><a class="page-link" href="#"
-									aria-label="Next" style="color: #222"> <span
-										aria-hidden="true">&raquo;</span>
-								</a></li>
-							</ul>
-						</nav>
-					</section>
+					
 				</div>
 			</div>
 			<!-- container -->

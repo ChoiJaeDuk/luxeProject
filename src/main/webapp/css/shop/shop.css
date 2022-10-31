@@ -286,3 +286,8 @@ img{
 	width:300px;
 	float: left;
 }
+
+.accordion-button{
+	background-color: #222222;
+	color: #ffffff;
+}
