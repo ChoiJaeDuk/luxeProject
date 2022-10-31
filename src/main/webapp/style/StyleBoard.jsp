@@ -115,7 +115,7 @@ width: 300px; height: 300px;
 		
 		<div id="banner" style="background-color: #222222;">
 			<div class="banner_img" style="margin: 0 auto; border: none;">
-				<img alt="배너이미지입니다." src="${path}/img/banner/banner03.png">	
+				<img alt="배너이미지입니다." src="../img/banner/banner03.png">	
 			</div>
 		</div>
 		<div class="clear"></div>
