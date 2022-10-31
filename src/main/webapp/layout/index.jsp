@@ -129,7 +129,8 @@ font-family: 'Lora', serif;
 
 		<div id="banner">
 			<div class="banner_img">
-				<img alt="배너이미지입니다." src="">
+				<img alt="배너이미지입니다." src="${path}/img/banner/main01.webp">
+				
 			</div>
 		</div>
 		<div class="clear"></div>

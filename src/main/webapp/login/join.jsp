@@ -401,7 +401,7 @@ font-family: "Lora", serif;
 
 
 							<div class="form-group text-center">
-							   <button type="button" class="btn btn-primary">취소</button>
+							   <button type="button" class="btn btn-primary"  onclick="history.go(-1);">취소</button>
 								<button type="submit" class="btn btn-primary">회원가입</button>
 							</div>
 						</div>
