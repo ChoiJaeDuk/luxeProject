@@ -127,7 +127,7 @@ public class StyleBookController implements Controller {
 
 		styleBookService.insertStyleBook(styleBook);
 
-		return new ModelAndView("style/StyleBoard_jojo.jsp", true);
+		return new ModelAndView("style/StyleBoard.jsp", true);
 	}
 
 	/**
@@ -156,6 +156,6 @@ public class StyleBookController implements Controller {
 		StyleBookDTO styleBook = new StyleBookDTO(boardRegNo, null, 0, boardContent, null, null, 0, 0);
 		styleBookService.updateStyleBook(styleBook);
 
-		return new ModelAndView("style/StyleBoard_jojo.jsp", true);
+		return new ModelAndView("style/StyleBoard.jsp", true);
 	}
 }
