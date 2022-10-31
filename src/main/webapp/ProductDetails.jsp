@@ -240,19 +240,19 @@ font-family: 'Lora', serif;
 				  <!-- Full-width images with number and caption text -->
 				  <div class="mySlides" style="display: none">
 				    <div class="numbertext">1 / 3</div>
-				    <img alt="이미지" src="${path}/${goodsDTO.goodsImagesDTO.goodsMainImg}" style="width:500px; height: 500px;">
+				    <img alt="이미지" src="${path}/img/${goodsDTO.goodsImagesDTO.goodsMainImg}" style="width:500px; height: 500px;">
 				    <div class="text">Caption Text</div>
 				  </div>
 				
 				  <div class="mySlides" style="display: none">
 				    <div class="numbertext">2 / 3</div>
-				    <img alt="이미지" src="${path}/${goodsDTO.goodsImagesDTO.goodsImg1}" style="width:500px; height: 500px;">
+				    <img alt="이미지" src="${path}/img/${goodsDTO.goodsImagesDTO.goodsImg1}" style="width:500px; height: 500px;">
 				    <div class="text">Caption Two</div>
 				  </div>
 				
 				  <div class="mySlides" style="display: none">
 				    <div class="numbertext">3 / 3</div>
-				    <img alt="이미지" src="${path}/${goodsDTO.goodsImagesDTO.goodsImg2}" style="width:500px; height: 500px;">
+				    <img alt="이미지" src="${path}/img/${goodsDTO.goodsImagesDTO.goodsImg2}" style="width:500px; height: 500px;">
 				    <div class="text">Caption Three</div>
 				  </div>
 				
