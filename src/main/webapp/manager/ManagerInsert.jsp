@@ -157,7 +157,7 @@ font-family: 'Lora', serif;
 										id=changeModelNo name="goodsModelNo">
 								
 
-								<span>상품출시일</span><input type="text" class="form-control"
+								<span>상품출시일</span><input type="date" class="form-control"
 									placeholder="상품출시일" id=changeModelDate name="goodsReleaseDate"> <span>상품발매가</span><input
 									type="text" class="form-control" placeholder="상품발매가"
 									id=changeModelReleasePrice name="goodsReleasePrice" >
