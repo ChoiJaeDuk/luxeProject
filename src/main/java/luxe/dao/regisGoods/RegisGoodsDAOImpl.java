@@ -18,7 +18,7 @@ public class RegisGoodsDAOImpl implements RegisGoodsDAO {
 		Connection con=null;
 		PreparedStatement ps=null;
 		int result=0;
-		String sql = "insert into regis_goods values(regis_no_seq.nextval, ?,?,?,CURRENT_DATE)";
+		String sql = "insert into regis_goods values(regis_goods_no_seq.nextval, ?,?,?,CURRENT_DATE)";
 		
 		try {
 			con = DbUtil.getConnection();

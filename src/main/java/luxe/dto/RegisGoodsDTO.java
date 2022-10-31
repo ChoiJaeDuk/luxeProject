@@ -20,6 +20,14 @@ public class RegisGoodsDTO {
 		this.regisDate = regisDate;
 	}
 
+
+	public RegisGoodsDTO(String userId, String regisGoodsBrand, String regisGoodsName) {
+		super();
+		this.userId = userId;
+		this.regisGoodsBrand = regisGoodsBrand;
+		this.regisGoodsName = regisGoodsName;
+	}
+
 	public int getRegisGoodsNo() {
 		return regisGoodsNo;
 	}

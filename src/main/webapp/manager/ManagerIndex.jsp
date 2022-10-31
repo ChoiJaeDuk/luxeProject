@@ -127,7 +127,7 @@ $(function() {
 							str += `<div class="bestItem item1">`;
 							str += `<div class="item_img_block">`;
 							str += `<div class="item_img">`;
-							str += `<img alt="상품이미지입니다." src=${path}/${"${item.mainImg}"}  id='product'>`;
+							str += `<img alt="상품이미지입니다." src=${path}/img/${"${item.mainImg}"}  id='product'>`;
 							str += `</div>`;
 							str += `</div>`;
 							str += `<div id='item_text'>`;

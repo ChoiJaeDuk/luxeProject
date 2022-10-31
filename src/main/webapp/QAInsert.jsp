@@ -16,20 +16,18 @@
 <div class="w3-content w3-container w3-margin-top">
 		<div class="w3-container w3-card-4">
 			<form
-				action=""
+				action="${pageContext.request.contextPath}/front?key=regisGoods&methodName=insertRegisGoods"
 				method="post" id = "Qainsert">
 				<div class="w3-center w3-large w3-margin-top">
 					<h3>상품등록문의</h3>
 				</div>
 				<div>
-				<label>ID</label>
-				<input type="text" class="w3-input" id="userId" name="userId" readonly="readonly" placeholder="${loginUser.userId }" value ="${loginUser.userId }" >
-							
+				<input type="hidden" id="userId" name="userId" readonly value ="${loginUser.userId }">
 				<label>브랜드명</label> 
-				<input class="w3-input" type="text" id="insertBrand" name="insertBrand" placeholder="브랜드명을 입력하세요." required>
+				<input class="w3-input" type="text" id="regisGoodsBrand" name="regisGoodsBrand" placeholder="브랜드명을 입력하세요." required>
 				
 				<label>상품명</label> 
-				<input class="w3-input" type="text" id="insertProductName" name="insertProductName" placeholder="상품명을 입력하세요." required>
+				<input class="w3-input" type="text" id="regisGoodsName" name="regisGoodsName" placeholder="상품명을 입력하세요." required>
 					
 					<p class="w3-center">
 						<button type="submit" id="insertBtn"
