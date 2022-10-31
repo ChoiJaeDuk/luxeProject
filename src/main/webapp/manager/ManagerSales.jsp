@@ -207,8 +207,7 @@ font-family: 'Lora', serif;
 					for(let i = 0; i< result.length; i++){
 						brand.push(result[i].brand);
 						rate.push(result[i].totalSalesRate);
-						console.log(brand);
-						console.log(rate);
+						
 					}
 					
 					var context = document
@@ -452,7 +451,6 @@ font-family: 'Lora', serif;
 							</div>
 						  </div>
 					  </div>
-					  
 					 	
 					  <br>
 					  

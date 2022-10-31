@@ -422,6 +422,7 @@ font-family: 'Lora', serif;
 					<input type="button" value="수정" id='update-submitBtn' >
 					<button type="button" id='update-closeBtn'>취소</button>
 				</div>
+
 				</div>
 			</form>
 			
