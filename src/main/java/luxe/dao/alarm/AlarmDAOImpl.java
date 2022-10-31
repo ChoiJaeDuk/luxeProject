@@ -55,6 +55,7 @@ public class AlarmDAOImpl implements AlarmDAO {
 		   result = ps.executeUpdate();
 		   if(result == 1) {
 			   if(alarm.getAlarmSubject().equals("주문성사")) {
+				   
 				   selectUserIdForOrder(con, alarm.getGoodsNo());
 				   
 			   }else {
@@ -101,6 +102,7 @@ public class AlarmDAOImpl implements AlarmDAO {
 		  
 		   while(rs.next()) {
 			   userIdList.add(rs.getString(1));
+			   System.out.println(rs.getString(1));
 			   
 		   }
 		   
@@ -145,12 +147,16 @@ public class AlarmDAOImpl implements AlarmDAO {
 		   rs = ps.executeQuery();
 		  
 		   while(rs.next()) {
+			   
 			   userIdList.add(rs.getString(1));
+			   System.out.println(rs.getString(1));
 			   
 		   }
 		   
-		   if(userIdList != null) 
+		   if(userIdList != null) {
+			   System.out.println("여기는!!!!");
 			   insertAlarmReceiveUser(con, userIdList);
+		   }
 		   
 		   
 		}finally{
@@ -178,6 +184,7 @@ public class AlarmDAOImpl implements AlarmDAO {
 		   ps = con.prepareStatement(sql);
 		   
 		   for(String userId: userIdList) {
+			   System.out.println(userId);
 			   ps.setString(1, userId);
 			   ps.addBatch();// 일괄처리작업을 하기 위한 문장 추가
 			   ps.clearParameters();// 들어가는 정보를 전송

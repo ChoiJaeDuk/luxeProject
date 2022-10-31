@@ -412,9 +412,9 @@ font-family: 'Lora', serif;
 					</div>
 					
 					<div id='update-submt'>
-					<input type="button" value="수정" id='update-submitBtn' >
-					<button onclick="closeUpdateform()" id='update-closeBtn'>취소</button>
-				</div>
+					<input type="button" value="수정" id='update-submitBtn'>
+					
+				</div><button onclick="closeUpdateform()" id='update-closeBtn'>취소</button>
 				</div>
 			</form>
 			

@@ -1018,7 +1018,7 @@ th, td {
 										<label class="form-label mt-4" for="readOnlyInput">비밀번호</label>
 										<input class="form-control" style="top: 5px;"
 											placeholder="Readonly input here..." name="userPwd"
-											id="userPwd" type="text" readonly="readonly" />
+											id="userPwd" type="password" readonly="readonly" />
 									</fieldset>
 								</div>
 								<div class="form-group">
@@ -1067,8 +1067,6 @@ th, td {
 											id="userEmail" type="text" readonly="readonly" />
 									</fieldset>
 								</div>
-
-
 
 								<input type="button" value="수정하기" id="userUpdate">
 
