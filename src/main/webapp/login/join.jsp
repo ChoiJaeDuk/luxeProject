@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<jsp:include page="../layout/header.jsp" />
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -321,7 +321,7 @@ font-family: "Lora", serif;
 </head>
 <body>
 	<div id="wrap">
-
+	<jsp:include page="../layout/header.jsp" />
 		<div class="clear"></div>
 
 
