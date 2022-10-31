@@ -403,7 +403,7 @@ width: 300px; height: 300px;
 				success :function(goodsList){
 					$.each(goodsList, function(i, goods) {
 						if(goodsName==goods.goodsName){
-							$("#insert-pop img").attr("src", goods.goodsMainImg);
+							$("#insert-pop img").attr("src", "${path}/img/"+goods.goodsMainImg);
 							$("#insert-pop input[name=userId]").val("${sessionScope.userId}");
 							$("#insert-pop input[name=goodsNo]").val(goods.goodsNo);
 							

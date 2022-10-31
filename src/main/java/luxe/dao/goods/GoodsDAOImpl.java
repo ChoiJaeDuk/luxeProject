@@ -193,7 +193,10 @@ public class GoodsDAOImpl implements GoodsDAO {
 		ResultSet rs = null;
 		List<GoodsDTO> list = new ArrayList<GoodsDTO>();
 
-		String sql = "select * from goods where upper(goods_name) like upper(?) or goods_name_kor like ? or category like ?";
+		String sql = "select g.goods_no, brand, category, goods_name, goods_name_kor, goods_date, goods_read_no, goods_model_no, goods_release_date, goods_release_price, goods_main_img\r\n"
+				+ "from goods g join goods_images i\r\n"
+				+ "on g.goods_no = i.goods_no\r\n"
+				+ "where upper(goods_name) like upper(?) or goods_name_kor like ? or category like ?";
 
 		try {
 			con = DbUtil.getConnection();
@@ -207,7 +210,7 @@ public class GoodsDAOImpl implements GoodsDAO {
 
 			while(rs.next()) {
 				list.add(new GoodsDTO(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5),
-						rs.getString(6), rs.getInt(7), rs.getString(8), rs.getString(9), rs.getInt(10)));
+						rs.getString(6), rs.getInt(7), rs.getString(8), rs.getString(9), rs.getInt(10), rs.getString(11)));
 			}
 			
 		} finally {

@@ -103,6 +103,12 @@ public class GoodsDTO {
 		this.goodsReleaseDate = goosReleaseDate;
 		this.goodsReleasePrice = goodsReleasePrice;
 	}
+	
+	public GoodsDTO(int goodsNo, String brand, String category, String goodsName, String goodsNameKor, String goodsDate,
+			int goodsReadNo, String goodsModelNo, String goosReleaseDate, int goodsReleasePrice, String goodsMainImg) {
+		this(goodsNo, brand, category, goodsName, goodsNameKor, goodsDate, goodsReadNo, goodsModelNo, goosReleaseDate, goodsReleasePrice);
+		this.goodsMainImg = goodsMainImg;
+	}
 
 	public GoodsDTO(int lowestPrice ,String brand, String goodsName, String goodsNameKor, String category, String goodsMainImg, int goodsNo) {
 		super();
