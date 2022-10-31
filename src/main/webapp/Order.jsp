@@ -92,9 +92,9 @@ $(function() {
 		<jsp:include page="layout/header.jsp" />
 		<div class="clear"></div>
 		
-		<div id='contents'>
+		<div id='contents' style="background-color: #22222220;">
 			<div class="container">
-				<div id='con'>
+				<div id='con' style="margin-bottom: 45px;">
 					<div id='product_info'> <!-- 컨테이너 -->
 						<div id='product-img'><img src="${path}/img/${goodsDTO.goodsMainImg}"/></div>
 						<div id='product-detail'>
