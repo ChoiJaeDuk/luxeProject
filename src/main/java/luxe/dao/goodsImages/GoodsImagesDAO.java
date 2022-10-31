@@ -17,7 +17,7 @@ public interface GoodsImagesDAO {
 	 * 상품 이미지 수정
 	 */
 
-	int updateImages(Connection con, GoodsImagesDTO goodsImgs) throws  SQLException;
+	int updateImages(String updateImg, int goodsNo) throws SQLException;
 	
 	/**
 	 *  상품 이미지 삭제

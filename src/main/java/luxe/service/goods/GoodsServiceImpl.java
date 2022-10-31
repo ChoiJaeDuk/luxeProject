@@ -59,8 +59,8 @@ public class GoodsServiceImpl implements GoodsService {
 	}
 
 	@Override
-	public void updateGoodsDTO(GoodsDTO goodsDTO, GoodsImagesDTO goodImagesDTO) throws SQLException {
-		int result = goodsDAO.updateGoodsDTO(goodsDTO, goodImagesDTO);
+	public void updateGoodsDTO(GoodsDTO goodsDTO) throws SQLException {
+		int result = goodsDAO.updateGoodsDTO(goodsDTO);
 		if (result == 0)
 			throw new SQLException("상품 수정 오류");
 	}

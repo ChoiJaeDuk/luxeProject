@@ -18,11 +18,14 @@ import luxe.dto.GoodsDTO;
 import luxe.dto.GoodsImagesDTO;
 import luxe.service.goods.GoodsService;
 import luxe.service.goods.GoodsServiceImpl;
+import luxe.service.goodsImages.GoodsImagesService;
+import luxe.service.goodsImages.GoodsImagesServiceImpl;
 import net.sf.json.JSONArray;
 
 public class GoodsController implements Controller {
 
 	private GoodsService goodsService = new GoodsServiceImpl();
+	private GoodsImagesService goodsImgService = new GoodsImagesServiceImpl();
 
 	@Override
 	public ModelAndView handleRequest(HttpServletRequest request, HttpServletResponse response)
@@ -55,13 +58,12 @@ public class GoodsController implements Controller {
 
 		String goodsImg1 = m.getFilesystemName("goodsImg1");
 		String goodsImg2 = m.getFilesystemName("goodsImg2");
-		String goodsImg3 = m.getFilesystemName("goodsImg3");
-		String goodsImg4 = m.getFilesystemName("goodsImg4");
+		
 
 		GoodsDTO goodsDTO = new GoodsDTO(brand, category, goodsName, goodsNameKor, goodsModelNo, goodsReleaseDate,
 				goodsReleasePrice);
 
-		GoodsImagesDTO goodsImagesDTO = new GoodsImagesDTO(goodsMainImg, goodsImg1, goodsImg2, goodsImg3, goodsImg4);
+		GoodsImagesDTO goodsImagesDTO = new GoodsImagesDTO(goodsMainImg, goodsImg1, goodsImg2);
 
 		goodsService.insertGoods(goodsDTO, goodsImagesDTO);
 
@@ -140,12 +142,14 @@ public class GoodsController implements Controller {
 	 */
 	public ModelAndView updateGoodsDTO(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-		String saveDir = request.getRealPath("/save");
+		String saveDir = request.getRealPath("/img");
 		int maxSize = 1024 * 1024 * 100; // 100M
 		String encoding = "UTF-8";
 
 		MultipartRequest m = new MultipartRequest(request, saveDir, maxSize, encoding, new DefaultFileRenamePolicy());
-
+		
+		int goodsNo = Integer.parseInt(m.getParameter("goodsNo"));
+		
 		String brand = m.getParameter("brand");
 		String category = m.getParameter("category");
 		String goodsName = m.getParameter("goodsName");
@@ -153,22 +157,37 @@ public class GoodsController implements Controller {
 		String goodsModelNo = m.getParameter("goodsModelNo");
 		String goodsReleaseDate = m.getParameter("goodsReleaseDate");
 		int goodsReleasePrice = Integer.parseInt(m.getParameter("goodsReleasePrice"));
+		System.out.println( brand + category + goodsName + goodsNameKor + goodsModelNo + goodsReleaseDate + goodsReleasePrice);
+		String goodsMainImg = m.getFilesystemName("img1");
+		String goodsImg1 = m.getFilesystemName("img2");
+		String goodsImg2 = m.getFilesystemName("img3");
 
-		String goodsMainImg = m.getFilesystemName("goodsMainImg");
+		String updateImg = "";
+		GoodsDTO goodsDTO = new GoodsDTO(brand, category, goodsName, goodsNameKor, goodsModelNo, goodsReleaseDate, goodsReleasePrice, goodsNo);
+		GoodsImagesDTO goodsImagesDTO = new GoodsImagesDTO();
+		if(m.getFilesystemName("img1")!=null) {
+			
+			goodsImagesDTO.setGoodsMainImg(goodsMainImg);
+			updateImg = "GOODS_MAIN_IMG = '"+goodsMainImg+"'";
+			System.out.println(updateImg);
+			goodsImgService.updateImages(updateImg, goodsNo);
+		}
+		if(m.getFilesystemName("img1")!=null) {
+			
+			goodsImagesDTO.setGoodsImg1(goodsImg1);
+			updateImg = "GOODS_IMG1 = '"+goodsImg1+"'";
+			goodsImgService.updateImages(updateImg, goodsNo);
+		}
+		if(m.getFilesystemName("img1")!=null) {
+			
+			goodsImagesDTO.setGoodsImg2(goodsImg2);
+			updateImg = "GOODS_IMG2 = '" + goodsImg2 + "'";
+			goodsImgService.updateImages(updateImg, goodsNo);
+		}
 
-		String goodsImg1 = m.getFilesystemName("goodsImg1");
-		String goodsImg2 = m.getFilesystemName("goodsImg2");
-		String goodsImg3 = m.getFilesystemName("goodsImg3");
-		String goodsImg4 = m.getFilesystemName("goodsImg4");
+		goodsService.updateGoodsDTO(goodsDTO);
 
-		GoodsDTO goodsDTO = new GoodsDTO(brand, category, goodsName, goodsNameKor, goodsModelNo, goodsReleaseDate,
-				goodsReleasePrice);
-
-		GoodsImagesDTO goodsImagesDTO = new GoodsImagesDTO(goodsMainImg, goodsImg1, goodsImg2, goodsImg3, goodsImg4);
-
-		goodsService.updateGoodsDTO(goodsDTO, goodsImagesDTO);
-
-		return new ModelAndView("front", true);
+		return new ModelAndView("Manager/ManagerProduct.jsp");
 	}
 
 	/**

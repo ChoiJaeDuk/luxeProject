@@ -22,6 +22,8 @@ import luxe.util.DbUtil;
 public class GoodsDAOImpl implements GoodsDAO {
 	WishListDAO wishListDAO = new WishListDAOImpl();
 	GoodsImagesDAO goodsimgDAO = new GoodsImagesDAOImpl();
+	SellDAO sellDAO = new SellDAOImpl();
+	BidDAO bidDAO = new BidDAOImpl();
 	/**
 	 * 상품 등록 --> 이미지 등록까지 수정
 	 * 
@@ -87,10 +89,15 @@ public class GoodsDAOImpl implements GoodsDAO {
 			con = DbUtil.getConnection();
 			ps = con.prepareStatement(sql);
 			rs = ps.executeQuery();
-
+			int sellLowestPrice;
 			while (rs.next()) {
+				if(sellDAO.selectLowestPriceByGoodsNo(rs.getInt(7))==null ) {
+					sellLowestPrice = 0;
+				}else {
+					sellLowestPrice = sellDAO.selectLowestPriceByGoodsNo(rs.getInt(7)).getSellPrice();
+				}
 				GoodsDTO goodsDTO= new GoodsDTO(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4),
-						rs.getString(5), rs.getInt(6), rs.getInt(7));
+						rs.getString(5), sellLowestPrice , rs.getInt(7));
 				//추가되는 상품의 좋아요 여부...
 				if(userId!=null) {
 			        goodsDTO.setGoodsLikeByUser(wishListDAO.selectWishState(goodsDTO.getGoodsNo(), userId));// 0이면 dislike, 1이면 like
@@ -115,12 +122,11 @@ public class GoodsDAOImpl implements GoodsDAO {
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		String sql = "SELECT G.BRAND, G.GOODS_NAME, G.GOODS_NAME_KOR, G.CATEGORY, G.GOODS_MODEL_NO, G.GOODS_RELEASE_DATE, G.GOODS_RELEASE_PRICE,\n"
+		String sql = "SELECT G.BRAND, G.GOODS_NAME, G.GOODS_NAME_KOR, G.CATEGORY, G.GOODS_MODEL_NO, TO_CHAR(G.GOODS_RELEASE_DATE,'yyyy-mm-dd'), G.GOODS_RELEASE_PRICE,\n"
 				+ "I.GOODS_MAIN_IMG, I.GOODS_IMG1, I.GOODS_IMG2, I.GOODS_IMG3, I.GOODS_IMG4\n"
 				+ "FROM GOODS G, GOODS_IMAGES I\n" + "WHERE G.GOODS_NO = I.GOODS_NO AND G.GOODS_NO =? ";
 		GoodsDTO goodsDTO = new GoodsDTO();
-		SellDAO sellDAO = new SellDAOImpl();
-		BidDAO bidDAO = new BidDAOImpl();
+		
 		try {
 			con = DbUtil.getConnection();
 			ps = con.prepareStatement(sql);
@@ -141,9 +147,8 @@ public class GoodsDAOImpl implements GoodsDAO {
 				}else {
 					bidHighestPrice = bidDAO.getHighestBidPrice(goodsNo).getBidPrice();
 				}
-				
-				GoodsImagesDTO goodsImagesDTO = new GoodsImagesDTO(rs.getString(8), rs.getString(9), rs.getString(10),
-						rs.getString(11), rs.getString(12));
+			
+				GoodsImagesDTO goodsImagesDTO = new GoodsImagesDTO(rs.getString(8), rs.getString(9), rs.getString(10));
 				goodsDTO = new GoodsDTO(rs.getString(1), rs.getString(2), rs.getString(3), rs.getString(4),
 						rs.getString(5), rs.getString(6), rs.getInt(7), goodsNo, sellLowestPrice, bidHighestPrice,goodsImagesDTO);
 
@@ -192,7 +197,7 @@ public class GoodsDAOImpl implements GoodsDAO {
 
 		try {
 			con = DbUtil.getConnection();
-			System.out.println(goodsName);
+			
 			ps = con.prepareStatement(sql);
 			
 			ps.setString(1, goodsName+"%");
@@ -215,39 +220,27 @@ public class GoodsDAOImpl implements GoodsDAO {
 	 * 상품 수정
 	 */
 	@Override
-	public int updateGoodsDTO(GoodsDTO goodsDTO, GoodsImagesDTO goodImagesDTO) throws SQLException {
+	public int updateGoodsDTO(GoodsDTO goodsDTO) throws SQLException {
 		Connection con = null;
 		PreparedStatement ps = null;
-		String sql = "update goods" + " set goods_no=?, brand = ?, category = ?,  goods_name = ?, goods_name_kor =?, "
-				+ "goods_date = ?, goods_read_no=?, goods_model_no =?, goods_release_date=?, goods_release_price=?"
-				+ "where goods_no";
-
-		GoodsImagesDAO goodsimgDAO = new GoodsImagesDAOImpl();
+		String sql = "UPDATE GOODS SET BRAND = ?, CATEGORY=?, GOODS_NAME=?, GOODS_NAME_KOR=?, GOODS_MODEL_NO=?, GOODS_RELEASE_PRICE=?, GOODS_RELEASE_DATE=? WHERE GOODS_NO=?";
 
 		int result = 0;
 		try {
 			con = DbUtil.getConnection();
-			con.setAutoCommit(false);
-
 			ps = con.prepareStatement(sql);
-			ps.setInt(1, goodsDTO.getGoodsNo());
-			ps.setString(2, goodsDTO.getBrand());
-			ps.setString(3, goodsDTO.getCategory());
-			ps.setString(4, goodsDTO.getGoodsName());
-			ps.setString(5, goodsDTO.getGoodsNameKor());
-			ps.setString(6, goodsDTO.getGoodsDate());
-			ps.setString(7, goodsDTO.getGoodsModelNo());
-			ps.setString(8, goodsDTO.getGoodsReleaseDate());
-			ps.setInt(9, goodsDTO.getGoodsReleasePrice());
-
-			result = goodsimgDAO.insertImages(con, goodImagesDTO);
-			if (result == 0) {
-				con.rollback();
-				throw new SQLException("상품 수정에 실패했습니다");
-			}
+			
+			ps.setString(1,goodsDTO.getBrand());
+			ps.setString(2,goodsDTO.getCategory());
+			ps.setString(3,goodsDTO.getGoodsName());
+			ps.setString(4,goodsDTO.getGoodsNameKor());
+			ps.setString(5,goodsDTO.getGoodsModelNo());
+			ps.setInt(6,goodsDTO.getGoodsReleasePrice());
+			ps.setString(7, goodsDTO.getGoodsReleaseDate());
+			ps.setInt(8,goodsDTO.getGoodsNo());
 			
 			result = ps.executeUpdate();
-			con.commit();
+		
 		} finally {
 			DbUtil.dbClose(con, ps);
 		}
@@ -304,6 +297,7 @@ public class GoodsDAOImpl implements GoodsDAO {
 			rs = ps.executeQuery();
 
 			while (rs.next()) {
+				
 				GoodsDTO goodsDTO= new GoodsDTO(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getString(4), rs.getString(5), rs.getString(6), rs.getInt(7), rs.getString(8), rs.getString(9) , rs.getInt(10));
 
 				list.add(goodsDTO);

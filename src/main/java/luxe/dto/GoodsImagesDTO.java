@@ -12,13 +12,12 @@ public class GoodsImagesDTO {
 	public GoodsImagesDTO() {
 	}
 
-	public GoodsImagesDTO(String goodsMainImg, String goodsImg1, String goodsImg2, String goodsImg3, String goodsImg4) {
+	public GoodsImagesDTO(String goodsMainImg, String goodsImg1, String goodsImg2) {
 		super();
 		this.GoodsMainImg = goodsMainImg;
 		this.GoodsImg1 = goodsImg1;
 		this.GoodsImg2 = goodsImg2;
-		this.GoodsImg3 = goodsImg3;
-		this.GoodsImg4 = goodsImg4;
+	
 	}
 
 	public GoodsImagesDTO(int goodsNO, String goodsMainImg, String goodsImg1, String goodsImg2, String goodsImg3,

@@ -40,7 +40,7 @@ public interface GoodsDAO {
 	/**
 	 * 상품 수정
 	 */
-	int updateGoodsDTO(GoodsDTO goodsDTO, GoodsImagesDTO goodImagesDTO) throws SQLException;
+	public int updateGoodsDTO(GoodsDTO goodsDTO) throws SQLException;
 
 	/**
 	 * 상품 삭제
