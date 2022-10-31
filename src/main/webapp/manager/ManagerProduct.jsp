@@ -105,7 +105,7 @@ font-family: 'Lora', serif;
 				dataType:"json", //서버가 보내온 데이터(응답)타입(text | html | xml | json )
 				data: {key:"goodsAjax" , methodName : "selectGoodsLine" , goodsNo: goodsNo}, //서버에게 보낼 데이터정보(parameter정보)
 				success :function(goods){
-					alert(goodsNo);
+				
 					$("#changeBrandSelect").val(goods.brand);
 					$("#changeCategorySelect").val(goods.category);
 					$("#changeProductName").val(goods.goodsName);
