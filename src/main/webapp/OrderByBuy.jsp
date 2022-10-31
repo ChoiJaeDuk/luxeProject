@@ -47,8 +47,8 @@ font-family: 'Lora', serif;
 	crossorigin="anonymous"></script>
 
 <!-- 외부의 css파일 연결하기 -->
-<link rel="stylesheet" type="text/css" href="css/Reset.css">
-<link rel="stylesheet" type="text/css" href="css/Layout.css">
+<link rel="stylesheet" type="text/css" href="layout/Reset.css">
+<link rel="stylesheet" type="text/css" href="layout/Layout.css">
 <link rel="stylesheet" type="text/css" href="css/OrderByBuy.css">
 
 <style type="text/css">
@@ -93,51 +93,7 @@ $(function() {
 <body>
 	<div id='wrap'>
 	
-		<div id='header'>
-			<div class="container">
-				<div id='header-top'>
-					<div class="container">
-					<div id='header-top-menu'>
-						<a href="">마이페이지</a>
-						<a href="">관심상품</a>
-						<a href="">로그인</a>
-					</div>
-					</div><!-- container -->			
-				</div><!--header-top -->
-				
-				<div id='header-nav'>
-					<div class="container">
-					<nav class="navbar navbar-expand-lg navbar-light bg-light">
-					  <div class="container-fluid">
-					    <a class="navbar-brand" href="#">Navbar</a>
-					    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarColor03" aria-controls="navbarColor03" aria-expanded="false" aria-label="Toggle navigation">
-					      <span class="navbar-toggler-icon"></span>
-					    </button>
-					    <div class="collapse navbar-collapse" id="navbarColor03">
-					      <ul class="navbar-nav me-auto">
-					        <li class="nav-item">
-					          <a class="nav-link active" href="#">Home
-					          </a>
-					        </li>
-					        <li class="nav-item">
-					          <a class="nav-link" href="#">Shop</a>
-					        </li>
-					        <li class="nav-item">
-					          <a class="nav-link" href="#">Style</a>
-					        </li>
-					      </ul>
-					      <form class="d-flex">
-					        <input class="form-control me-sm-2" type="text" placeholder="Search">
-					        <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-					      </form>
-					    </div>
-					  </div>
-					</nav>
-					</div><!-- container -->
-				</div><!-- header-nav -->	
-				
-			</div><!--header container -->	
-		</div><!-- header -->
+		<jsp:include page= "layout/header.jsp"/>
 		<div class="clear"></div>
 		
 		<div id='contents'>
@@ -199,11 +155,7 @@ $(function() {
 		
 		<div class="clear"></div>
 		
-		<div id='footer'>
-			<div class="container">
-		
-			</div><!-- container -->
-		</div><!-- footer -->
+		<jsp:include page="layout/footer.jsp" />
 		
 	</div>
 	
