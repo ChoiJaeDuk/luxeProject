@@ -66,11 +66,10 @@ public class UserController implements Controller {
 			throws ServletException, IOException, SQLException {
 		String page = "index.jsp";
 		String userId = request.getParameter("userId");
-		System.out.println("아이디"+userId);
+
 		String userPwd = request.getParameter("userPwd");
 
 		UserDTO dbDTO = userService.login(new UserDTO(userId, userPwd));
-		System.out.println("나와" +dbDTO.getUserId());
 
 		HttpSession session = request.getSession();
 		

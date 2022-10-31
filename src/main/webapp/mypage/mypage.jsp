@@ -766,6 +766,9 @@ th, td {
 					methodName : "selectUser",
 				},
 				success : function(result) {
+					if(result == null){
+						location.replace("error/error.jsp");
+					}
 
 					let id = result.userId;
 					let pwd = result.userPwd;
