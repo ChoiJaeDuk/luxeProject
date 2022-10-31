@@ -64,7 +64,7 @@ public class UserController implements Controller {
 	 */
 	public ModelAndView login(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException, SQLException {
-		String page = "index.jsp";
+		String page = "layout/index.jsp";
 		String userId = request.getParameter("userId");
 
 		String userPwd = request.getParameter("userPwd");
@@ -158,7 +158,7 @@ public class UserController implements Controller {
 
 		request.getSession().invalidate();
 
-		return new ModelAndView("index.jsp", true);
+		return new ModelAndView("layout/index.jsp", true);
 
 	}
 
