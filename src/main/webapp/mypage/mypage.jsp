@@ -805,7 +805,7 @@ th, td {
 			else if ($(this).val() == "수정완료") {
 
 				var form = $("#userDto").serialize();
-				alert(form);
+			
 				$.ajax({
 					url : "ajax", //서버요청주소
 					type : "post", //요청방식(method방식 : get | post | put | delete )
