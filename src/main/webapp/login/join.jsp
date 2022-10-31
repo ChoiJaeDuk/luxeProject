@@ -308,10 +308,10 @@ font-family: "Lora", serif;
 				   }   */
 
 				$("[name=useroaddress]").val(data.zonecode);
-				$("[name=userDeAddress]").val(fullRoadAddr);
+				$("[name=userAddr]").val(fullRoadAddr);
 
 				document.getElementById("useroaddress").value = data.zonecode; //5자리 새우편번호 사용
-				document.getElementById("userDeAddress").value = fullRoadAddr;
+				document.getElementById("userAddr").value = fullRoadAddr;
 
 				//document.getElementById("userDeAddr").value = data.jibunAddress; 
 			}
@@ -379,6 +379,7 @@ font-family: "Lora", serif;
 
 
 							<div class="form-group">
+							<label for="userPhone">주소</label><p>
 								<input class="form-control" style="width: 40%; display: inline;"
 									placeholder="우편번호" name="useroaddress" id="useroaddress"
 									type="text" readonly="readonly">
@@ -390,13 +391,8 @@ font-family: "Lora", serif;
 
 							<div class="form-group">
 								<input class="form-control" style="top: 5px;"
-									placeholder="도로명 주소" name="userDeAddress" id="userDeAddress"
-									type="text" readonly="readonly" />
-							</div>
-
-							<div class="form-group">
-								<input class="form-control" placeholder="상세주소" name="userAddr"
-									id="userAddr" type="text" />
+									placeholder="도로명 주소" name="userAddr" id="userAddr"
+									type="text"  />
 							</div>
 
 

@@ -50,13 +50,13 @@ public class UserController implements Controller {
 		String userId = request.getParameter("userId");
 		String userPwd = request.getParameter("userPwd");
 		String userName = request.getParameter("userName");
-		String userAddr = request.getParameter("userAddr")+request.getParameter("useroaddress")+request.getParameter("userDeAddress");
+		String userAddr = request.getParameter("userAddr");
 		String userPhone = request.getParameter("userPhone");
 		String userEmail = request.getParameter("userEmail");
 
 		userService.insertUser(new UserDTO(userId, userPwd, userName, userAddr, userPhone,userEmail));
 
-		return new ModelAndView("login.jsp", true);
+		return new ModelAndView("login/login.jsp", true);
 	}
 
 	/**
