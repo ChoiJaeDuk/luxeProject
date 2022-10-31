@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -100,7 +101,7 @@ $(function() {
 			<div class="container">
 				<div id='con'>
 					<div id='product_info'> <!-- 컨테이너 -->
-						<div id='product-img'><img src="img/heart-fill.svg"/></div>
+						<div id='product-img'><img src="${path}/img/${goodsDTO.goodsMainImg}"/></div>
 						<div id='product-detail'>
 							<p id='model-title'>${goodsDTO.goodsName}</p>
 							<p id='model-subtitle'>${goodsDTO.goodsNameKor}</p>
@@ -108,11 +109,11 @@ $(function() {
 						<div id='price-list'>
 							<div class='price01' id='pri01'>
 								<p id='title'>즉시 구매가</p>
-								<span id='price-now'>${goodsDTO.lowestPrice}</span><span id='won'>원</span>
+								<span id='price-now'><fmt:formatNumber value="${goodsDTO.lowestPrice}" pattern="#,###"/></span><span id='won'>원</span>
 							</div>
 							<div class='price01'>
 								<p id='title'>즉시 판매가</p>
-								<span id='price-now'>${goodsDTO.highestPrice}</span><span id='won'>원</span>
+								<span id='price-now'><fmt:formatNumber value="${goodsDTO.highestPrice}" pattern="#,###"/></span><span id='won'>원</span>
 							</div>
 						</div>
 					</div><!-- product_info -->

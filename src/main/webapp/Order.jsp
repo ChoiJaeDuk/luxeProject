@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -95,7 +96,7 @@ $(function() {
 			<div class="container">
 				<div id='con'>
 					<div id='product_info'> <!-- 컨테이너 -->
-						<div id='product-img'><img src="img/heart-fill.svg"/></div>
+						<div id='product-img'><img src="${path}/img/${goodsDTO.goodsMainImg}"/></div>
 						<div id='product-detail'>
 							<p id='model-title'>${goodsDTO.goodsName}</p>
 							<p id='model-subtitle'>${goodsDTO.goodsNameKor}</p>
@@ -129,21 +130,17 @@ $(function() {
 							<div id='price_total_order'>
 								<p>총 결제금액</p>
 								<div id='price_total'>
-								<span id='price_total_num'>000.000</span><span  id='price_total_won'>원</span>
+								<span id='price_total_num'><fmt:formatNumber value="${goodsDTO.lowestPrice+goodsDTO.lowestPrice*0.03}" pattern="#,###"/></span><span  id='price_total_won'>원</span>
 								</div>
 							</div>
 							<div id='bind'>
 								<dl id='price_addition'>
 									<dt><b>구매가</b></dt>
-									<dd><span><b>${goodsDTO.lowestPrice}</b></span><span><b>원</b></span></dd>
-								</dl>
-								<dl id='price_addition'>
-									<dt>검수비</dt>
-									<dd><span><b>000.000</b></span><span>원</span></dd>
+									<dd><span><b><fmt:formatNumber value="${goodsDTO.lowestPrice}" pattern="#,###"/></b></span><span><b>원</b></span></dd>
 								</dl>
 								<dl id='price_addition'>
 									<dt>수수료</dt>
-									<dd><span>000.000</span><span>원</span></dd>
+									<dd><span><fmt:formatNumber value="${goodsDTO.lowestPrice*0.03}" pattern="#,###"/></span><span>원</span></dd>
 								</dl>
 								<dl id='price_addition'>
 									<dt>배송비[무료배송EVENT]</dt>
