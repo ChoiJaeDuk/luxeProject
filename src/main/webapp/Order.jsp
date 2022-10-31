@@ -97,7 +97,7 @@ $(function() {
 				<div id='con'>
 				<div id = 'infoForm'>
 					<div id='product_info'> <!-- 컨테이너 -->
-						<div id='product-img'><img src="${path}/img/${goodsDTO.goodsMainImg}"/></div>
+						<div id='product-img'><img src="${path}/img/${goodsDTO.goodsImagesDTO.goodsMainImg}"/></div>
 						<div id='product-detail'>
 							<p id='model-title'>${goodsDTO.goodsName}</p>
 							<p id='model-subtitle'>${goodsDTO.goodsNameKor}</p>
@@ -163,7 +163,7 @@ $(function() {
 									<div id='payment-total'>
 										<span>총 결제금액</span>
 										<div id='payment-total-price'>
-											<span>000.000</span><span>원</span>
+											<span><fmt:formatNumber value="${goodsDTO.lowestPrice+goodsDTO.lowestPrice*0.03}" pattern="#,###"/></span><span>원</span>
 										</div>
 									</div>
 								</div><!-- payment -->
