@@ -75,24 +75,13 @@ public class SellDAOImpl implements SellDAO {
 				System.out.println("USER_ID = "+bidDTO.getUserId());
 				System.out.println("USER_ID = "+sellDTO.getUserId());
 				OrderDTO orderDTO = new OrderDTO(sellDTO.getSellNo(), bidDTO.getBidNo(), bidDTO.getBidPrice(), bidDTO.getUserId(), sellDTO.getUserId());
-				
+				int result1 = UpdateSellStatusComplete(sellDTO.getSellNo());
+				int result2 = bidDAO.updateBidStatus(bidDTO.getBidNo());
 				result = orderDAO.insertOrder(con, orderDTO);
-				if (result==0) {
+				if (result==0||result1==0 || result2==0) {
 					con.rollback();
 					throw new SQLException("");
-				} else {
-					int result1 = UpdateSellStatusComplete(sellDTO.getSellNo());
-					int result2 = bidDAO.updateBidStatus(bidDTO.getBidNo());
-					if (result1==0 || result2==0) {
-						con.rollback();
-						throw new SQLException("");
-					}
-					
-					
-					compareSellLowerPrice(goodsNo, bidDTO.getBidPrice());
-					
-					con.commit();
-				}	
+				} 
 				return result;
 			}else {
 				
