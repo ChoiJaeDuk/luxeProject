@@ -8,6 +8,7 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
+
 <link
 	href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
 	rel="stylesheet"
@@ -52,6 +53,7 @@ font-family: 'Lora', serif;
 <link rel="stylesheet" type="text/css" href="layout/css/Reset.css">
 <link rel="stylesheet" type="text/css" href="layout/css/Layout.css">
  <link rel="stylesheet" type="text/css" href="css/mypage.css"> 
+ 
 <script src="http://dmaps.daum.net/map_js_init/postcode.v2.js"></script>
 <style type="text/css">
 img {
@@ -640,19 +642,19 @@ th, td {
 											result,
 											function(index, item) { $(this).html('인증번호 받기');
 											 
-												str += "<tr>";
-												str += `<td><div class=${"bestItem item${index+1}"}>`;
-												str += `<div class="item_img_block">`;
+												str += "<tr style='border: none;'>";
+												str += `<td style='border: none;'><div class=${"bestItem item${index+1}"}>`;
+												//str += `<div class="item_img_block">`;
 												str += `<div class="item_img">`;
-												str += `<img alt="상품이미지입니다." src=${pageContext.request.contextPath}/goodsImg/1.png id='product' width = "150" height="150" ></div>`;
-												str += `<div id='like'><img src="img/heart.svg" id='like_img'></div></div>`;
+												str += `<img alt="상품이미지입니다." src=${pageContext.request.contextPath}/goodsImg/1.png id='product' width = "100%" height="100%" ></div>`;
+												//str += `</div>`;
 												str += `<div id='item_text'>`;
-												str += `<div class="item_brand">`;
-												str += `<a href="#" id="brand_text">${"${item.brand}"}</a></div>`;
+												//str += `<div class="item_brand">`;
+												str += `<p id="item_brand">${"${item.brand}"}</p>`;
 												str += `<p id="name">${"${item.goodsName}"}</p>`;
-												str += `<div class="price">`;
+												//str += `<div class="price">`;
 												str += `<p id="num">${"${item.lowestPrice}"}원</p>`;
-												str += `<p id="p">즉시구매가  <input type='button' value='삭제' name='deleteWishList' id =${'${item.goodsNo}'}></div></div></div>`;
+												str += `<p id="p">즉시구매가</p> <input type='button' value='삭제' name='deleteWishList' class='deleteWishList' id =${'${item.goodsNo}'}></div>`;
 												str += "</td></tr>";
 											});
 							$("#wishTable tr:gt(0)").remove();
@@ -970,11 +972,11 @@ th, td {
 
 		<div id='contents'>
 			<div class="container">
-				<div class="tab">
+				<div class="tab" style="font-size: 20px;">
 					<button class="tablinks" onclick="openCity(event, 'profile-info')"
 						id="defaultOpen">프로필정보</button>
 					<button class="tablinks" onclick="openCity(event, 'profile-alarm')"
-						id="alarmOpen">알람<span class="alarm-counter"></span></button><!--지현알람영역 [bi-hearts :아이콘만] --><!--지현알람영역 [alarm-counter:숫자] -->
+						id="alarmOpen" >알람<span class="alarm-counter"></span></button><!--지현알람영역 [bi-hearts :아이콘만] --><!--지현알람영역 [alarm-counter:숫자] -->
 					<button class="tablinks" onclick="openCity(event, 'shopping-buy')">구매내역</button>
 					<button class="tablinks" onclick="openCity(event, 'shopping-sell')">판매내역</button>
 					<button class="tablinks"
@@ -1201,10 +1203,10 @@ th, td {
 					</div>
 				</div>
 				<div id="shopping-wishList" class="tabcontent">
-					<h3>관심상품</h3>
+					<h3 style="padding-left : 199.6px; border: none;">관심상품</h3>
 				
-							<table id="wishTable">
-								<tr>
+							<table id="wishTable" style="margin-top: 10px; margin-bottom: 10px; border: none;">
+								<tr style="border: none;">
 									<td></td>
 								</tr>
 
