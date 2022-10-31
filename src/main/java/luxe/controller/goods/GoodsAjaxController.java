@@ -222,13 +222,13 @@ public class GoodsAjaxController implements AjaxController {
 			System.out.println(updateImg);
 			goodsImgService.updateImages(updateImg, goodsNo);
 		}
-		if(m.getFilesystemName("img1")!=null) {
+		if(m.getFilesystemName("img2")!=null) {
 			
 			goodsImagesDTO.setGoodsImg1(goodsImg1);
 			updateImg = "GOODS_IMG1 = '"+goodsImg1+"'";
 			goodsImgService.updateImages(updateImg, goodsNo);
 		}
-		if(m.getFilesystemName("img1")!=null) {
+		if(m.getFilesystemName("img3")!=null) {
 			
 			goodsImagesDTO.setGoodsImg2(goodsImg2);
 			updateImg = "GOODS_IMG2 = '" + goodsImg2 + "'";
