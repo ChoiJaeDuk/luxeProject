@@ -49,7 +49,7 @@ public class SellController implements Controller {
 		
 		sellService.insertSell(new SellDTO(goodsNo, userId, accountNo, sellPrice, purDate, serialNumber));
 		
-		return new ModelAndView("success/success.jsp",true);
+		return new ModelAndView("success/sellSuccess.jsp",true);
 	}	
 	
 	
