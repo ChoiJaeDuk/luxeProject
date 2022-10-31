@@ -815,8 +815,11 @@ th, td {
 					dataType : "text", //서버가 보내온 데이터(응답)타입(text | html | xml | json )
 					data : form,
 					success : function(result) {
+				
 						if (result == 1) {
-							alert("수정이 완료 되었습니다.")
+							
+							alert("여기 수정이 완료 되었습니다.")
+							alert("뭐냐 ?");
 							selectUser();
 							$("#userUpdate").val("수정하기");
 

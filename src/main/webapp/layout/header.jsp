@@ -16,7 +16,7 @@ $(function(){
 				return;
 		}
 		$.ajax({
-			url :"ajax" , //서버요청주소
+			url :"../ajax" , //서버요청주소
 			type:"post", //요청방식(method방식 : get | post | put | delete )
 			dataType:"json"  , //서버가 보내온 데이터(응답)타입(text | html | xml | json )
 			data: {key:"goodsAjax" , methodName : "selectGoodsByGoodsName" , keyWord:$(this).val()}, //서버에게 보낼 데이터정보(parameter정보)
@@ -163,7 +163,7 @@ margin-right:20px;}
 
 		<div id='header-bottom'>
 			<div class="topnav">
-				<div id='logo'><a href="${path}/index.jsp" style="font-size: 24px; font-weight: 800;">LUXE</a></div>
+				<div id='logo'><a href="${path}/layout/index.jsp" style="font-size: 24px; font-weight: 800;">LUXE</a></div>
 				<a href="${pageContext.request.contextPath}/index.jsp">HOME</a> <a href="${pageContext.request.contextPath}/style/StyleBoard.jsp">STYLE</a> <a href="${pageContext.request.contextPath}/shop/shop.jsp">SHOP</a>
 				<div class="split">
 						<form name="search" id="search" action="${path}/shop/shop.jsp">

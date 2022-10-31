@@ -151,7 +151,7 @@ font-family: 'Noto Sans KR', sans-serif;
 								<div class="btn-group btn-group-justified">
 									<a href="${pageContext.request.contextPath}/login/login.jsp"
 										class="btn btn-primary"  style="background-color: #222222;border:2px solid #ffffff;">Login</a> <a
-										href="${pageContext.request.contextPath}"
+										href="${pageContext.request.contextPath}/layout/index.jsp"
 										class="btn btn-success"  style="background-color: #222222;border:2px solid #ffffff;">HOME</a> <a
 										href="javascript:history.back()" class="btn btn-success"  style="background-color: #222222; border:2px solid #ffffff;" >Back</a>
 								</div>
@@ -162,7 +162,7 @@ font-family: 'Noto Sans KR', sans-serif;
 							<div class="col-lg-6  col-lg-offset-3" style="margin: 0 auto;">
 								<div class="btn-group btn-group-justified">
 									<a href="javascript:history.back()" class="btn btn-primary"  style="background-color: #222222;border:2px solid #ffffff;">Login</a>
-									<a href="${pageContext.request.contextPath}"
+									<a href="${pageContext.request.contextPath}/layout.index.jsp"
 										class="btn btn-success"  style="background-color: #222222;border:2px solid #ffffff;">HOME</a> <a
 										href="javascript:history.back()" class="btn btn-success"  style="background-color: #222222;border:2px solid #ffffff;">Back</a>
 								</div>

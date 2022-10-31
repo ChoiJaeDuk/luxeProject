@@ -46,13 +46,13 @@ font-family: 'Lora', serif;
 	crossorigin="anonymous"></script>
 
 <!-- 외부의 css파일 연결하기 -->
-<link rel="stylesheet" type="text/css" href="css/setting/Reset.css">
-<link rel="stylesheet" type="text/css" href="css/setting/Layout.css">
-<link rel="stylesheet" type="text/css" href="css/index.css">
+<link rel="stylesheet" type="text/css" href="../css/setting/Reset.css">
+<link rel="stylesheet" type="text/css" href="../css/setting/Layout.css">
+<link rel="stylesheet" type="text/css" href="../css/index.css">
 
 <style type="text/css">
 </style>
-<script type="text/javascript" src="js/jquery-3.6.1.min.js"></script>
+<script type="text/javascript" src="../js/jquery-3.6.1.min.js"></script>
 <script type="text/javascript">
 	
 	$(function() {
@@ -64,7 +64,7 @@ font-family: 'Lora', serif;
 		function selectAllGoods() {
 
 			 $.ajax({
-					url :"ajax" , //서버요청주소
+					url :"../ajax" , //서버요청주소
 					type:"post", //요청방식(method방식 : get | post | put | delete )
 					dataType:"json", //서버가 보내온 데이터(응답)타입(text | html | xml | json )
 					data: {key:"goodsAjax" , methodName : "selectAllGoods", brand:brand , category:category , sort:sort, search: search}, //서버에게 보낼 데이터정보(parameter정보)
@@ -123,7 +123,7 @@ font-family: 'Lora', serif;
 <body>
 
 	<div id='wrap'>
-<jsp:include page="layout/header.jsp"/>
+<jsp:include page="header.jsp"/>
 		<!-- header -->
 		<div class="clear"></div>
 
@@ -176,7 +176,7 @@ font-family: 'Lora', serif;
 
 					<section id="banner">
 						<div class="banner_img01">
-							<img alt="광고이미지입니다." src="img/banner02.png">
+							<img alt="광고이미지입니다." src="../img/banner02.png">
 						</div>
 					</section>
 					<div class="clear"></div>
@@ -237,11 +237,11 @@ font-family: 'Lora', serif;
 		<div class="clear"></div>
 
 
-<jsp:include page="layout/footer.jsp"/>
+<jsp:include page="footer.jsp"/>
 
 
 	</div>
 	<!-- 스크립트 -->
-	<script type="text/javascript" src="StyleBoard.js"></script>
+<!-- 	<script type="text/javascript" src="../StyleBoard.js"></script> -->
 </body>
 </html>
