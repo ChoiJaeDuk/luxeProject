@@ -55,13 +55,12 @@ public class GoodsController implements Controller {
 
 		String goodsImg1 = m.getFilesystemName("goodsImg1");
 		String goodsImg2 = m.getFilesystemName("goodsImg2");
-		String goodsImg3 = m.getFilesystemName("goodsImg3");
-		String goodsImg4 = m.getFilesystemName("goodsImg4");
+	
 
 		GoodsDTO goodsDTO = new GoodsDTO(brand, category, goodsName, goodsNameKor, goodsModelNo, goodsReleaseDate,
 				goodsReleasePrice);
 
-		GoodsImagesDTO goodsImagesDTO = new GoodsImagesDTO(goodsMainImg, goodsImg1, goodsImg2, goodsImg3, goodsImg4);
+		GoodsImagesDTO goodsImagesDTO = new GoodsImagesDTO(goodsMainImg, goodsImg1, goodsImg2);
 
 		goodsService.insertGoods(goodsDTO, goodsImagesDTO);
 
@@ -158,13 +157,12 @@ public class GoodsController implements Controller {
 
 		String goodsImg1 = m.getFilesystemName("goodsImg1");
 		String goodsImg2 = m.getFilesystemName("goodsImg2");
-		String goodsImg3 = m.getFilesystemName("goodsImg3");
-		String goodsImg4 = m.getFilesystemName("goodsImg4");
+
 
 		GoodsDTO goodsDTO = new GoodsDTO(brand, category, goodsName, goodsNameKor, goodsModelNo, goodsReleaseDate,
 				goodsReleasePrice);
 
-		GoodsImagesDTO goodsImagesDTO = new GoodsImagesDTO(goodsMainImg, goodsImg1, goodsImg2, goodsImg3, goodsImg4);
+		GoodsImagesDTO goodsImagesDTO = new GoodsImagesDTO(goodsMainImg, goodsImg1, goodsImg2);
 
 		goodsService.updateGoodsDTO(goodsDTO, goodsImagesDTO);
 

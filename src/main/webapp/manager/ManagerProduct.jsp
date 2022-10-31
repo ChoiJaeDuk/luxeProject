@@ -76,17 +76,18 @@ font-family: 'Lora', serif;
 							str += `<div class='td modelDate'>${"${item.goodsReleaseDate}"}</div>`;
 							str += `<div class='td modelReleasePrice'>${"${item.goodsReleasePrice}"}</div>`;
 							str += `<div class='td updateBtn'>`;
-							str += `<button type="button" id=${"${item.goodsNo}"} name="update">수정</button>`;
+							str += `<button type="button" id= ${"${item.goodsNo}"} name="update">수정</button>`;
 							str += `</div>`;
 							str += `<div class='td deleteBtn'>`;
-							str += `<button type="button" id=${"${item.goodsNo}"}>삭제</button>`;
+							str += `<button type="button" id=${"${item.goodsNo}"} name="delete">삭제</button>`;
 							str += `</div>`;
 							str += `</form>`;
 							str += `</div>`;
 							str += `</div>`;
+							
 						});
-					$(".table:eq(0)").append(str);
-					$(".table:gt(0)").remove();
+						$(".table").empty();
+			            $(".table").append(str);
 				} , //성공했을때 실행할 함수 
 				error : function(err){  
 					alert(err+"에러 발생했어요.");
@@ -96,14 +97,118 @@ font-family: 'Lora', serif;
 		
 		$(document).on("click","[name=update]" ,function() {
 			showInsertform(false);
-			alert($(this).parent().prev().text())
-			
-			
+			$.ajax({	
+				url :"../ajax" , //서버요청주소
+				type:"post", //요청방식(method방식 : get | post | put | delete )
+				dataType:"json", //서버가 보내온 데이터(응답)타입(text | html | xml | json )
+				data: {key:"goodsAjax" , methodName : "selectGoodsLine" , goodsNo: $(this).attr("id")}, //서버에게 보낼 데이터정보(parameter정보)
+				success :function(goods){
+					$("#changeBrandSelect").val(goods.brand);
+					$("#changeCategorySelect").val(goods.category);
+					$("#changeProductName").val(goods.goodsName);
+					$("#changeProductName2").val(goods.goodsNameKor);
+					$("#changeModelNo").val(goods.goodsModelNo);
+					$("#changeModelReleasePrice").val(goods.goodsReleasePrice);
+					$("#changeModelDate").val(goods.goodsReleaseDate);
+					$("#goodsNo").val($("[name=update]").attr("id"));
+				} , //성공했을때 실행할 함수 
+				error : function(err){  
+					alert(err+"에러 발생했어요.");
+				}  //실팽했을때 실행할 함수 
+			});//ajax끝
+			 
 		})
+		
 		
 		$("#update-submitBtn").on("click", function() {
 			
+			
+			$("update-form").ajaxForm({	
+				url :"../ajax" , //서버요청주소
+				type:"post", //요청방식(method방식 : get | post | put | delete )
+				enctype: 'multipart/form-data',
+				processData:false,
+				contentType:false,
+				dataType:"text", //서버가 보내온 데이터(응답)타입(text | html | xml | json )
+				data: {key:"goodsAjax" , methodName : "updateGoodsDTO" , form :formData}, //서버에게 보낼 데이터정보(parameter정보)
+				success :function(goods){
+					alert(1)
+				} , //성공했을때 실행할 함수 
+				error : function(err){  
+					alert(err+"에러 발생했어요.");
+				}  //실팽했을때 실행할 함수 
+			});//ajax끝
 		})
+		
+		
+		$(document).on("click", "[name=delete]", function(){
+			if(confirm("상품을 삭제하시겠습니까?")){
+				$.ajax({	
+					url :"../ajax" , //서버요청주소
+					type:"post", //요청방식(method방식 : get | post | put | delete )
+					dataType:"text", //서버가 보내온 데이터(응답)타입(text | html | xml | json )
+					data: {key:"goodsAjax" , methodName : "deleteGoodsDTO" , goodsNo: $(this).attr("id")}, //서버에게 보낼 데이터정보(parameter정보)
+					success :function(result){
+						if(result==1){
+							alert("상품이 삭제되었습니다.");
+							selectGoodsInfo();
+						}else{
+							alert("상품이 삭제되지 않았습니다.");
+						}
+						
+					} , //성공했을때 실행할 함수 
+					error : function(err){  
+						alert(err+"에러 발생했어요.");
+					}  //실팽했을때 실행할 함수 
+				});//ajax끝
+				
+			}
+			
+		})
+		
+		
+		function openNav() {
+			document.getElementById("mySidebar").style.width = "250px";
+			document.getElementById("wrap").style.marginLeft = "250px";
+			document.getElementById("mySidebar").style.display = "block";
+		}
+
+		function closeNav() {
+			document.getElementById("mySidebar").style.width = "0px";
+			document.getElementById("wrap").style.marginLeft = "0px";
+			document.getElementById("mySidebar").style.display = "none";
+		}
+		
+		//수정
+		function showInsertform(hasFilter){
+			const insert = document.querySelector('#update-pop');
+			  
+			  if (hasFilter) {
+				  insert.classList.add('has-filter');
+			  } else {
+				  insert.classList.remove('has-filter');
+			  }
+			  
+			  insert.classList.remove('hide');
+			}
+			
+			function closeUpdateform() {
+				const insert = document.querySelector('#update-pop');
+				insert.classList.add('hide');
+			}
+			
+	/* 		// 업로드할 파일이 선택되어 추가될 경우 발생하는 이벤트
+			function uploadFileAdded() {
+			    var uploadFiles = document.getElementById("uploadFiles")
+			    for (var i = 0; i < uploadFiles.files.length; 2) {
+			        var file = uploadFiles.files[i];
+			        // 비동기 파일 업로드를 시작한다.
+			        var uploader = new Uploader(file);
+			        uploader.startUpload();
+			    }
+			    // 폼을 리셋해서 uploadFiles에 출력된 선택 파일을 초기화시킨다.
+			    document.getElementById("uploadForm").reset();
+			} */
 	})
 </script>
 <style type="text/css">
@@ -247,117 +352,71 @@ font-family: 'Lora', serif;
 
 	<div id="update-pop" class="hide">
 		<div id='update-contents'>
-			<form id='update-form' name="writeForm" method="post" action="">
+			<form id='update-form' name="writeForm" method="post" enctype="multipart/form-data">
 			<div id='update-con-top'>
-				<div id='update-productImg'>
+				<!-- <div id='update-productImg'>
 					<img src="../img/product01.webp" alt="상품이미지" /> 					
 				</div>
-
+ -->			
 				<div id='update-con-right'>
-					
+					<input type="hidden" id="goodsNo" name="goodsNo" >
 					<span>브랜드</span>
 					<div class='td brand'>
-						<select id='changeBrandSelect'>
+						<select id='changeBrandSelect' name="brand">
 							<option value="0">Brand</option>
-							<option value="Chanel">Chanel</option>
-							<option value="Dior">Dior</option>
-							<option value="Prada">Prada</option>
+							<option value="샤넬">Chanel</option>
+							<option value="디올">Dior</option>
+							<option value="프라다">Prada</option>
 						</select>
 					</div>
 
 					<span>카테고리</span>
 					<div class='td category'>
-						<select id='changeCategorySelect'>
+						<select id='changeCategorySelect' name="category">
 							<option value="0">Category</option>
-							<option value="Shoulder">Shoulder</option>
-							<option value="Mini">Mini</option>
-							<option value="Shopper">Shopper</option>
-							<option value="Clutch">Clutch</option>
-							<option value="Backpack">Backpack</option>
+							<option value="숄더백">Shoulder</option>
+							<option value="미니백">Mini</option>
+							<option value="쇼퍼백">Shopper</option>
+							<option value="클러치">Clutyh</option>
+							<option value="백팩">Backpack</option>
 						</select>
 					</div>
 					<br>
-					<span>상품명[원어]</span><input type="text" class="form-control"
-						placeholder="상품명[원어]" id=changeProductName> <span>상품명[한글]</span><input
-						type="text" class="form-control" placeholder="상품명[한글]"
-						id=changeProductName2> <span>모델번호</span><input type="text"
-						class="form-control" placeholder="모델번호" id=changeModelNo>
+						<span>상품명[원어]</span><input type="text" class="form-control"  id=changeProductName name="goodsName"> 
+						<span>상품명[한글]</span> <input type="text" class="form-control" id=changeProductName2 name="goodsNameKor"> 
+						<span>모델번호</span><input type="text" class="form-control" id=changeModelNo name="goodsModelNo">
 				</div>
 			</div>
 				<div id='update-con'>
 
 					<span>상품출시일</span><input type="text" class="form-control"
-						placeholder="상품출시일" id=changeModelDate> <span>상품발매가</span><input
+						placeholder="상품출시일" id=changeModelDate name="goodsReleaseDate"> <span>상품발매가</span><input
 						type="text" class="form-control" placeholder="상품발매가"
-						id=changeModelReleasePrice>
+						id=changeModelReleasePrice name="goodsReleasePrice">
 
 					<div id='insertImg'>
 						<span>메인이미지업로드</span> <input class="form-control" type="file"
-							id="uploadFiles" onchange="uploadFileAdded()">
+							id="uploadFiles1" onchange="uploadFileAdded()" name="img1">
 						<div id='insertImg'>
 							<span>[서브]이미지업로드</span> <input class="form-control" type="file"
-								id="uploadFiles" onchange="uploadFileAdded()">
+								id="uploadFiles2" onchange="uploadFileAdded()" name="img2">
 							<div id='insertImg'>
 								<span>[서브]이미지업로드</span> <input class="form-control" type="file"
-									id="uploadFiles" onchange="uploadFileAdded()">
+									id="uploadFiles3" onchange="uploadFileAdded()" name="img3">
 							</div>
 						</div>
 					</div>
 					
 					<div id='update-submt'>
-					<input type="submit" value="수정" id='update-submitBtn'>
+					<input type="button" value="수정" id='update-submitBtn' onclick="closeUpdateform()">
 					<button onclick="closeUpdateform()" id='update-closeBtn'>취소</button>
 				</div>
 				</div>
-
-				
 			</form>
+			
 		</div>
 	</div>
 
 	<!-- 스크립트 -->
-	<script>
-		function openNav() {
-			document.getElementById("mySidebar").style.width = "250px";
-			document.getElementById("wrap").style.marginLeft = "250px";
-			document.getElementById("mySidebar").style.display = "block";
-		}
 
-		function closeNav() {
-			document.getElementById("mySidebar").style.width = "0px";
-			document.getElementById("wrap").style.marginLeft = "0px";
-			document.getElementById("mySidebar").style.display = "none";
-		}
-		
-		//수정
-		function showInsertform(hasFilter){
-			const insert = document.querySelector('#update-pop');
-			  
-			  if (hasFilter) {
-				  insert.classList.add('has-filter');
-			  } else {
-				  insert.classList.remove('has-filter');
-			  }
-			  
-			  insert.classList.remove('hide');
-			}
-			
-			function closeUpdateform() {
-				const insert = document.querySelector('#update-pop');
-				insert.classList.add('hide');
-			}
-			
-	/* 		// 업로드할 파일이 선택되어 추가될 경우 발생하는 이벤트
-			function uploadFileAdded() {
-			    var uploadFiles = document.getElementById("uploadFiles")
-			    for (var i = 0; i < uploadFiles.files.length; 2) {
-			        var file = uploadFiles.files[i];
-			        // 비동기 파일 업로드를 시작한다.
-			        var uploader = new Uploader(file);
-			        uploader.startUpload();
-			    }
-			    // 폼을 리셋해서 uploadFiles에 출력된 선택 파일을 초기화시킨다.
-			    document.getElementById("uploadForm").reset();
-			} */
-	</script>
 </body>
