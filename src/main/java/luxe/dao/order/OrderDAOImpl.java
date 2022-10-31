@@ -61,6 +61,7 @@ public class OrderDAOImpl implements OrderDAO {
 				UserDAO user = new UserDAOImpl();
 				list = user.selectEmailAddressByUserId(con, orderDTO.getBuyerId(), orderDTO.getSellerId());
 				for(String address : list) {
+					
 					MailTest.MailSend(address, alarm.getAlarmSubject(), alarm.getAlarmContent());
 
 				}

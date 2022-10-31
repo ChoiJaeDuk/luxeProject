@@ -53,7 +53,15 @@ public class AlarmDAOImpl implements AlarmDAO {
 		   ps.setString(3, alarm.getAlarmSubject());
 		  
 		   result = ps.executeUpdate();
-		   if(result == 1) selectUserId(con, alarm.getGoodsNo());
+		   if(result == 1) {
+			   if(alarm.getAlarmSubject().equals("주문성사")) {
+				   selectUserIdForOrder(con, alarm.getGoodsNo());
+				   
+			   }else {
+				   selectUserId(con, alarm.getGoodsNo());
+			   }
+		   }
+			   
 		   
 		}finally{
 			DbUtil.dbClose(con, ps);
@@ -78,6 +86,7 @@ public class AlarmDAOImpl implements AlarmDAO {
 				+ "select user_id\r\n"
 				+ "from sell\r\n"
 				+ "where goods_no=? and sell_status='판매중'";
+		
 		
 		List<String> userIdList = new ArrayList<String>();
 		
@@ -104,6 +113,52 @@ public class AlarmDAOImpl implements AlarmDAO {
 		}
 	
 	}
+	
+	/***
+	 * 주문과 관련된 회원 찾기
+	 * @param con
+	 * @param goodsNo
+	 * @throws SQLException
+	 */
+	private void selectUserIdForOrder(Connection con, int goodsNo) throws SQLException {
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
+		String sql = "select user_id \r\n"
+				+ "from bid\r\n"
+				+ "where goods_no = ? and bid_status='입찰완료'\r\n"
+				+ "union \r\n"
+				+ "select user_id\r\n"
+				+ "from sell\r\n"
+				+ "where goods_no=? and sell_status='판매완료'";
+		
+		
+		List<String> userIdList = new ArrayList<String>();
+		
+		try {
+		 
+		   ps = con.prepareStatement(sql);
+		   
+		   ps.setInt(1, goodsNo);
+		   ps.setInt(2, goodsNo);
+		   
+		   rs = ps.executeQuery();
+		  
+		   while(rs.next()) {
+			   userIdList.add(rs.getString(1));
+			   
+		   }
+		   
+		   if(userIdList != null) 
+			   insertAlarmReceiveUser(con, userIdList);
+		   
+		   
+		}finally{
+			DbUtil.dbClose(null, ps, rs);
+		}
+	
+	}
+	
 	
 	/***
 	 * 알림 수신자 알림함에 등록
