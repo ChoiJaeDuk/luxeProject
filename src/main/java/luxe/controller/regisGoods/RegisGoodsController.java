@@ -7,6 +7,7 @@ import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import luxe.controller.Controller;
 import luxe.controller.ModelAndView;
@@ -30,18 +31,16 @@ public class RegisGoodsController implements Controller {
 	public ModelAndView insertRegisGoods(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException, SQLException {
 
-		int regisGoodsNo = Integer.parseInt(request.getParameter("regisGoodsNo"));
-		String userId = request.getParameter("userId");
+		HttpSession session = request.getSession();
+		String userId = (String)session.getAttribute("userId"); 
 		String regisGoodsBrand = request.getParameter("regisGoodsBrand");
 		String regisGoodsName = request.getParameter("regisGoodsName");
-		String regisDate = request.getParameter("regisDate");
 
-		RegisGoodsDTO regisGoodsDTO = new RegisGoodsDTO(regisGoodsNo, userId, regisGoodsBrand, regisGoodsName,
-				regisDate);
+		RegisGoodsDTO regisGoodsDTO = new RegisGoodsDTO(userId, regisGoodsBrand, regisGoodsName);
 
 		regisGoodsService.insertRegisGoods(regisGoodsDTO);
 
-		return new ModelAndView("/front", true);
+		return new ModelAndView("layout/index.jsp", true);
 	}
 
 	/**
