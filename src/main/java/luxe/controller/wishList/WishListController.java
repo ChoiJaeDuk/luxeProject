@@ -5,6 +5,7 @@ import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import luxe.controller.Controller;
 import luxe.controller.ModelAndView;
@@ -36,10 +37,10 @@ public class WishListController implements Controller{
 	
 	public ModelAndView insertWishList(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		
-//		HttpSession session = request.getSession();
-//		String userId = (String)session.getAttribute("id");
+		HttpSession session = request.getSession();
+		String userId = (String)session.getAttribute("id");
 		System.out.println("위시리스트 나오니?");
-		String userId = request.getParameter("userId");
+		
 		int goodsNo = Integer.parseInt(request.getParameter("goodsNo"));
 		WishListDTO wishListDTO = new WishListDTO(userId, goodsNo);
 		

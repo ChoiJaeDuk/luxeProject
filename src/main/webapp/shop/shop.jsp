@@ -113,7 +113,7 @@ font-family: 'Lora', serif;
 									str += `<div class="bestItem item1" style="overflow:hidden">`;
 									str += `<div class="item_img_block">`;
 									str += `<div class="item_img" style="overflow:hidden; border-bottom:1px solid lightgray">`;
-									str += `<a href=${path}/front?key=goods&methodName=selectGoodsLine&goodsNo=${"${item.goodsNo}"}&addr=ProductDetails.jsp style="color:black"><img alt="상품이미지입니다." src=${path}/${"${item.mainImg}"}  id='product'></a>`;
+									str += `<a href=${path}/front?key=goods&methodName=selectGoodsLine&goodsNo=${"${item.goodsNo}"}&addr=ProductDetails.jsp style="color:black"><img alt="상품이미지입니다." src=${path}/img/${"${item.mainImg}"}  id='product'></a>`;
 									str += `</div>`;
 									str += `<div id='like'><img src= ${"${heartState}"} id='like_img' name=${"${item.goodsNo}"} ></div>`;
 									str += `</div>`;
@@ -193,7 +193,7 @@ font-family: 'Lora', serif;
 					url:"../ajax",
 					type:"post",
 					dataType:"text",
-					data:{key:"wishListAjax" , methodName : "insertWishList", id: "id", goodsNo: $(this).attr("name")},
+					data:{key:"wishListAjax" , methodName : "insertWishList", goodsNo: $(this).attr("name")},
 					success : function(result) {
 						console.log(result);
 					},
@@ -207,7 +207,7 @@ font-family: 'Lora', serif;
 					url:"../ajax",
 					type:"post",
 					dataType:"text",
-					data:{key:"wishListAjax" , methodName : "deleteWishList", id: "id", goodsNo: $(this).attr("name")},
+					data:{key:"wishListAjax" , methodName : "deleteWishList", goodsNo: $(this).attr("name")},
 					success : function(result) {
 						console.log(result);
 					},

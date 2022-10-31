@@ -144,7 +144,7 @@ font-family: 'Lora', serif;
 				dataType:"text",
 				data:{key:"wishListAjax" , methodName : "selectWishState", goodsNo: ${goodsDTO.goodsNo}},
 				success : function(result) {
-			
+					
 					if(result==1){
 						$(".btn-wish").text("관심취소");
 					}else{

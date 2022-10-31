@@ -28,9 +28,9 @@ public class WishListAjaxController implements AjaxController{
 	
 	public void insertWishList(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		response.setContentType("text/html;charset=UTF-8");
-//		HttpSession session = request.getSession();
-//		String userId = (String)session.getAttribute("id");
-		String userId = request.getParameter("id");
+		HttpSession session = request.getSession();
+		String userId = (String)session.getAttribute("userId");
+		
 		int goodsNo = Integer.parseInt(request.getParameter("goodsNo"));
 		WishListDTO wishListDTO = new WishListDTO(userId, goodsNo);
 		
@@ -67,9 +67,9 @@ public class WishListAjaxController implements AjaxController{
 	
 	public void selectWishState(HttpServletRequest request, HttpServletResponse response) throws Exception{
 		response.setContentType("text/html;charset=UTF-8");
-//		HttpSession session = request.getSession();
-//		String userId = (String)session.getAttribute("id");
-		String userId = request.getParameter("userId");
+		HttpSession session = request.getSession();
+		String userId = (String)session.getAttribute("userId");
+		
 		int goodsNo = Integer.parseInt(request.getParameter("goodsNo"));
 		System.out.println("userId = " + userId + "  goodsNo = " + goodsNo);
 		int wishState = wishListService.selectWishState(goodsNo, userId);
