@@ -44,7 +44,7 @@ public class SellAjaxController implements AjaxController {
 		response.setContentType("text/html;charset=UTF-8");
 		HttpSession session = request.getSession();
 		String userId = (String)session.getAttribute("userId");
-	
+		System.out.println(userId);
 		//String userId = request.getParameter("id");
 		List<SellDTO> sellingList = sellService.selectSellingInfoByUserId(userId);
 		JSONArray arr = JSONArray.fromObject(sellingList);

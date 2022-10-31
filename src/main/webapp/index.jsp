@@ -67,7 +67,7 @@ font-family: 'Lora', serif;
 					url :"ajax" , //서버요청주소
 					type:"post", //요청방식(method방식 : get | post | put | delete )
 					dataType:"json", //서버가 보내온 데이터(응답)타입(text | html | xml | json )
-					data: {key:"goodsAjax" , methodName : "selectAllGoods", brand:brand , category:category , sort:sort, userId:"id", search: search}, //서버에게 보낼 데이터정보(parameter정보)
+					data: {key:"goodsAjax" , methodName : "selectAllGoods", brand:brand , category:category , sort:sort, search: search}, //서버에게 보낼 데이터정보(parameter정보)
 					success :function(result){
 						//wish상태 체크
 						

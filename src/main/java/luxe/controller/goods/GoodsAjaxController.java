@@ -33,8 +33,8 @@ public class GoodsAjaxController implements AjaxController {
 		String brand = request.getParameter("brand");
 		String category = request.getParameter("category");
 		String sort = request.getParameter("sort");
-
-		String userId =request.getParameter("userId");
+		HttpSession session = request.getSession();
+		String userId = (String)session.getAttribute("userId");
 		String search = request.getParameter("search");
 		
 		System.out.println("brand = " + brand);
