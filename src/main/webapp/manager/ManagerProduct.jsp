@@ -122,8 +122,7 @@ font-family: 'Lora', serif;
 		
 		$("#update-submitBtn").on("click", function() {
 			
-			
-			$("update-form").ajaxForm({	
+				$("update-form").ajaxForm({	
 				url :"../ajax" , //서버요청주소
 				type:"post", //요청방식(method방식 : get | post | put | delete )
 				enctype: 'multipart/form-data',

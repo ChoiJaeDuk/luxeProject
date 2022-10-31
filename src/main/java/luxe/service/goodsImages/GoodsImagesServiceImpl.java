@@ -20,8 +20,8 @@ public class GoodsImagesServiceImpl implements GoodsImagesService {
 	}
 
 	@Override
-	public void updateImages(Connection con, GoodsImagesDTO goodsImgs) throws SQLException {
-		int result = goodImgesDAO.updateImages(con, goodsImgs);
+	public void updateImages(String updateImg, int goodsNo) throws SQLException {
+		int result = goodImgesDAO.updateImages(updateImg, goodsNo);
 		if(result ==0) {
 			throw new SQLException();
 		}

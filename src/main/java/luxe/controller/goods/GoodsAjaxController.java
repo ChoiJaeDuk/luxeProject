@@ -11,15 +11,23 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.oreilly.servlet.MultipartRequest;
+import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
+
 import luxe.controller.AjaxController;
 import luxe.controller.ModelAndView;
 import luxe.dto.GoodsDTO;
+import luxe.dto.GoodsImagesDTO;
 import luxe.service.goods.GoodsService;
 import luxe.service.goods.GoodsServiceImpl;
+import luxe.service.goodsImages.GoodsImagesService;
+import luxe.service.goodsImages.GoodsImagesServiceImpl;
 import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 
 public class GoodsAjaxController implements AjaxController {
 	private GoodsService goodsService = new GoodsServiceImpl();
+	private GoodsImagesService goodsImgService = new GoodsImagesServiceImpl();
 
 	@Override
 	public void handleRequest(HttpServletRequest request, HttpServletResponse response)
@@ -30,11 +38,13 @@ public class GoodsAjaxController implements AjaxController {
 
 	public void selectAllGoods(HttpServletRequest request, HttpServletResponse response) throws Exception {
 		response.setContentType("text/html;charset=UTF-8");
+		HttpSession session = request.getSession();
+		String userId = (String)session.getAttribute("userId");
 		String brand = request.getParameter("brand");
 		String category = request.getParameter("category");
 		String sort = request.getParameter("sort");
-		HttpSession session = request.getSession();
-		String userId = (String)session.getAttribute("userId");
+
+		
 		String search = request.getParameter("search");
 		
 		System.out.println("brand = " + brand);
@@ -147,5 +157,85 @@ public class GoodsAjaxController implements AjaxController {
 		
 		PrintWriter out = response.getWriter();
 		out.print(result);
+	}
+	
+	
+	
+	/**
+	 * 상품 상세 조회
+	 */
+	public void selectGoodsLine(HttpServletRequest request, HttpServletResponse response) throws Exception {
+		response.setContentType("text/html;charset=UTF-8");
+		//String goodsNoStr = request.getParameter("goodsReadNo");
+		String addr = request.getParameter("addr");
+		boolean state = true;//request.getParameter("flag") == null ? true : false;
+		
+		int goodsNo = Integer.parseInt(request.getParameter("goodsNo"));
+		
+		GoodsDTO goodsDTO = goodsService.selectGoodsLine(goodsNo, state);
+		System.out.println(goodsDTO.getGoodsName());
+		JSONObject goods = JSONObject.fromObject(goodsDTO);
+		PrintWriter out = response.getWriter();
+		
+		out.print(goods);
+		
+	}
+	
+	
+	
+	/**
+	 * 관리자 상품 업데이트
+	 * @param request
+	 * @param response
+	 * @return
+	 * @throws Exception
+	 */
+	public void updateGoodsDTO(HttpServletRequest request, HttpServletResponse response) throws Exception {
+
+		String saveDir = request.getRealPath("/img");
+		int maxSize = 1024 * 1024 * 100; // 100M
+		String encoding = "UTF-8";
+
+		MultipartRequest m = new MultipartRequest(request, saveDir, maxSize, encoding, new DefaultFileRenamePolicy());
+		
+		int goodsNo = Integer.parseInt(m.getParameter("goodsNo"));
+		
+		String brand = m.getParameter("brand");
+		String category = m.getParameter("category");
+		String goodsName = m.getParameter("goodsName");
+		String goodsNameKor = m.getParameter("goodsNameKor");
+		String goodsModelNo = m.getParameter("goodsModelNo");
+		String goodsReleaseDate = m.getParameter("goodsReleaseDate");
+		int goodsReleasePrice = Integer.parseInt(m.getParameter("goodsReleasePrice"));
+		System.out.println( brand + category + goodsName + goodsNameKor + goodsModelNo + goodsReleaseDate + goodsReleasePrice);
+		String goodsMainImg = m.getFilesystemName("img1");
+		String goodsImg1 = m.getFilesystemName("img2");
+		String goodsImg2 = m.getFilesystemName("img3");
+
+		String updateImg = "";
+		GoodsDTO goodsDTO = new GoodsDTO(brand, category, goodsName, goodsNameKor, goodsModelNo, goodsReleaseDate, goodsReleasePrice, goodsNo);
+		GoodsImagesDTO goodsImagesDTO = new GoodsImagesDTO();
+		if(m.getFilesystemName("img1")!=null) {
+			
+			goodsImagesDTO.setGoodsMainImg(goodsMainImg);
+			updateImg = "GOODS_MAIN_IMG = '"+goodsMainImg+"'";
+			System.out.println(updateImg);
+			goodsImgService.updateImages(updateImg, goodsNo);
+		}
+		if(m.getFilesystemName("img1")!=null) {
+			
+			goodsImagesDTO.setGoodsImg1(goodsImg1);
+			updateImg = "GOODS_IMG1 = '"+goodsImg1+"'";
+			goodsImgService.updateImages(updateImg, goodsNo);
+		}
+		if(m.getFilesystemName("img1")!=null) {
+			
+			goodsImagesDTO.setGoodsImg2(goodsImg2);
+			updateImg = "GOODS_IMG2 = '" + goodsImg2 + "'";
+			goodsImgService.updateImages(updateImg, goodsNo);
+		}
+
+		goodsService.updateGoodsDTO(goodsDTO);
+
 	}
 }

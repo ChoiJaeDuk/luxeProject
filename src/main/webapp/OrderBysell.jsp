@@ -129,9 +129,9 @@ font-family: 'Lora', serif;
 					<div id='product_info'> <!-- 컨테이너 -->
 						<div id='product-img'><img src="img/heart-fill.svg"/></div>
 						<div id='product-detail'>
-							<p id='model-num'>모델번호</p>
-							<p id='model-title'>모델이름</p>
-							<p id='model-subtitle'>모델서브이름</p>
+						
+							<p id='model-title'>${goodsDTO.goodsName}</p>
+							<p id='model-subtitle'>${goodsDTO.goodsNameKor}</p>
 						</div>
 						<div id='price-list'>
 							<div class='price01' id='pri01'>

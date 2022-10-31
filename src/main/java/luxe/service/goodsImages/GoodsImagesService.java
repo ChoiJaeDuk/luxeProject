@@ -17,7 +17,7 @@ public interface GoodsImagesService {
 	 * 상품 이미지 수정
 	 */
 
-	void updateImages(Connection con, GoodsImagesDTO goodsImgs) throws SQLException;
+	void updateImages(String updateImg, int goodsNo) throws SQLException;
 
 	/**
 	 * 상품 이미지 삭제

@@ -33,7 +33,7 @@ public interface GoodsService {
 	/**
 	 * 상품 수정
 	 */
-	void updateGoodsDTO(GoodsDTO goodsDTO, GoodsImagesDTO goodImagesDTO) throws SQLException;
+	public void updateGoodsDTO(GoodsDTO goodsDTO) throws SQLException;
 
 	/**
 	 * 상품 삭제
