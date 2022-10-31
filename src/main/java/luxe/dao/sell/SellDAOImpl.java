@@ -122,7 +122,7 @@ public class SellDAOImpl implements SellDAO {
 		String sql = "UPDATE SELL SET SELL_STATUS=? WHERE SELL_NO = ?";
 		BidDAO bidDAO = new BidDAOImpl();
 		OrderDAO orderDAO = new OrderDAOImpl();
-		AlarmDAO alarmDAO = new AlarmDAOImpl();
+		
 		try {
 			
 			con = DbUtil.getConnection();
@@ -131,26 +131,20 @@ public class SellDAOImpl implements SellDAO {
 			
 			int goodsNo = selectGoodsNoBySellNo(con ,sellDTO.getSellNo());
 			BidDTO bidDTO = bidDAO.getHighestBidPrice(goodsNo); //null일때 제어
-		
-			if(sellDTO.getSellStatus().equals("판매중")) {		
+			
+			if(sellDTO.getSellStatus().equals("판매중")) {	
+				System.out.println("값비교 결과 :" + this.priceCompare(bidDTO, sellDTO.getSellPrice()));
 				if(this.priceCompare(bidDTO, sellDTO.getSellPrice())) {//최고입찰가를 받아 비교 후 true일 경우 주문등록(즉시판매)
 					OrderDTO orderDTO = new OrderDTO(sellDTO.getSellNo(), bidDTO.getBidNo(), bidDTO.getBidPrice(), bidDTO.getUserId(), sellDTO.getUserId());
-					
+					int result1 = UpdateSellStatusComplete(sellDTO.getSellNo());
+					int result2 = bidDAO.updateBidStatus(bidDTO.getBidNo());
 					result = orderDAO.insertOrder(con, orderDTO);
 					
-					if (result==0) {
+					if (result==0 || result1==0 || result2==0) {
 						con.rollback();
 						throw new SQLException("");
-					} else {
-						int result1 = UpdateSellStatusComplete(sellDTO.getSellNo());
-						int result2 = bidDAO.updateBidStatus(bidDTO.getBidNo());
-						
-						if (result1==0 || result2==0) {
-							con.rollback();
-							throw new SQLException("");
-						}
-			
-					}	
+					}
+					
 					return result;
 				}else {
 					compareSellLowerPrice(goodsNo, sellDTO.getSellPrice());//goodsNo, price를
@@ -305,6 +299,7 @@ public class SellDAOImpl implements SellDAO {
 		boolean result = false;
 		
 		if(bidDTO != null) {
+			System.out.println(bidDTO.getBidPrice()+"최고가   등록가" + sellPrice );
 			if(bidDTO.getBidPrice() == sellPrice) {
 				result = true;
 			}

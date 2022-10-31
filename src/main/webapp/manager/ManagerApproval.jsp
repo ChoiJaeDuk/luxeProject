@@ -152,11 +152,11 @@ $(function(){
  		result1 = confirm("판매신청을 승인하시겠습니까 ?");
  		if(result1 == true){
 			  $.ajax({
-				 
+				 	
 		   			url :"../ajax" , //서버요청주소
 		   			type:"post", //요청방식(method방식 : get | post | put | delete )
 		   			dataType:"text"  , //서버가 보내온 데이터(응답)타입(text | html | xml | json )
-		   			data: {key:"sellAjax" , methodName : "updateSellStatus" ,sellNo : $(this).parent().prev().prev().prev().prev().prev().prev().prev().prev().text(), sellStatus : $(this).val() }, //서버에게 보낼 데이터정보(parameter정보)
+		   			data: {key:"sellAjax" , methodName : "updateSellStatus" ,sellNo : $(this).parent().prev().prev().prev().prev().prev().prev().prev().prev().text(), sellStatus : $(this).val(), sellPrice: $(this).parent().prev().prev().prev().prev().text()}, //서버에게 보낼 데이터정보(parameter정보)
 		   			success :function(result){
 		   				
 		   				if(result==0){
