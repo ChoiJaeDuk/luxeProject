@@ -61,7 +61,7 @@ public class SellController implements Controller {
 		SellDTO sellDTO = new SellDTO(sellNo, updateSellPrice, userId);
 		sellService.updateSellPrice(sellDTO);//sellUserId, sellNo, updateSellPrice
 		
-		return new ModelAndView("/front",true);
+		return new ModelAndView("success/success.jsp",true);
 	}
 	
 	
