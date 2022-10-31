@@ -113,6 +113,8 @@ public class BidDAOImpl implements BidDAO {
 			ps.setString(4, bidStatus);
 			result = ps.executeUpdate();
 
+			con.commit();
+			
 			// 입찰 등록 후 알람 발송 또는 주문 등록
 			if (result != 0) {
 				if (isOnGoing) { // 입찰중

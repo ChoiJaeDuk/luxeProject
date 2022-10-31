@@ -59,7 +59,7 @@ font-family: 'Lora', serif;
 $(function() {
 	$(".price-total-btn").on("click", function() {
 		if($(this).text()=="구매 입찰 계속"){
-			if($("#input-amount").val()>=${goodsDTO.lowestPrice}){
+			if($("#input-amount").val()>=${goodsDTO.lowestPrice} && ${goodsDTO.lowestPrice}!=0){
 				alert("즉시구매가보다 높은 가격입니다. 다시 입력해주세요.");
 			} else{
 				$.ajax({
@@ -101,7 +101,7 @@ $(function() {
 			<div class="container">
 				<div id='con'>
 					<div id='product_info'> <!-- 컨테이너 -->
-						<div id='product-img'><img src="${path}/img/${goodsDTO.goodsMainImg}"/></div>
+						<div id='product-img'><img src="${path}/img/${goodsDTO.goodsImagesDTO.goodsMainImg}"/></div>
 						<div id='product-detail'>
 							<p id='model-title'>${goodsDTO.goodsName}</p>
 							<p id='model-subtitle'>${goodsDTO.goodsNameKor}</p>
