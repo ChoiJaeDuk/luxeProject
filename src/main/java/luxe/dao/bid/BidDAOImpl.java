@@ -207,18 +207,17 @@ public class BidDAOImpl implements BidDAO {
 			if (rs.next())
 				bidNo = rs.getInt(1);
 
+			// 주문 상태 변경
+			int sellStatusResult = sellDao.UpdateSellStatusComplete(lowestSell.getSellNo());
+			if (sellStatusResult == 0) {
+				con.rollback();
+				throw new SQLException("판매 상태 변경에 실패했습니다.");
+			}
+
 			OrderDTO newOrder = new OrderDTO(lowestSell.getSellNo(), bidNo, bid.getBidPrice(), bid.getUserId(),
 					lowestSell.getUserId());
 			int result = orderDao.insertOrder(con, newOrder);
-			if (result != 0) {
-				// 주문 상태 변경
-				int sellStatusResult = sellDao.UpdateSellStatusComplete(lowestSell.getSellNo());
-				if (sellStatusResult == 0) {
-					con.rollback();
-					throw new SQLException("판매 상태 변경에 실패했습니다.");
-				}
-
-			} else {
+			if (result == 0) {
 				con.rollback();
 				throw new SQLException("주문 등록에 실패했습니다."); // 메세지 확인
 			}
