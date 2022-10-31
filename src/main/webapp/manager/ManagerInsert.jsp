@@ -48,7 +48,8 @@ font-family: 'Lora', serif;
 <link rel="stylesheet" type="text/css" href="../layout/css/Reset.css">
 <link rel="stylesheet" type="text/css" href="../layout/css/Layout.css">
 <link rel="stylesheet" type="text/css" href="../css/manager/ManagerInsert.css">
-
+<script type="text/javascript" src="../js/jquery-3.6.1.min.js"></script>
+<script type="text/javascript" src="../js/jquery.form.min.js"></script>
 <style type="text/css">
 .sidebar {
 	height: 100%;
@@ -97,6 +98,11 @@ font-family: 'Lora', serif;
 	}
 }
 </style>
+<script type="text/javascript">
+	$(function() {
+		
+	})
+</script>
 </head>
 <body>
 	<div id="mySidebar" class="sidebar">
@@ -117,66 +123,67 @@ font-family: 'Lora', serif;
 			<div class="container">
 				<div id='con'>
 					<div id='update-contents'>
-						<form id='update-form' name="writeForm" method="post" action="">
+						<form id='update-form' name="writeForm" method="post" action="${path}/front?key=goods&methodName=insertGoods" enctype="multipart/form-data">
 	
 								<div id='update-con'>
 
 									<span>브랜드</span>
 									<div class='td brand'>
-										<select id='changeBrandSelect'>
+										<select id='changeBrandSelect' name="brand">
 											<option value="0">Brand</option>
-											<option value="Chanel">Chanel</option>
-											<option value="Dior">Dior</option>
-											<option value="Prada">Prada</option>
+											<option value="샤넬">Chanel</option>
+											<option value="디올">Dior</option>
+											<option value="프라다">Prada</option>
 										</select>
 									</div>
 
 									<span>카테고리</span>
 									<div class='td category'>
-										<select id='changeCategorySelect'>
+										<select id='changeCategorySelect' name="category">
 											<option value="0">Category</option>
-											<option value="Shoulder">Shoulder</option>
-											<option value="Mini">Mini</option>
-											<option value="Shopper">Shopper</option>
-											<option value="Clutch">Clutch</option>
-											<option value="Backpack">Backpack</option>
+											<option value="숄더백">Shoulder</option>
+											<option value="미니백">Mini</option>
+											<option value="쇼퍼백">Shopper</option>
+											<option value="클러치">Clutch</option>
+											<option value="백팩">Backpack</option>
 										</select>
 									</div>
 									<br> <span>상품명[원어]</span><input type="text"
 										class="form-control" placeholder="상품명[원어]"
-										id=changeProductName> <span>상품명[한글]</span><input
+										id=changeProductName name="goodsName"> <span>상품명[한글]</span><input
 										type="text" class="form-control" placeholder="상품명[한글]"
-										id=changeProductName2> <span>모델번호</span><input
+										id=changeProductName2 name="goodsNameKor"> <span>모델번호</span><input
 										type="text" class="form-control" placeholder="모델번호"
-										id=changeModelNo>
+										id=changeModelNo name="goodsModelNo">
 								
 
 								<span>상품출시일</span><input type="text" class="form-control"
-									placeholder="상품출시일" id=changeModelDate> <span>상품발매가</span><input
+									placeholder="상품출시일" id=changeModelDate name="goodsReleaseDate"> <span>상품발매가</span><input
 									type="text" class="form-control" placeholder="상품발매가"
-									id=changeModelReleasePrice>
+									id=changeModelReleasePrice name="goodsReleasePrice" >
 
 								<div id='insertImg'>
 									<span>메인이미지업로드</span> <input class="form-control" type="file"
-										id="uploadFiles" onchange="uploadFileAdded()">
+										id="uploadFiles" onchange="uploadFileAdded()" name="img1">
 									<div id='insertImg'>
 										<span>[서브]이미지업로드</span> <input class="form-control"
-											type="file" id="uploadFiles" onchange="uploadFileAdded()">
+											type="file" id="uploadFiles" onchange="uploadFileAdded()" name="img2">
 										<div id='insertImg'>
 											<span>[서브]이미지업로드</span> <input class="form-control"
-												type="file" id="uploadFiles" onchange="uploadFileAdded()">
+												type="file" id="uploadFiles" onchange="uploadFileAdded()" name="img3">
 										</div>
 									</div>
 								</div>
 
 								<div id='update-submt'>
 									<input type="submit" value="등록" id='update-submitBtn'>
-									<button onclick="location.href='ManagerProduct.jsp'" id='update-closeBtn' >취소</button>
+									<button type="button" id='update-closeBtn' onclick="location.href='ManagerProduct.jsp'">취소</button>
 								</div>
 							</div>
-
+				
 
 						</form>
+						
 					</div>
 				</div>
 			</div>

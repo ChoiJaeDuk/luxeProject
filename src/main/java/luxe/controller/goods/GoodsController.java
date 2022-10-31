@@ -39,7 +39,7 @@ public class GoodsController implements Controller {
 	 */
 	public ModelAndView insertGoods(HttpServletRequest request, HttpServletResponse response) throws Exception {
 
-		String saveDir = request.getRealPath("/goodsImg");
+		String saveDir = request.getRealPath("/img");
 		int maxSize = 1024 * 1024 * 100; // 100M
 		String encoding = "UTF-8";
 
@@ -54,10 +54,10 @@ public class GoodsController implements Controller {
 		int goodsReleasePrice = Integer.parseInt(m.getParameter("goodsReleasePrice"));
 
 	
-		String goodsMainImg = m.getFilesystemName("goodsMainImg");
+		String goodsMainImg = m.getFilesystemName("img1");
 
-		String goodsImg1 = m.getFilesystemName("goodsImg1");
-		String goodsImg2 = m.getFilesystemName("goodsImg2");
+		String goodsImg1 = m.getFilesystemName("img2");
+		String goodsImg2 = m.getFilesystemName("img3");
 		
 
 		GoodsDTO goodsDTO = new GoodsDTO(brand, category, goodsName, goodsNameKor, goodsModelNo, goodsReleaseDate,
@@ -67,7 +67,7 @@ public class GoodsController implements Controller {
 
 		goodsService.insertGoods(goodsDTO, goodsImagesDTO);
 
-		return new ModelAndView("front", true);
+		return new ModelAndView("manager/ManagerProduct.jsp", true);
 
 	}
 
