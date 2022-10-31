@@ -83,7 +83,7 @@ font-family: 'Lora', serif;
 			<div class="container">
 				<div id='con'>
 					<div id='product_info'> <!-- 컨테이너 -->
-						<div id='product-img'><img src="img/heart-fill.svg"/></div>
+						<div id='product-img'><img src="${path}/img/${goodsDTO.goodsImagesDTO.goodsMainImg}"/></div>
 						<div id='product-detail'>
 						
 							<p id='model-title'>${goodsDTO.goodsName}</p>

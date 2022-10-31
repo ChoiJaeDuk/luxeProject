@@ -91,7 +91,7 @@ font-family: 'Lora', serif;
 						if(result=="true"){
 							
 							if(confirm("판매중인 상품입니다. 가격 수정은 마이페이지에서 가능합니다. 이동하시겠습니까?")){
-								location.href ="${path}/mypagePractice4444.jsp";
+								location.href ="${path}/mypage.jsp";
 							}
 						}else{
 							if(confirm("정말 판매하시겠습니까?")){
@@ -122,7 +122,7 @@ font-family: 'Lora', serif;
 				<div id='con'>
 				<div id = 'infoForm'>
 					<div id='product_info'> <!-- 컨테이너 -->
-						<div id='product-img'><img src="img/heart-fill.svg"/></div>
+						<div id='product-img'><img src="${path}/img/${goodsDTO.goodsImagesDTO.goodsMainImg}"/></div>
 						<div id='product-detail'>
 							<p id='model-num'>모델번호</p>
 							<p id='model-title'>${goodsDTO.goodsName}</p>
@@ -160,15 +160,16 @@ font-family: 'Lora', serif;
 									<dt><b>판매가</b></dt>
 									<dd><span><b>${inputPrice}</b></span><span><b>원</b></span></dd>
 								</dl>
-								<dl id='price_addition'>
-									<dt>검수비</dt>
-									<dd><span><b>000.000</b></span><span>원</span></dd>
-								</dl>
+							
 								<dl id='price_addition'>
 									<dt>수수료</dt>
-									<dd><span>000.000</span><span>원</span></dd>
+									<dd><span><b><script type="text/javascript">document.write(${inputPrice}*0.03)</script></b></span><span>원</span></dd>
 								</dl>
 								
+								<dl id='price_addition'>
+									<dt>총 가격</dt>
+									<dd><span><b><script type="text/javascript">document.write(${inputPrice} - ${inputPrice}*0.03)</script></b></span><span>원</span></dd>
+								</dl>
 							</div>
 						</div>
 					</div><!-- instant_group_con -->
