@@ -83,7 +83,7 @@ public class GoodsDAOImpl implements GoodsDAO {
 				+ "WHERE G.GOODS_NAME LIKE "+ search +" OR G.GOODS_NAME_KOR LIKE " + search
 				+ " GROUP BY I.GOODS_MAIN_IMG, GOODS_NAME, GOODS_NAME_KOR, G.BRAND, G.CATEGORY, G.GOODS_DATE, S.SELL_PRICE, G.GOODS_NO HAVING BRAND LIKE "
 				+ brand + "AND category LIKE " + category + sort;
-		System.out.println(sql);
+		
 		List<GoodsDTO> list = new ArrayList<GoodsDTO>();
 		try {
 			con = DbUtil.getConnection();

@@ -21,6 +21,7 @@ import luxe.dto.SellDTO;
 import luxe.util.DbUtil;
 
 public class SellDAOImpl implements SellDAO {
+	AlarmDAO alarmDAO = new AlarmDAOImpl();
 
 	@Override
 	public int insertSell(SellDTO sell) throws SQLException {
@@ -58,7 +59,7 @@ public class SellDAOImpl implements SellDAO {
 		String sql = "UPDATE SELL SET SELL_PRICE = ? WHERE SELL_NO = ?";
 		BidDAO bidDAO = new BidDAOImpl();
 		OrderDAO orderDAO = new OrderDAOImpl();
-		AlarmDAO alarmDAO = new AlarmDAOImpl();
+		
 		try {
 			con = DbUtil.getConnection();
 			con.setAutoCommit(false);
@@ -67,10 +68,10 @@ public class SellDAOImpl implements SellDAO {
 			int goodsNo = selectGoodsNoBySellNo(con ,sellDTO.getSellNo());
 			
 			
-			BidDTO bidDTO = bidDAO.getHighestBidPrice(goodsNo);
+			BidDTO bidDTO = bidDAO.getHighestBidPrice(goodsNo);//최고입찰가 , 해당 유저ID, 입찰번호를 받는다.
 			
 			
-			if(this.priceCompare(bidDTO, sellDTO.getSellPrice())) {//최고입찰가를 받아 비교 후 true일 경우 주문등록(즉시판매)
+			if(this.priceCompare(bidDTO, sellDTO.getSellPrice())) {//최고입찰가와 판매가격을 비교 후 true일 경우 주문등록(즉시판매)
 				System.out.println("USER_ID = "+bidDTO.getUserId());
 				System.out.println("USER_ID = "+sellDTO.getUserId());
 				OrderDTO orderDTO = new OrderDTO(sellDTO.getSellNo(), bidDTO.getBidNo(), bidDTO.getBidPrice(), bidDTO.getUserId(), sellDTO.getUserId());
@@ -87,17 +88,15 @@ public class SellDAOImpl implements SellDAO {
 						throw new SQLException("");
 					}
 					
-					int result4 = alarmDAO.insertAlarm(new AlarmDTO(goodsNo, "알람등록","주문이 성사됐습니다.")); 
-					if(result4 == 0) {
-						con.rollback();
-						throw new SQLException("");
-					}
+					
+					compareSellLowerPrice(goodsNo, bidDTO.getBidPrice());
+					
 					con.commit();
 				}	
 				return result;
 			}else {
 				
-				compareSellLowerPrice(goodsNo,sellDTO);
+				compareSellLowerPrice(goodsNo,sellDTO.getSellPrice());
 			}
 			ps.setInt(1, sellDTO.getSellPrice());
 			ps.setInt(2, sellDTO.getSellNo());
@@ -150,15 +149,11 @@ public class SellDAOImpl implements SellDAO {
 							con.rollback();
 							throw new SQLException("");
 						}
-						int result4 = alarmDAO.insertAlarm(new AlarmDTO(goodsNo, "알람등록","주문이 성사됐습니다.")); 
-						if(result4 == 0) {
-							con.rollback();
-							throw new SQLException("");
-						}
+			
 					}	
 					return result;
 				}else {
-					compareSellLowerPrice(goodsNo, sellDTO);//goodsNo, price를
+					compareSellLowerPrice(goodsNo, sellDTO.getSellPrice());//goodsNo, price를
 				}
 			}
 			
@@ -247,7 +242,7 @@ public class SellDAOImpl implements SellDAO {
 		List<SellDTO> sellList = new ArrayList<SellDTO>();
 		String sql = "SELECT G.GOODS_NAME, G.BRAND, S.SELL_PRICE, S.SELL_DATE, S.SELL_NO, S.GOODS_NO\r\n"
 					+ "FROM SELL S, GOODS G\r\n"
-					+ "WHERE S.GOODS_NO = G.GOODS_NO AND S.USER_ID =? AND S.SELL_STATUS= '판매대기' ";
+					+ "WHERE S.GOODS_NO = G.GOODS_NO AND S.USER_ID =? AND S.SELL_STATUS= '신청대기' ";
 		try {
 			con = DbUtil.getConnection();
 			ps = con.prepareStatement(sql);
@@ -392,16 +387,16 @@ public class SellDAOImpl implements SellDAO {
 		return result;
 	}
 	
-	private void compareSellLowerPrice(int goodsNo, SellDTO sellDTO) throws SQLException {
+	private void compareSellLowerPrice(int goodsNo, int oldLowestPrice) throws SQLException {
 		
 		SellDTO lowest = this.selectLowestPriceByGoodsNo(goodsNo);
 		if (lowest == null) {
 			return;
 		}
 		
-		if (lowest.getSellPrice() > sellDTO.getSellPrice()) {
+		if (lowest.getSellPrice() != oldLowestPrice) {
 			// 알림 발송 (알림 내용 정하기)
-			// 화면에 입찰 최고가 바꾸기
+			alarmDAO.insertAlarm(new AlarmDTO(goodsNo, "판매 최저가변경","판매 최저가가 변경되었습니다.")); 
 		}
 	}
 

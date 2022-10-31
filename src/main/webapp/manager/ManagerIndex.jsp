@@ -97,6 +97,73 @@ font-family: 'Lora', serif;
 	}
 }
 </style>
+<script type="text/javascript" src="../js/jquery-3.6.1.min.js"></script>
+<script type="text/javascript">
+$(function() {
+	var category ="";
+	var brand ="";
+	var sort="ORDER BY COUNT(W.WISH_LIST_NO) DESC";
+	var search="";
+	selectAllGoods();
+	function selectAllGoods() {
+
+		 $.ajax({
+				url :"../ajax" , //서버요청주소
+				type:"post", //요청방식(method방식 : get | post | put | delete )
+				dataType:"json", //서버가 보내온 데이터(응답)타입(text | html | xml | json )
+				data: {key:"goodsAjax" , methodName : "selectAllGoods", brand:brand , category:category , sort:sort, search: search}, //서버에게 보낼 데이터정보(parameter정보)
+				success :function(result){
+					//wish상태 체크
+					
+					let str="";
+					let count=0;
+						$.each(result, function(index, item){		
+									
+							if(count%5==0){
+								str += "<tr>";
+							}
+							//////////////////////////////
+							str += "<td>"
+							str += `<div class="bestItem item1">`;
+							str += `<div class="item_img_block">`;
+							str += `<div class="item_img">`;
+							str += `<img alt="상품이미지입니다." src=${path}/${"${item.mainImg}"}  id='product'>`;
+							str += `</div>`;
+							str += `</div>`;
+							str += `<div id='item_text'>`;
+							str += `<div class="item_brand">`;
+							str += `<a href= "#" id="brand_text">${"${item.brand}"}</a>`;
+							str += `</div>`;
+							str += `<p id="name"><a href=${path}/front?key=goods&methodName=selectGoodsLine&goodsNo=${"${item.goodsNo}"}&addr=ProductDetails.jsp>${"${item.goodsName}"}</a></p>`;
+							str += `<div class="price">`;
+							str += `<p id="num">${"${item.sellPrice}"}</p>`;
+							str += `<p id="p">즉시구매가</p>`;
+							str += `</div>`;
+							str += `</div>`;
+							str += `</div>`;
+							str += "</td>"
+							count++;
+							if(count%5==0){
+								str += "</tr>";
+							}
+							if(index==9){
+								return false;
+							}
+							//////////////////////////////////////////////////
+						});
+						$("#product tr:gt(0)").remove();
+						$("#product tr:eq(0)").prepend(str);
+				 		
+						
+				} , //성공했을때 실행할 함수 
+				error : function(err){  
+					alert(err+"에러 발생했어요.");
+				}  //실팽했을때 실행할 함수 
+			});//ajax끝
+	}
+})
+</script>
+
 </head>
 <body>
 	<div id="mySidebar" class="sidebar">
@@ -127,170 +194,13 @@ font-family: 'Lora', serif;
 							<div id="sub_title">인기상품</div>
 						</div>
 					</section>
-					<section>
+					<section id="product">
 						<div class="productBEST_container">
-							<div class="bestItem item1">
-								<div class="item_img">
-									<img alt="상품이미지입니다." src="">
-								</div>
-								<div>
-									<div class="item_brand">
-										<a href="#" id="brand_text">브랜드</a>
-									</div>
-									<p id="name">상품이름</p>
-									<div class="price">
-										<p id="num">000,000원</p>
-										<p id="p">즉시구매가</p>
-									</div>
-								</div>
-							</div>
-
-							<div class="bestItem item2">
-								<div class="item_img">
-									<img alt="상품이미지입니다." src="">
-								</div>
-								<div>
-									<div class="item_brand">
-										<a href="#" id="brand_text">브랜드</a>
-									</div>
-									<p id="name">상품이름</p>
-									<div class="price">
-										<p id="num">000,000원</p>
-										<p id="p">즉시구매가</p>
-									</div>
-								</div>
-							</div>
-
-							<div class="bestItem item3">
-								<div class="item_img">
-									<img alt="상품이미지입니다." src="">
-								</div>
-								<div>
-									<div class="item_brand">
-										<a href="#" id="brand_text">브랜드</a>
-									</div>
-									<p id="name">상품이름</p>
-									<div class="price">
-										<p id="num">000,000원</p>
-										<p id="p">즉시구매가</p>
-									</div>
-								</div>
-							</div>
-
-							<div class="bestItem item4">
-								<div class="item_img">
-									<img alt="상품이미지입니다." src="">
-								</div>
-								<div>
-									<div class="item_brand">
-										<a href="#" id="brand_text">브랜드</a>
-									</div>
-									<p id="name">상품이름</p>
-									<div class="price">
-										<p id="num">000,000원</p>
-										<p id="p">즉시구매가</p>
-									</div>
-								</div>
-							</div>
-
-							<div class="bestItem item5">
-								<div class="item_img">
-									<img alt="상품이미지입니다." src="">
-								</div>
-								<div>
-									<div class="item_brand">
-										<a href="#" id="brand_text">브랜드</a>
-									</div>
-									<p id="name">상품이름</p>
-									<div class="price">
-										<p id="num">000,000원</p>
-										<p id="p">즉시구매가</p>
-									</div>
-								</div>
-							</div>
-
-							<div class="bestItem item6">
-								<div class="item_img">
-									<img alt="상품이미지입니다." src="">
-								</div>
-								<div>
-									<div class="item_brand">
-										<a href="#" id="brand_text">브랜드</a>
-									</div>
-									<p id="name">상품이름</p>
-									<div class="price">
-										<p id="num">000,000원</p>
-										<p id="p">즉시구매가</p>
-									</div>
-								</div>
-							</div>
-
-
-							<div class="bestItem item7">
-								<div class="item_img">
-									<img alt="상품이미지입니다." src="">
-								</div>
-								<div>
-									<div class="item_brand">
-										<a href="#" id="brand_text">브랜드</a>
-									</div>
-									<p id="name">상품이름</p>
-									<div class="price">
-										<p id="num">000,000원</p>
-										<p id="p">즉시구매가</p>
-									</div>
-								</div>
-							</div>
-
-							<div class="bestItem item8">
-								<div class="item_img">
-									<img alt="상품이미지입니다." src="">
-								</div>
-								<div>
-									<div class="item_brand">
-										<a href="#" id="brand_text">브랜드</a>
-									</div>
-									<p id="name">상품이름</p>
-									<div class="price">
-										<p id="num">000,000원</p>
-										<p id="p">즉시구매가</p>
-									</div>
-								</div>
-							</div>
-
-
-							<div class="bestItem item9">
-								<div class="item_img">
-									<img alt="상품이미지입니다." src="">
-								</div>
-								<div>
-									<div class="item_brand">
-										<a href="#" id="brand_text">브랜드</a>
-									</div>
-									<p id="name">상품이름</p>
-									<div class="price">
-										<p id="num">000,000원</p>
-										<p id="p">즉시구매가</p>
-									</div>
-								</div>
-							</div>
-
-							<div class="bestItem item10">
-								<div class="item_img">
-									<img alt="상품이미지입니다." src="">
-								</div>
-								<div>
-									<div class="item_brand">
-										<a href="#" id="brand_text">브랜드</a>
-									</div>
-									<p id="name">상품이름</p>
-									<div class="price">
-										<p id="num">000,000원</p>
-										<p id="p">즉시구매가</p>
-									</div>
-								</div>
-							</div>
-
+							<table>
+ 								<tr>
+ 									<td></td>
+ 								</tr>
+ 							</table>
 						</div>
 						<nav aria-label="Page navigation example" id="pagenav">
 							<ul class="pagination">
