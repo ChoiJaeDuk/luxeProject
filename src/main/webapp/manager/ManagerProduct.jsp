@@ -181,7 +181,28 @@ font-family: 'Lora', serif;
 		}
 		
 		//수정
-		function showInsertform(hasFilter){
+		
+			
+	/* 		// 업로드할 파일이 선택되어 추가될 경우 발생하는 이벤트
+			function uploadFileAdded() {
+			    var uploadFiles = document.getElementById("uploadFiles")
+			    for (var i = 0; i < uploadFiles.files.length; 2) {
+			        var file = uploadFiles.files[i];
+			        // 비동기 파일 업로드를 시작한다.
+			        var uploader = new Uploader(file);
+			        uploader.startUpload();
+			    }
+			    // 폼을 리셋해서 uploadFiles에 출력된 선택 파일을 초기화시킨다.
+			    document.getElementById("uploadForm").reset();
+			} */
+			
+			$("#update-closeBtn").on("click", function() {
+				closeUpdateform();
+			})
+	})
+	
+	
+	function showInsertform(hasFilter){
 			const insert = document.querySelector('#update-pop');
 			  
 			  if (hasFilter) {
@@ -197,20 +218,6 @@ font-family: 'Lora', serif;
 				const insert = document.querySelector('#update-pop');
 				insert.classList.add('hide');
 			}
-			
-	/* 		// 업로드할 파일이 선택되어 추가될 경우 발생하는 이벤트
-			function uploadFileAdded() {
-			    var uploadFiles = document.getElementById("uploadFiles")
-			    for (var i = 0; i < uploadFiles.files.length; 2) {
-			        var file = uploadFiles.files[i];
-			        // 비동기 파일 업로드를 시작한다.
-			        var uploader = new Uploader(file);
-			        uploader.startUpload();
-			    }
-			    // 폼을 리셋해서 uploadFiles에 출력된 선택 파일을 초기화시킨다.
-			    document.getElementById("uploadForm").reset();
-			} */
-	})
 </script>
 <style type="text/css">
 .sidebar {
@@ -413,7 +420,7 @@ font-family: 'Lora', serif;
 					
 					<div id='update-submt'>
 					<input type="button" value="수정" id='update-submitBtn' >
-					<button onclick="closeUpdateform()" id='update-closeBtn'>취소</button>
+					<button type="button" id='update-closeBtn'>취소</button>
 				</div>
 				</div>
 			</form>
