@@ -98,12 +98,14 @@ font-family: 'Lora', serif;
 		
 		$(document).on("click","[name=update]" ,function() {
 			showInsertform(false);
+			var goodsNo = $(this).attr("id")
 			$.ajax({	
 				url :"../ajax" , //서버요청주소
 				type:"post", //요청방식(method방식 : get | post | put | delete )
 				dataType:"json", //서버가 보내온 데이터(응답)타입(text | html | xml | json )
-				data: {key:"goodsAjax" , methodName : "selectGoodsLine" , goodsNo: $(this).attr("id")}, //서버에게 보낼 데이터정보(parameter정보)
+				data: {key:"goodsAjax" , methodName : "selectGoodsLine" , goodsNo: goodsNo}, //서버에게 보낼 데이터정보(parameter정보)
 				success :function(goods){
+				
 					$("#changeBrandSelect").val(goods.brand);
 					$("#changeCategorySelect").val(goods.category);
 					$("#changeProductName").val(goods.goodsName);
@@ -111,7 +113,7 @@ font-family: 'Lora', serif;
 					$("#changeModelNo").val(goods.goodsModelNo);
 					$("#changeModelReleasePrice").val(goods.goodsReleasePrice);
 					$("#changeModelDate").val(goods.goodsReleaseDate);
-					$("#goodsNo").val($("[name=update]").attr("id"));
+					$("#goodsNo").val(goodsNo);
 				} , //성공했을때 실행할 함수 
 				error : function(err){  
 					alert(err+"에러 발생했어요.");

@@ -207,7 +207,7 @@ public class GoodsAjaxController implements AjaxController {
 		String goodsModelNo = m.getParameter("goodsModelNo");
 		String goodsReleaseDate = m.getParameter("goodsReleaseDate");
 		int goodsReleasePrice = Integer.parseInt(m.getParameter("goodsReleasePrice"));
-		System.out.println( brand + category + goodsName + goodsNameKor + goodsModelNo + goodsReleaseDate + goodsReleasePrice);
+		System.out.println("goodsNo = "+goodsNo+ ":::"+  brand + category + goodsName + goodsNameKor + goodsModelNo + goodsReleaseDate + goodsReleasePrice);
 		String goodsMainImg = m.getFilesystemName("img1");
 		String goodsImg1 = m.getFilesystemName("img2");
 		String goodsImg2 = m.getFilesystemName("img3");
