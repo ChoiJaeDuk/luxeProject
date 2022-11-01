@@ -146,6 +146,8 @@ margin-right:20px;}
 	font-size: 30px;
 	font-weight: 900;
 }
+#suggest{color:red;  background-color:  white;
+			height: 300px}
 
 </style>
 </head>

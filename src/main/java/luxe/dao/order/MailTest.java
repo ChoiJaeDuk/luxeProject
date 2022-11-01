@@ -14,6 +14,7 @@ import javax.mail.internet.MimeMessage;
 public class MailTest {
 
 	public static void MailSend(String address, String subject, String text) {
+		//smtop 서버 정보를 설정
 		Properties p = System.getProperties();
 		p.put("mail.smtp.starttls.enable", "true");
 		p.put("mail.smtp.host", "smtp.naver.com");
@@ -25,7 +26,8 @@ public class MailTest {
 
 		Session session = Session.getDefaultInstance(p, auth);
 		MimeMessage msg = new MimeMessage(session);
-
+		
+		//email전송
 		try {
 
 			msg.setSentDate(new Date());
