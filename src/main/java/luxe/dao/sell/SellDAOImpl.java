@@ -351,7 +351,7 @@ public class SellDAOImpl implements SellDAO {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		boolean result = false;
-		String sql = "SELECT SELL_NO FROM SELL WHERE SERIAL_NUMBER = ? AND USER_ID = ?";
+		String sql = "SELECT SELL_NO FROM (SELECT * FROM SELL WHERE SELL_STATUS='판매중' OR SELL_STATUS='판매대기') WHERE SERIAL_NUMBER = ? AND USER_ID = ?";
 		try {
 			con = DbUtil.getConnection();
 			ps = con.prepareStatement(sql);
